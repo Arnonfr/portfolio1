@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Save Portrait</title>
+  <style>
+    body { font-family: system-ui; padding: 40px; background: #f4f3f1; }
+    .container { max-width: 600px; margin: 0 auto; }
+    h1 { color: #0c0c0a; }
+    .drop-zone { 
+      border: 3px dashed #0c0c0a; 
+      padding: 60px; 
+      text-align: center; 
+      background: white;
+      margin: 20px 0;
+    }
+    .drop-zone.dragover { background: #ccff00; }
+    button {
+      background: #0c0c0a;
+      color: #f4f3f1;
+      border: none;
+      padding: 16px 32px;
+      font-size: 14px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+    }
+    button:hover { background: #2b2926; }
+    img { max-width: 100%; margin-top: 20px; border: 2px solid #0c0c0a; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Portrait Image Uploader</h1>
+    <p>Drag and drop your portrait image here, or click to select:</p>
+    
+    <div class="drop-zone" id="dropZone">
+      <p>Drop portrait image here</p>
+      <input type="file" id="fileInput" accept="image/*" style="display: none;">
+    </div>
+    
+    <div id="preview"></div>
+    
+    <button onclick="saveImage()" id="saveBtn" style="display: none;">Save as portrait.jpg</button>
+    
+    <p id="status"></p>
+  </div>
+
+  <script>
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('fileInput');
+    const preview = document.getElementById('preview');
+    const saveBtn = document.getElementById('saveBtn');
+    const status = document.getElementById('status');
+    let currentFile = null;
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    
+    dropZone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      dropZone.classList.add('dragover');
+    });
+    
+    dropZone.addEventListener('dragleave', () => {
+      dropZone.classList.remove('dragover');
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      dropZone.classList.remove('dragover');
+      const files = e.dataTransfer.files;
+      if (files.length) handleFile(files[0]);
+    });
+    
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length) handleFile(e.target.files[0]);
+    });
+
+    function handleFile(file) {
+      currentFile = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        preview.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+        saveBtn.style.display = 'inline-block';
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveImage() {
+      if (!currentFile) return;
+      
+      const formData = new FormData();
+      formData.append('image', currentFile);
+      
+      // In a real scenario, we'd upload to server
+      // For now, download the file
+      const url = URL.createObjectURL(currentFile);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'portrait.jpg';
+      a.click();
+      
+      status.innerHTML = '<p style="color: green;">Image ready! Please move it to: <code>/public/images/portrait.jpg</code></p>';
+    }
+  </script>
+</body>
+</html>

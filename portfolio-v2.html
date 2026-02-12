@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arnon Friedman | Design Leader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    body {
+      background-color: #D9D9D9;
+      color: #111111;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    
+    .font-serif {
+      font-family: 'Playfair Display', serif;
+    }
+    
+    /* Complex to Simple Path Animation */
+    .hero-container {
+      position: relative;
+      width: 100%;
+      height: 300vh;
+      background: #F9E8B3;
+    }
+    
+    .hero-sticky {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Project Cards */
+    .project-card {
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+    }
+    .project-card:hover .project-image {
+      transform: scale(1.05);
+    }
+    .project-image {
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    
+    /* Buttons */
+    .btn-primary {
+      background: #111;
+      color: white;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+    
+    .btn-secondary {
+      border: 1px solid #111;
+      color: #111;
+      transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+      background: #111;
+      color: white;
+    }
+    
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #D9D9D9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 w-full z-50 py-6 px-6 md:px-12 transition-all duration-500">
+    <nav class="max-w-[1600px] mx-auto flex items-center justify-between">
+      <a href="#" class="font-serif text-xl md:text-2xl text-[#111] font-medium">Arnon Friedman</a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#work" class="text-sm text-[#111]/60 hover:text-[#111] transition-colors">Work</a>
+        <a href="#about" class="text-sm text-[#111]/60 hover:text-[#111] transition-colors">About</a>
+        <a href="#contact" class="text-sm text-[#111]/60 hover:text-[#111] transition-colors">Contact</a>
+        <a href="#contact" class="px-5 py-2.5 bg-[#111] text-white text-sm font-medium hover:bg-[#333] transition-colors">Let's Talk</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero Section with Complex Path Animation -->
+  <section class="hero-container" id="hero">
+    <div class="hero-sticky">
+      <svg id="heroSvg" viewBox="-400 -400 3200 1800" class="w-full h-full" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <path id="pathRed" d="" />
+          <path id="pathPurple" d="" />
+        </defs>
+        
+        <!-- Complex Phase: Looping text on tangled paths -->
+        <g id="complexPhase" style="opacity: 1;">
+          <text style="fill: #D62B00; font-family: 'Playfair Display', serif; font-size: 88px; font-style: italic;" class="select-none">
+            <textPath id="textPath1" href="#pathRed" startOffset="0%">
+              let's simplify some complex things · let's simplify some complex things · let's simplify some complex things · let's simplify some complex things · 
+            </textPath>
+          </text>
+          
+          <text style="fill: #9D22A3; font-family: 'Playfair Display', serif; font-size: 88px; font-style: italic; opacity: 0.5;" class="select-none">
+            <textPath id="textPath2" href="#pathPurple" startOffset="0%">
+              let's simplify some complex things · let's simplify some complex things · let's simplify some complex things · let's simplify some complex things · 
+            </textPath>
+          </text>
+        </g>
+        
+        <!-- Simple Phase: Clean resolved phrase -->
+        <g id="simplePhase" style="opacity: 0;">
+          <text x="1200" y="500" text-anchor="middle" dominant-baseline="middle" 
+                style="fill: #D62B00; font-family: 'Playfair Display', serif; font-size: 72px; font-style: italic; letter-spacing: 0.02em;" 
+                class="select-none">
+            let's simplify some complex things
+          </text>
+        </g>
+      </svg>
+      
+      <!-- Scroll Hint -->
+      <div id="scrollHint" class="absolute bottom-20 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 transition-all duration-700">
+        <span class="text-[10px] font-bold uppercase tracking-[0.8em] text-[#D62B00]/40">Scroll to simplify</span>
+        <div class="w-px h-24 bg-gradient-to-b from-[#D62B00]/30 to-transparent"></div>
+      </div>
+      
+      <!-- CTA Button appears after scroll -->
+      <div id="heroCTA" class="absolute bottom-32 left-1/2 -translate-x-1/2 opacity-0 pointer-events-none transition-all duration-1000">
+        <a href="#work" class="px-10 py-4 bg-[#D62B00] text-white font-bold uppercase tracking-widest hover:scale-105 transition-transform shadow-2xl">
+          View My Work
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="w-full py-24 bg-[#D9D9D9] border-y border-[#111]/10">
+    <div class="max-w-[1600px] mx-auto px-6 md:px-12">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
+        <div class="text-center reveal">
+          <div class="text-5xl md:text-7xl font-serif font-medium text-[#111] mb-2">9+</div>
+          <div class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium">Years Experience</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="text-5xl md:text-7xl font-serif font-medium text-[#111] mb-2">50+</div>
+          <div class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium">Projects Delivered</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="text-5xl md:text-7xl font-serif font-medium text-[#111] mb-2">3</div>
+          <div class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium">Industries Led</div>
+        </div>
+        <div class="text-center reveal">
+          <div class="text-5xl md:text-7xl font-serif font-medium text-[#111] mb-2">∞</div>
+          <div class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium">Pixels Pushed</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Work Section -->
+  <section id="work" class="w-full py-32 bg-[#D9D9D9]">
+    <div class="max-w-[1600px] mx-auto px-6 md:px-12">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-20">
+        <div class="reveal">
+          <span class="text-xs uppercase tracking-[0.4em] text-[#111]/40 font-medium block mb-4">Selected Works</span>
+          <h2 class="font-serif text-5xl md:text-7xl text-[#111] leading-tight">
+            Featured<br />
+            <span class="italic text-[#111]/50">Projects</span>
+          </h2>
+        </div>
+        <p class="text-[#111]/50 max-w-md mt-6 md:mt-0 text-lg reveal">
+          Enterprise products, consumer apps, and design systems built for scale.
+        </p>
+      </div>
+      
+      <!-- Projects -->
+      <div class="space-y-32">
+        <!-- Project 1: Claim Movements -->
+        <div class="project-card grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center reveal">
+          <div class="relative overflow-hidden aspect-[4/3] bg-[#111]/5">
+            <img src="/images/claim-movements-hero.png" alt="Claim Movements" class="project-image w-full h-full object-cover" 
+                 onerror="this.src='https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop'">
+            <div class="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="lg:pl-8">
+            <span class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium mb-4 block">Insurtech</span>
+            <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111] mb-6">Claim Movements</h3>
+            <p class="text-[#111]/60 text-lg leading-relaxed mb-8 max-w-lg">
+              Leading design for core logic processing of enterprise insurance claims. Transforming complex workflows into intuitive experiences.
+            </p>
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Role</span>
+                <span class="text-[#111]/70 text-sm">Head of Design</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Company</span>
+                <span class="text-[#111]/70 text-sm">Novidea</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Year</span>
+                <span class="text-[#111]/70 text-sm">2021 — Present</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2: Web Trader -->
+        <div class="project-card grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center reveal">
+          <div class="lg:order-2 relative overflow-hidden aspect-[4/3] bg-[#111]/5">
+            <img src="/images/web-trader-hero.png" alt="Web Trader" class="project-image w-full h-full object-cover" 
+                 onerror="this.src='https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&auto=format&fit=crop'">
+            <div class="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="lg:order-1 lg:pr-8 lg:text-right">
+            <span class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium mb-4 block">Fintech</span>
+            <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111] mb-6">Web Trader</h3>
+            <p class="text-[#111]/60 text-lg leading-relaxed mb-8 max-w-lg ml-auto">
+              Architecting a high-performance trading terminal for the next generation of retail investors.
+            </p>
+            <div class="flex items-center gap-6 lg:justify-end">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Role</span>
+                <span class="text-[#111]/70 text-sm">Lead Product Designer</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Company</span>
+                <span class="text-[#111]/70 text-sm">Ava Trade</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Year</span>
+                <span class="text-[#111]/70 text-sm">2018 — 2021</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3: Smart Clauses -->
+        <div class="project-card grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center reveal">
+          <div class="relative overflow-hidden aspect-[4/3] bg-[#111]/5">
+            <img src="/images/smart-clauses-hero.png" alt="Smart Clauses" class="project-image w-full h-full object-cover" 
+                 onerror="this.src='https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=1200&auto=format&fit=crop'">
+            <div class="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="lg:pl-8">
+            <span class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium mb-4 block">Enterprise</span>
+            <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111] mb-6">Smart Clauses</h3>
+            <p class="text-[#111]/60 text-lg leading-relaxed mb-8 max-w-lg">
+              Untangling complex risk language with modular, intelligent design systems.
+            </p>
+            <div class="flex items-center gap-6">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Role</span>
+                <span class="text-[#111]/70 text-sm">Senior UX Designer</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Company</span>
+                <span class="text-[#111]/70 text-sm">Novidea London</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Year</span>
+                <span class="text-[#111]/70 text-sm">2015 — 2018</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 4: Cookit -->
+        <div class="project-card grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center reveal">
+          <div class="lg:order-2 relative overflow-hidden aspect-[4/3] bg-[#111]/5">
+            <img src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=1200&auto=format&fit=crop" alt="Cookit" class="project-image w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black/10 hover:bg-transparent transition-colors duration-500"></div>
+          </div>
+          <div class="lg:order-1 lg:pr-8 lg:text-right">
+            <span class="text-xs uppercase tracking-[0.3em] text-[#111]/40 font-medium mb-4 block">Consumer AI</span>
+            <h3 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111] mb-6">Cookit</h3>
+            <p class="text-[#111]/60 text-lg leading-relaxed mb-8 max-w-lg ml-auto">
+              Smart kitchen companion using generative AI to transform the home cooking experience.
+            </p>
+            <div class="flex items-center gap-6 lg:justify-end">
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Role</span>
+                <span class="text-[#111]/70 text-sm">Product Lead</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Company</span>
+                <span class="text-[#111]/70 text-sm">Cookit AI</span>
+              </div>
+              <div class="w-px h-8 bg-[#111]/10"></div>
+              <div>
+                <span class="text-xs uppercase tracking-wider text-[#111]/30 block mb-1">Year</span>
+                <span class="text-[#111]/70 text-sm">2024 — Present</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="w-full py-32 bg-[#D9D9D9]">
+    <div class="max-w-[1600px] mx-auto px-6 md:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+        <!-- Left - Image -->
+        <div class="lg:col-span-5 reveal">
+          <div class="aspect-[3/4] bg-gradient-to-br from-[#111]/10 to-[#111]/5 rounded-sm overflow-hidden flex items-center justify-center">
+            <span class="text-[#111]/20 text-sm uppercase tracking-wider">Portrait Placeholder</span>
+          </div>
+        </div>
+
+        <!-- Right - Content -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <span class="text-xs uppercase tracking-[0.4em] text-[#111]/40 font-medium block mb-4 reveal">About</span>
+          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111] leading-tight mb-8 reveal">
+            Arnon<br />
+            <span class="italic text-[#111]/50">Friedman</span>
+          </h2>
+          <div class="space-y-6 text-[#111]/60 text-lg leading-relaxed reveal">
+            <p>
+              I'm a Design Leader with over 9 years of experience crafting digital products 
+              for fintech, insurtech, and enterprise companies. Currently leading design at Novidea, 
+              where I'm transforming how insurance professionals manage complex claims.
+            </p>
+            <p>
+              My approach combines strategic thinking with hands-on execution. I believe great design 
+              is invisible—it just works. Whether it's a trading terminal for retail investors or 
+              an AI-powered kitchen assistant, I focus on solving real problems for real people.
+            </p>
+          </div>
+
+          <!-- Side Projects CTA -->
+          <div class="mt-12 pt-8 border-t border-[#111]/10 reveal">
+            <p class="text-[#111]/40 text-sm mb-4">Also exploring creative side projects</p>
+            <a href="#" onclick="alert('Side projects coming soon!')" class="group inline-flex items-center gap-3 text-[#111] hover:text-[#111]/70 transition-colors">
+              <span class="text-sm uppercase tracking-wider">Explore Side Projects</span>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="w-full py-32 bg-[#111] text-white">
+    <div class="max-w-[1600px] mx-auto px-6 md:px-12">
+      <div class="text-center max-w-3xl mx-auto">
+        <span class="text-xs uppercase tracking-[0.4em] text-white/40 font-medium block mb-4 reveal">Get in Touch</span>
+        <h2 class="font-serif text-5xl md:text-7xl text-white leading-tight mb-8 reveal">
+          Let's Create<br />
+          <span class="italic text-white/50">Something Great</span>
+        </h2>
+        <p class="text-white/50 text-lg mb-12 reveal">
+          Open to new opportunities, collaborations, and interesting conversations.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center reveal">
+          <a href="mailto:arnon@example.com" class="px-8 py-4 bg-white text-[#111] font-medium text-sm uppercase tracking-wider hover:bg-white/90 transition-colors inline-flex items-center justify-center gap-2">
+            Send Email
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="px-8 py-4 border border-white/20 text-white font-medium text-sm uppercase tracking-wider hover:bg-white/5 transition-colors inline-flex items-center justify-center gap-2">
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="mt-32 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 reveal">
+        <p class="text-white/30 text-sm">© 2024 Arnon Friedman. All rights reserved.</p>
+        <p class="text-white/30 text-sm">Designed & Built with passion</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- JavaScript for Path Animation -->
+  <script>
+    // Path coordinates
+    const startX = -800;
+    const endX = 2400;
+    const centerY = 500;
+    
+    // Complex paths (tangled)
+    const complex1 = {
+      m: [startX, centerY],
+      c1: [startX + 150, centerY - 700],
+      c2: [startX + 600, centerY - 700],
+      to1: [startX + 900, centerY - 200],
+      c3: [startX + 1050, centerY - 50],
+      c4: [startX + 1200, centerY + 300],
+      to2: [startX + 1500, centerY + 800],
+      c5: [startX + 1650, centerY + 900],
+      c6: [startX + 1800, centerY + 700],
+      to3: [startX + 1950, centerY + 300],
+      c7: [startX + 2100, centerY + 100],
+      c8: [startX + 2250, centerY],
+      to4: [endX, centerY]
+    };
+    
+    const complex2 = {
+      m: [startX, centerY],
+      c1: [startX + 150, centerY + 700],
+      c2: [startX + 600, centerY + 700],
+      to1: [startX + 900, centerY + 200],
+      c3: [startX + 1050, centerY + 50],
+      c4: [startX + 1200, centerY - 300],
+      to2: [startX + 1500, centerY - 800],
+      c5: [startX + 1650, centerY - 900],
+      c6: [startX + 1800, centerY - 700],
+      to3: [startX + 1950, centerY - 300],
+      c7: [startX + 2100, centerY - 100],
+      c8: [startX + 2250, centerY],
+      to4: [endX, centerY]
+    };
+    
+    // Simple path (straight horizontal)
+    const simple = {
+      m: [startX, centerY],
+      c1: [startX + 300, centerY],
+      c2: [startX + 600, centerY],
+      to1: [startX + 900, centerY],
+      c3: [startX + 1000, centerY],
+      c4: [startX + 1100, centerY],
+      to2: [startX + 1200, centerY],
+      c5: [startX + 1400, centerY],
+      c6: [startX + 1600, centerY],
+      to3: [startX + 1800, centerY],
+      c7: [startX + 2000, centerY],
+      c8: [startX + 2200, centerY],
+      to4: [endX, centerY]
+    };
+    
+    // Linear interpolation
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+    
+    // Generate path string
+    function generatePath(complex, t) {
+      const untangleProgress = Math.min(t / 0.75, 1);
+      const eased = untangleProgress < 0.5
+        ? 2 * untangleProgress ** 2
+        : 1 - Math.pow(-2 * untangleProgress + 2, 2) / 2;
+      
+      const p = (key, idx) => lerp(complex[key][idx], simple[key][idx], eased);
+      
+      return `M ${p('m', 0)},${p('m', 1)} C ${p('c1', 0)},${p('c1', 1)} ${p('c2', 0)},${p('c2', 1)} ${p('to1', 0)},${p('to1', 1)} C ${p('c3', 0)},${p('c3', 1)} ${p('c4', 0)},${p('c4', 1)} ${p('to2', 0)},${p('to2', 1)} C ${p('c5', 0)},${p('c5', 1)} ${p('c6', 0)},${p('c6', 1)} ${p('to3', 0)},${p('to3', 1)} C ${p('c7', 0)},${p('c7', 1)} ${p('c8', 0)},${p('c8', 1)} ${p('to4', 0)},${p('to4', 1)}`;
+    }
+    
+    // Text animation offset
+    let offset1 = 0;
+    let offset2 = 0;
+    let phraseWidth = 0;
+    const corePhrase = "let's simplify some complex things";
+    const separator = "  ·  ";
+    const fullUnit = corePhrase + separator;
+    
+    // Measure phrase width
+    function measurePhrase() {
+      const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+      text.style.fontFamily = "'Playfair Display', serif";
+      text.style.fontSize = "88px";
+      text.style.fontStyle = "italic";
+      text.textContent = fullUnit;
+      svg.appendChild(text);
+      document.body.appendChild(svg);
+      phraseWidth = text.getComputedTextLength();
+      document.body.removeChild(svg);
+    }
+    
+    // Animation loop
+    function animate() {
+      const speed = 1.2;
+      
+      offset1 -= speed;
+      if (phraseWidth > 0 && offset1 <= -phraseWidth) {
+        offset1 = 0;
+      }
+      
+      offset2 += speed * 1.3;
+      if (phraseWidth > 0 && offset2 >= phraseWidth) {
+        offset2 = 0;
+      }
+      
+      const textPath1 = document.getElementById('textPath1');
+      const textPath2 = document.getElementById('textPath2');
+      
+      if (textPath1) textPath1.setAttribute('startOffset', String(offset1));
+      if (textPath2) textPath2.setAttribute('startOffset', String(offset2));
+      
+      requestAnimationFrame(animate);
+    }
+    
+    // Scroll handler
+    function handleScroll() {
+      const hero = document.getElementById('hero');
+      const rect = hero.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+      
+      // Update paths
+      const pathRed = document.getElementById('pathRed');
+      const pathPurple = document.getElementById('pathPurple');
+      
+      if (pathRed) pathRed.setAttribute('d', generatePath(complex1, progress));
+      if (pathPurple) pathPurple.setAttribute('d', generatePath(complex2, progress));
+      
+      // Cross-fade phases
+      const complexPhase = document.getElementById('complexPhase');
+      const simplePhase = document.getElementById('simplePhase');
+      const scrollHint = document.getElementById('scrollHint');
+      const heroCTA = document.getElementById('heroCTA');
+      
+      if (complexPhase) {
+        complexPhase.style.opacity = Math.max(0, 1 - (progress - 0.65) / 0.2);
+      }
+      if (simplePhase) {
+        simplePhase.style.opacity = Math.min(1, Math.max(0, (progress - 0.70) / 0.2));
+      }
+      if (scrollHint) {
+        scrollHint.style.opacity = 1 - progress * 6;
+        scrollHint.style.transform = `translate(-50%, ${progress * 150}px)`;
+      }
+      if (heroCTA) {
+        heroCTA.style.opacity = Math.max(0, (progress - 0.9) * 10);
+        heroCTA.style.pointerEvents = progress > 0.9 ? 'auto' : 'none';
+      }
+    }
+    
+    // Scroll reveal
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach((element, index) => {
+        const elementTop = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementTop < windowHeight - 100) {
+          setTimeout(() => {
+            element.classList.add('active');
+          }, index * 50);
+        }
+      });
+    }
+    
+    // Initialize
+    document.fonts.ready.then(() => {
+      measurePhrase();
+      animate();
+    });
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', revealOnScroll, { passive: true });
+    window.addEventListener('load', revealOnScroll);
+    
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > window.innerHeight * 2.5) {
+        header.style.background = 'rgba(217, 217, 217, 0.9)';
+        header.style.backdropFilter = 'blur(20px)';
+      } else {
+        header.style.background = 'transparent';
+        header.style.backdropFilter = 'none';
+      }
+    });
+  </script>
+</body>
+</html>

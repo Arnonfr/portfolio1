@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run dev:*)",
+      "Bash(open http://localhost:3001/)",
+      "Bash(npx skills add:*)",
+      "Bash(echo:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(ls:*)",
+      "Bash(npx tsc:*)",
+      "Bash(xargs:*)",
+      "Bash(bun:*)",
+      "Bash(node --version)",
+      "WebFetch(domain:www.figma.com)",
+      "Bash(open:*)",
+      "WebFetch(domain:colorlib.com)",
+      "WebFetch(domain:designshack.net)",
+      "WebFetch(domain:uxplaybook.org)",
+      "WebFetch(domain:crea8ivesolution.net)",
+      "WebFetch(domain:vercel.com)",
+      "WebFetch(domain:detachless.com)",
+      "WebFetch(domain:blog.logrocket.com)",
+      "WebFetch(domain:www.colorcolourcreative.com)",
+      "Bash(grep:*)",
+      "WebFetch(domain:arnon-friedmans.webflow.io)",
+      "Bash(for f in hero-phone-mockup.png icon-coffee.svg customization-onboarding-screens.png user-journey-flow.png cooking-mode-video-poster.jpg customization-interaction.gif customization-animation.gif feed-phone-mockup.png style-guide.jpg full-mockups-showcase.jpg chocolate-phone-mockup.png chocolate-decoration-left.png)",
+      "Bash(do if [ -f \"$f\" ])",
+      "Bash(then echo \"✓ $f\")",
+      "Bash(else echo \"✗ $f MISSING\")",
+      "Bash(fi)",
+      "Bash(done)",
+      "Bash(gh auth status:*)",
+      "Bash(git config:*)"
+    ]
+  }
+}
