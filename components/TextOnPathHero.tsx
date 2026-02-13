@@ -13,8 +13,9 @@ const CORE_PHRASE = "let's simplify complex things";
 const SEPARATOR = "  ·  ";
 const FULL_UNIT = CORE_PHRASE + SEPARATOR;
 const INFINITE_TEXT = FULL_UNIT.repeat(80);
-const LOOP_FONT_SIZE = '68px';
+const LOOP_FONT_SIZE = 'clamp(64px, 9vw, 92px)'; // Fluid font size
 const FONT_FAMILY = "'Space Grotesk', sans-serif";
+const FONT_WEIGHT = 800; // Bolder font
 
 // ── ViewBox ──
 // viewBox="-200 -1200 2800 2200"
@@ -36,81 +37,81 @@ type PathPoints = Record<string, [number, number]>;
 // 6. Gentle wave, exit right off-screen
 //
 const complexPath1: PathPoints = {
-  m:    [-500, VB_CY + 50],
-  c1:   [-200, VB_CY + 50],
-  c2:   [0,    VB_CY - 75],
-  to1:  [250,  VB_CY - 90],
+  m: [-500, VB_CY + 50],
+  c1: [-200, VB_CY + 50],
+  c2: [0, VB_CY - 75],
+  to1: [250, VB_CY - 90],
 
-  c3:   [450,  VB_CY - 100],
-  c4:   [550,  VB_CY + 100],
-  to2:  [700,  VB_CY + 110],
+  c3: [450, VB_CY - 100],
+  c4: [550, VB_CY + 100],
+  to2: [700, VB_CY + 110],
 
-  c5:   [850,  VB_CY + 120],
-  c6:   [900,  VB_CY - 150],
-  to3:  [950,  -100],
+  c5: [850, VB_CY + 120],
+  c6: [900, VB_CY - 150],
+  to3: [950, -100],
 
-  c7:   [1000, -400],
-  c8:   [1400, -400],
-  to4:  [1450, -100],
+  c7: [1000, -400],
+  c8: [1400, -400],
+  to4: [1450, -100],
 
-  c9:   [1500, VB_CY - 150],
-  c10:  [1550, VB_CY + 120],
-  to5:  [1700, VB_CY + 100],
+  c9: [1500, VB_CY - 150],
+  c10: [1550, VB_CY + 120],
+  to5: [1700, VB_CY + 100],
 
-  c11:  [1850, VB_CY + 80],
-  c12:  [1950, VB_CY - 90],
-  to6:  [2100, VB_CY - 75],
+  c11: [1850, VB_CY + 80],
+  c12: [1950, VB_CY - 90],
+  to6: [2100, VB_CY - 75],
 
-  c13:  [2250, VB_CY - 60],
-  c14:  [2400, VB_CY + 50],
-  to7:  [2550, VB_CY + 40],
+  c13: [2250, VB_CY - 60],
+  c14: [2400, VB_CY + 50],
+  to7: [2550, VB_CY + 40],
 
-  c15:  [2700, VB_CY + 30],
-  c16:  [2800, VB_CY],
-  to8:  [2900, VB_CY],
+  c15: [2700, VB_CY + 30],
+  c16: [2800, VB_CY],
+  to8: [2900, VB_CY],
 };
 
 // ── Path 2: reverse direction, slightly offset wave ──
 // Enters from right, similar wavy pattern, loop goes off-screen
 // at a different X position, exits left
 const complexPath2: PathPoints = {
-  m:    [2900, VB_CY - 25],
-  c1:   [2800, VB_CY - 25],
-  c2:   [2700, VB_CY - 25],
-  to1:  [2550, VB_CY - 15],
+  m: [2900, VB_CY - 25],
+  c1: [2800, VB_CY - 25],
+  c2: [2700, VB_CY - 25],
+  to1: [2550, VB_CY - 15],
 
-  c3:   [2400, VB_CY - 5],
-  c4:   [2250, VB_CY + 100],
-  to2:  [2100, VB_CY + 110],
+  c3: [2400, VB_CY - 5],
+  c4: [2250, VB_CY + 100],
+  to2: [2100, VB_CY + 110],
 
-  c5:   [1950, VB_CY + 120],
-  c6:   [1900, VB_CY - 100],
-  to3:  [1850, -100],
+  c5: [1950, VB_CY + 120],
+  c6: [1900, VB_CY - 100],
+  to3: [1850, -100],
 
-  c7:   [1800, -350],
-  c8:   [1400, -350],
-  to4:  [1350, -100],
+  c7: [1800, -350],
+  c8: [1400, -350],
+  to4: [1350, -100],
 
-  c9:   [1300, VB_CY - 100],
-  c10:  [1250, VB_CY + 100],
-  to5:  [1100, VB_CY + 90],
+  c9: [1300, VB_CY - 100],
+  c10: [1250, VB_CY + 100],
+  to5: [1100, VB_CY + 90],
 
-  c11:  [950,  VB_CY + 80],
-  c12:  [850,  VB_CY - 100],
-  to6:  [700,  VB_CY - 90],
+  c11: [950, VB_CY + 80],
+  c12: [850, VB_CY - 100],
+  to6: [700, VB_CY - 90],
 
-  c13:  [550,  VB_CY - 80],
-  c14:  [350,  VB_CY + 75],
-  to7:  [150,  VB_CY + 50],
+  c13: [550, VB_CY - 80],
+  c14: [350, VB_CY + 75],
+  to7: [150, VB_CY + 50],
 
-  c15:  [-50,  VB_CY + 25],
-  c16:  [-300, VB_CY],
-  to8:  [-500, VB_CY],
+  c15: [-50, VB_CY + 25],
+  c16: [-300, VB_CY],
+  to8: [-500, VB_CY],
 };
 
 // ── Straight paths (resolved state) ──
 const makeStraight = (startX: number, endX: number): PathPoints => {
-  const keys = ['m','c1','c2','to1','c3','c4','to2','c5','c6','to3','c7','c8','to4','c9','c10','to5','c11','c12','to6','c13','c14','to7','c15','c16','to8'];
+  const keys = ['m', 'c1', 'c2', 'to1', 'c3', 'c4', 'to2', 'c5', 'c6', 'to3', 'c7', 'c8', 'to4', 'c9', 'c10', 'to5', 'c11', 'c12', 'to6', 'c13', 'c14', 'to7', 'c15', 'c16', 'to8'];
   const pts: PathPoints = {};
   keys.forEach((k, i) => {
     pts[k] = [startX + (endX - startX) * (i / (keys.length - 1)), VB_CY];
@@ -137,15 +138,15 @@ function generatePathD(
   const p = (key: string, idx: number) =>
     lerp(complexP[key][idx], simpleP[key][idx], t);
 
-  return `M ${p('m',0)},${p('m',1)} ` +
-    `C ${p('c1',0)},${p('c1',1)} ${p('c2',0)},${p('c2',1)} ${p('to1',0)},${p('to1',1)} ` +
-    `C ${p('c3',0)},${p('c3',1)} ${p('c4',0)},${p('c4',1)} ${p('to2',0)},${p('to2',1)} ` +
-    `C ${p('c5',0)},${p('c5',1)} ${p('c6',0)},${p('c6',1)} ${p('to3',0)},${p('to3',1)} ` +
-    `C ${p('c7',0)},${p('c7',1)} ${p('c8',0)},${p('c8',1)} ${p('to4',0)},${p('to4',1)} ` +
-    `C ${p('c9',0)},${p('c9',1)} ${p('c10',0)},${p('c10',1)} ${p('to5',0)},${p('to5',1)} ` +
-    `C ${p('c11',0)},${p('c11',1)} ${p('c12',0)},${p('c12',1)} ${p('to6',0)},${p('to6',1)} ` +
-    `C ${p('c13',0)},${p('c13',1)} ${p('c14',0)},${p('c14',1)} ${p('to7',0)},${p('to7',1)} ` +
-    `C ${p('c15',0)},${p('c15',1)} ${p('c16',0)},${p('c16',1)} ${p('to8',0)},${p('to8',1)}`;
+  return `M ${p('m', 0)},${p('m', 1)} ` +
+    `C ${p('c1', 0)},${p('c1', 1)} ${p('c2', 0)},${p('c2', 1)} ${p('to1', 0)},${p('to1', 1)} ` +
+    `C ${p('c3', 0)},${p('c3', 1)} ${p('c4', 0)},${p('c4', 1)} ${p('to2', 0)},${p('to2', 1)} ` +
+    `C ${p('c5', 0)},${p('c5', 1)} ${p('c6', 0)},${p('c6', 1)} ${p('to3', 0)},${p('to3', 1)} ` +
+    `C ${p('c7', 0)},${p('c7', 1)} ${p('c8', 0)},${p('c8', 1)} ${p('to4', 0)},${p('to4', 1)} ` +
+    `C ${p('c9', 0)},${p('c9', 1)} ${p('c10', 0)},${p('c10', 1)} ${p('to5', 0)},${p('to5', 1)} ` +
+    `C ${p('c11', 0)},${p('c11', 1)} ${p('c12', 0)},${p('c12', 1)} ${p('to6', 0)},${p('to6', 1)} ` +
+    `C ${p('c13', 0)},${p('c13', 1)} ${p('c14', 0)},${p('c14', 1)} ${p('to7', 0)},${p('to7', 1)} ` +
+    `C ${p('c15', 0)},${p('c15', 1)} ${p('c16', 0)},${p('c16', 1)} ${p('to8', 0)},${p('to8', 1)}`;
 }
 
 const EASE_POWER: [number, number, number, number] = [0.16, 1, 0.3, 1];
@@ -209,7 +210,7 @@ export const TextOnPathHero: React.FC = () => {
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       text.style.fontFamily = FONT_FAMILY;
       text.style.fontSize = LOOP_FONT_SIZE;
-      text.style.fontWeight = '600';
+      text.style.fontWeight = String(FONT_WEIGHT);
       text.textContent = FULL_UNIT;
       svg.appendChild(text);
       document.body.appendChild(svg);
@@ -264,16 +265,17 @@ export const TextOnPathHero: React.FC = () => {
         textPath2Ref.current.setAttribute('startOffset', String(offset2Ref.current));
       }
 
-      // Cross-fade
-      const flowingOpacity = Math.max(0, 1 - (progress - 0.65) / 0.2);
-      const resolvedOpacity = Math.min(1, Math.max(0, (progress - 0.70) / 0.2));
+      // Cross-fade — widened range for smoother transition
+      // Flowing paths fade out as they reach the center line
+      const flowingOpacity = Math.max(0, 1 - (progress - 0.45) / 0.45);
+      const resolvedOpacity = Math.min(1, Math.max(0, (progress - 0.60) / 0.35));
 
       // Animate resolved text — letter-spacing + font-size expand as it arrives
-      const resolvedProgress = Math.min(1, Math.max(0, (progress - 0.70) / 0.28));
+      const resolvedProgress = Math.min(1, Math.max(0, (progress - 0.60) / 0.40));
       if (resolvedTextRef.current) {
-        const ls = lerp(-0.01, 0.13, resolvedProgress);
+        const ls = lerp(-0.02, 0.13, resolvedProgress);
         resolvedTextRef.current.style.letterSpacing = `${ls}em`;
-        const fs = lerp(62, 84, resolvedProgress);
+        const fs = lerp(80, 92, resolvedProgress); // Match larger start size
         resolvedTextRef.current.style.fontSize = `${fs}px`;
       }
 
@@ -331,15 +333,15 @@ export const TextOnPathHero: React.FC = () => {
 
             {/* Flowing text on both paths */}
             <g ref={flowingGroupRef}>
-              {/* Path 1 — primary direction */}
+              {/* Path 1 — Bright Blue */}
               <text
                 className="select-none pointer-events-none"
                 style={{
-                  fill: '#0c0c0a',
+                  fill: '#0055ff', // Bright Blue
                   fontFamily: FONT_FAMILY,
                   fontSize: LOOP_FONT_SIZE,
-                  fontWeight: 600,
-                  letterSpacing: '-0.01em',
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
                 }}
               >
                 <textPath ref={textPath1Ref} href="#heroTextPath1">
@@ -347,16 +349,16 @@ export const TextOnPathHero: React.FC = () => {
                 </textPath>
               </text>
 
-              {/* Path 2 — reverse direction, red multiply */}
+              {/* Path 2 — Pink Multiply */}
               <text
                 className="select-none pointer-events-none"
                 style={{
-                  fill: '#FF2010',
+                  fill: '#ff00aa', // Vibrant Pink
                   fontFamily: FONT_FAMILY,
                   fontSize: LOOP_FONT_SIZE,
-                  fontWeight: 600,
-                  letterSpacing: '-0.01em',
-                  opacity: 0.15,
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
+                  opacity: 0.5,
                   mixBlendMode: 'multiply',
                 }}
               >
@@ -378,9 +380,9 @@ export const TextOnPathHero: React.FC = () => {
                 style={{
                   fill: '#0c0c0a',
                   fontFamily: FONT_FAMILY,
-                  fontSize: '62px',
-                  fontWeight: 600,
-                  letterSpacing: '-0.01em',
+                  fontSize: '80px',
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
                 }}
               >
                 {CORE_PHRASE}

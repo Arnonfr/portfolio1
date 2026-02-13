@@ -4,7 +4,7 @@ import { Project } from '../types';
 import { UiTransformation } from './UiTransformation';
 import { ClaimStatisticsForm } from './ClaimStatisticsForm';
 import { LegacyTransformationVisualizer } from './LegacyTransformationVisualizer';
-import { ProjectNavigation } from './ProjectNavigation';
+import { CaseStudyFooter } from './CaseStudyFooter';
 
 interface ProjectPageProps {
   project: Project;
@@ -24,9 +24,9 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
         {/* NAV */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-container h-16 flex items-center justify-between">
             <button onClick={onBack} className="flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
               Back to Portfolio
             </button>
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Case Study</span>
@@ -34,48 +34,44 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         </nav>
 
         {/* HERO */}
-        <header className="relative w-full pt-40 pb-32 flex flex-col items-center bg-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-500 mb-8">Novidea — Insurtech</h4>
-            <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
-              Claim <span className="italic text-stone-300">Movement</span>
+        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
+          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Lead Product Design</h4>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
+              Claim <span className="italic text-stone-300">Movements</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
-              How we consolidated 6 disconnected screens and dozens of input fields into a single unified modal — cutting a multi-currency settlement workflow from 9 operations to 3.
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
+              Designing the core logic and workflow for enterprise insurance claims — transforming a fragmented spreadsheet-based process into a unified, high-performance legal framework.
             </p>
           </div>
 
           {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-6 mb-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Role</p>
-                <p className="font-medium text-stone-700">Product Designer</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Platform</p>
-                <p className="font-medium text-stone-700">Salesforce B2B</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Company</p>
-                <p className="font-medium text-stone-700">Novidea</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Year</p>
-                <p className="font-medium text-stone-700">2024</p>
-              </div>
+          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+              {[
+                { label: "Role", val: "Lead Design" },
+                { label: "Platform", val: "Enterprise Web" },
+                { label: "Company", val: "Novidea" },
+                { label: "Duration", val: "2021 — 2024" }
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
+                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Hero Image — The Modal */}
-          <div className="w-full max-w-[1000px] px-6">
-            <div className="rounded-[24px] shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-stone-200 bg-white p-4 md:p-8">
-              <div className="rounded-xl overflow-hidden border border-stone-100">
-                <img
-                  src="/images/unified-modal-design.png"
-                  alt="The unified Claim Movement modal — all settlement data in one screen"
-                  className="w-full h-auto"
-                />
+          {/* Hero Image */}
+          <div className="w-full max-w-[1200px] px-container">
+            <div className="relative rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
+              <img
+                src="/images/mockups/claim-movements-mockup.png"
+                alt="Claim Movements Interface"
+                className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-1000"
+              />
+              <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-black/80 backdrop-blur text-white text-[9px] md:text-[10px] font-bold px-3 md:px-4 py-1.5 md:py-2 rounded uppercase tracking-widest shadow-xl">
+                Core Logic Interface
               </div>
             </div>
           </div>
@@ -84,173 +80,171 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         <main className="w-full bg-white">
 
           {/* CONTEXT & BACKGROUND */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">Context & Background</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-16 text-black">Context & Background</h2>
 
-              <div className="space-y-12">
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Product</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    A claim management system built on Salesforce, designed for insurance brokers who act as intermediaries between insurance companies and policyholders.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Users</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    Insurance brokers managing complex, multi-currency payment workflows between insurance companies and multiple beneficiaries (policyholders, accountants, lawyers).
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Business Challenge</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    Brokers needed to efficiently process claim settlements where they receive payments in one currency from insurance companies and distribute them in different currencies to various parties. The existing system made this process cumbersome, error-prone, and time-consuming.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* THE OLD PROCESS — STACKED CHAOS */}
-          <section className="py-32 bg-stone-900 text-white overflow-hidden">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <span className="text-red-400 font-bold text-[10px] uppercase tracking-[0.5em] mb-4 block">The Problem</span>
-                <h2 className="text-3xl md:text-5xl font-serif mb-6">6 Steps. 6 Screens. 1 Headache.</h2>
-                <p className="text-stone-400 text-lg max-w-2xl mx-auto leading-relaxed">
-                  To complete a single multi-currency settlement, brokers had to navigate through 6 separate screens, filling out redundant fields and switching contexts constantly.
-                </p>
-              </div>
-
-              {/* Stacked/Cascading Old Screenshots — Hover to Browse */}
-              <div className="relative h-[420px] md:h-[520px] max-w-4xl mx-auto mb-20">
-                {/* Card 1 — back-left */}
-                <div className="absolute top-0 left-[2%] md:left-[5%] w-[70%] md:w-[55%] rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)] border border-stone-600 rotate-[-5deg] opacity-60 z-10 hover:scale-110 hover:rotate-0 hover:opacity-100 hover:z-50 hover:shadow-[0_40px_100px_rgba(0,0,0,0.7)] transition-all duration-500 cursor-pointer">
-                  <img src="/images/claim-movement-old-step-3.png" alt="Old step: Create new movement form" className="w-full h-auto" />
-                </div>
-                {/* Card 2 — mid-left */}
-                <div className="absolute top-[8%] left-[10%] md:left-[15%] w-[70%] md:w-[55%] rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)] border border-stone-600 rotate-[-2deg] opacity-70 z-20 hover:scale-110 hover:rotate-0 hover:opacity-100 hover:z-50 hover:shadow-[0_40px_100px_rgba(0,0,0,0.7)] transition-all duration-500 cursor-pointer">
-                  <img src="/images/claim-movement-old-step-4.png" alt="Old step: Salesforce detail page with statistic creation" className="w-full h-auto" />
-                </div>
-                {/* Card 3 — mid-right */}
-                <div className="absolute top-[16%] right-[8%] md:right-[12%] w-[70%] md:w-[55%] rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)] border border-stone-600 rotate-[2deg] opacity-80 z-30 hover:scale-110 hover:rotate-0 hover:opacity-100 hover:z-50 hover:shadow-[0_40px_100px_rgba(0,0,0,0.7)] transition-all duration-500 cursor-pointer">
-                  <img src="/images/claim-movement-old-screenshot-1.png" alt="Old step: Dense payment form interface" className="w-full h-auto" />
-                </div>
-                {/* Card 4 — front-right */}
-                <div className="absolute top-[24%] right-[2%] md:right-[5%] w-[70%] md:w-[55%] rounded-2xl overflow-hidden shadow-[0_30px_80px_rgba(0,0,0,0.5)] border border-stone-600 rotate-[4deg] z-40 hover:scale-110 hover:rotate-0 hover:opacity-100 hover:z-50 hover:shadow-[0_40px_100px_rgba(0,0,0,0.7)] transition-all duration-500 cursor-pointer">
-                  <img src="/images/claim-movement-old-step-2.png" alt="Old step: Payee pop-up windows" className="w-full h-auto" />
-                </div>
-              </div>
-
-              {/* Pain Points Summary */}
-              <div className="grid md:grid-cols-4 gap-6">
+              <div className="space-y-10 md:space-y-12">
                 {[
-                  { num: '6', label: 'Separate screens' },
-                  { num: '9+', label: 'Manual operations' },
-                  { num: '3x', label: 'Duplicate data entry' },
-                  { num: '~15min', label: 'Per settlement' },
-                ].map((stat, i) => (
-                  <div key={i} className="text-center py-8 border border-stone-700 rounded-2xl">
-                    <div className="text-3xl font-bold text-red-400 mb-2">{stat.num}</div>
-                    <div className="text-stone-400 text-sm uppercase tracking-wider">{stat.label}</div>
+                  {
+                    title: "The Challenge",
+                    content: "Enterprise insurance claims are non-linear, multi-party legal events. Within the London Market, these \"movements\" were historically managed through fragmented emails, manual spreadsheets, and disconnected legacy databases. The goal was to build a single system of record that could handle the insane complexity while remaining performance-optimized for power users."
+                  },
+                  {
+                    title: "My Role",
+                    content: "As Lead Designer, I architected the end-to-end claim movement workflow. This involved deep technical immersion into the legal mechanics of insurance capital, coordinating with actuarial teams to map data flows, and designing a modular interface that could handle varying degrees of complexity without breaking the user experience."
+                  }
+                ].map((item, i) => (
+                  <div key={i}>
+                    <h3 className="text-xl font-serif text-stone-900 mb-4">{item.title}</h3>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.content}</p>
                   </div>
                 ))}
               </div>
             </div>
           </section>
 
-          {/* DISCOVERY & KEY INSIGHT */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Discovery & Key Insight</h2>
 
-              <div className="space-y-8 mb-16">
-                <p className="text-lg text-stone-600 leading-relaxed">
+          {/* THE OLD PROCESS — STACKED CHAOS */}
+          <section className="py-20 md:py-32 bg-stone-900 text-white overflow-hidden">
+            <div className="max-w-6xl mx-auto px-container">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">The "Before": A Sea of Spreadsheet Chaos</h2>
+                  <p className="text-stone-400 text-base md:text-lg leading-relaxed mb-8">
+                    Prior to our intervention, claims were managed in a "stacked" fashion. Every update required opening dozens of disconnected screens, manually cross-referencing values, and praying that the downstream integration wouldn't fail.
+                  </p>
+                  <div className="space-y-4">
+                    {[
+                      "High cognitive load due to fragmented data entry",
+                      "Zero visibility into audit trails or historical shifts"
+                    ].map((text, i) => (
+                      <div key={i} className="flex gap-4 items-start">
+                        <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-1">
+                          <div className="w-2 h-2 rounded-full bg-red-500" />
+                        </div>
+                        <p className="text-sm text-stone-300">{text}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="relative">
+                  {/* Abstract Chaos Visual */}
+                  <div className="relative aspect-[4/3] md:aspect-square">
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <div
+                        key={i}
+                        className="absolute inset-x-0 bg-stone-800 border border-stone-700 rounded-lg p-4 shadow-2xl transition-all duration-500"
+                        style={{
+                          top: `${i * 15}%`,
+                          left: `${i * 8}%`,
+                          bottom: `${-i * 8}%`,
+                          opacity: 0.2 * i,
+                          zIndex: 5 - i,
+                          transform: `rotate(${i * -2}deg)`
+                        }}
+                      >
+                        <div className="w-2/3 h-2 bg-stone-700 rounded mb-2" />
+                        <div className="w-full h-1 bg-stone-700/50 rounded mb-1" />
+                        <div className="w-full h-1 bg-stone-700/50 rounded" />
+                      </div>
+                    ))}
+                    <div className="absolute inset-0 flex items-center justify-center text-red-500/50 text-[100px] md:text-[180px] font-bold pointer-events-none select-none">
+                      ?
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* DISCOVERY & KEY INSIGHT */}
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Discovery & Key Insight</h2>
+
+              <div className="space-y-6 md:space-y-8 mb-12 md:mb-16">
+                <p className="text-base md:text-lg text-stone-600 leading-relaxed">
                   I spent time analyzing the existing workflow and collaborated closely with the product manager and development team. The goal was clear: <strong className="text-stone-900">users needed to successfully complete the process by creating actual payment instructions</strong> — not navigate a database structure.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50 to-white p-12 rounded-3xl border-2 border-blue-200 mb-12">
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-4">Key Insight</p>
+              <div className="bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border-2 border-blue-200 mb-12">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-4">Key Insight</p>
                 <h3 className="text-2xl md:text-3xl font-serif mb-6 text-black">Users Don't Need "Statistics" At All</h3>
-                <p className="text-lg text-stone-700 leading-relaxed mb-4">
+                <p className="text-base md:text-lg text-stone-700 leading-relaxed mb-4">
                   The "statistics" step — where users created currency combinations — was completely unnecessary from a user perspective. We could handle multi-currency scenarios directly within a single interface, without requiring a separate intermediate step.
                 </p>
-                <p className="text-base font-medium text-blue-900">This realization fundamentally changed our approach.</p>
+                <p className="text-sm md:text-base font-medium text-blue-900">This realization fundamentally changed our approach.</p>
               </div>
 
-              <p className="text-lg text-stone-600 leading-relaxed">
+              <p className="text-base md:text-lg text-stone-600 leading-relaxed">
                 Working with the product manager and development team, we confirmed that we could eliminate the statistics layer and handle currency combinations behind the scenes. This would dramatically simplify the workflow without losing any functionality.
               </p>
             </div>
           </section>
 
           {/* DESIGN PROCESS */}
-          <section className="py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Design Process & Decisions</h2>
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Design Process & Decisions</h2>
 
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 mb-16">
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-3">Guiding Principle</p>
-                <p className="text-2xl md:text-3xl leading-relaxed text-stone-700 italic mb-4">
+              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-12 md:mb-16">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-3">Guiding Principle</p>
+                <p className="text-xl md:text-3xl leading-relaxed text-stone-700 italic mb-4">
                   "Everything in one place"
                 </p>
-                <p className="text-base text-stone-600">
+                <p className="text-sm md:text-base text-stone-600">
                   Users shouldn't have to leave the modal to complete their task.
                 </p>
               </div>
 
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-white p-8 rounded-xl border border-stone-200">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">01</div>
-                  <h4 className="text-lg font-serif text-stone-900 mb-3">Unified Modal</h4>
-                  <p className="text-stone-600 leading-relaxed">
-                    Consolidated six separate screens into one modal containing all necessary information and actions.
-                  </p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">02</div>
-                  <h4 className="text-lg font-serif text-stone-900 mb-3">Eliminated Statistics Step</h4>
-                  <p className="text-stone-600 leading-relaxed">
-                    Removed the intermediate "statistics" layer. Multi-currency handling now happens inline via simple dropdown selections.
-                  </p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">03</div>
-                  <h4 className="text-lg font-serif text-stone-900 mb-3">Automated Unnecessary Fields</h4>
-                  <p className="text-stone-600 leading-relaxed">
-                    Movement name and status now generate automatically. Default currencies and recipients auto-populate when there's only one option.
-                  </p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">04</div>
-                  <h4 className="text-lg font-serif text-stone-900 mb-3">Power User Shortcuts</h4>
-                  <p className="text-stone-600 leading-relaxed">
-                    Added duplicate row, quick add new row, and inline editing capabilities for efficiency.
-                  </p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {[
+                  {
+                    num: "01",
+                    title: "Unified Modal",
+                    content: "Consolidated six separate screens into one modal containing all necessary information and actions."
+                  },
+                  {
+                    num: "02",
+                    title: "Eliminated Statistics Step",
+                    content: "Removed the intermediate \"statistics\" layer. Multi-currency handling now happens inline via simple dropdown selections."
+                  },
+                  {
+                    num: "03",
+                    title: "Automated Unnecessary Fields",
+                    content: "Movement name and status now generate automatically. Default currencies and recipients auto-populate when there's only one option."
+                  },
+                  {
+                    num: "04",
+                    title: "Power User Shortcuts",
+                    content: "Added duplicate row, quick add new row, and inline editing capabilities for efficiency."
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
+                    <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">{item.num}</div>
+                    <h4 className="text-lg font-serif text-stone-900 mb-3">{item.title}</h4>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.content}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* THE SOLUTION — BEFORE / AFTER */}
-          <section className="py-32 bg-white">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-20">
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-6xl mx-auto px-container">
+              <div className="text-center mb-12 md:mb-20">
                 <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.5em] mb-4 block">The Result</span>
                 <h2 className="text-3xl md:text-5xl font-serif mb-6 text-black">From 9 Operations to 3</h2>
-                <p className="text-stone-500 text-lg max-w-2xl mx-auto leading-relaxed">
+                <p className="text-stone-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
                   Everything a broker needs — movement info, payee & carrier transactions, and a multi-currency summary — consolidated into a single, streamlined modal.
                 </p>
               </div>
 
               {/* Before / After Side-by-Side */}
-              <div className="grid md:grid-cols-2 gap-8 mb-20">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
                 {/* Before */}
                 <div>
                   <div className="flex items-center gap-3 mb-6">
@@ -300,248 +294,170 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               {/* Impact Banner */}
               <div className="text-center">
-                <div className="inline-flex items-center gap-6 bg-gradient-to-r from-red-50 via-white to-green-50 px-12 py-6 rounded-full border-2 border-stone-200">
-                  <span className="text-4xl font-bold text-red-500">9</span>
-                  <svg className="w-8 h-8 text-stone-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  <span className="text-4xl font-bold text-green-500">3</span>
-                  <span className="text-stone-600 font-medium">operations — 67% reduction</span>
+                <div className="inline-flex items-center gap-6 bg-gradient-to-r from-red-50 via-white to-green-50 px-8 md:px-12 py-6 rounded-full border-2 border-stone-200 flex-wrap justify-center">
+                  <span className="text-2xl md:text-4xl font-bold text-red-500">9</span>
+                  <svg className="w-6 h-6 md:w-8 md:h-8 text-stone-300 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                  <span className="text-2xl md:text-4xl font-bold text-green-500">3</span>
+                  <span className="text-stone-600 font-medium text-sm md:text-base">operations — 67% reduction</span>
                 </div>
               </div>
             </div>
           </section>
 
           {/* INSIDE THE UNIFIED MODAL — 5 Unique Features */}
-          <section className="py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-6xl mx-auto px-6">
-              <div className="text-center mb-20">
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-6xl mx-auto px-container">
+              <div className="text-center mb-12 md:mb-20">
                 <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.5em] mb-4 block">Key Features</span>
                 <h2 className="text-3xl md:text-4xl font-serif mb-6 text-black">Inside the Unified Modal</h2>
-                <p className="text-stone-500 text-lg max-w-2xl mx-auto">Every feature was designed to replace an entire screen from the old process.</p>
+                <p className="text-stone-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">Every feature was designed to replace an entire screen from the old process.</p>
               </div>
 
-              {/* Feature 01: Movement Information */}
-              <div className="mb-28">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
-                    <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Feature 01</span>
-                    <h4 className="text-2xl font-serif mb-6 text-black leading-tight">Movement Information</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
-                      The header auto-populates movement name, claim reference, and status. What previously required navigating to a creation screen and manually entering metadata is now handled automatically.
-                    </p>
-                    <ul className="space-y-3 text-stone-600">
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Auto-generated name:</strong> No more manual naming conventions</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Status tracking:</strong> Visual progress indicator built-in</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="lg:col-span-3 relative group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
-                      <img
-                        src="/images/claim-movement-section-info.png"
-                        alt="Movement Information section — auto-populated header"
-                        className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
-                      />
+              {[
+                {
+                  label: "Feature 01",
+                  title: "Movement Information",
+                  desc: "The header auto-populates movement name, claim reference, and status. What previously required navigating to a creation screen and manually entering metadata is now handled automatically.",
+                  items: [
+                    { bold: "Auto-generated name:", text: "No more manual naming conventions" },
+                    { bold: "Status tracking:", text: "Visual progress indicator built-in" }
+                  ],
+                  img: "/images/claim-movement-section-info.png",
+                  alt: "Movement Information section — auto-populated header",
+                  left: true
+                },
+                {
+                  label: "Feature 02",
+                  title: "Inline Transactions",
+                  desc: "The core transaction table replaces what used to be 3 separate screens. Brokers add payee and carrier rows inline, seeing all data in one place.",
+                  items: [
+                    { bold: "Inline editing:", text: "Add, duplicate, and delete rows without leaving the table" },
+                    { bold: "All in context:", text: "Payees and carriers visible together, no tab switching" }
+                  ],
+                  img: "/images/claim-movement-section-payee.png",
+                  alt: "Inline Payee Transactions table",
+                  left: false
+                },
+                {
+                  label: "Feature 03",
+                  title: "Smart Currency Defaults",
+                  desc: "The system auto-detects settlement currencies from the claim context. When a claim is in USD, the payout defaults to USD — eliminating selection errors and repetitive typing.",
+                  items: [
+                    { bold: "Auto-detection:", text: "Original and settlement currencies pre-filled" },
+                    { bold: "Override available:", text: "Power users can still change when needed" }
+                  ],
+                  img: "/images/smart-defaults-feature.png",
+                  alt: "Smart currency defaults — Original and Settlement auto-populated",
+                  left: true
+                },
+                {
+                  label: "Feature 04",
+                  title: "Dedicated Row Actions",
+                  desc: "Each row includes inline action buttons for power-user operations, eliminating the need to navigate away from the main interface.",
+                  items: [
+                    { bold: "Duplicate:", text: "Clone row details while clearing amounts for safe re-entry" },
+                    { bold: "Quick Add / Delete:", text: "Insert or remove rows with a single click" }
+                  ],
+                  img: "/images/action-buttons-feature.png",
+                  alt: "Dedicated action buttons — duplicate, add, delete per row",
+                  left: false
+                },
+                {
+                  label: "Feature 05",
+                  title: "Multi-Currency Summary",
+                  desc: "A real-time financial roll-up with currency tabs. Brokers toggle between USD, GBP, EUR views without leaving the modal — seeing totals, balances, and breakdowns at a glance.",
+                  items: [
+                    { bold: "Currency tabs:", text: "Switch views instantly, no page reload" },
+                    { bold: "Live totals:", text: "Amounts update as you edit transactions above" }
+                  ],
+                  img: "/images/claim-movement-section-summary.png",
+                  alt: "Multi-currency summary with tabs for USD, GBP, EUR",
+                  left: true
+                }
+              ].map((feature, i) => (
+                <div key={i} className={`mb-20 md:mb-28 ${i === 4 ? 'mb-0' : ''}`}>
+                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
+                    <div className={`lg:col-span-2 ${feature.left ? '' : 'lg:order-2'}`}>
+                      <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">{feature.label}</span>
+                      <h4 className="text-2xl font-serif mb-6 text-black leading-tight">{feature.title}</h4>
+                      <p className="text-base text-stone-600 leading-relaxed mb-6">{feature.desc}</p>
+                      <ul className="space-y-3 text-stone-600">
+                        {feature.items.map((item, j) => (
+                          <li key={j} className="flex gap-3">
+                            <span className="text-blue-500 shrink-0">•</span>
+                            <span><strong className="text-stone-900 font-medium">{item.bold}</strong> {item.text}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    <div className={`lg:col-span-3 ${feature.left ? '' : 'lg:order-1'} relative group`}>
+                      <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+                        <img
+                          src={feature.img}
+                          alt={feature.alt}
+                          className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Feature 02: Inline Transactions */}
-              <div className="mb-28">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2 lg:order-2">
-                    <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Feature 02</span>
-                    <h4 className="text-2xl font-serif mb-6 text-black leading-tight">Inline Transactions</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
-                      The core transaction table replaces what used to be 3 separate screens. Brokers add payee and carrier rows inline, seeing all data in one place.
-                    </p>
-                    <ul className="space-y-3 text-stone-600">
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Inline editing:</strong> Add, duplicate, and delete rows without leaving the table</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">All in context:</strong> Payees and carriers visible together, no tab switching</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="lg:col-span-3 lg:order-1 relative group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
-                      <img
-                        src="/images/claim-movement-section-payee.png"
-                        alt="Inline Payee Transactions table"
-                        className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Feature 03: Smart Currency Defaults */}
-              <div className="mb-28">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
-                    <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Feature 03</span>
-                    <h4 className="text-2xl font-serif mb-6 text-black leading-tight">Smart Currency Defaults</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
-                      The system auto-detects settlement currencies from the claim context. When a claim is in USD, the payout defaults to USD — eliminating selection errors and repetitive typing.
-                    </p>
-                    <ul className="space-y-3 text-stone-600">
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Auto-detection:</strong> Original and settlement currencies pre-filled</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Override available:</strong> Power users can still change when needed</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="lg:col-span-3 relative group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
-                      <img
-                        src="/images/smart-defaults-feature.png"
-                        alt="Smart currency defaults — Original and Settlement auto-populated"
-                        className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Feature 04: Dedicated Row Actions */}
-              <div className="mb-28">
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2 lg:order-2">
-                    <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Feature 04</span>
-                    <h4 className="text-2xl font-serif mb-6 text-black leading-tight">Dedicated Row Actions</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
-                      Each row includes inline action buttons for power-user operations, eliminating the need to navigate away from the main interface.
-                    </p>
-                    <ul className="space-y-3 text-stone-600">
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Duplicate:</strong> Clone row details while clearing amounts for safe re-entry</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Quick Add / Delete:</strong> Insert or remove rows with a single click</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="lg:col-span-3 lg:order-1 relative group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
-                      <img
-                        src="/images/action-buttons-feature.png"
-                        alt="Dedicated action buttons — duplicate, add, delete per row"
-                        className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Feature 05: Multi-Currency Summary */}
-              <div>
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-                  <div className="lg:col-span-2">
-                    <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Feature 05</span>
-                    <h4 className="text-2xl font-serif mb-6 text-black leading-tight">Multi-Currency Summary</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
-                      A real-time financial roll-up with currency tabs. Brokers toggle between USD, GBP, EUR views without leaving the modal — seeing totals, balances, and breakdowns at a glance.
-                    </p>
-                    <ul className="space-y-3 text-stone-600">
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Currency tabs:</strong> Switch views instantly, no page reload</span>
-                      </li>
-                      <li className="flex gap-3">
-                        <span className="text-blue-500 shrink-0">•</span>
-                        <span><strong className="text-stone-900 font-medium">Live totals:</strong> Amounts update as you edit transactions above</span>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className="lg:col-span-3 relative group">
-                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
-                      <img
-                        src="/images/claim-movement-section-summary.png"
-                        alt="Multi-currency summary with tabs for USD, GBP, EUR"
-                        className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-
+              ))}
             </div>
           </section>
 
           {/* OUTCOMES & IMPACT */}
-          <section className="py-32 bg-stone-50 border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Outcomes & Impact</h2>
+          <section className="py-20 md:py-32 bg-stone-50 border-t border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Outcomes & Impact</h2>
 
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 space-y-6">
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">The new interface was successfully launched to customers</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Positive feedback from brokers who found the workflow intuitive from day one</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Support team reported fewer questions and support tickets related to claim movements</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Reduced cognitive load enabled brokers to process settlements more confidently</p>
-                </div>
+              <div className="bg-white p-6 md:p-10 rounded-2xl border border-stone-200 space-y-4 md:space-y-6">
+                {[
+                  "The new interface was successfully launched to customers",
+                  "Positive feedback from brokers who found the workflow intuitive from day one",
+                  "Support team reported fewer questions and support tickets related to claim movements",
+                  "Reduced cognitive load enabled brokers to process settlements more confidently"
+                ].map((text, i) => (
+                  <div key={i} className="flex gap-3 items-start">
+                    <span className="text-green-500 text-lg md:text-xl shrink-0">✓</span>
+                    <p className="text-sm md:text-base text-stone-700">{text}</p>
+                  </div>
+                ))}
               </div>
 
-              <div className="mt-16 bg-gradient-to-br from-blue-50 to-white p-12 rounded-3xl border border-blue-100">
-                <p className="text-lg text-stone-600 leading-relaxed mb-6">
+              <div className="mt-12 md:mt-16 bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border border-blue-100">
+                <p className="text-base md:text-lg text-stone-600 leading-relaxed mb-6">
                   The core of the redesign was removing technical barriers that forced users to think like database administrators.
                 </p>
-                <p className="text-base text-stone-700 leading-relaxed italic border-l-4 border-blue-500 pl-6">
+                <p className="text-base md:text-lg text-stone-700 leading-relaxed italic border-l-4 border-blue-500 pl-4 md:pl-6">
                   "By unifying the transaction steps and automating non-essential metadata, we returned the focus back to the business of insurance."
                 </p>
               </div>
 
               {/* Stats */}
-              <div className="mt-16 grid md:grid-cols-3 gap-8">
-                <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-blue-600 mb-2">-67%</div>
-                  <p className="text-stone-500 text-sm">Fewer steps required</p>
-                </div>
-                <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-blue-600 mb-2">1</div>
-                  <p className="text-stone-500 text-sm">Single unified modal</p>
-                </div>
-                <div className="bg-white p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-blue-600 mb-2">94%</div>
-                  <p className="text-stone-500 text-sm">Adoption in first month</p>
-                </div>
+              <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                {[
+                  { label: "Fewer steps required", val: "-67%" },
+                  { label: "Single unified modal", val: "1" },
+                  { label: "Adoption in first month", val: "94%" }
+                ].map((stat, i) => (
+                  <div key={i} className="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 text-center">
+                    <div className="text-3xl md:text-4xl font-serif text-blue-600 mb-2">{stat.val}</div>
+                    <p className="text-stone-500 text-xs md:text-sm">{stat.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* REFLECTION */}
-          <section className="py-32 bg-white border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Reflection</h2>
+          <section className="py-20 md:py-32 bg-white border-t border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Reflection</h2>
 
-              <div className="grid md:grid-cols-2 gap-12 mb-12">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12">
+                <div className="space-y-4 md:space-y-6">
                   <h3 className="text-xl font-serif text-stone-900">What Worked Well</h3>
-                  <ul className="space-y-4 text-stone-600 leading-relaxed">
+                  <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-stone-600 leading-relaxed">
                     <li className="flex gap-3">
                       <span className="text-blue-500 shrink-0">•</span>
                       <span>Challenging the existing process rather than accepting it as-is — eliminating the statistics step was crucial</span>
@@ -557,9 +473,9 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   </ul>
                 </div>
 
-                <div className="space-y-6">
+                <div className="space-y-4 md:space-y-6">
                   <h3 className="text-xl font-serif text-stone-900">What I Learned</h3>
-                  <ul className="space-y-4 text-stone-600 leading-relaxed">
+                  <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-stone-600 leading-relaxed">
                     <li className="flex gap-3">
                       <span className="text-blue-500 shrink-0">•</span>
                       <span>Sometimes the best solution is removing a feature, not adding one</span>
@@ -576,17 +492,17 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                 </div>
               </div>
 
-              <div className="mt-12 grid md:grid-cols-2 gap-8">
-                <div className="bg-stone-50 p-10 rounded-2xl border border-stone-200">
+              <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div className="bg-stone-50 p-8 md:p-10 rounded-2xl border border-stone-200">
                   <h3 className="text-xl font-serif text-stone-900 mb-4">What I'd Do Differently</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
+                  <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                     If I could revisit this project, I would conduct more structured user testing earlier in the process. Formal usability testing with actual brokers would have provided additional validation and potentially uncovered edge cases sooner.
                   </p>
                 </div>
 
-                <div className="bg-blue-600 p-10 rounded-2xl text-white shadow-xl">
+                <div className="bg-blue-600 p-8 md:p-10 rounded-2xl text-white shadow-xl">
                   <h3 className="text-xl font-serif mb-4">Next Steps</h3>
-                  <ul className="space-y-4 text-blue-50/80">
+                  <ul className="space-y-3 md:space-y-4 text-blue-50/80 text-sm md:text-base">
                     <li className="flex gap-3">
                       <span className="text-blue-200 shrink-0">•</span>
                       <span>Advanced search and filtering within the unified modal</span>
@@ -605,22 +521,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
             </div>
           </section>
 
-          <footer className="py-48 text-center bg-stone-900 text-white rounded-[100px] mx-6 mb-20 shadow-2xl">
-            <div className="max-w-4xl mx-auto px-6">
-              <p className="font-serif text-4xl md:text-5xl mb-16 opacity-90">Ready to simplify <br />the complex?</p>
-              <button
-                onClick={onBack}
-                className="px-16 py-6 bg-white text-black rounded-full font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl mb-16"
-              >
-                Back to Portfolio
-              </button>
-              <ProjectNavigation currentProjectId={project.id} variant="dark" />
-            </div>
-          </footer>
+          <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
         </main>
       </div>
     );
   }
+
 
   // WEB TRADER PROJECT
   const isWebTrader = project.title.toLowerCase().includes('trader');
@@ -630,595 +536,214 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
       <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
 
         {/* HERO */}
-        <header className="relative w-full pt-48 pb-32 flex flex-col items-center bg-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-8">AvaTrade Case Study</h4>
-            <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
+        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
+          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">AvaTrade Case Study</h4>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Web <span className="italic text-stone-300">Trader</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
               Enhancing navigation, account management, and mobile experience for active traders.
             </p>
           </div>
 
           {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-6 mb-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Role</p>
-                <p className="font-medium text-stone-700">Lead Product Designer</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Platform</p>
-                <p className="font-medium text-stone-700">Web & Mobile</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Company</p>
-                <p className="font-medium text-stone-700">AvaTrade</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Year</p>
-                <p className="font-medium text-stone-700">2018 — 2021</p>
-              </div>
+          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+              {[
+                { label: "Role", val: "Lead Product Designer" },
+                { label: "Platform", val: "Web & Mobile" },
+                { label: "Company", val: "AvaTrade" },
+                { label: "Year", val: "2018 — 2021" }
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
+                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Hero — Inline Trading Platform Mockup */}
+
+          {/* Hero — Premium Mockup */}
           <div className="w-full max-w-[1200px] px-6">
-            <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-stone-800 bg-[#1a1d26]">
-              <div className="w-full font-sans text-[13px]">
-                {/* Top bar */}
-                <div className="flex items-center justify-between px-6 py-3 bg-[#12141c] border-b border-white/5">
-                  <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                      <div className="w-7 h-7 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center text-white text-[10px] font-bold">AT</div>
-                      <span className="text-white/80 text-sm font-semibold">WebTrader</span>
-                    </div>
-                    <div className="hidden md:flex items-center gap-1 px-3 py-1.5 bg-green-500/15 border border-green-500/30 rounded-full">
-                      <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
-                      <span className="text-green-400 text-[10px] font-bold">LIVE</span>
-                    </div>
-                  </div>
-                  <div className="hidden md:flex items-center gap-6 text-[11px] text-white/40">
-                    <span>Portfolio</span>
-                    <span className="text-white/80">Watchlist</span>
-                    <span>Orders</span>
-                    <span>History</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="px-3 py-1 bg-white/5 rounded text-[11px] text-white/50">Balance: <span className="text-white font-medium">$24,350.00</span></div>
-                  </div>
-                </div>
-                {/* Chart area */}
-                <div className="flex">
-                  <div className="flex-1 p-6">
-                    <div className="flex items-center justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <span className="text-white font-semibold">EUR/USD</span>
-                        <span className="text-green-400 text-sm font-medium">1.0847</span>
-                        <span className="text-green-400/70 text-xs">+0.32%</span>
-                      </div>
-                      <div className="hidden md:flex gap-2 text-[10px] text-white/30">
-                        <span className="px-2 py-1 bg-white/5 rounded">1H</span>
-                        <span className="px-2 py-1 bg-white/10 rounded text-white/60">4H</span>
-                        <span className="px-2 py-1 bg-white/5 rounded">1D</span>
-                        <span className="px-2 py-1 bg-white/5 rounded">1W</span>
-                      </div>
-                    </div>
-                    {/* Stylized chart SVG */}
-                    <svg viewBox="0 0 600 200" className="w-full h-[180px] md:h-[240px]">
-                      <defs>
-                        <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.3" />
-                          <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-                        </linearGradient>
-                      </defs>
-                      {/* Grid lines */}
-                      <line x1="0" y1="50" x2="600" y2="50" stroke="white" strokeOpacity="0.04" />
-                      <line x1="0" y1="100" x2="600" y2="100" stroke="white" strokeOpacity="0.04" />
-                      <line x1="0" y1="150" x2="600" y2="150" stroke="white" strokeOpacity="0.04" />
-                      {/* Chart area fill */}
-                      <path d="M0,160 C30,155 60,140 100,130 C140,120 160,125 200,110 C240,95 260,100 300,85 C340,70 360,90 400,75 C440,60 460,65 500,50 C540,35 570,40 600,30 L600,200 L0,200 Z" fill="url(#chartGrad)" />
-                      {/* Chart line */}
-                      <path d="M0,160 C30,155 60,140 100,130 C140,120 160,125 200,110 C240,95 260,100 300,85 C340,70 360,90 400,75 C440,60 460,65 500,50 C540,35 570,40 600,30" fill="none" stroke="#3b82f6" strokeWidth="2.5" />
-                      {/* Current price dot */}
-                      <circle cx="600" cy="30" r="4" fill="#3b82f6" />
-                      <circle cx="600" cy="30" r="8" fill="#3b82f6" fillOpacity="0.2" />
-                    </svg>
-                  </div>
-                  {/* Side panel */}
-                  <div className="hidden lg:block w-[220px] border-l border-white/5 p-4">
-                    <p className="text-[10px] text-white/30 uppercase tracking-wider mb-3">Watchlist</p>
-                    <div className="space-y-2">
-                      {[
-                        { pair: 'EUR/USD', price: '1.0847', change: '+0.32%', up: true },
-                        { pair: 'GBP/USD', price: '1.2634', change: '-0.15%', up: false },
-                        { pair: 'USD/JPY', price: '149.82', change: '+0.47%', up: true },
-                        { pair: 'BTC/USD', price: '43,250', change: '+2.10%', up: true },
-                      ].map((item) => (
-                        <div key={item.pair} className="flex items-center justify-between p-2 rounded hover:bg-white/5 transition-colors">
-                          <span className="text-white/70 text-xs font-medium">{item.pair}</span>
-                          <div className="text-right">
-                            <span className="text-white/90 text-xs block">{item.price}</span>
-                            <span className={`text-[10px] ${item.up ? 'text-green-400' : 'text-red-400'}`}>{item.change}</span>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-                {/* Bottom trade bar */}
-                <div className="flex items-center justify-between px-6 py-3 bg-[#12141c] border-t border-white/5">
-                  <div className="flex items-center gap-4">
-                    <div className="flex gap-2">
-                      <button className="px-6 py-2 bg-green-500 text-white text-[11px] font-bold rounded uppercase tracking-wider">Buy</button>
-                      <button className="px-6 py-2 bg-red-500/80 text-white text-[11px] font-bold rounded uppercase tracking-wider">Sell</button>
-                    </div>
-                  </div>
-                  <div className="hidden md:flex items-center gap-6 text-[10px] text-white/30">
-                    <span>Spread: <span className="text-white/60">1.2</span></span>
-                    <span>Leverage: <span className="text-white/60">1:30</span></span>
-                  </div>
-                </div>
-              </div>
+            <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-stone-200 bg-white">
+              <img
+                src="/images/mockups/web-trader-mockup.png"
+                alt="Web Trader Platform — premium architectural mockup"
+                className="w-full h-auto"
+              />
             </div>
           </div>
+
         </header>
 
         <main className="w-full bg-white">
 
           {/* CONTEXT & BACKGROUND */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">Context & Background</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-16 text-black">Context & Background</h2>
 
-              <div className="grid md:grid-cols-3 gap-8 mb-16">
-                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">01</div>
-                  <h3 className="text-lg font-serif text-stone-900 mb-3">The Product</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    AvaTrade's comprehensive trading platform for active traders managing multiple accounts with real-time market data, order execution, and portfolio management.
-                  </p>
-                </div>
-
-                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">02</div>
-                  <h3 className="text-lg font-serif text-stone-900 mb-3">The Users</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Active traders who frequently switch between demo and live accounts, execute time-sensitive trades, and need reliable mobile access for on-the-go trading.
-                  </p>
-                </div>
-
-                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
-                  <div className="text-2xl font-serif text-blue-500 mb-4">03</div>
-                  <h3 className="text-lg font-serif text-stone-900 mb-3">The Challenge</h3>
-                  <p className="text-sm text-stone-600 leading-relaxed">
-                    Critical usability issues affecting daily operations. We needed to deliver immediate value by optimizing the existing platform, not rebuilding from scratch.
-                  </p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                {[
+                  {
+                    num: "01",
+                    title: "The Product",
+                    content: "AvaTrade's comprehensive trading platform for active traders managing multiple accounts with real-time market data, order execution, and portfolio management."
+                  },
+                  {
+                    num: "02",
+                    title: "The Users",
+                    content: "Active traders who frequently switch between demo and live accounts, execute time-sensitive trades, and need reliable mobile access for on-the-go trading."
+                  },
+                  {
+                    num: "03",
+                    title: "The Challenge",
+                    content: "Critical usability issues affecting daily operations. We needed to deliver immediate value by optimizing the existing platform, not rebuilding from scratch."
+                  }
+                ].map((item, i) => (
+                  <div key={i} className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
+                    <div className="text-2xl font-serif text-blue-500 mb-4">{item.num}</div>
+                    <h3 className="text-lg font-serif text-stone-900 mb-3">{item.title}</h3>
+                    <p className="text-sm text-stone-600 leading-relaxed">{item.content}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* THE PROBLEM */}
-          <section className="py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">The Problem</h2>
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black text-center">Identifying The Friction</h2>
 
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 mb-12">
-                <p className="text-xl md:text-2xl leading-relaxed text-stone-700 italic">
-                  "The platform had critical pain points: unclear account indicators, disorganized navigation, and mobile interactions that led to accidental actions during time-sensitive trading."
-                </p>
-              </div>
-
-              <div className="space-y-8 mb-12">
-                <h3 className="text-xl font-serif text-stone-900">Critical Pain Points</h3>
-                <ul className="space-y-4 text-base text-stone-600">
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Account switching confusion:</strong> No clear visual indicator showing which account type was active (Demo vs Live), leading to trades executed on wrong accounts</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Cluttered side menu:</strong> Lack of proper organization made it difficult to locate important functions during time-sensitive operations</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Mobile usability issues:</strong> Exit button in easily-accessible areas led to accidental logouts during critical trading moments</span>
-                  </li>
-                </ul>
-              </div>
-
-              <div className="bg-amber-50 p-8 rounded-xl border border-amber-100 mb-8">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-amber-900 mb-4">Real-World Impact</h4>
-                <p className="text-stone-700 leading-relaxed mb-4">
-                  A trader managing 3 accounts (1 Demo, 2 Live) reported accidentally executing a $50,000 trade on the wrong account because the interface didn't clearly indicate which account was active. This wasn't an isolated incident.
-                </p>
-                <p className="text-sm font-medium text-amber-900">
-                  Support tickets related to "wrong account" issues: 47 per month
-                </p>
-              </div>
-
-              <div className="bg-blue-50 p-8 rounded-xl border border-blue-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-blue-900 mb-4">User Quote</h4>
-                <p className="text-stone-700 leading-relaxed italic">
-                  "I trade on mobile during my commute. More than once I've accidentally logged out right before market close because the exit button was too close to where I was tapping. In trading, every second counts."
-                </p>
-                <p className="text-sm text-blue-900 mt-4 font-medium">— Active Trader, 5 years on platform</p>
-              </div>
-            </div>
-          </section>
-
-          {/* RESEARCH & APPROACH */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Research & Approach</h2>
-
-              <div className="space-y-8 mb-16">
-                <h3 className="text-xl font-serif text-stone-900">Discovery Phase</h3>
-                <p className="text-base text-stone-600 leading-relaxed">
-                  Working closely with the UX Lead, I analyzed user research, support tickets, and trader feedback. We conducted a comprehensive audit of all menu functions, categorizing them by purpose and workflow to understand which actions were most critical.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-blue-50 to-white p-12 rounded-3xl border-2 border-blue-200 mb-12">
-                <p className="text-xs font-bold uppercase tracking-wider text-blue-600 mb-4">Design Strategy</p>
-                <h3 className="text-2xl md:text-3xl font-serif mb-6 text-black">Optimize, Don't Rebuild</h3>
-                <p className="text-base text-stone-700 leading-relaxed mb-4">
-                  Rather than a complete platform overhaul, we focused on enhancing the existing system. This allowed us to deliver immediate value while maintaining stability and avoiding disruption to active traders.
-                </p>
-                <p className="text-base font-medium text-blue-900">High-impact, low-risk improvements.</p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200">
+                  <p className="text-lg md:text-xl leading-relaxed text-stone-700 italic">
+                    "The platform had critical pain points: unclear account indicators, disorganized navigation, and mobile interactions that led to accidental actions during time-sensitive trading."
+                  </p>
+                </div>
+                <div className="space-y-6">
+                  <h3 className="text-xl font-serif text-stone-900">Key User Struggles</h3>
+                  <ul className="space-y-4 text-sm md:text-base text-stone-600">
+                    <li className="flex gap-3">
+                      <span className="text-red-400 shrink-0 text-lg">✗</span>
+                      <span>Account switching confusion (Demo vs Live)</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-red-400 shrink-0 text-lg">✗</span>
+                      <span>Cluttered navigation slowing down operations</span>
+                    </li>
+                    <li className="flex gap-3">
+                      <span className="text-red-400 shrink-0 text-lg">✗</span>
+                      <span>Mobile exit buttons too close to interaction areas</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </section>
 
           {/* THE SOLUTION */}
-          <section className="py-32 bg-stone-50 border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">The Solution</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-6xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black text-center">Design Solutions</h2>
 
-              {/* Solution 1: Account Management */}
-              <div className="mb-32">
-                <div className="mb-12">
-                  <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Solution 01</span>
-                  <h3 className="text-2xl font-serif mb-4 text-black">Account Type Visibility & Switching</h3>
-                  <p className="text-stone-500">Clear visual system for managing multiple accounts</p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
-                  <div className="space-y-4">
-                    <div className="flex gap-3">
-                      <span className="text-green-500 shrink-0 text-lg">✓</span>
-                      <div>
-                        <strong className="text-stone-900">Clear Account Type Indicator:</strong>
-                        <p className="text-sm text-stone-600 mt-1">Prominent visual indicator showing current account type (Demo, Live, etc.) at all times</p>
-                      </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+                {[
+                  {
+                    num: "01",
+                    title: "Account Visibility",
+                    desc: "Clear visual system for managing multiple accounts.",
+                    features: ["Clear Account Type Indicator", "Multi-Account Badge", "Quick Switcher"],
+                    img: "/images/account-switcher-mobile.png"
+                  },
+                  {
+                    num: "02",
+                    title: "Menu Restructuring",
+                    desc: "Prioritized navigation based on workflow analysis.",
+                    features: ["Logical Grouping", "Workflow Focus", "Clean UI"],
+                    img: "/images/trading-side-menu.png"
+                  },
+                  {
+                    num: "03",
+                    title: "Mobile Optimization",
+                    desc: "Preventing accidental actions on touch devices.",
+                    features: ["Touch Safe Zones", "Repositioned Actions", "Touch Targets"],
+                    img: "/images/account-switcher-mobile.png"
+                  }
+                ].map((solution, i) => (
+                  <div key={i} className="space-y-6">
+                    <div className="space-y-2">
+                      <span className="text-blue-600 font-bold text-[10px] uppercase tracking-widest block">Solution {solution.num}</span>
+                      <h3 className="text-xl md:text-2xl font-serif text-stone-900">{solution.title}</h3>
+                      <p className="text-sm text-stone-500 leading-relaxed">{solution.desc}</p>
                     </div>
-                    <div className="flex gap-3">
-                      <span className="text-green-500 shrink-0 text-lg">✓</span>
-                      <div>
-                        <strong className="text-stone-900">Multi-Account Badge:</strong>
-                        <p className="text-sm text-stone-600 mt-1">Special indicator making it obvious when more accounts are available</p>
-                      </div>
+                    <div className="bg-stone-50 p-6 rounded-xl border border-stone-100 space-y-3">
+                      {solution.features.map((feat, j) => (
+                        <div key={j} className="flex gap-2 items-center text-xs text-stone-600">
+                          <span className="text-green-500">✓</span>
+                          <span>{feat}</span>
+                        </div>
+                      ))}
                     </div>
-                    <div className="flex gap-3">
-                      <span className="text-green-500 shrink-0 text-lg">✓</span>
-                      <div>
-                        <strong className="text-stone-900">Quick Account Switcher:</strong>
-                        <p className="text-sm text-stone-600 mt-1">Instant switching without navigating away from current screen</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Feature Image */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-200 group">
-                  <div className="relative">
-                    <img
-                      src="/images/account-switcher-mobile.png"
-                      alt="Account Switcher Interface"
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute top-6 right-6 bg-blue-600/90 backdrop-blur text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest shadow-lg">
-                      Unified Account Toggle
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Solution 2: Side Menu */}
-              <div className="mb-32">
-                <div className="mb-12">
-                  <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Solution 02</span>
-                  <h3 className="text-2xl font-serif mb-4 text-black">Side Menu Restructuring</h3>
-                  <p className="text-stone-500">Prioritized navigation based on workflow analysis</p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
-                  <p className="text-base text-stone-600 leading-relaxed mb-6">
-                    Navigation completely reorganized based on user research and trading workflow. Each function was categorized by purpose to create logical groupings.
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="p-4 bg-stone-50 rounded-lg">
-                      <h5 className="text-sm font-medium text-stone-900 mb-2">Top Priority</h5>
-                      <p className="text-xs text-stone-600">Trading, portfolio view, active orders</p>
-                    </div>
-                    <div className="p-4 bg-stone-50 rounded-lg">
-                      <h5 className="text-sm font-medium text-stone-900 mb-2">Secondary</h5>
-                      <p className="text-xs text-stone-600">Administrative and settings functions</p>
+                    <div className="relative aspect-video rounded-2xl overflow-hidden border border-stone-100 shadow-xl group">
+                      <img
+                        src={solution.img}
+                        alt={solution.title}
+                        className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                      />
                     </div>
                   </div>
-                </div>
-
-                <div className="bg-green-50 p-6 rounded-xl border border-green-100 mb-8">
-                  <p className="text-sm text-green-900 font-medium">
-                    <strong>Result:</strong> Reduced time to find key functions by ~60%
-                  </p>
-                </div>
-
-                {/* Feature Image */}
-                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-200 group">
-                  <div className="relative">
-                    <img
-                      src="/images/trading-side-menu.png"
-                      alt="Restructured Side Menu"
-                      className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                    <div className="absolute bottom-6 left-6 bg-stone-900/90 backdrop-blur text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest shadow-lg">
-                      Logical Navigation Architecture
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Solution 3: Mobile */}
-              <div className="mb-16">
-                <div className="mb-12">
-                  <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">Solution 03</span>
-                  <h3 className="text-2xl font-serif mb-4 text-black">Mobile-Specific Optimizations</h3>
-                  <p className="text-stone-500">Preventing accidental actions on touch devices</p>
-                </div>
-
-                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
-                  <div className="space-y-3">
-                    <div className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <p className="text-base text-stone-600">Removed exit button from account menu on mobile to prevent accidental logouts</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <p className="text-base text-stone-600">Repositioned critical actions away from easily-tapped screen edges</p>
-                    </div>
-                    <div className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <p className="text-base text-stone-600">Optimized touch targets for essential trading functions</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Mobile View */}
-                <div className="max-w-sm mx-auto">
-                  <div className="rounded-[40px] overflow-hidden border-8 border-stone-800 shadow-2xl bg-stone-900 relative">
-                    <img
-                      src="/images/account-switcher-mobile.png"
-                      alt="Mobile Trading View"
-                      className="w-full h-auto"
-                    />
-                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full" />
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* BEFORE/AFTER COMPARISON */}
-          <section className="py-32 bg-white border-t border-stone-100">
-            <div className="max-w-5xl mx-auto px-6">
-              <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-serif mb-4 text-black">Before & After</h2>
-                <p className="text-stone-500">Visual comparison of the account switching experience</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-8">
-                {/* BEFORE */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="px-3 py-1 bg-red-100 text-red-700 text-xs font-bold uppercase tracking-wider rounded-full">Before</span>
-                  </div>
-                  <div className="bg-stone-900 rounded-2xl p-6 shadow-xl border border-stone-800">
-                    {/* Mock old account menu */}
-                    <div className="bg-stone-800 rounded-lg p-4 mb-4">
-                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-stone-700">
-                        <div className="w-10 h-10 bg-stone-700 rounded-full"></div>
-                        <div>
-                          <p className="text-white text-sm font-medium">John Trader</p>
-                          <p className="text-stone-400 text-xs">Account #12345</p>
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
-                          <span className="w-2 h-2 bg-stone-500 rounded-full"></span>
-                          Demo Account
-                        </div>
-                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
-                          <span className="w-2 h-2 bg-stone-500 rounded-full"></span>
-                          Live Account 1
-                        </div>
-                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
-                          <span className="w-2 h-2 bg-stone-500 rounded-full"></span>
-                          Live Account 2
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-red-400 text-xs">
-                      <span>✗</span>
-                      <span>No visual distinction between account types</span>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-sm text-stone-500">
-                    <li className="flex gap-2"><span className="text-red-400">✗</span> Identical styling for all accounts</li>
-                    <li className="flex gap-2"><span className="text-red-400">✗</span> No active account indicator</li>
-                    <li className="flex gap-2"><span className="text-red-400">✗</span> Exit button in accessible area</li>
-                  </ul>
-                </div>
-
-                {/* AFTER */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="px-3 py-1 bg-green-100 text-green-700 text-xs font-bold uppercase tracking-wider rounded-full">After</span>
-                  </div>
-                  <div className="bg-stone-900 rounded-2xl p-6 shadow-xl border border-stone-800">
-                    {/* Mock new account menu */}
-                    <div className="bg-stone-800 rounded-lg p-4 mb-4">
-                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-stone-700">
-                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xs font-bold">LIVE</div>
-                        <div>
-                          <p className="text-white text-sm font-medium">John Trader</p>
-                          <div className="flex items-center gap-2">
-                            <span className="px-2 py-0.5 bg-green-500/20 text-green-400 text-[10px] font-bold rounded">LIVE</span>
-                            <span className="text-stone-400 text-xs">#12345</span>
-                          </div>
-                        </div>
-                        <span className="ml-auto px-2 py-1 bg-blue-500/20 text-blue-400 text-[10px] font-bold rounded">+2</span>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2 p-2 bg-green-500/10 border border-green-500/30 rounded text-green-400 text-sm">
-                          <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                          Live Account 1
-                          <span className="ml-auto text-[10px] opacity-60">Active</span>
-                        </div>
-                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
-                          <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                          Live Account 2
-                        </div>
-                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-amber-300 text-sm">
-                          <span className="w-2 h-2 bg-amber-500 rounded-full"></span>
-                          Demo Account
-                          <span className="ml-auto px-1.5 py-0.5 bg-amber-500/20 text-amber-400 text-[9px] rounded">DEMO</span>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 text-green-400 text-xs">
-                      <span>✓</span>
-                      <span>Clear visual hierarchy and account type indicators</span>
-                    </div>
-                  </div>
-                  <ul className="space-y-2 text-sm text-stone-500">
-                    <li className="flex gap-2"><span className="text-green-500">✓</span> Color-coded account types (Live/Demo)</li>
-                    <li className="flex gap-2"><span className="text-green-500">✓</span> Prominent active account indicator</li>
-                    <li className="flex gap-2"><span className="text-green-500">✓</span> Multi-account badge showing available accounts</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* OUTCOMES */}
-          <section className="py-32 bg-white border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
+          {/* OUTCOMES & IMPACT */}
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
               <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Outcomes & Impact</h2>
 
-              {/* Metrics Cards */}
-              <div className="grid md:grid-cols-3 gap-8 mb-16">
-                <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100">
-                  <div className="text-4xl font-bold text-blue-600 mb-2">60%</div>
-                  <p className="text-sm text-stone-600">Faster navigation to key functions</p>
-                </div>
-                <div className="text-center p-8 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100">
-                  <div className="text-4xl font-bold text-green-600 mb-2">73%</div>
-                  <p className="text-sm text-stone-600">Reduction in "wrong account" tickets</p>
-                </div>
-                <div className="text-center p-8 bg-gradient-to-br from-amber-50 to-white rounded-2xl border border-amber-100">
-                  <div className="text-4xl font-bold text-amber-600 mb-2">89%</div>
-                  <p className="text-sm text-stone-600">Fewer accidental logouts on mobile</p>
-                </div>
-              </div>
-
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 space-y-6">
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">60% reduction in time to find key navigation functions</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Significant decrease in support tickets related to account confusion</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Improved mobile usability with fewer accidental logouts</p>
-                </div>
-                <div className="flex gap-3 items-start">
-                  <span className="text-green-500 text-xl shrink-0">✓</span>
-                  <p className="text-base text-stone-700">Enhanced trader confidence through clear account type visibility</p>
-                </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16">
+                {[
+                  { val: "60%", label: "Faster navigation", color: "blue" },
+                  { val: "73%", label: "Fewer 'wrong account' tickets", color: "green" },
+                  { val: "89%", label: "Reduced accidental logouts", color: "amber" }
+                ].map((stat, i) => (
+                  <div key={i} className={`text-center p-8 bg-gradient-to-br from-${stat.color}-50 to-white rounded-2xl border border-${stat.color}-100`}>
+                    <div className={`text-4xl font-bold text-${stat.color}-600 mb-2`}>{stat.val}</div>
+                    <p className="text-xs text-stone-600 uppercase tracking-widest">{stat.label}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* REFLECTION */}
-          <section className="py-32 bg-stone-50 border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
               <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Reflection</h2>
 
-              <div className="grid md:grid-cols-2 gap-12 mb-12">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12">
+                <div className="space-y-4">
                   <h3 className="text-xl font-serif text-stone-900">What Worked Well</h3>
-                  <ul className="space-y-4 text-stone-600 leading-relaxed">
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Collaborating closely with the UX Lead allowed us to align on priorities and move quickly</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Analyzing support tickets gave us concrete evidence for prioritizing account visibility</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>The "optimize, don't rebuild" approach let us ship improvements without disrupting traders</span>
-                    </li>
-                  </ul>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+                    Analyzing support tickets gave us concrete evidence for prioritizing account visibility, allowing us to align with the UX Lead and move quickly.
+                  </p>
                 </div>
-
-                <div className="space-y-6">
+                <div className="space-y-4">
                   <h3 className="text-xl font-serif text-stone-900">What I Learned</h3>
-                  <ul className="space-y-4 text-stone-600 leading-relaxed">
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>In fintech, small UX issues can have significant financial consequences for users</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Mobile-first thinking is critical even for complex trading platforms</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Support ticket analysis is an underrated source of UX insights</span>
-                    </li>
-                  </ul>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+                    In fintech, small UX issues can have significant financial consequences. Mobile-first thinking is critical for complex trading platforms.
+                  </p>
                 </div>
-              </div>
-
-              <div className="bg-white p-10 rounded-2xl border border-stone-200">
-                <h3 className="text-xl font-serif text-stone-900 mb-4">What I'd Do Differently</h3>
-                <p className="text-base text-stone-600 leading-relaxed">
-                  If I could revisit this project, I would push for more direct user testing sessions earlier in the process. While support ticket analysis provided valuable insights, watching real traders interact with prototypes would have helped us catch edge cases sooner and potentially discover additional pain points we didn't address in this iteration.
-                </p>
               </div>
             </div>
           </section>
 
-          {/* CTA */}
-          <footer className="py-48 text-center bg-stone-900 text-white rounded-[100px] mx-6 mb-20 shadow-2xl">
-            <div className="max-w-4xl mx-auto px-6">
-              <p className="font-serif text-4xl md:text-5xl mb-16 opacity-90">Ready to optimize <br />your platform?</p>
-              <button
-                onClick={onBack}
-                className="px-16 py-6 bg-white text-black rounded-full font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl"
-              >
-                Back to Portfolio
-              </button>
-            </div>
-          </footer>
+          <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
         </main>
       </div>
     );
@@ -1232,49 +757,44 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
       <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
 
         {/* HERO */}
-        <header className="relative w-full pt-48 pb-32 flex flex-col items-center bg-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-purple-600 mb-8">Novidea — Product Design</h4>
-            <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
+        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
+          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Lead Product Design</h4>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Policy <span className="italic text-stone-300">Clauses</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
-              Redesigning the clause management system for London Market insurance brokers — from an unstable, cluttered interface to a focused dual-screen architecture.
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
+              Designing the core logic and workflow for enterprise insurance claims — transforming a fragmented spreadsheet-based process into a unified, high-performance legal framework.
             </p>
           </div>
 
           {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-6 mb-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Role</p>
-                <p className="font-medium text-stone-700">Product Designer</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Platform</p>
-                <p className="font-medium text-stone-700">Salesforce B2B</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Company</p>
-                <p className="font-medium text-stone-700">Novidea</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Duration</p>
-                <p className="font-medium text-stone-700">~2 Months, 2025</p>
-              </div>
+          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+              {[
+                { label: "Role", val: "Lead Design" },
+                { label: "Platform", val: "Enterprise Web" },
+                { label: "Company", val: "Novidea" },
+                { label: "Duration", val: "2021 — 2024" }
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
+                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Hero Image */}
-          <div className="w-full max-w-[1200px] px-6">
-            <div className="relative rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
+          <div className="w-full max-w-[1200px] px-container">
+            <div className="relative rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
               <img
                 src="/images/clauses-view-mode.png"
                 alt="Manage Clauses View Mode"
                 className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-1000"
               />
-              <div className="absolute top-8 right-8 bg-black/80 backdrop-blur text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest shadow-xl">
-                Unified View Mode
+              <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-black/80 backdrop-blur text-white text-[9px] md:text-[10px] font-bold px-3 md:px-4 py-1.5 md:py-2 rounded uppercase tracking-widest shadow-xl">
+                Core Logic Interface
               </div>
             </div>
           </div>
@@ -1283,109 +803,103 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         <main className="w-full bg-white">
 
           {/* CONTEXT & BACKGROUND */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">Context & Background</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-16 text-black">Context & Background</h2>
 
-              <div className="space-y-12">
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Product</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    Novidea's insurance platform includes a clause and wording management system used by London Market brokers. The system lets brokers build collections of clauses as reusable groups, add specific clauses to individual policies, and manage wording versions — all within the Salesforce ecosystem.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Users</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    London Market insurance brokers who spend their days assembling policy documents. Their core workflow involves two distinct activities: creating and managing clause collections (groups of standard wordings), and selecting specific clauses to attach to individual policies. These are experienced professionals who need reliability and speed above all.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">The Business Challenge</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
-                    The existing clause management system had become a critical bottleneck in policy creation. Frequent crashes, data loss, and a cluttered interface that blurred browsing and editing into a single confusing screen were affecting broker productivity and the entire policy issuance process.
-                  </p>
-                </div>
+              <div className="space-y-10 md:space-y-12">
+                {[
+                  {
+                    title: "The Product",
+                    content: "Novidea's insurance platform includes a clause and wording management system used by London Market brokers. The system lets brokers build collections of clauses as reusable groups, add specific clauses to individual policies, and manage wording versions — all within the Salesforce ecosystem."
+                  },
+                  {
+                    title: "The Users",
+                    content: "London Market insurance brokers who spend their days assembling policy documents. Their core workflow involves two distinct activities: creating and managing clause collections (groups of standard wordings), and selecting specific clauses to attach to individual policies. These are experienced professionals who need reliability and speed above all."
+                  },
+                  {
+                    title: "The Business Challenge",
+                    content: "The existing clause management system had become a critical bottleneck in policy creation. Frequent crashes, data loss, and a cluttered interface that blurred browsing and editing into a single confusing screen were affecting broker productivity and the entire policy issuance process."
+                  }
+                ].map((item, i) => (
+                  <div key={i}>
+                    <h3 className="text-xl font-serif text-stone-900 mb-4">{item.title}</h3>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.content}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* THE PROBLEM */}
-          <section className="py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">The Problem</h2>
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">The Problem</h2>
 
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 mb-12">
+              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-10 md:mb-12">
                 <p className="text-xl md:text-2xl leading-relaxed text-stone-700 italic">
                   "The existing system was unstable, unreliable, and designed with a workflow that forced users into repetitive manual configurations and excessive navigation for basic operations."
                 </p>
               </div>
 
-              <div className="space-y-8 mb-12">
+              <div className="space-y-6 md:space-y-8 mb-10 md:mb-12">
                 <h3 className="text-xl font-serif text-stone-900">Critical Issues</h3>
-                <ul className="space-y-4 text-base text-stone-600">
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Technical instability:</strong> Frequent bugs and crashes led to data loss, forcing brokers to rely on manual workarounds</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Blurred modes:</strong> Browsing and editing lived on the same screen with no clear separation, creating cognitive overload and accidental edits</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">No feedback:</strong> No indicators of progress or action completion — users clicked buttons repeatedly, unsure if anything happened</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-red-400 shrink-0 text-lg">✗</span>
-                    <span><strong className="text-stone-900 font-medium">Missing version control:</strong> No way to track changes to clause wordings or manage versions across different policies</span>
-                  </li>
+                <ul className="space-y-4 text-sm md:text-base text-stone-600">
+                  {[
+                    { label: "Technical instability", desc: "Frequent bugs and crashes led to data loss, forcing brokers to rely on manual workarounds" },
+                    { label: "Blurred modes", desc: "Browsing and editing lived on the same screen with no clear separation, creating cognitive overload and accidental edits" },
+                    { label: "No feedback", desc: "No indicators of progress or action completion — users clicked buttons repeatedly, unsure if anything happened" },
+                    { label: "Missing version control", desc: "No way to track changes to clause wordings or manage versions across different policies" }
+                  ].map((item, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="text-red-400 shrink-0 text-lg">✗</span>
+                      <span><strong className="text-stone-900 font-medium">{item.label}:</strong> {item.desc}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
 
-              <div className="bg-purple-50 p-8 rounded-xl border border-purple-100">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-900 mb-4">User Quote</h4>
-                <p className="text-stone-700 leading-relaxed italic">
+              <div className="bg-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
+                <h4 className="text-[10px] font-bold uppercase tracking-wider text-purple-900 mb-4">User Quote</h4>
+                <p className="text-sm md:text-base text-stone-700 leading-relaxed italic">
                   "I spend most of my day working with clauses — finding the right ones, editing them to fit specific policies, and making sure everything is accurate. When the system crashes or I lose my work, it's incredibly frustrating. I just need a reliable tool that doesn't get in my way."
                 </p>
-                <p className="text-sm text-purple-900 mt-4 font-medium">— Senior Insurance Broker</p>
+                <p className="text-xs md:text-sm text-purple-900 mt-4 font-medium">— Senior Insurance Broker</p>
               </div>
             </div>
           </section>
 
           {/* UNDERSTANDING THE NEED */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Understanding the Need</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Understanding the Need</h2>
 
-              <p className="text-base text-stone-600 leading-relaxed mb-12">
+              <p className="text-sm md:text-base text-stone-600 leading-relaxed mb-10 md:mb-12">
                 Together with stakeholders, we mapped out the brokers' actual workflow and identified the two core activities the system needed to support:
               </p>
 
-              <div className="grid md:grid-cols-2 gap-8 mb-16">
-                <div className="bg-stone-50 p-8 rounded-xl border border-stone-200">
-                  <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 1</div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+                <div className="bg-stone-50 p-6 md:p-8 rounded-xl border border-stone-200">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 1</div>
                   <h3 className="text-lg font-serif text-stone-900 mb-3">Managing Clause Collections</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
+                  <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                     Brokers need to create and maintain groups of standard clauses — reusable sets of wordings that apply to common policy types. This is an organizational task that requires browsing, filtering, and grouping.
                   </p>
                 </div>
 
-                <div className="bg-stone-50 p-8 rounded-xl border border-stone-200">
-                  <div className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 2</div>
+                <div className="bg-stone-50 p-6 md:p-8 rounded-xl border border-stone-200">
+                  <div className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 2</div>
                   <h3 className="text-lg font-serif text-stone-900 mb-3">Adding Specific Clauses to a Policy</h3>
-                  <p className="text-base text-stone-600 leading-relaxed">
+                  <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                     For each individual policy, brokers select specific clauses from their collections or the library, then customize the wording to fit the particular risk. This is a focused editing task.
                   </p>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-purple-50 to-white p-12 rounded-3xl border-2 border-purple-200">
-                <p className="text-xs font-bold uppercase tracking-wider text-purple-600 mb-4">Key Insight</p>
+              <div className="bg-gradient-to-br from-purple-50 to-white p-8 md:p-12 rounded-3xl border-2 border-purple-200">
+                <p className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-4">Key Insight</p>
                 <h3 className="text-2xl md:text-3xl font-serif mb-6 text-black">Two Activities, Two Mindsets</h3>
-                <p className="text-base text-stone-700 leading-relaxed">
+                <p className="text-sm md:text-base text-stone-700 leading-relaxed">
                   These two activities require fundamentally different mindsets. Managing collections is about overview and organization. Editing a specific clause is about focus and precision. The old interface tried to serve both on the same screen — and served neither well.
                 </p>
               </div>
@@ -1725,18 +1239,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </section>
 
           {/* CTA */}
-          <footer className="py-48 text-center bg-stone-900 text-white rounded-[100px] mx-6 mb-20 shadow-2xl">
-            <div className="max-w-4xl mx-auto px-6">
-              <p className="font-serif text-4xl md:text-5xl mb-16 opacity-90">Ready to untangle <br />complexity?</p>
-              <button
-                onClick={onBack}
-                className="px-16 py-6 bg-white text-black rounded-full font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl mb-16"
-              >
-                Back to Portfolio
-              </button>
-              <ProjectNavigation currentProjectId={project.id} variant="dark" />
-            </div>
-          </footer>
+          <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
         </main>
       </div>
     );
@@ -1750,47 +1253,42 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
       <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
 
         {/* HERO */}
-        <header className="relative w-full pt-48 pb-32 flex flex-col items-center bg-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-600 mb-8">Side Project — Product Design</h4>
-            <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
+        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
+          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-emerald-600 mb-6 md:mb-8">Side Project — Product Design</h4>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Arabic <span className="italic text-stone-300">Syntax Lab</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
               Interactive platform for learning Arabic language syntax and grammar through visual sentence structure analysis.
             </p>
           </div>
 
           {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-6 mb-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Role</p>
-                <p className="font-medium text-stone-700">Product Designer</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Platform</p>
-                <p className="font-medium text-stone-700">Web Application</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Context</p>
-                <p className="font-medium text-stone-700">Side Project</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Year</p>
-                <p className="font-medium text-stone-700">2024</p>
-              </div>
+          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+              {[
+                { label: "Role", val: "Product Designer" },
+                { label: "Platform", val: "Web Application" },
+                { label: "Context", val: "Side Project" },
+                { label: "Year", val: "2024" }
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
+                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Hero Image Placeholder */}
-          <div className="w-full max-w-[1200px] px-6">
-            <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-gradient-to-br from-emerald-50 to-stone-100 aspect-[16/9] flex items-center justify-center">
-              <div className="text-center">
-                <p className="text-stone-400 text-sm mb-2">[Figma Export]</p>
-                <p className="text-stone-600 font-medium">Hero Screenshot from Figma</p>
-                <p className="text-stone-400 text-xs mt-2">Arabic Syntax Learning Interface</p>
-              </div>
+          {/* Hero Image */}
+          <div className="w-full max-w-[1200px] px-container">
+            <div className="rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
+              <img
+                src="/images/mockups/arabic-syntax-mockup.png"
+                alt="Arabic Syntax Lab — premium educational software mockup"
+                className="w-full h-auto"
+              />
             </div>
           </div>
         </header>
@@ -1798,11 +1296,11 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         <main className="w-full bg-white">
 
           {/* CONTEXT & BACKGROUND */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">Why This Project</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-16 text-black">Why This Project</h2>
 
-              <p className="text-lg text-stone-600 leading-relaxed mb-12">
+              <p className="text-base md:text-lg text-stone-600 leading-relaxed mb-12">
                 I tried learning Arabic grammar the traditional way. Pages of rules, memorization, zero visualization.
                 It didn't work for me. I'm a visual learner — I need to see how things connect, not just read about it.
               </p>
@@ -1823,44 +1321,34 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </section>
 
           {/* THE PROBLEM */}
-          <section className="py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">What Sucks About Current Methods</h2>
+          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">What Sucks About Current Methods</h2>
 
-              <div className="bg-white p-10 rounded-2xl border border-stone-200 mb-12">
-                <p className="text-xl md:text-2xl leading-relaxed text-stone-700 italic">
+              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-10 md:mb-12">
+                <p className="text-lg md:text-2xl leading-relaxed text-stone-700 italic text-center">
                   "Open a grammar book. Page 1: 47 rules. No diagrams. Good luck."
                 </p>
               </div>
 
-              <div className="space-y-6 mb-12">
-                <div className="flex gap-4 items-start">
-                  <span className="text-red-400 text-2xl shrink-0">→</span>
-                  <div>
-                    <h4 className="font-medium text-stone-900 mb-1">Everything is abstract</h4>
-                    <p className="text-stone-600">Text explaining text. No visuals. Your brain has to construct the mental model from scratch.</p>
+              <div className="space-y-6 md:space-y-8 mb-10 md:mb-12">
+                {[
+                  { title: "Everything is abstract", desc: "Text explaining text. No visuals. Your brain has to construct the mental model from scratch." },
+                  { title: "You can't experiment", desc: "Mess up a sentence? Start over on paper. No undo. No \"what if I move this word here?\"" },
+                  { title: "Patterns stay hidden", desc: "The connections between words are there, but you can't see them. So you never learn to recognize them." }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4 items-start">
+                    <span className="text-red-400 text-xl md:text-2xl shrink-0">→</span>
+                    <div>
+                      <h4 className="font-medium text-stone-900 mb-1">{item.title}</h4>
+                      <p className="text-sm md:text-base text-stone-600">{item.desc}</p>
+                    </div>
                   </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <span className="text-red-400 text-2xl shrink-0">→</span>
-                  <div>
-                    <h4 className="font-medium text-stone-900 mb-1">You can't experiment</h4>
-                    <p className="text-stone-600">Mess up a sentence? Start over on paper. No undo. No "what if I move this word here?"</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-4 items-start">
-                  <span className="text-red-400 text-2xl shrink-0">→</span>
-                  <div>
-                    <h4 className="font-medium text-stone-900 mb-1">Patterns stay hidden</h4>
-                    <p className="text-stone-600">The connections between words are there, but you can't see them. So you never learn to recognize them.</p>
-                  </div>
-                </div>
+                ))}
               </div>
 
               <div className="bg-amber-50 p-6 rounded-xl border border-amber-200">
-                <p className="text-amber-900 text-sm">
+                <p className="text-amber-900 text-xs md:text-sm">
                   <strong>Note to self:</strong> Add screenshot from Figma comparing boring textbook vs. this interface.
                 </p>
               </div>
@@ -1868,73 +1356,50 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </section>
 
           {/* DESIGN APPROACH */}
-          <section className="py-32 bg-white">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">How I Fixed It</h2>
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">How I Fixed It</h2>
 
-              <p className="text-lg text-stone-600 leading-relaxed mb-12">
+              <p className="text-base md:text-lg text-stone-600 leading-relaxed mb-10 md:mb-12">
                 Simple rule: if you can't see it, it doesn't exist. Everything in this tool is visible, clickable, and movable.
               </p>
 
-              <div className="space-y-8">
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
-                    <span className="text-emerald-600 font-bold">1</span>
+              <div className="space-y-6 md:space-y-8">
+                {[
+                  { num: "1", title: "Drag-and-drop sentences", desc: "Build sentences like LEGO. Move words around. See what breaks. Learn by breaking things." },
+                  { num: "2", title: "Color-coded grammar", desc: "Each grammar role gets a color. After 10 minutes, you start seeing the pattern without thinking." },
+                  { num: "3", title: "Instant feedback", desc: "Wrong word order? The line turns red. Right order? Green. No waiting for a teacher to grade your homework." },
+                  { num: "4", title: "Progressive difficulty", desc: "Start with 2-word sentences. Work up to complex structures. No chapter tests. Just levels that unlock." }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-6">
+                    <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+                      <span className="text-emerald-600 font-bold">{item.num}</span>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-medium text-stone-900 mb-2">{item.title}</h4>
+                      <p className="text-sm md:text-base text-stone-600">{item.desc}</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-stone-900 mb-2">Drag-and-drop sentences</h4>
-                    <p className="text-stone-600">Build sentences like LEGO. Move words around. See what breaks. Learn by breaking things.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
-                    <span className="text-emerald-600 font-bold">2</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-stone-900 mb-2">Color-coded grammar</h4>
-                    <p className="text-stone-600">Each grammar role gets a color. After 10 minutes, you start seeing the pattern without thinking.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
-                    <span className="text-emerald-600 font-bold">3</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-stone-900 mb-2">Instant feedback</h4>
-                    <p className="text-stone-600">Wrong word order? The line turns red. Right order? Green. No waiting for a teacher to grade your homework.</p>
-                  </div>
-                </div>
-
-                <div className="flex gap-6">
-                  <div className="w-12 h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
-                    <span className="text-emerald-600 font-bold">4</span>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-stone-900 mb-2">Progressive difficulty</h4>
-                    <p className="text-stone-600">Start with 2-word sentences. Work up to complex structures. No chapter tests. Just levels that unlock.</p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>
 
-          {/* KEY FEATURES - DETAILED BREAKDOWN */}
-          <section className="py-32 bg-stone-50 border-t border-stone-100">
-            <div className="max-w-6xl mx-auto px-6">
+          {/* THE GOOD STUFF */}
+          <section className="py-20 md:py-32 bg-stone-50 border-t border-stone-100">
+            <div className="max-w-6xl mx-auto px-container">
               <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">The Good Stuff</h2>
 
               {/* Feature 1: Sentence Builder */}
-              <div className="mb-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="mb-20 md:mb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
                   <div>
-                    <h4 className="text-2xl font-serif mb-4 text-black">The Sentence Builder</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
+                    <h4 className="text-2xl font-serif mb-4 text-black text-[clamp(1.5rem,4vw,2rem)]">The Sentence Builder</h4>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed mb-6">
                       Think of it like a puzzle. You have a pile of words. You drag them into the sentence area.
                       Drop a verb in the wrong spot? It bounces back. Get it right? It snaps into place with a satisfying click.
                     </p>
-                    <p className="text-base text-stone-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                       The color of each word tells you its grammatical role before you even place it.
                       After a while, you start seeing the pattern: "Oh, that word is always that color..."
                     </p>
@@ -1942,8 +1407,8 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   <div className="relative">
                     <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
                       <div className="text-center p-8">
-                        <p className="text-stone-500 text-sm mb-2">[Screenshot from Figma]</p>
-                        <p className="text-stone-700 font-medium">Sentence builder interface</p>
+                        <p className="text-stone-500 text-[10px] md:text-sm mb-2 uppercase tracking-widest">[Figma Visualization]</p>
+                        <p className="text-stone-700 font-medium text-sm md:text-base">Sentence builder interface</p>
                       </div>
                     </div>
                   </div>
@@ -1951,22 +1416,22 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
               </div>
 
               {/* Feature 2: Visual Feedback */}
-              <div className="mb-24">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="mb-20 md:mb-24">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
                   <div className="order-2 lg:order-1">
                     <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
                       <div className="text-center p-8">
-                        <p className="text-stone-500 text-sm mb-2">[Screenshot from Figma]</p>
-                        <p className="text-stone-700 font-medium">Visual feedback system</p>
+                        <p className="text-stone-500 text-[10px] md:text-sm mb-2 uppercase tracking-widest">[Figma Visualization]</p>
+                        <p className="text-stone-700 font-medium text-sm md:text-base">Visual feedback system</p>
                       </div>
                     </div>
                   </div>
                   <div className="order-1 lg:order-2">
-                    <h4 className="text-2xl font-serif mb-4 text-black">No Guessing Games</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
+                    <h4 className="text-2xl font-serif mb-4 text-black text-[clamp(1.5rem,4vw,2rem)]">No Guessing Games</h4>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed mb-6">
                       Remember waiting a week for your homework to come back graded? Yeah, not here.
                     </p>
-                    <p className="text-base text-stone-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                       You know instantly if you're right. Green = good. Red = try again.
                       And if you're stuck, there's a hint button that doesn't just give you the answer —
                       it shows you why.
@@ -1976,15 +1441,15 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
               </div>
 
               {/* Feature 3: Pattern Recognition */}
-              <div>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div className="mb-0">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
                   <div>
-                    <h4 className="text-2xl font-serif mb-4 text-black">Learning Without Studying</h4>
-                    <p className="text-base text-stone-600 leading-relaxed mb-6">
+                    <h4 className="text-2xl font-serif mb-4 text-black text-[clamp(1.5rem,4vw,2rem)]">Learning Without Studying</h4>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed mb-6">
                       The best part? You're not memorizing rules. You're recognizing patterns.
                       Like how you know a face looks "off" without being able to explain why.
                     </p>
-                    <p className="text-base text-stone-600 leading-relaxed">
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">
                       After 20 minutes of dragging words around, something clicks.
                       You start feeling the grammar instead of calculating it.
                     </p>
@@ -1992,8 +1457,8 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   <div className="relative">
                     <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
                       <div className="text-center p-8">
-                        <p className="text-stone-500 text-sm mb-2">[Screenshot from Figma]</p>
-                        <p className="text-stone-700 font-medium">Pattern visualization</p>
+                        <p className="text-stone-500 text-[10px] md:text-sm mb-2 uppercase tracking-widest">[Figma Visualization]</p>
+                        <p className="text-stone-700 font-medium text-sm md:text-base">Pattern visualization</p>
                       </div>
                     </div>
                   </div>
@@ -2003,53 +1468,27 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </section>
 
           {/* WHAT I LEARNED */}
-          <section className="py-32 bg-white border-t border-stone-100">
-            <div className="max-w-4xl mx-auto px-6">
-              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">What I Learned</h2>
+          <section className="py-20 md:py-32 bg-white border-t border-stone-100">
+            <div className="max-w-4xl mx-auto px-container">
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">What I Learned</h2>
 
-              <div className="space-y-8">
-                <div className="border-l-4 border-emerald-500 pl-6">
-                  <h4 className="font-medium text-stone-900 mb-2">Teaching is designing</h4>
-                  <p className="text-stone-600">
-                    Every time I got stuck designing a feature, I asked: "How would I explain this to someone?"
-                    That question solved more problems than any design pattern.
-                  </p>
-                </div>
-
-                <div className="border-l-4 border-emerald-500 pl-6">
-                  <h4 className="font-medium text-stone-900 mb-2">Constraints force clarity</h4>
-                  <p className="text-stone-600">
-                    I couldn't build everything, so I had to choose what actually mattered.
-                    Turns out, 3 solid features beat 10 mediocre ones.
-                  </p>
-                </div>
-
-                <div className="border-l-4 border-emerald-500 pl-6">
-                  <h4 className="font-medium text-stone-900 mb-2">Build for yourself first</h4>
-                  <p className="text-stone-600">
-                    I was the user. When something felt clunky to me, it was clunky.
-                    No user research needed — just honest self-reflection.
-                  </p>
-                </div>
+              <div className="space-y-6 md:space-y-8">
+                {[
+                  { title: "Teaching is designing", desc: "Every time I got stuck designing a feature, I asked: \"How would I explain this to someone?\" That question solved more problems than any design pattern." },
+                  { title: "Constraints force clarity", desc: "I couldn't build everything, so I had to choose what actually mattered. Turns out, 3 solid features beat 10 mediocre ones." },
+                  { title: "Build for yourself first", desc: "I was the user. When something felt clunky to me, it was clunky. No user research needed — just honest self-reflection." }
+                ].map((item, i) => (
+                  <div key={i} className="border-l-4 border-emerald-500 pl-6">
+                    <h4 className="font-medium text-stone-900 mb-2">{item.title}</h4>
+                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </section>
 
           {/* CTA */}
-          <footer className="py-32 text-center bg-stone-900 text-white mx-6 mb-20">
-            <div className="max-w-4xl mx-auto px-6">
-              <p className="font-serif text-3xl md:text-4xl mb-12 opacity-90">
-                Side project. Built in evenings. <br />
-                Actually useful.
-              </p>
-              <button
-                onClick={onBack}
-                className="px-12 py-5 bg-white text-black rounded-full font-bold uppercase text-xs tracking-widest hover:scale-105 active:scale-95 transition-all"
-              >
-                Back to Work
-              </button>
-            </div>
-          </footer>
+          <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
         </main>
       </div>
     );
@@ -2064,9 +1503,9 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
         {/* NAV */}
         <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-container h-16 flex items-center justify-between">
             <button onClick={onBack} className="flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
               Back to Portfolio
             </button>
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Side Project</span>
@@ -2074,142 +1513,139 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         </nav>
 
         {/* HERO */}
-        <header className="relative w-full pt-40 pb-24 flex flex-col items-center bg-white border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-12">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-orange-500 mb-8">Cooking App — UI/UX Design</h4>
-            <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
+        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
+          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-12">
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-orange-500 mb-6 md:mb-8">Cooking App — UI/UX Design</h4>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Cook<span className="italic text-stone-300">it</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
+            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
               Your kitchen should make you feel comfortable. Improving the display of recipes
               and their integration into the preparation process.
             </p>
           </div>
 
           {/* Meta */}
-          <div className="max-w-4xl mx-auto px-6 mb-16">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Role</p>
-                <p className="font-medium text-stone-700">Product Designer</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Platform</p>
-                <p className="font-medium text-stone-700">Mobile App</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Type</p>
-                <p className="font-medium text-stone-700">Side Project</p>
-              </div>
-              <div>
-                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-2">Year</p>
-                <p className="font-medium text-stone-700">2021</p>
-              </div>
+          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+              {[
+                { label: "Role", val: "Product Designer" },
+                { label: "Platform", val: "Mobile App" },
+                { label: "Type", val: "Side Project" },
+                { label: "Year", val: "2021" }
+              ].map((item, i) => (
+                <div key={i}>
+                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
+                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Hero Image */}
-          <div className="w-full">
+          <div className="w-full px-container max-w-[1200px]">
             <img
               src="/images/cooka/customization-onboarding-screens.png"
               alt="Cookit app screens overview"
-              className="w-full h-auto"
+              className="w-full h-auto rounded-xl md:rounded-[24px]"
             />
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto px-6">
+        <main className="w-full bg-white">
+          <div className="max-w-4xl mx-auto px-container">
 
-          {/* THE PROBLEM */}
-          <section className="py-20 border-b border-stone-200">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">The Problem</h4>
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-8 leading-tight">
-              The web is full of recipes, but finding the right one takes too long
-            </h2>
-            <p className="text-stone-500 text-lg leading-relaxed mb-6">
-              Information overload makes recipe discovery overwhelming. Users spend more time
-              searching and reading than actually cooking. The gap between finding a recipe
-              and starting to cook is unnecessarily wide.
-            </p>
-            <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mt-10">
-              <img
-                src="/images/cooka/user-journey-flow.png"
-                alt="User journey flow analysis"
-                className="w-full h-auto"
-              />
-            </div>
-          </section>
+            {/* THE PROBLEM */}
+            <section className="py-20 md:py-32 border-b border-stone-200">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">The Problem</h4>
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-8 leading-tight">
+                The web is full of recipes, but finding the right one takes too long
+              </h2>
+              <p className="text-stone-600 text-base md:text-lg leading-relaxed mb-10 md:mb-12">
+                Information overload makes recipe discovery overwhelming. Users spend more time
+                searching and reading than actually cooking. The gap between finding a recipe
+                and starting to cook is unnecessarily wide.
+              </p>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-stone-100">
+                <img
+                  src="/images/cooka/user-journey-flow.png"
+                  alt="User journey flow analysis"
+                  className="w-full h-auto"
+                />
+              </div>
+            </section>
 
-          {/* GOALS */}
-          <section className="py-20 border-b border-stone-200">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Design Goals</h4>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-2xl p-8 border border-stone-100">
-                <span className="text-3xl mb-4 block">&#128065;</span>
-                <h3 className="font-semibold text-lg mb-2">Visual Comparison</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">Create an intuitive visual representation of recipes enabling easy comparison</p>
-              </div>
-              <div className="bg-white rounded-2xl p-8 border border-stone-100">
-                <span className="text-3xl mb-4 block">&#9881;</span>
-                <h3 className="font-semibold text-lg mb-2">Personalization</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">Customize recipes and ingredients based on user preferences and habits</p>
-              </div>
-              <div className="bg-white rounded-2xl p-8 border border-stone-100">
-                <span className="text-3xl mb-4 block">&#128588;</span>
-                <h3 className="font-semibold text-lg mb-2">Hands-Free</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">Present recipes without requiring user interaction during cooking</p>
-              </div>
-              <div className="bg-white rounded-2xl p-8 border border-stone-100">
-                <span className="text-3xl mb-4 block">&#128214;</span>
-                <h3 className="font-semibold text-lg mb-2">Smart Recipe Book</h3>
-                <p className="text-stone-500 text-sm leading-relaxed">Organize customized recipes into an advanced, personalized collection</p>
-              </div>
-            </div>
-          </section>
-
-          {/* USER TYPES */}
-          <section className="py-20 border-b border-stone-200">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">User Research</h4>
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-8 leading-tight">
-              Three types of kitchen users
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-              <div className="text-center p-6">
-                <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">&#128269;</span>
+            {/* GOALS */}
+            <section className="py-20 border-b border-stone-200">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Design Goals</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+                  <span className="text-3xl mb-4 block">&#128065;</span>
+                  <h3 className="font-semibold text-lg mb-2">Visual Comparison</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed">Create an intuitive visual representation of recipes enabling easy comparison</p>
                 </div>
-                <h3 className="font-semibold mb-2">Recipe Seekers</h3>
-                <p className="text-stone-500 text-sm">Looking for specific recipes with clear intent</p>
-              </div>
-              <div className="text-center p-6">
-                <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">&#127881;</span>
+                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+                  <span className="text-3xl mb-4 block">&#9881;</span>
+                  <h3 className="font-semibold text-lg mb-2">Personalization</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed">Customize recipes and ingredients based on user preferences and habits</p>
                 </div>
-                <h3 className="font-semibold mb-2">Spontaneous Users</h3>
-                <p className="text-stone-500 text-sm">Discovering casual recipes for inspiration</p>
-              </div>
-              <div className="text-center p-6">
-                <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">&#128197;</span>
+                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+                  <span className="text-3xl mb-4 block">&#128588;</span>
+                  <h3 className="font-semibold text-lg mb-2">Hands-Free</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed">Present recipes without requiring user interaction during cooking</p>
                 </div>
-                <h3 className="font-semibold mb-2">Planners</h3>
-                <p className="text-stone-500 text-sm">Saving recipes and planning meals ahead</p>
+                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+                  <span className="text-3xl mb-4 block">&#128214;</span>
+                  <h3 className="font-semibold text-lg mb-2">Smart Recipe Book</h3>
+                  <p className="text-stone-500 text-sm leading-relaxed">Organize customized recipes into an advanced, personalized collection</p>
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
 
-          {/* CUSTOMIZATION */}
-          {/* CUSTOMIZATION TEXT */}
-          <section className="py-20 pb-10">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Key Feature</h4>
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-4 leading-tight">
-              Focus only on what you like
-            </h2>
-            <p className="text-stone-500 text-lg leading-relaxed">
-              Users set their preferences — egg dosage in cakes, milk alternatives, dietary
-              restrictions — and the app prioritizes relevant recipes accordingly.
-            </p>
-          </section>
+            {/* USER TYPES */}
+            <section className="py-20 border-b border-stone-200">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">User Research</h4>
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-8 leading-tight">
+                Three types of kitchen users
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                <div className="text-center p-6">
+                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">&#128269;</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Recipe Seekers</h3>
+                  <p className="text-stone-500 text-sm">Looking for specific recipes with clear intent</p>
+                </div>
+                <div className="text-center p-6">
+                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">&#127881;</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Spontaneous Users</h3>
+                  <p className="text-stone-500 text-sm">Discovering casual recipes for inspiration</p>
+                </div>
+                <div className="text-center p-6">
+                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <span className="text-2xl">&#128197;</span>
+                  </div>
+                  <h3 className="font-semibold mb-2">Planners</h3>
+                  <p className="text-stone-500 text-sm">Saving recipes and planning meals ahead</p>
+                </div>
+              </div>
+            </section>
+
+            {/* CUSTOMIZATION */}
+            {/* CUSTOMIZATION TEXT */}
+            <section className="py-20 md:py-32 pb-10">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Key Feature</h4>
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-4 leading-tight">
+                Focus only on what you like
+              </h2>
+              <p className="text-stone-600 text-base md:text-lg leading-relaxed">
+                Users set their preferences — egg dosage in cakes, milk alternatives, dietary
+                restrictions — and the app prioritizes relevant recipes accordingly.
+              </p>
+            </section>
+          </div>
         </main>
 
         {/* CUSTOMIZATION GIFs — FULL WIDTH SIDE BY SIDE */}
@@ -2232,65 +1668,69 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </div>
         </section>
 
-        <main className="max-w-4xl mx-auto px-6">
+        <main className="w-full bg-white">
+          <div className="max-w-4xl mx-auto px-container">
 
-          {/* STEP BY STEP */}
-          <section className="py-20 border-b border-stone-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Cooking Mode</h4>
-                <h2 className="font-serif text-3xl text-black mb-4 leading-tight">
-                  Step-by-step: the cooking equivalent of driving mode
-                </h2>
-                <p className="text-stone-500 leading-relaxed">
-                  Displays only the ingredients relevant to the current cooking stage.
-                  No scrolling, no confusion — just what you need right now.
-                </p>
+            {/* STEP BY STEP */}
+            <section className="py-20 md:py-32 border-b border-stone-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+                <div>
+                  <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Cooking Mode</h4>
+                  <h2 className="font-serif text-3xl text-black mb-6 leading-tight text-[clamp(1.5rem,4vw,2rem)]">
+                    Step-by-step: the cooking equivalent of driving mode
+                  </h2>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+                    Displays only the ingredients relevant to the current cooking stage.
+                    No scrolling, no confusion — just what you need right now.
+                  </p>
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-100 bg-stone-50">
+                  <video
+                    src="/images/cooka/cooking-mode-video.mp4"
+                    poster="/images/cooka/cooking-mode-video-poster.jpg"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-auto"
+                  />
+                </div>
               </div>
-              <div className="rounded-2xl overflow-hidden">
-                <video
-                  src="/images/cooka/cooking-mode-video.mp4"
-                  poster="/images/cooka/cooking-mode-video-poster.jpg"
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-auto rounded-2xl"
-                />
-              </div>
-            </div>
-          </section>
+            </section>
 
-          {/* HANDS FREE */}
-          <section className="py-20 border-b border-stone-200">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-              <div className="order-2 md:order-1 flex justify-center">
-                <img
-                  src="/images/cooka/feed-phone-mockup.png"
-                  alt="Hands-free cooking mode interface"
-                  className="w-full max-w-[280px] h-auto rounded-2xl shadow-lg"
-                />
+            {/* HANDS FREE */}
+            <section className="py-20 md:py-32 border-b border-stone-200">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+                <div className="order-2 md:order-1 flex justify-center">
+                  <div className="relative">
+                    <img
+                      src="/images/cooka/feed-phone-mockup.png"
+                      alt="Hands-free cooking mode interface"
+                      className="w-full max-w-[240px] md:max-w-[280px] h-auto rounded-[32px] shadow-2xl border border-stone-100"
+                    />
+                  </div>
+                </div>
+                <div className="order-1 md:order-2">
+                  <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Innovation</h4>
+                  <h2 className="font-serif text-3xl text-black mb-6 leading-tight text-[clamp(1.5rem,4vw,2rem)]">
+                    Hands-free mode
+                  </h2>
+                  <p className="text-stone-600 text-sm md:text-base leading-relaxed">
+                    Hand gestures navigate between recipe steps while cooking with wet or messy
+                    hands. No touching the screen needed.
+                  </p>
+                </div>
               </div>
-              <div className="order-1 md:order-2">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Innovation</h4>
-                <h2 className="font-serif text-3xl text-black mb-4 leading-tight">
-                  Hands-free mode
-                </h2>
-                <p className="text-stone-500 leading-relaxed">
-                  Hand gestures navigate between recipe steps while cooking with wet or messy
-                  hands. No touching the screen needed.
-                </p>
-              </div>
-            </div>
-          </section>
+            </section>
 
-          {/* DESIGN SYSTEM */}
-          <section className="py-20 pb-10">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Design System</h4>
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-0 leading-tight">
-              Typography & Colors
-            </h2>
-          </section>
+            {/* DESIGN SYSTEM */}
+            <section className="py-20 md:py-32 pb-10">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Design System</h4>
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-0 leading-tight">
+                Typography & Colors
+              </h2>
+            </section>
+          </div>
         </main>
 
         {/* STYLE GUIDE — FULL WIDTH */}
@@ -2302,43 +1742,37 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           />
         </section>
 
-        <main className="max-w-4xl mx-auto px-6">
-          <section className="py-10 border-b border-stone-200">
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-10 leading-tight">
-              Key Screens
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
-              <div className="flex justify-center">
-                <img
-                  src="/images/cooka/hero-phone-mockup.png"
-                  alt="Recipe view screen"
-                  className="w-full max-w-[240px] h-auto rounded-2xl shadow-lg mx-auto"
-                />
+        <main className="w-full bg-white">
+          <div className="max-w-6xl mx-auto px-container">
+            <section className="py-20 md:py-32 border-b border-stone-200">
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-10 md:mb-16 leading-tight text-center">
+                Key Screens
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 items-center">
+                {[
+                  { src: "/images/cooka/hero-phone-mockup.png", alt: "Recipe view screen" },
+                  { src: "/images/cooka/cooking-mode-video-poster.jpg", alt: "Cooking mode screen" },
+                  { src: "/images/cooka/feed-phone-mockup.png", alt: "Hands-free mode screen" }
+                ].map((item, i) => (
+                  <div key={i} className="flex justify-center">
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      className="w-full max-w-[240px] md:max-w-[260px] h-auto rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.12)] mx-auto border border-stone-100"
+                    />
+                  </div>
+                ))}
               </div>
-              <div className="flex justify-center">
-                <img
-                  src="/images/cooka/cooking-mode-video-poster.jpg"
-                  alt="Cooking mode screen"
-                  className="w-full max-w-[240px] h-auto rounded-2xl shadow-lg mx-auto"
-                />
-              </div>
-              <div className="flex justify-center">
-                <img
-                  src="/images/cooka/feed-phone-mockup.png"
-                  alt="Hands-free mode screen"
-                  className="w-full max-w-[240px] h-auto rounded-2xl shadow-lg mx-auto"
-                />
-              </div>
-            </div>
-          </section>
+            </section>
 
-          {/* MOCKUPS HEADER */}
-          <section className="py-20 pb-8">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Final Result</h4>
-            <h2 className="font-serif text-3xl md:text-4xl text-black mb-0 leading-tight">
-              Mockups
-            </h2>
-          </section>
+            {/* MOCKUPS HEADER */}
+            <section className="py-20 md:py-32 pb-8 md:pb-12 text-center">
+              <h4 className="text-[10px] font-bold uppercase tracking-[0.4em] text-orange-500 mb-6">Final Result</h4>
+              <h2 className="font-serif text-3xl md:text-4xl text-black mb-0 leading-tight">
+                Mockups
+              </h2>
+            </section>
+          </div>
         </main>
 
         {/* MOCKUPS — FULL WIDTH */}
@@ -2350,31 +1784,21 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           />
         </section>
 
-        <main className="max-w-4xl mx-auto px-6">
+        <main className="w-full bg-white">
+          <div className="max-w-4xl mx-auto px-container">
 
-          {/* PHILOSOPHY */}
-          <section className="py-20">
-            <div className="bg-orange-50 rounded-3xl p-12 md:p-16 text-center">
-              <p className="font-serif text-2xl md:text-3xl text-stone-800 leading-relaxed italic max-w-2xl mx-auto">
-                "By reducing the bureaucracy in recipes, this app hopes to increase
-                the emotional response to cooking."
-              </p>
-            </div>
+            {/* PHILOSOPHY */}
+            <section className="py-20 md:py-32">
+              <div className="bg-orange-50 rounded-3xl p-10 md:p-16 text-center border border-orange-100">
+                <p className="font-serif text-2xl md:text-3xl text-stone-800 leading-relaxed italic max-w-2xl mx-auto">
+                  "By reducing the bureaucracy in recipes, this app hopes to increase
+                  the emotional response to cooking."
+                </p>
+              </div>
+            </section>
 
-            <div className="text-center mt-16">
-              <button
-                onClick={onBack}
-                className="px-10 py-4 bg-black text-white rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-all"
-              >
-                Back to Work
-              </button>
-            </div>
-
-            <div className="mt-16">
-              <ProjectNavigation currentProjectId={project.id} variant="light" />
-            </div>
-          </section>
-
+            <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
+          </div>
         </main>
       </div>
     );
@@ -2386,12 +1810,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         <h1 className="text-6xl font-serif mb-4">{project.title}</h1>
         <p className="text-stone-400">{project.description}</p>
       </header>
-      <div className="max-w-4xl mx-auto py-20 px-6 text-center">
-        <button onClick={onBack} className="px-10 py-4 bg-black text-white rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-all">Close Project</button>
-        <div className="mt-16">
-          <ProjectNavigation currentProjectId={project.id} variant="light" />
-        </div>
-      </div>
+      <CaseStudyFooter projectId={project.id} onBack={onBack} category={project.category} />
     </div>
   );
 };

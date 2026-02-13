@@ -48,12 +48,11 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
-          isScrolled ? 'bg-[#f4f3f1]/95 backdrop-blur-sm' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? 'bg-[#f4f3f1]/95 backdrop-blur-sm' : 'bg-transparent'
+          }`}
       >
-        <div className="px-6 md:px-12 lg:px-16">
-          <nav className="flex items-center justify-between py-5 border-b border-[#d9d6d1]">
+        <div className="px-container">
+          <nav className="flex items-center justify-between py-4 md:py-5 border-b border-[#d9d6d1]">
             {/* Logo - Sharp, Technical */}
             <button
               onClick={() => {
@@ -97,7 +96,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
                   <span className="absolute bottom-1 left-4 right-4 h-px bg-[#0c0c0a] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </button>
               ))}
-              
+
               {/* CTA Button - Sharp, No Radius */}
               {!isInternal && (
                 <button
@@ -143,13 +142,13 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 z-[99] bg-[#f4f3f1] md:hidden"
+            className="fixed inset-0 z-[99] bg-[#f4f3f1] md:hidden flex flex-col"
           >
             {/* Close button area at top */}
             <div className="h-20" />
-            
+
             {/* Menu Items */}
-            <div className="flex flex-col px-6 pt-8">
+            <div className="flex flex-col px-container pt-8 flex-1">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
@@ -160,19 +159,19 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
                   onClick={() => scrollToSection(item.id)}
                   className="text-left py-6 border-b border-[#d9d6d1] group"
                 >
-                  <span className="text-[2rem] font-semibold text-[#0c0c0a] tracking-[-0.03em] group-hover:text-[#a8a39a] transition-colors">
+                  <span className="text-[clamp(1.5rem,8vw,2.5rem)] font-semibold text-[#0c0c0a] tracking-[-0.03em] group-hover:text-[#a8a39a] transition-colors">
                     {item.label}
                   </span>
                 </motion.button>
               ))}
-              
+
               <motion.button
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
                 transition={{ delay: 0.24, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => scrollToSection('contact')}
-                className="mt-8 px-6 py-4 bg-[#0c0c0a] text-[#f4f3f1] text-[0.8125rem] font-semibold uppercase tracking-[0.1em]"
+                className="mt-8 px-6 py-4 bg-[#0c0c0a] text-[#f4f3f1] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] w-full"
               >
                 LET'S TALK
               </motion.button>
@@ -183,7 +182,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="absolute bottom-8 left-6 right-6"
+              className="px-container pb-8"
             >
               <div className="flex justify-between text-[0.6875rem] text-[#a8a39a]">
                 <span>TEL AVIV, IL</span>

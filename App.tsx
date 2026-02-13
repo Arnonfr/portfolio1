@@ -11,6 +11,7 @@ import { Footer } from './components/Footer';
 import { ProjectPage } from './components/ProjectPage';
 import { WebTraderCaseStudy } from './components/WebTraderCaseStudy';
 import { ArabicSyntaxCaseStudy } from './components/ArabicSyntaxCaseStudy';
+import { SmartClausesCaseStudy } from './components/SmartClausesCaseStudy';
 import { SideProjectsPage } from './components/SideProjectsPage';
 import { HomeAlternative } from './components/HomeAlternative';
 import { NewHomepage } from './components/NewHomepage';
@@ -35,13 +36,7 @@ const ProjectRouteHandler = () => {
     return <div>Project not found</div>;
   }
 
-  if (project.id === 2) {
-    return <WebTraderCaseStudy onBack={() => navigate('/')} />;
-  }
 
-  if (project.id === 5) {
-    return <ArabicSyntaxCaseStudy onBack={() => navigate('/')} />;
-  }
 
   return (
     <ProjectPage
@@ -83,7 +78,7 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!(location.pathname === '/work/2' || location.pathname === '/work/4' || location.pathname === '/work/5') && (
+      {!(location.pathname === '/work/1' || location.pathname === '/work/4') && (
         <div
           style={{
             opacity: showNavbar ? 1 : 0,
@@ -108,7 +103,7 @@ function App() {
       <Routes>
         {/* New Homepage (Default) */}
         <Route path="/" element={
-          <NewHomepage 
+          <NewHomepage
             onProjectSelect={handleProjectSelect}
             onExploreSideProjects={() => navigate('/side-projects')}
           />

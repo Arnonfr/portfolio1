@@ -4,6 +4,8 @@ import { Project } from '../types';
 import { PROJECTS } from '../data';
 import { ScrambleText, HoverScramble } from './ScrambleText';
 import { TextOnPathHero } from './TextOnPathHero';
+import { DigitalStack } from './DigitalStack';
+import { DotGridBackground } from './DotGridBackground';
 
 // ───────────────────────────────────────────────────────────
 // SHARED ANIMATION CONFIG
@@ -110,10 +112,10 @@ const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void
     <section
       id="work"
       ref={sectionRef}
-      className="w-full bg-[#f4f3f1] pt-8 pb-24 md:pb-32 relative"
+      className="w-full bg-[#f4f3f1] pt-8 pb-24 md:pb-32 relative px-container"
       onMouseMove={handleMouseMove}
     >
-      <div className="px-6 md:px-12 lg:px-16">
+      <div className="">
         {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -171,7 +173,7 @@ const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void
           </motion.div>
         )}
       </AnimatePresence>
-    </section>
+    </section >
   );
 };
 
@@ -275,8 +277,9 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="about" ref={ref} className="w-full bg-[#f4f3f1] py-24 md:py-32 relative">
-      <div className="px-6 md:px-12 lg:px-16">
+    <section id="about" ref={ref} className="w-full bg-[#f4f3f1] py-24 md:py-32 relative overflow-hidden px-container">
+      <DotGridBackground />
+      <div className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Label — narrow left column */}
           <motion.div
@@ -302,14 +305,13 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
           >
             <p className="text-[clamp(1.125rem,2vw,1.5rem)] text-[#2b2926] leading-[1.55] mb-8">
               I love simplifying complex processes.
-              With <strong className="font-semibold text-[#0c0c0a]">4 years as a product designer</strong> and{' '}
-              <strong className="font-semibold text-[#0c0c0a]">5 years in advertising design</strong>,
-              I've spent 9 years trying to understand how people think — through
+              With <strong className="font-semibold text-[#0c0c0a]">4 years in product design</strong> + past experience in advertising,
+              I've spent my time trying to understand how people think — through
               research, interviews, tools, and a lot of curiosity.
             </p>
             <p className="text-[clamp(1.125rem,2vw,1.5rem)] text-[#2b2926] leading-[1.55] mb-8">
               I'm a lecturer at{' '}
-              <strong className="font-semibold text-[#0c0c0a]">Trioola College</strong>,
+              <strong className="font-semibold text-[#0c0c0a]">Triolla College</strong>,
               I love to bake, and I have a broad understanding of{' '}
               <strong className="font-semibold text-[#0c0c0a]">AI tools for designers</strong>{' '}
               and beyond. I've also built several{' '}
@@ -326,7 +328,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
             <div className="flex flex-wrap gap-x-10 gap-y-4 pt-8 border-t border-[#d9d6d1]">
               <div>
                 <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">EXPERIENCE</span>
-                <span className="text-[0.9375rem] font-medium text-[#0c0c0a]">9 years (Product + Advertising)</span>
+                <span className="text-[0.9375rem] font-medium text-[#0c0c0a]">4 years</span>
               </div>
               <div>
                 <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">DOMAINS</span>
@@ -334,7 +336,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
               </div>
               <div>
                 <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">TEACHING</span>
-                <span className="text-[0.9375rem] font-medium text-[#0c0c0a]">Trioola College</span>
+                <span className="text-[0.9375rem] font-medium text-[#0c0c0a]">Triolla College</span>
               </div>
             </div>
           </motion.div>
@@ -371,8 +373,8 @@ const ExpertiseSection: React.FC = () => {
   ];
 
   return (
-    <section ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative">
-      <div className="px-6 md:px-12 lg:px-16">
+    <section ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container">
+      <div className="">
         {/* Section label */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -395,11 +397,8 @@ const ExpertiseSection: React.FC = () => {
               initial={{ opacity: 0, y: 25 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1, ease: EASE_POWER }}
-              className={`py-10 md:py-12 ${
-                index % 2 === 0 ? 'md:pr-12 md:border-r md:border-[#2b2926]' : 'md:pl-12'
-              } ${
-                index < 2 ? 'border-b border-[#2b2926]' : ''
-              } group`}
+              className={`py-10 md:py-12 ${index % 2 === 0 ? 'md:pr-12 md:border-r md:border-[#2b2926]' : 'md:pl-12'
+                } border-b border-[#2b2926] md:last:border-b-0 ${index === 2 ? 'md:border-b-0' : ''} group`}
             >
               <h3 className="text-[1.25rem] font-semibold text-[#f4f3f1] mb-3 tracking-[-0.02em]">
                 <HoverScramble text={item.title.toUpperCase()} className="text-[#f4f3f1]" />
@@ -423,8 +422,8 @@ const ContactSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="contact" ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative">
-      <div className="px-6 md:px-12 lg:px-16">
+    <section id="contact" ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container">
+      <div className="">
         {/* Large CTA heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -433,12 +432,12 @@ const ContactSection: React.FC = () => {
           className="mb-16 md:mb-20"
         >
           <TextReveal delay={0.1}>
-            <h2 className="text-[clamp(2.5rem,10vw,7rem)] font-bold text-[#f4f3f1] leading-[0.88] tracking-[-0.04em] uppercase">
+            <h2 className="text-[clamp(2.5rem,10vw,7rem)] font-bold text-[#f4f3f1] leading-[0.9] tracking-[-0.04em] uppercase">
               LET'S WORK
             </h2>
           </TextReveal>
           <TextReveal delay={0.2}>
-            <h2 className="text-[clamp(2.5rem,10vw,7rem)] font-bold text-[#a8a39a] leading-[0.88] tracking-[-0.04em] uppercase">
+            <h2 className="text-[clamp(2.5rem,10vw,7rem)] font-bold text-[#a8a39a] leading-[0.9] tracking-[-0.04em] uppercase">
               TOGETHER
             </h2>
           </TextReveal>
@@ -559,9 +558,20 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
   return (
     <div className="w-full">
       <div className="noise-overlay" />
+
+      {/* 1. Header with letters */}
       <TextOnPathHero />
-      <FeaturedWorkSection onProjectClick={onProjectSelect} />
+
+      {/* 2. About paragraph */}
       <AboutSection onExploreSideProjects={onExploreSideProjects} />
+
+      {/* 3. Projects */}
+      <FeaturedWorkSection onProjectClick={onProjectSelect} />
+
+      {/* 4. Tools (Digital Stack Pile) */}
+      <DigitalStack />
+
+      {/* 5. Rest of content */}
       <ExpertiseSection />
       <ContactSection />
     </div>
