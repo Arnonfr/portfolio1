@@ -78,7 +78,7 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!(location.pathname === '/work/1' || location.pathname === '/work/4') && (
+      {!(location.pathname.replace(/\/$/, '') === '/work/1' || location.pathname.replace(/\/$/, '') === '/work/4') && (
         <div
           style={{
             opacity: showNavbar ? 1 : 0,
