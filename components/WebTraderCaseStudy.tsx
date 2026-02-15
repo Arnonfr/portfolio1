@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
-import { ProjectNavigation } from './ProjectNavigation';
+import { CaseStudyFooterDiverge } from './CaseStudyFooterDiverge';
 
 interface WebTraderCaseStudyProps {
     onBack: () => void;
@@ -13,13 +13,13 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
         <div className="bg-white min-h-screen font-sans text-stone-900">
 
             {/* NAVIGATION */}
-            <nav className="fixed top-0 left-0 right-0 p-6 z-50 flex justify-between items-center mix-blend-difference text-white">
+            <nav className="fixed top-0 left-0 right-0 px-container py-6 z-50 flex justify-between items-center mix-blend-difference text-white">
                 <button
                     onClick={onBack}
                     className="flex items-center gap-2 hover:opacity-70 transition-opacity"
                 >
-                    <ArrowLeft size={24} />
-                    <span className="text-sm font-bold tracking-widest uppercase">Back</span>
+                    <ArrowLeft size={20} />
+                    <span className="text-sm font-bold tracking-widest uppercase">Back to Portfolio</span>
                 </button>
             </nav>
 
@@ -31,19 +31,19 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                     className="absolute inset-0 w-full h-full object-cover object-center"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/40 to-transparent" />
-                <div className="relative z-10 max-w-[1400px] w-full mx-auto px-10 pb-20">
+                <div className="relative z-10 max-w-[1400px] w-full mx-auto px-container pb-16 md:pb-20">
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.9, ease: "easeOut" }}
                     >
-                        <p className="text-[11px] font-bold tracking-[0.4em] uppercase text-blue-400 mb-5">
+                        <p className="text-[10px] md:text-[11px] font-bold tracking-[0.4em] uppercase text-blue-400 mb-4 md:mb-5">
                             AvaTrade · 2023
                         </p>
-                        <h1 className="text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-6">
+                        <h1 className="text-[clamp(2.5rem,10vw,4.5rem)] font-serif text-white leading-[1.05] mb-6">
                             Web Trader
                         </h1>
-                        <p className="text-lg text-stone-300 max-w-xl leading-relaxed">
+                        <p className="text-base md:text-lg text-stone-300 max-w-xl leading-relaxed">
                             Redesigning a retail trading terminal — turning raw signal data into readable investment proposals, then unifying them with execution and account management.
                         </p>
                     </motion.div>
@@ -51,25 +51,25 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </header>
 
             {/* ── METADATA ── */}
-            <section className="border-b border-stone-100">
-                <div className="max-w-[1400px] mx-auto px-10 py-16 grid grid-cols-2 md:grid-cols-4 gap-10">
+            <section className="border-b border-stone-100 px-container">
+                <div className="max-w-[1400px] mx-auto py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
                     <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-3">Role</p>
-                        <p className="text-base font-semibold">Product Designer</p>
-                        <p className="text-stone-500 text-sm mt-1">AvaTrade</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Role</p>
+                        <p className="text-sm md:text-base font-semibold">Product Designer</p>
+                        <p className="text-stone-500 text-[12px] md:text-sm mt-1">AvaTrade</p>
                     </div>
                     <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-3">Scope</p>
-                        <p className="text-base font-semibold">UX + UI</p>
-                        <p className="text-stone-500 text-sm mt-1">Mobile + Desktop</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Scope</p>
+                        <p className="text-sm md:text-base font-semibold">UX + UI</p>
+                        <p className="text-stone-500 text-[12px] md:text-sm mt-1">Mobile + Desktop</p>
                     </div>
                     <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-3">Year</p>
-                        <p className="text-base font-semibold">2023</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Year</p>
+                        <p className="text-sm md:text-base font-semibold">2023</p>
                     </div>
                     <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-3">Domain</p>
-                        <p className="text-base font-semibold">Fintech · Trading</p>
+                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Domain</p>
+                        <p className="text-sm md:text-base font-semibold">Fintech · Trading</p>
                     </div>
                 </div>
             </section>
@@ -79,15 +79,15 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             ══════════════════════════════════════════ */}
 
             {/* ── THE PROBLEM ── */}
-            <section className="py-32 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+            <section className="py-24 md:py-32 bg-white px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
                         <div>
                             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-red-500 mb-4 block">Part 1 · Signals</span>
-                            <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
+                            <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-8 leading-tight">
                                 Trading signals were a wall of numbers
                             </h2>
-                            <div className="space-y-5 text-lg text-stone-500 leading-relaxed">
+                            <div className="space-y-5 text-base md:text-lg text-stone-500 leading-relaxed">
                                 <p>
                                     AvaTrade's signals arrived as raw data tables — signal produced time, type, entry price, stop loss, take profit, key levels. Traders had to mentally decode each row before making any decision.
                                 </p>
@@ -112,32 +112,20 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── UNDERSTAND YOUR POSITION — sticky hole ── */}
-            {/*
-                The image doesn't scroll — it's pinned between two white sections.
-                height: 200vh container gives 100vh of scroll where the image holds.
-            */}
-            <div style={{ height: '200vh', position: 'relative' }}>
-                <div
-                    style={{
-                        position: 'sticky',
-                        top: 0,
-                        height: '100vh',
-                        overflow: 'hidden',
-                        backgroundColor: '#EEF4FF',
-                    }}
-                >
+            <div className="relative md:h-[200vh]">
+                <div className="md:sticky top-0 md:h-[100vh] overflow-hidden bg-[#EEF4FF]">
                     <img
                         src="/images/wt-position-explain.png"
                         alt="Signal detail — Understand your position"
-                        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                        className="w-full h-auto md:h-full object-contain"
                     />
 
-                    {/* Text panel overlaid on right side */}
-                    <div className="absolute inset-0 flex items-center justify-end pointer-events-none">
-                        <div className="w-full max-w-[1400px] mx-auto px-10 flex justify-end">
-                            <div className="max-w-xs bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl pointer-events-auto">
+                    {/* Text panel — overlaid on desktop, stacked on mobile */}
+                    <div className="md:absolute inset-0 flex items-center justify-end md:pointer-events-none px-container py-12 md:py-0">
+                        <div className="w-full max-w-[1400px] mx-auto md:flex justify-end">
+                            <div className="max-w-xs bg-white/90 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl md:pointer-events-auto">
                                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-4 block">Design Decision · 1</span>
-                                <h2 className="text-2xl font-serif mb-4 leading-snug">Understand your position</h2>
+                                <h2 className="text-xl md:text-2xl font-serif mb-4 leading-snug">Understand your position</h2>
                                 <p className="text-stone-600 leading-relaxed text-sm">
                                     Not the conventional trading chart. We simplified the data linearly — stop loss, entry, and take profit on one axis. Traders see instantly how much is at risk vs. how much can be gained.
                                 </p>
@@ -148,14 +136,14 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </div>
 
             {/* ── MAPPING & PRIORITISING ── */}
-            <section className="py-32 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="max-w-2xl mb-20">
+            <section className="py-24 md:py-32 bg-white px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="max-w-2xl mb-12 md:mb-20">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-500 mb-4 block">Design Decision · 2</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">
                             Mapping and prioritising data
                         </h2>
-                        <p className="text-lg text-stone-500 leading-relaxed">
+                        <p className="text-base md:text-lg text-stone-500 leading-relaxed">
                             We isolated the buy/sell recommendation — a binary decision — and made it visually dominant with colour. Every other data point was ranked by how often traders needed it and placed accordingly.
                         </p>
                     </div>
@@ -170,102 +158,96 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── DESIGN DECISION 3: TWO NUMBERS ── */}
-            <section className="py-32 bg-stone-50">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
-                        <div className="pt-8">
-                            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-500 mb-4 block">Design Decision · 3</span>
-                            <h2 className="text-4xl md:text-5xl font-serif mb-8 leading-tight">
-                                Two numbers that changed scanning behaviour
-                            </h2>
-                            <div className="space-y-6 text-lg text-stone-600 leading-relaxed">
-                                <p>
-                                    To help traders differentiate between signals at a glance, two key variables were added directly on the card face:
-                                </p>
-                                <div className="space-y-4">
-                                    <div className="flex items-start gap-4 border-l-2 border-amber-400 pl-4">
-                                        <div>
-                                            <p className="font-bold text-stone-900">The daily change</p>
-                                            <p className="text-stone-500 text-base mt-1">The % movement since market open — lets traders quickly rank which signals are most active.</p>
-                                        </div>
-                                    </div>
-                                    <div className="flex items-start gap-4 border-l-2 border-amber-400 pl-4">
-                                        <div>
-                                            <p className="font-bold text-stone-900">The profit and loss gap</p>
-                                            <p className="text-stone-500 text-base mt-1">The distance between stop loss and take profit — the risk/reward ratio made visible without calculations.</p>
-                                        </div>
-                                    </div>
+            <section className="py-24 md:py-32 bg-stone-50 px-container overflow-hidden">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-20 items-center">
+
+                        {/* Annotated signal card — LEFT */}
+                        <div className="relative rounded-2xl overflow-visible shadow-xl group max-w-md mx-auto lg:mx-0">
+                            <img
+                                src="/images/wt-signal1-clean.png"
+                                alt="Signal cards"
+                                className="w-full h-auto block rounded-2xl"
+                            />
+                            {/* ... SVG annotations and labels same but responsive ... */}
+                            <svg
+                                className="absolute inset-0 w-full h-full pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                                viewBox="0 0 475 902"
+                                preserveAspectRatio="none"
+                            >
+                                <rect x="288" y="228" width="94" height="38" rx="7" fill="none" stroke="#F59E0B" strokeWidth="2" />
+                                <path d="M 335,266 V 295 H 470" fill="none" stroke="#F59E0B" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <rect x="24" y="400" width="88" height="42" rx="7" fill="none" stroke="#F59E0B" strokeWidth="2" />
+                                <rect x="353" y="400" width="88" height="42" rx="7" fill="none" stroke="#F59E0B" strokeWidth="2" />
+                                <line x1="112" y1="421" x2="353" y2="421" stroke="#F59E0B" strokeWidth="1.5" />
+                                <line x1="441" y1="421" x2="470" y2="421" stroke="#F59E0B" strokeWidth="1.5" />
+                            </svg>
+
+                            {/* Label: Daily change */}
+                            <div className="absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 top-[30%] -right-[10%] md:-right-[18%]">
+                                <div className="bg-white rounded-lg px-2 py-1.5 md:px-3 md:py-2 shadow-md border-l-2 border-amber-400">
+                                    <p className="text-[9px] md:text-[11px] font-bold text-stone-800 whitespace-nowrap">Daily change</p>
                                 </div>
-                                <p>
-                                    Traders could now rank all signals at a glance — without opening a single one.
-                                </p>
+                            </div>
+
+                            {/* Label: P&L gap */}
+                            <div className="absolute pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 top-[45%] -right-[8%] md:-right-[14%]">
+                                <div className="bg-white rounded-lg px-2 py-1.5 md:px-3 md:py-2 shadow-md border-l-2 border-amber-400">
+                                    <p className="text-[9px] md:text-[11px] font-bold text-stone-800 whitespace-nowrap">P&L gap</p>
+                                </div>
                             </div>
                         </div>
 
-                        {/* Annotated signal card image */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-xl">
-                            <img
-                                src="/images/wt-signal-cards.png"
-                                alt="Signal cards — annotated"
-                                className="w-full h-auto block"
-                            />
-
-                            {/*
-                                SVG annotation overlay — viewBox matches SIde1.png native size (591 × 902)
-                                Lines point from key card elements to label tags.
-                                preserveAspectRatio="none" scales lines with the image.
-                            */}
-                            <svg
-                                className="absolute inset-0 w-full h-full pointer-events-none"
-                                viewBox="0 0 591 902"
-                                preserveAspectRatio="none"
-                            >
-                                {/* Daily change — points to % badge top-right of card */}
-                                <line x1="468" y1="198" x2="555" y2="170" stroke="#F59E0B" strokeWidth="2" />
-                                <circle cx="468" cy="198" r="5" fill="#F59E0B" />
-
-                                {/* P&L gap — points to stop loss / take profit row */}
-                                <line x1="440" y1="445" x2="555" y2="420" stroke="#F59E0B" strokeWidth="2" />
-                                <circle cx="440" cy="445" r="5" fill="#F59E0B" />
-                            </svg>
-
-                            {/* Label: daily change — positioned at ~18% from top, right edge */}
-                            <div
-                                className="absolute pointer-events-none"
-                                style={{ top: '16%', right: '3%' }}
-                            >
-                                <div className="bg-white rounded-lg px-3 py-2 shadow-md border-l-2 border-amber-400">
-                                    <p className="text-[11px] font-bold text-stone-800 whitespace-nowrap">Daily change</p>
+                        {/* Text — RIGHT */}
+                        <div className="lg:pl-16 text-center lg:text-left">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-500 mb-4 block">Design Decision · 3</span>
+                            <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-8 leading-tight">
+                                Two numbers that changed scanning behaviour
+                            </h2>
+                            <div className="space-y-6 text-base md:text-lg text-stone-600 leading-relaxed max-w-2xl mx-auto lg:mx-0">
+                                <p>
+                                    To help traders differentiate between signals at a glance, two key variables were added directly on the card face:
+                                </p>
+                                <div className="space-y-4 text-left">
+                                    <div className="border-l-2 border-amber-400 pl-4">
+                                        <p className="font-bold text-stone-900">The daily change</p>
+                                        <p className="text-stone-500 text-sm md:text-base mt-1">The % movement since market open — lets traders quickly rank which signals are most active.</p>
+                                    </div>
+                                    <div className="border-l-2 border-amber-400 pl-4">
+                                        <p className="font-bold text-stone-900">The profit and loss gap</p>
+                                        <p className="text-stone-500 text-sm md:text-base mt-1">The distance between stop loss and take profit — the risk/reward ratio made visible without calculations.</p>
+                                    </div>
                                 </div>
-                            </div>
-
-                            {/* Label: P&L gap — positioned at ~43% from top, right edge */}
-                            <div
-                                className="absolute pointer-events-none"
-                                style={{ top: '42%', right: '3%' }}
-                            >
-                                <div className="bg-white rounded-lg px-3 py-2 shadow-md border-l-2 border-amber-400">
-                                    <p className="text-[11px] font-bold text-stone-800 whitespace-nowrap">P&L gap</p>
-                                </div>
+                                <p>Traders could now rank all signals at a glance — without opening a single one.</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* ── SIGNAL RESULT — dark section, all 3 mobile views ── */}
-            <section className="py-32 bg-[#0a1628] text-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="max-w-2xl mb-16">
+            {/* ── SIGNAL RESULT — dark section ── */}
+            <section className="py-24 md:py-32 bg-[#0a1628] text-white px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="max-w-2xl mb-12 md:mb-16">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-400 mb-4 block">Result · Signals</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">
                             From a data table to a clear proposal
                         </h2>
-                        <p className="text-lg text-stone-400 leading-relaxed">
+                        <p className="text-base md:text-lg text-stone-400 leading-relaxed">
                             Each signal became a self-contained investment card — entry, exit, profit gap, and confidence, all readable in seconds.
                         </p>
                     </div>
 
+                    {/* Full before/after image */}
+                    <div className="rounded-3xl overflow-hidden border border-white/10 mb-8">
+                        <img
+                            src="/images/wt-signal-before-after.png"
+                            alt="From raw data table to redesigned signal card"
+                            className="w-full h-auto"
+                        />
+                    </div>
+
+                    {/* 3 mobile mockups below */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
                             <img
@@ -296,14 +278,14 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                 PART 2 — WEB TRADER PLATFORM
             ══════════════════════════════════════════ */}
 
-            <section className="py-32 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
+            <section className="py-24 md:py-32 bg-white px-container">
+                <div className="max-w-[1400px] mx-auto">
                     <div className="max-w-2xl">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-4 block">Part 2 · Web Trader Platform</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">
                             Bringing signals inside the terminal
                         </h2>
-                        <p className="text-lg text-stone-500 leading-relaxed">
+                        <p className="text-base md:text-lg text-stone-500 leading-relaxed">
                             Once the signal format was solved, the next challenge was embedding it into the trading terminal — so traders could act immediately without switching apps.
                         </p>
                     </div>
@@ -311,12 +293,12 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── ACCOUNT MANAGEMENT ── */}
-            <section className="py-32 bg-stone-50">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="max-w-2xl mb-20">
+            <section className="py-24 md:py-32 bg-stone-50 px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="max-w-2xl mb-12 md:mb-20">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-500 mb-4 block">Account Management</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">Fixing the mobile safety issues first</h2>
-                        <p className="text-lg text-stone-500 leading-relaxed">
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">Fixing the mobile safety issues first</h2>
+                        <p className="text-base md:text-lg text-stone-500 leading-relaxed">
                             Research showed mobile users were accidentally logging out during high-volatility moments. We restructured the account panel before touching anything else.
                         </p>
                     </div>
@@ -341,12 +323,12 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── DESKTOP PLATFORM ── */}
-            <section className="py-32 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="max-w-2xl mb-20">
+            <section className="py-24 md:py-32 bg-white px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="max-w-2xl mb-12 md:mb-20">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-4 block">Desktop</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6 leading-tight">Navigation hierarchy for power users</h2>
-                        <p className="text-lg text-stone-500 leading-relaxed">
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">Navigation hierarchy for power users</h2>
+                        <p className="text-base md:text-lg text-stone-500 leading-relaxed">
                             Desktop users needed deep filtering and quick symbol switching without leaving the chart. We split the left rail into execution tools (top) and settings (bottom).
                         </p>
                     </div>
@@ -357,12 +339,12 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── ITERATIONS ── */}
-            <section className="py-32 bg-[#0a1628]">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="max-w-2xl mb-16">
+            <section className="py-24 md:py-32 bg-[#0a1628] px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="max-w-2xl mb-12 md:mb-16">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-4 block">Process</span>
-                        <h2 className="text-4xl font-serif text-white mb-4">Several directions were tested</h2>
-                        <p className="text-stone-400 text-lg leading-relaxed">Across multiple iterations of signal format, layout density, and colour system before landing on the final direction.</p>
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif text-white mb-4">Several directions were tested</h2>
+                        <p className="text-stone-400 text-base md:text-lg leading-relaxed">Across multiple iterations of signal format, layout density, and colour system before landing on the final direction.</p>
                     </div>
                     <div className="rounded-3xl overflow-hidden border border-white/10">
                         <img src="/images/wt-iterations.png" alt="Design iterations" className="w-full h-auto" />
@@ -371,39 +353,28 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── OUTCOME ── */}
-            <section className="py-32 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="text-center max-w-2xl mx-auto mb-20">
+            <section className="py-24 md:py-32 bg-white px-container">
+                <div className="max-w-[1400px] mx-auto">
+                    <div className="text-center max-w-2xl mx-auto mb-16 md:mb-20">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-500 mb-4 block">Outcome</span>
-                        <h2 className="text-4xl md:text-5xl font-serif mb-6">One platform. No switching.</h2>
+                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6">One platform. No switching.</h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                         {[
                             { title: 'Signals traders could read', body: 'Turning a raw data table into a visual investment proposal made signals accessible to retail traders who think in intuition, not spreadsheets.' },
                             { title: 'Zero context-switching', body: 'Signals, execution, and account management live in the same terminal. Traders never need to leave to act on an opportunity.' },
                             { title: 'Mobile-safe by design', body: 'Accidental logouts eliminated. The account panel restructuring addressed the top mobile pain point without adding friction.' },
                         ].map((item) => (
                             <div key={item.title} className="border-t-2 border-stone-100 pt-8 space-y-3">
-                                <h4 className="text-xl font-serif font-bold">{item.title}</h4>
-                                <p className="text-stone-500 leading-relaxed">{item.body}</p>
+                                <h4 className="text-lg md:text-xl font-serif font-bold">{item.title}</h4>
+                                <p className="text-sm md:text-base text-stone-500 leading-relaxed">{item.body}</p>
                             </div>
                         ))}
                     </div>
                 </div>
             </section>
 
-            {/* ── FOOTER ── */}
-            <section className="py-24 bg-stone-50 text-center border-t border-stone-100">
-                <button
-                    onClick={onBack}
-                    className="px-10 py-4 bg-black text-white rounded-full font-bold text-sm tracking-wide hover:bg-stone-800 transition-all"
-                >
-                    ← Back to Projects
-                </button>
-                <div className="mt-16">
-                    <ProjectNavigation currentProjectId={2} variant="light" />
-                </div>
-            </section>
+            <CaseStudyFooterDiverge projectId={2} projectTitle="Web Trader" onBack={onBack} category="Fintech · Trading" />
         </div>
     );
 };

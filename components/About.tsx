@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Typewriter } from './Typewriter';
+import { DotGridBackground } from './DotGridBackground';
 
 interface AboutProps {
   onExploreSideProjects: () => void;
@@ -8,8 +9,9 @@ interface AboutProps {
 
 export const About: React.FC<AboutProps> = ({ onExploreSideProjects }) => {
   return (
-    <section id="about" className="relative w-full py-40 md:py-60 bg-transparent border-y border-black/5">
-      <div className="max-w-[1440px] mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-32 items-end">
+    <section id="about" className="relative w-full py-40 md:py-60 bg-[#f4f3f1] border-y border-black/5 overflow-hidden">
+      <DotGridBackground />
+      <div className="relative max-w-[1440px] mx-auto px-6 md:px-16 grid grid-cols-1 lg:grid-cols-2 gap-24 lg:gap-32 items-end z-10">
         
         {/* Left Side: Editorial Bio */}
         <div className="order-2 lg:order-1 max-w-xl pb-10">

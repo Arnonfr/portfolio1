@@ -54,7 +54,7 @@ const ArtisticHero: React.FC = () => {
               className="mb-8"
             >
               <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.3em] text-[#0c0c0a]/50 block mb-6">
-                Design Leader & Art Director
+                Product Designer & Art Director
               </span>
               
               <h1 className="text-[clamp(4rem,20vw,16rem)] font-bold text-[#0c0c0a] leading-[0.8] tracking-[-0.04em] uppercase">
@@ -338,7 +338,7 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
                   Photo: Tel Aviv, 2024
                 </span>
                 <span className="text-[0.625rem] uppercase tracking-[0.15em] text-[#0c0c0a]/50">
-                  Design Leader
+                  Product Designer
                 </span>
               </div>
             </motion.div>
@@ -370,7 +370,7 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
               className="space-y-6"
             >
               <p className="text-[1.0625rem] text-[#2b2926] leading-[1.7]">
-                I'm a Design Leader with over 9 years of experience crafting digital 
+                I'm a Product Designer with over 9 years of experience crafting digital
                 products for fintech, insurtech, and enterprise companies. Currently 
                 leading design at Novidea, transforming how insurance professionals 
                 manage complex claims.

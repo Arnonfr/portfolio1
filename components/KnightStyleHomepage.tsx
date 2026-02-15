@@ -33,7 +33,7 @@ const Hero: React.FC = () => {
       >
         <div className="text-[0.8125rem] text-[#1a1a1a]/60 leading-relaxed">
           <span className="block font-medium text-[#1a1a1a]">Arnon Friedman</span>
-          <span className="block">Design Leader</span>
+          <span className="block">Product Designer</span>
           <span className="block">Tel Aviv</span>
         </div>
 
@@ -153,7 +153,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
           className="space-y-6 text-[1.25rem] md:text-[1.5rem] text-[#1a1a1a]/80 leading-[1.6] font-light"
         >
           <p>
-            I'm a Design Leader with over 9 years of experience building digital products 
+            I'm a Product Designer with over 9 years of experience building digital products
             for fintech, insurtech, and enterprise companies.
           </p>
           

@@ -47,7 +47,7 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
           </span>
           {!isInternal && (
             <span className={`text-[11px] font-sans font-medium tracking-wide mt-1 transition-opacity duration-700 ${isScrolled ? 'text-black/20 opacity-100' : 'text-black/10 opacity-30'}`}>
-              — Design Leader
+              — Product Designer
             </span>
           )}
         </div>

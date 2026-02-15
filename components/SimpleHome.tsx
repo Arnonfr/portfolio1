@@ -16,7 +16,7 @@ export const SimpleHome: React.FC = () => {
         ARNON FRIEDMAN
       </h1>
       <p style={{ fontSize: '1.5rem', color: '#2b2926' }}>
-        Design Leader
+        Product Designer
       </p>
     </div>
   );

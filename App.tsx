@@ -36,7 +36,16 @@ const ProjectRouteHandler = () => {
     return <div>Project not found</div>;
   }
 
-
+  // Dedicated case study components
+  if (project.id === 2) {
+    return <WebTraderCaseStudy onBack={() => navigate('/')} />;
+  }
+  if (project.id === 3) {
+    return <SmartClausesCaseStudy onBack={() => navigate('/')} />;
+  }
+  if (project.id === 5) {
+    return <ArabicSyntaxCaseStudy onBack={() => navigate('/')} />;
+  }
 
   return (
     <ProjectPage
@@ -78,7 +87,7 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!(location.pathname.replace(/\/$/, '') === '/work/1' || location.pathname.replace(/\/$/, '') === '/work/4') && (
+      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5'].includes(location.pathname.replace(/\/$/, '')) && (
         <div
           style={{
             opacity: showNavbar ? 1 : 0,

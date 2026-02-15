@@ -347,7 +347,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
 };
 
 // ───────────────────────────────────────────────────────────
-// EXPERTISE — Capabilities as actions on dark background
+// EXPERTISE — Capabilities as interactive squares with text-on-path hover
 // ───────────────────────────────────────────────────────────
 const ExpertiseSection: React.FC = () => {
   const ref = useRef<HTMLElement>(null);
@@ -355,25 +355,25 @@ const ExpertiseSection: React.FC = () => {
 
   const capabilities = [
     {
-      title: 'Product Design',
-      description: 'End-to-end design for enterprise SaaS — from research and strategy through shipped product.',
-    },
-    {
-      title: 'Design Systems',
-      description: 'Scalable component libraries and design tokens that keep 50+ screens consistent.',
-    },
-    {
       title: 'UX Strategy',
-      description: 'Research-driven decisions. Turning ambiguous problems into clear interfaces with measurable outcomes.',
+      description: 'I turn complex business goals into clear user-centered strategies. Design starts with understanding the problem.',
     },
     {
-      title: 'Team Leadership',
-      description: 'Mentoring designers, bridging design and engineering, establishing design culture from scratch.',
+      title: 'Product Design',
+      description: 'Crafting end-to-end digital experiences for complex systems, bridging user needs and business logic.',
+    },
+    {
+      title: 'AI-Driven Design',
+      description: 'Leveraging advanced AI tools to accelerate workflows and create smarter, future-proof interfaces.',
+    },
+    {
+      title: 'Teaching',
+      description: 'Sharing passion for design by mentoring students and simplifying complex concepts for the next generation.',
     },
   ];
 
   return (
-    <section ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container">
+    <section ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container overflow-hidden">
       <div className="">
         {/* Section label */}
         <motion.div
@@ -383,29 +383,59 @@ const ExpertiseSection: React.FC = () => {
           className="mb-16"
         >
           <ScrambleText
-            text="WHAT I DO"
+            text="CORE FOCUS"
             className="text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#a8a39a] block"
             delay={0.2}
           />
         </motion.div>
 
-        {/* 2x2 grid with border cells */}
-        <div className="grid grid-cols-1 md:grid-cols-2">
+        {/* 2x2 grid with interactive "Text on Path" hover cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-[#2b2926] border border-[#2b2926]">
           {capabilities.map((item, index) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0, y: 25 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1, ease: EASE_POWER }}
-              className={`py-10 md:py-12 ${index % 2 === 0 ? 'md:pr-12 md:border-r md:border-[#2b2926]' : 'md:pl-12'
-                } border-b border-[#2b2926] md:last:border-b-0 ${index === 2 ? 'md:border-b-0' : ''} group`}
+              className="relative group bg-[#0c0c0a] aspect-square flex flex-col p-8 md:p-10 overflow-hidden"
             >
-              <h3 className="text-[1.25rem] font-semibold text-[#f4f3f1] mb-3 tracking-[-0.02em]">
-                <HoverScramble text={item.title.toUpperCase()} className="text-[#f4f3f1]" />
-              </h3>
-              <p className="text-[0.875rem] text-[#a8a39a] leading-[1.6] max-w-sm">
-                {item.description}
-              </p>
+              {/* Text on Path Hover Effect - matching Hero style with continuous motion */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
+                <svg viewBox="0 0 400 400" className="w-full h-full scale-150">
+                   <defs>
+                      <path 
+                        id={`path-${index}`} 
+                        d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" 
+                      />
+                   </defs>
+                   <text className="text-[18px] font-bold uppercase tracking-[0.2em]" fill="white">
+                     <textPath href={`#path-${index}`} startOffset="0%">
+                        {item.title} · {item.title} · {item.title} · {item.title} ·
+                        <animate attributeName="startOffset" from="0%" to="100%" dur="10s" repeatCount="indefinite" />
+                     </textPath>
+                   </text>
+                </svg>
+              </div>
+
+              {/* Card Content */}
+              <div className="relative z-10 flex flex-col h-full">
+                <span className="text-[0.625rem] font-mono text-[#a8a39a] mb-6 opacity-50">
+                   0{index + 1}
+                </span>
+
+                <h3 className="text-[1.125rem] font-bold text-[#f4f3f1] mb-4 tracking-[-0.02em] group-hover:text-[#0066FF] transition-colors duration-300 uppercase">
+                   {item.title}
+                </h3>
+                
+                <p className="text-[0.8125rem] text-[#a8a39a] leading-relaxed group-hover:text-[#f4f3f1] transition-colors duration-300">
+                  {item.description}
+                </p>
+
+                {/* Corner detail */}
+                <div className="mt-auto flex justify-end">
+                   <div className="w-6 h-6 border-r border-b border-[#2b2926] group-hover:border-[#0066FF] transition-colors duration-500" />
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
@@ -453,7 +483,7 @@ const ContactSection: React.FC = () => {
           {/* Left — buttons */}
           <div>
             <p className="text-[#a8a39a] text-[0.9375rem] leading-[1.6] mb-8 max-w-md">
-              Open to design leadership roles, consulting, and collaborations
+              Open to product design roles, consulting, and collaborations
               on complex product challenges.
             </p>
             <div className="flex flex-wrap gap-4">

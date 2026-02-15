@@ -36,7 +36,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
           <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Lead Product Design</h4>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Product Design</h4>
             <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Claim <span className="italic text-stone-300">Movements</span>
             </h1>
@@ -49,7 +49,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
               {[
-                { label: "Role", val: "Lead Design" },
+                { label: "Role", val: "Product Design" },
                 { label: "Platform", val: "Enterprise Web" },
                 { label: "Company", val: "Novidea" },
                 { label: "Duration", val: "2021 — 2024" }
@@ -92,7 +92,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   },
                   {
                     title: "My Role",
-                    content: "As Lead Designer, I architected the end-to-end claim movement workflow. This involved deep technical immersion into the legal mechanics of insurance capital, coordinating with actuarial teams to map data flows, and designing a modular interface that could handle varying degrees of complexity without breaking the user experience."
+                    content: "As Product Designer, I architected the end-to-end claim movement workflow. This involved deep technical immersion into the legal mechanics of insurance capital, coordinating with actuarial teams to map data flows, and designing a modular interface that could handle varying degrees of complexity without breaking the user experience."
                   }
                 ].map((item, i) => (
                   <div key={i}>
@@ -551,7 +551,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
               {[
-                { label: "Role", val: "Lead Product Designer" },
+                { label: "Role", val: "Product Designer" },
                 { label: "Platform", val: "Web & Mobile" },
                 { label: "Company", val: "AvaTrade" },
                 { label: "Year", val: "2018 — 2021" }
@@ -759,7 +759,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
           <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Lead Product Design</h4>
+            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Product Design</h4>
             <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
               Policy <span className="italic text-stone-300">Clauses</span>
             </h1>
@@ -772,7 +772,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
               {[
-                { label: "Role", val: "Lead Design" },
+                { label: "Role", val: "Product Design" },
                 { label: "Platform", val: "Enterprise Web" },
                 { label: "Company", val: "Novidea" },
                 { label: "Duration", val: "2021 — 2024" }

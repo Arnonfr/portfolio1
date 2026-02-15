@@ -1,7 +1,7 @@
 
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { ProjectNavigation } from './ProjectNavigation';
+import { CaseStudyFooter } from './CaseStudyFooter';
 
 interface ArabicSyntaxCaseStudyProps {
   onBack: () => void;
@@ -71,17 +71,14 @@ const FramedImage: React.FC<{
 }> = ({ src, alt, label, large = false, dark = false, className = '' }) => (
   <div className={`relative group ${className}`}>
     <div
-      className={`overflow-hidden bg-white ${
-        large ? 'rounded-[24px]' : 'rounded-2xl'
-      } ${
-        dark
+      className={`overflow-hidden bg-white ${large ? 'rounded-[24px]' : 'rounded-2xl'
+        } ${dark
           ? 'shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-stone-700'
           : large
-          ? 'shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200'
-          : 'shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200'
-      } transition-all duration-500 ${
-        !dark ? 'group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)]' : ''
-      }`}
+            ? 'shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200'
+            : 'shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200'
+        } transition-all duration-500 ${!dark ? 'group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)]' : ''
+        }`}
     >
       <img
         src={src}
@@ -145,12 +142,12 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
 
       {/* ─── S1: NAV ─── */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-6xl mx-auto px-container py-4 flex items-center justify-between">
           <button
             onClick={onBack}
-            className="text-sm text-stone-500 hover:text-black transition-colors font-medium"
+            className="text-sm text-stone-500 hover:text-black transition-colors font-medium flex items-center gap-2"
           >
-            ← Back to Portfolio
+            <span className="text-lg">←</span> Back to Portfolio
           </button>
           <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
             Case Study
@@ -162,20 +159,20 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
       {/* ═══════════════════════════════════════════════════════════
           S2: HERO — Centered, Serif (Policy Clauses style)
           ═══════════════════════════════════════════════════════════ */}
-      <header className="relative w-full pt-48 pb-32 flex flex-col items-center bg-white border-b border-stone-100">
+      <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 px-container">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2, ease: EASE_POWER }}
-          className="max-w-6xl mx-auto px-6 z-10 text-center mb-16"
+          className="max-w-6xl mx-auto z-10 text-center mb-16"
         >
-          <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-teal-600 mb-8">
+          <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-teal-600 mb-6 md:mb-8">
             Side Project — EdTech
           </h4>
-          <h1 className="font-serif text-6xl md:text-7xl leading-none text-black tracking-tight mb-10">
+          <h1 className="font-serif text-[clamp(2.5rem,10vw,4.5rem)] leading-[0.9] text-black tracking-tight mb-8 md:mb-10">
             Arabic <span className="italic text-stone-300">Syntax Lab</span>
           </h1>
-          <p className="max-w-2xl mx-auto text-lg text-stone-500 leading-relaxed">
+          <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed">
             A friend teaches Arabic grammar from a composition notebook.
             Students copy sentences, mark diacritics by hand, and wait days for feedback.
             I built this to see if the pen-and-paper process could become something
@@ -232,10 +229,10 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S3: THE BACKSTORY
             ═══════════════════════════════════════════════════════════ */}
-        <section className="py-32 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
+        <section className="py-24 md:py-32 bg-white px-container">
+          <div className="max-w-4xl mx-auto">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">The Backstory</h2>
+              <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-12 md:mb-16 text-black">The Backstory</h2>
             </FadeIn>
 
             <FadeIn delay={0.1}>
@@ -280,11 +277,11 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S4: SOLUTION OVERVIEW — Dashboard
             ═══════════════════════════════════════════════════════════ */}
-        <section className="py-32 bg-stone-50 border-y border-stone-100">
-          <div className="max-w-4xl mx-auto px-6">
+        <section className="py-24 md:py-32 bg-stone-50 border-y border-stone-100 px-container">
+          <div className="max-w-4xl mx-auto">
             <FadeIn>
               <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-4xl font-serif mb-4 text-black">Two Roles, One Workspace</h2>
+                <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-4 text-black">Two Roles, One Workspace</h2>
                 <p className="text-stone-500 max-w-2xl mx-auto">
                   Students and instructors share the same data model but see it
                   differently. The student works through sentences — analyzing,
@@ -311,12 +308,12 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S5: CORE FEATURES — Zigzag Layout
             ═══════════════════════════════════════════════════════════ */}
-        <section className="py-32 bg-white">
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="py-24 md:py-32 bg-white px-container">
+          <div className="max-w-6xl mx-auto">
             <FadeIn>
               <div className="text-center mb-20">
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-teal-600 mb-6">Core Features</h4>
-                <h2 className="text-3xl md:text-4xl font-serif text-black">
+                <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif text-black leading-tight">
                   The Sentence Page Is the Entire Product
                 </h2>
               </div>
@@ -475,12 +472,12 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S6: INSTRUCTOR SECTION — Dark
             ═══════════════════════════════════════════════════════════ */}
-        <section className="bg-stone-900 text-white py-32">
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="bg-stone-900 text-white py-24 md:py-32 px-container">
+          <div className="max-w-6xl mx-auto">
             <FadeIn>
               <div className="mb-16">
                 <TextReveal>
-                  <h2 className="text-4xl md:text-5xl font-serif leading-tight">
+                  <h2 className="text-[clamp(2rem,6vw,4rem)] font-serif leading-tight">
                     The Instructor
                   </h2>
                 </TextReveal>
@@ -557,12 +554,12 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S7: COURSE CREATION FLOW
             ═══════════════════════════════════════════════════════════ */}
-        <section className="py-32 bg-stone-50 border-y border-stone-100">
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="py-24 md:py-32 bg-stone-50 border-y border-stone-100 px-container">
+          <div className="max-w-6xl mx-auto">
             <FadeIn>
               <div className="text-center mb-16">
                 <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-teal-600 mb-6">Creation Flow</h4>
-                <h2 className="text-3xl md:text-4xl font-serif mb-4 text-black">
+                <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-4 text-black">
                   Creating a Course Takes 30 Seconds
                 </h2>
                 <p className="text-stone-500 max-w-2xl mx-auto">
@@ -609,10 +606,10 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         {/* ═══════════════════════════════════════════════════════════
             S8: REFLECTION
             ═══════════════════════════════════════════════════════════ */}
-        <section className="py-32 bg-white">
-          <div className="max-w-4xl mx-auto px-6">
+        <section className="py-24 md:py-32 bg-white px-container">
+          <div className="max-w-4xl mx-auto">
             <FadeIn>
-              <h2 className="text-3xl md:text-4xl font-serif mb-16 text-black">Reflection</h2>
+              <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-12 md:mb-16 text-black">Reflection</h2>
             </FadeIn>
 
             <FadeIn delay={0.1}>
@@ -656,23 +653,7 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
         </section>
 
 
-        {/* ═══════════════════════════════════════════════════════════
-            S9: FOOTER CTA
-            ═══════════════════════════════════════════════════════════ */}
-        <footer className="py-48 text-center bg-stone-900 text-white rounded-[100px] mx-6 mb-20 shadow-2xl">
-          <div className="max-w-4xl mx-auto px-6">
-            <p className="font-serif text-4xl md:text-5xl mb-16 opacity-90">
-              Thanks for reading.
-            </p>
-            <button
-              onClick={onBack}
-              className="px-16 py-6 bg-white text-black rounded-full font-bold uppercase text-[11px] tracking-widest hover:scale-105 active:scale-95 transition-all shadow-xl mb-16"
-            >
-              Back to Portfolio
-            </button>
-            <ProjectNavigation currentProjectId={5} variant="dark" />
-          </div>
-        </footer>
+        <CaseStudyFooter projectId={5} onBack={onBack} category="EdTech · Side Project" />
       </main>
     </div>
   );
