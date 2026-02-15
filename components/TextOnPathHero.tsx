@@ -252,38 +252,53 @@ export const TextOnPathHero: React.FC = () => {
       if (phraseWidthRef.current > 0 && offset1Ref.current <= -phraseWidthRef.current) {
         offset1Ref.current = 0;
       }
-      if (textPath1Ref.current) {
-        textPath1Ref.current.setAttribute('startOffset', String(offset1Ref.current));
-      }
 
       // Path 2 — slightly different speed
       offset2Ref.current -= speed * 0.8;
       if (phraseWidthRef.current > 0 && offset2Ref.current <= -phraseWidthRef.current) {
         offset2Ref.current = 0;
       }
+
+      // ── Transition Logic ──
+      const transitionStart = 0.7;
+      const transitionEnd = 0.95;
+      const tProgress = Math.min(1, Math.max(0, (progress - transitionStart) / (transitionEnd - transitionStart)));
+
+      // Target offset to center one unit: 1200 - unitWidth/2
+      const targetOffset = 1200 - (phraseWidthRef.current / 2);
+      
+      // We only apply the centering "magnetic" pull at the very end of the transition
+      const currentOffset1 = tProgress > 0 ? lerp(offset1Ref.current, targetOffset, tProgress) : offset1Ref.current;
+      const currentOffset2 = tProgress > 0 ? lerp(offset2Ref.current, targetOffset, tProgress) : offset2Ref.current;
+
+      if (textPath1Ref.current) {
+        textPath1Ref.current.setAttribute('startOffset', String(currentOffset1));
+        // Transition blue to black
+        const colorProgress = Math.min(1, Math.max(0, (progress - 0.85) / 0.1));
+        const isNearEnd = progress > 0.92;
+        textPath1Ref.current.style.fill = isNearEnd ? '#0c0c0a' : '#0055ff';
+      }
       if (textPath2Ref.current) {
-        textPath2Ref.current.setAttribute('startOffset', String(offset2Ref.current));
+        textPath2Ref.current.setAttribute('startOffset', String(currentOffset2));
+        textPath2Ref.current.style.opacity = String(0.5 * (1 - tProgress * 1.5));
       }
 
-      // Cross-fade — widened range for smoother transition
-      // Flowing paths fade out as they reach the center line
-      const flowingOpacity = Math.max(0, 1 - (progress - 0.45) / 0.45);
-      const resolvedOpacity = Math.min(1, Math.max(0, (progress - 0.60) / 0.35));
-
-      // Animate resolved text — letter-spacing + font-size expand as it arrives
-      const resolvedProgress = Math.min(1, Math.max(0, (progress - 0.60) / 0.40));
-      if (resolvedTextRef.current) {
-        const ls = lerp(-0.02, 0.13, resolvedProgress);
-        resolvedTextRef.current.style.letterSpacing = `${ls}em`;
-        const fs = lerp(80, 92, resolvedProgress); // Match larger start size
-        resolvedTextRef.current.style.fontSize = `${fs}px`;
-      }
+      // Cross-fade the groups
+      const flowingOpacity = Math.max(0, 1 - (progress - 0.95) / 0.05);
+      const resolvedOpacity = Math.min(1, Math.max(0, (progress - 0.98) / 0.02));
 
       if (flowingGroupRef.current) {
         flowingGroupRef.current.style.opacity = String(flowingOpacity);
       }
       if (resolvedGroupRef.current) {
         resolvedGroupRef.current.style.opacity = String(resolvedOpacity);
+      }
+
+      // Animate resolved text
+      const resolvedProgress = Math.min(1, Math.max(0, (progress - 0.88) / 0.12));
+      if (resolvedTextRef.current) {
+        const ls = lerp(-0.02, 0.13, resolvedProgress);
+        resolvedTextRef.current.style.letterSpacing = `${ls}em`;
       }
 
       // Scroll hint fade
@@ -335,7 +350,7 @@ export const TextOnPathHero: React.FC = () => {
             <g ref={flowingGroupRef}>
               {/* Path 1 — Bright Blue */}
               <text
-                className="select-none pointer-events-none"
+                className="select-none pointer-events-none transition-colors duration-500"
                 style={{
                   fill: '#0055ff', // Bright Blue
                   fontFamily: FONT_FAMILY,
@@ -358,7 +373,6 @@ export const TextOnPathHero: React.FC = () => {
                   fontSize: LOOP_FONT_SIZE,
                   fontWeight: FONT_WEIGHT,
                   letterSpacing: '-0.02em',
-                  opacity: 0.5,
                   mixBlendMode: 'multiply',
                 }}
               >

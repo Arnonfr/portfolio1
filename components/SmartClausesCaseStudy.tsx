@@ -26,7 +26,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
             {/* ── HERO ── */}
             <header className="relative min-h-[90vh] flex items-end justify-start overflow-hidden">
                 <img
-                    src="/images/wc-hero.png"
+                    src="/images/wording/main-modal.png"
                     alt="Policy Clauses Management System"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                 />
@@ -49,6 +49,107 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     </motion.div>
                 </div>
             </header>
+
+            {/* Edit Mode vs View Mode Visual */}
+            <section className="py-28 bg-white">
+                <div className="max-w-[1400px] mx-auto px-10">
+                    <div className="relative group">
+                        <div className="absolute -inset-4 bg-indigo-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                        <div className="relative bg-white rounded-2xl p-3 border border-stone-200 shadow-2xl overflow-hidden">
+                            <img 
+                                src="/images/wording/main-modal.png" 
+                                alt="Modern Wording Management Interface" 
+                                className="w-full h-auto rounded-lg"
+                            />
+                            {/* Enterprise Badge */}
+                            <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-green-500" />
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-stone-600">Enterprise Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ══════════════════════════════════════════
+                NEW FEATURES & REFINEMENTS
+            ══════════════════════════════════════════ */}
+            <section className="py-28 bg-stone-50 overflow-hidden">
+                <div className="max-w-[1400px] mx-auto px-10">
+                    <div className="mb-20 text-center max-w-3xl mx-auto">
+                        <p className="text-[10px] font-bold tracking-[0.4em] uppercase text-indigo-500 mb-5">Refined Interaction</p>
+                        <h2 className="text-3xl md:text-5xl font-serif leading-tight">
+                            Advanced Management Logic
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {/* Status Logic */}
+                        <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 flex flex-col group">
+                            <h4 className="text-xl font-serif mb-4 group-hover:text-blue-600 transition-colors">Status Logic</h4>
+                            <p className="text-sm text-stone-500 mb-8 leading-relaxed">
+                                Automated status indicators (Active/Inactive) that respond dynamically to date ranges and versioning, reducing manual compliance checks.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
+                                <img src="/images/wording/status-logic.png" alt="Status Logic" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                            </div>
+                        </div>
+
+                        {/* Version Indicators */}
+                        <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 flex flex-col group">
+                            <h4 className="text-xl font-serif mb-4 group-hover:text-blue-600 transition-colors">Smart Indicators</h4>
+                            <p className="text-sm text-stone-500 mb-8 leading-relaxed">
+                                Visual alerts for outdated clauses, highlighting items that require broker attention or immediate version updates.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
+                                <img src="/images/wording/version-indicators.png" alt="Version Indicators" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                            </div>
+                        </div>
+
+                        {/* Selection System */}
+                        <div className="bg-white p-8 rounded-2xl shadow-xl border border-stone-100 flex flex-col group">
+                            <h4 className="text-xl font-serif mb-4 group-hover:text-blue-600 transition-colors">Bulk Selection</h4>
+                            <p className="text-sm text-stone-500 mb-8 leading-relaxed">
+                                Intuitive pill-based selection indicator that tracks multiple clause selections across different product categories.
+                            </p>
+                            <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
+                                <img src="/images/wording/selection-pills.png" alt="Selection Pills" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Coverage Form Support */}
+            <section className="py-28 bg-white overflow-hidden">
+                <div className="max-w-[1400px] mx-auto px-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                        <div>
+                            <p className="text-[10px] font-bold tracking-[0.4em] uppercase text-indigo-500 mb-5">Architecture Expansion</p>
+                            <h2 className="text-3xl md:text-5xl font-serif leading-tight mb-8">
+                                Coverage Form Selection
+                            </h2>
+                            <p className="text-lg text-stone-600 leading-relaxed mb-6">
+                                We expanded the system to support higher-level grouping through "Coverage Forms." Brokers can now select entire pre-defined forms in addition to individual clauses, significantly accelerating the policy document generation process.
+                            </p>
+                            <div className="flex items-center gap-4 py-4 px-6 bg-blue-50 border border-blue-100 rounded-xl">
+                                <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold">!</div>
+                                <p className="text-sm text-blue-800 font-medium">Added capability: Multi-level hierarchy support for complex London Market structures.</p>
+                            </div>
+                        </div>
+                        <div className="relative group">
+                            <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-200">
+                                <img 
+                                    src="/images/wording/coverage-form-selection.png" 
+                                    alt="Coverage Form Selection Logic" 
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* ── METADATA — gradient bridge from hero ── */}
             <section className="relative overflow-hidden">

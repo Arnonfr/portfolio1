@@ -15,6 +15,11 @@ Dev: `npm run dev` → http://localhost:4000
   - Part 1: Signals (problem → understand your position → mapping data → scan variables → mobile result)
   - Part 2: Web Trader platform (account management → desktop nav → iterations → outcome)
   - All images mapped from `Mockups Images/web trader/` → `public/images/wt-*.png`
+- **DigitalStack** (`components/DigitalStack.tsx`) — interactive tool section:
+  - Claw machine interaction following mouse X/Y.
+  - Organic pile of 25 real SVG logos stacked from the bottom.
+  - Interactive DotGrid background (Canvas) with delicate lines connecting grid points near mouse.
+  - Collected tools panel on the right with custom animations.
 - **vercel.json** — SPA rewrite rule ready for deployment
 
 ### 🔲 Not Done / Pending

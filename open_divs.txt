@@ -1,0 +1,378 @@
+23:      <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+27:          <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+38:          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+49:          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+50:            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+51:              <div>
+55:              <div>
+59:              <div>
+63:              <div>
+71:          <div className="w-full max-w-[1200px] px-container">
+72:            <div className="relative rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
+78:              <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-black/80 backdrop-blur text-white text-[9px] md:text-[10px] font-bold px-3 md:px-4 py-1.5 md:py-2 rounded uppercase tracking-widest shadow-xl">
+89:            <div className="max-w-4xl mx-auto px-container">
+92:              <div className="space-y-10 md:space-y-12">
+93:                <div>
+100:                <div>
+112:            <div className="max-w-6xl mx-auto px-container">
+113:              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
+114:                <div>
+119:                  <div className="space-y-4">
+120:                    <div className="flex gap-4 items-start">
+121:                      <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-1">
+122:                        <div className="w-2 h-2 rounded-full bg-red-500" />
+126:                    <div className="flex gap-4 items-start">
+127:                      <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-1">
+128:                        <div className="w-2 h-2 rounded-full bg-red-500" />
+134:                <div className="relative">
+136:                  <div className="relative aspect-[4/3] md:aspect-square">
+138:                      <div
+150:                        <div className="w-2/3 h-2 bg-stone-700 rounded mb-2" />
+151:                        <div className="w-full h-1 bg-stone-700/50 rounded mb-1" />
+152:                        <div className="w-full h-1 bg-stone-700/50 rounded" />
+155:                    <div className="absolute inset-0 flex items-center justify-center text-red-500/50 text-[100px] md:text-[180px] font-bold pointer-events-none select-none">
+166:            <div className="max-w-4xl mx-auto px-container">
+169:              <div className="space-y-6 md:space-y-8 mb-12 md:mb-16">
+175:              <div className="bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border-2 border-blue-200 mb-12">
+192:            <div className="max-w-4xl mx-auto px-container">
+195:              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-12 md:mb-16">
+205:              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+206:                <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
+207:                  <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">01</div>
+214:                <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
+215:                  <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">02</div>
+222:                <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
+223:                  <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">03</div>
+230:                <div className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
+231:                  <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">04</div>
+243:            <div className="max-w-6xl mx-auto px-container">
+244:              <div className="text-center mb-12 md:mb-20">
+253:              <div className="grid md:grid-cols-2 gap-8 mb-20">
+255:                <div>
+256:                  <div className="flex items-center gap-3 mb-6">
+257:                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+260:                  <div className="rounded-[24px] shadow-[0_30px_80px_rgba(0,0,0,0.1)] border border-stone-200 bg-white p-3">
+267:                  <div className="mt-6 space-y-2">
+269:                      <div key={i} className="flex gap-2 items-center text-sm text-stone-500">
+278:                <div>
+279:                  <div className="flex items-center gap-3 mb-6">
+280:                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
+283:                  <div className="rounded-[24px] shadow-[0_30px_80px_rgba(0,0,0,0.1)] border border-stone-200 bg-white p-3">
+290:                  <div className="mt-6 space-y-2">
+292:                      <div key={i} className="flex gap-2 items-center text-sm text-stone-500">
+302:              <div className="text-center">
+303:                <div className="inline-flex items-center gap-6 bg-gradient-to-r from-red-50 via-white to-green-50 px-12 py-6 rounded-full border-2 border-stone-200">
+315:            <div className="max-w-6xl mx-auto px-6">
+316:              <div className="text-center mb-20">
+323:              <div className="mb-28">
+324:                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+325:                  <div className="lg:col-span-2">
+342:                  <div className="lg:col-span-3 relative group">
+343:                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+355:              <div className="mb-28">
+356:                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+357:                  <div className="lg:col-span-2 lg:order-2">
+374:                  <div className="lg:col-span-3 lg:order-1 relative group">
+375:                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+387:              <div className="mb-28">
+388:                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+389:                  <div className="lg:col-span-2">
+406:                  <div className="lg:col-span-3 relative group">
+407:                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+419:              <div className="mb-28">
+420:                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+421:                  <div className="lg:col-span-2 lg:order-2">
+438:                  <div className="lg:col-span-3 lg:order-1 relative group">
+439:                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+451:              <div>
+452:                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+453:                  <div className="lg:col-span-2">
+470:                  <div className="lg:col-span-3 relative group">
+471:                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+487:            <div className="max-w-4xl mx-auto px-container">
+490:              <div className="bg-white p-6 md:p-10 rounded-2xl border border-stone-200 space-y-4 md:space-y-6">
+497:                  <div key={i} className="flex gap-3 items-start">
+504:              <div className="mt-12 md:mt-16 bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border border-blue-100">
+514:              <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+520:                  <div key={i} className="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 text-center">
+521:                    <div className="text-3xl md:text-4xl font-serif text-blue-600 mb-2">{stat.val}</div>
+531:            <div className="max-w-4xl mx-auto px-container">
+534:              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12">
+535:                <div className="space-y-4 md:space-y-6">
+553:                <div className="space-y-4 md:space-y-6">
+572:              <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+573:                <div className="bg-stone-50 p-8 md:p-10 rounded-2xl border border-stone-200">
+580:                <div className="bg-blue-600 p-8 md:p-10 rounded-2xl text-white shadow-xl">
+612:      <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+616:          <div className="max-w-6xl mx-auto px-6 z-10 text-center mb-16">
+627:          <div className="max-w-4xl mx-auto px-6 mb-20">
+628:            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+629:              <div>
+633:              <div>
+637:              <div>
+641:              <div>
+649:          <div className="w-full max-w-[1200px] px-6">
+650:            <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-stone-200 bg-white">
+665:            <div className="max-w-4xl mx-auto px-6">
+668:              <div className="grid md:grid-cols-3 gap-8 mb-16">
+669:                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
+670:                  <div className="text-2xl font-serif text-blue-500 mb-4">01</div>
+677:                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
+678:                  <div className="text-2xl font-serif text-blue-500 mb-4">02</div>
+685:                <div className="p-8 bg-stone-50 rounded-2xl border border-stone-100">
+686:                  <div className="text-2xl font-serif text-blue-500 mb-4">03</div>
+698:            <div className="max-w-4xl mx-auto px-6">
+701:              <div className="bg-white p-10 rounded-2xl border border-stone-200 mb-12">
+707:              <div className="space-y-8 mb-12">
+725:              <div className="bg-amber-50 p-8 rounded-xl border border-amber-100 mb-8">
+735:              <div className="bg-blue-50 p-8 rounded-xl border border-blue-100">
+747:            <div className="max-w-4xl mx-auto px-6">
+750:              <div className="space-y-8 mb-16">
+757:              <div className="bg-gradient-to-br from-blue-50 to-white p-12 rounded-3xl border-2 border-blue-200 mb-12">
+770:            <div className="max-w-4xl mx-auto px-6">
+774:              <div className="mb-32">
+775:                <div className="mb-12">
+781:                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
+782:                  <div className="space-y-4">
+783:                    <div className="flex gap-3">
+785:                      <div>
+790:                    <div className="flex gap-3">
+792:                      <div>
+797:                    <div className="flex gap-3">
+799:                      <div>
+808:                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-200 group">
+809:                  <div className="relative">
+815:                    <div className="absolute top-6 right-6 bg-blue-600/90 backdrop-blur text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest shadow-lg">
+823:              <div className="mb-32">
+824:                <div className="mb-12">
+830:                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
+834:                  <div className="grid md:grid-cols-2 gap-4">
+835:                    <div className="p-4 bg-stone-50 rounded-lg">
+839:                    <div className="p-4 bg-stone-50 rounded-lg">
+846:                <div className="bg-green-50 p-6 rounded-xl border border-green-100 mb-8">
+853:                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-200 group">
+854:                  <div className="relative">
+860:                    <div className="absolute bottom-6 left-6 bg-stone-900/90 backdrop-blur text-white text-[10px] font-bold px-4 py-2 rounded uppercase tracking-widest shadow-lg">
+868:              <div className="mb-16">
+869:                <div className="mb-12">
+875:                <div className="bg-white p-8 rounded-xl border border-stone-200 mb-8">
+876:                  <div className="space-y-3">
+877:                    <div className="flex gap-3">
+881:                    <div className="flex gap-3">
+885:                    <div className="flex gap-3">
+893:                <div className="max-w-sm mx-auto">
+894:                  <div className="rounded-[40px] overflow-hidden border-8 border-stone-800 shadow-2xl bg-stone-900 relative">
+900:                    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full" />
+909:            <div className="max-w-5xl mx-auto px-6">
+910:              <div className="text-center mb-16">
+915:              <div className="grid md:grid-cols-2 gap-8">
+917:                <div className="space-y-4">
+918:                  <div className="flex items-center gap-3 mb-6">
+921:                  <div className="bg-stone-900 rounded-2xl p-6 shadow-xl border border-stone-800">
+923:                    <div className="bg-stone-800 rounded-lg p-4 mb-4">
+924:                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-stone-700">
+925:                        <div className="w-10 h-10 bg-stone-700 rounded-full"></div>
+926:                        <div>
+931:                      <div className="space-y-2">
+932:                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
+936:                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
+940:                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
+946:                    <div className="flex items-center gap-2 text-red-400 text-xs">
+959:                <div className="space-y-4">
+960:                  <div className="flex items-center gap-3 mb-6">
+963:                  <div className="bg-stone-900 rounded-2xl p-6 shadow-xl border border-stone-800">
+965:                    <div className="bg-stone-800 rounded-lg p-4 mb-4">
+966:                      <div className="flex items-center gap-3 mb-4 pb-4 border-b border-stone-700">
+967:                        <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center text-white text-xs font-bold">LIVE</div>
+968:                        <div>
+970:                          <div className="flex items-center gap-2">
+977:                      <div className="space-y-2">
+978:                        <div className="flex items-center gap-2 p-2 bg-green-500/10 border border-green-500/30 rounded text-green-400 text-sm">
+983:                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-stone-300 text-sm">
+987:                        <div className="flex items-center gap-2 p-2 hover:bg-stone-700 rounded text-amber-300 text-sm">
+994:                    <div className="flex items-center gap-2 text-green-400 text-xs">
+1011:            <div className="max-w-4xl mx-auto px-6">
+1015:              <div className="grid md:grid-cols-3 gap-8 mb-16">
+1016:                <div className="text-center p-8 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100">
+1017:                  <div className="text-4xl font-bold text-blue-600 mb-2">60%</div>
+1020:                <div className="text-center p-8 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100">
+1021:                  <div className="text-4xl font-bold text-green-600 mb-2">73%</div>
+1024:                <div className="text-center p-8 bg-gradient-to-br from-amber-50 to-white rounded-2xl border border-amber-100">
+1025:                  <div className="text-4xl font-bold text-amber-600 mb-2">89%</div>
+1030:              <div className="bg-white p-10 rounded-2xl border border-stone-200 space-y-6">
+1031:                <div className="flex gap-3 items-start">
+1035:                <div className="flex gap-3 items-start">
+1039:                <div className="flex gap-3 items-start">
+1043:                <div className="flex gap-3 items-start">
+1053:            <div className="max-w-4xl mx-auto px-6">
+1056:              <div className="grid md:grid-cols-2 gap-12 mb-12">
+1057:                <div className="space-y-6">
+1075:                <div className="space-y-6">
+1094:              <div className="bg-white p-10 rounded-2xl border border-stone-200">
+1115:      <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+1119:          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+1130:          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+1131:            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+1138:                <div key={i}>
+1147:          <div className="w-full max-w-[1200px] px-container">
+1148:            <div className="relative rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
+1154:              <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-black/80 backdrop-blur text-white text-[9px] md:text-[10px] font-bold px-3 md:px-4 py-1.5 md:py-2 rounded uppercase tracking-widest shadow-xl">
+1165:            <div className="max-w-4xl mx-auto px-container">
+1168:              <div className="space-y-10 md:space-y-12">
+1183:                  <div key={i}>
+1194:            <div className="max-w-4xl mx-auto px-container">
+1197:              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-10 md:mb-12">
+1203:              <div className="space-y-6 md:space-y-8 mb-10 md:mb-12">
+1220:              <div className="bg-purple-50 p-6 md:p-8 rounded-xl border border-purple-100">
+1232:            <div className="max-w-4xl mx-auto px-container">
+1239:              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+1240:                <div className="bg-stone-50 p-6 md:p-8 rounded-xl border border-stone-200">
+1241:                  <div className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 1</div>
+1248:                <div className="bg-stone-50 p-6 md:p-8 rounded-xl border border-stone-200">
+1249:                  <div className="text-[10px] font-bold uppercase tracking-wider text-purple-600 mb-4">Activity 2</div>
+1257:              <div className="bg-gradient-to-br from-purple-50 to-white p-8 md:p-12 rounded-3xl border-2 border-purple-200">
+1269:            <div className="max-w-4xl mx-auto px-6">
+1272:              <div className="mb-16">
+1278:                <div className="grid md:grid-cols-2 gap-8 mb-12">
+1279:                  <div className="bg-white p-8 rounded-xl border border-stone-200">
+1284:                    <div className="text-sm text-stone-500 space-y-2">
+1291:                  <div className="bg-white p-8 rounded-xl border-2 border-purple-200">
+1296:                    <div className="text-sm text-stone-500 space-y-2">
+1304:                <div className="bg-white p-8 rounded-xl border border-stone-200">
+1316:            <div className="max-w-4xl mx-auto px-6">
+1319:              <div className="mb-32">
+1320:                <div className="text-center mb-16">
+1325:                <div className="grid md:grid-cols-2 gap-12 mb-16">
+1327:                  <div className="bg-stone-50 p-8 rounded-xl border border-stone-200">
+1328:                    <div className="text-2xl font-serif text-purple-600 mb-4">01</div>
+1342:                  <div className="bg-stone-50 p-8 rounded-xl border border-stone-200">
+1343:                    <div className="text-2xl font-serif text-purple-600 mb-4">02</div>
+1358:                <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
+1364:                  <div className="bg-stone-50 p-6 border-t border-stone-100 flex justify-between items-center">
+1372:              <div className="space-y-12">
+1375:                <div className="grid md:grid-cols-2 gap-8">
+1376:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1381:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1386:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1391:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1396:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1401:                  <div className="bg-stone-50 p-6 rounded-xl border border-stone-200">
+1412:            <div className="max-w-4xl mx-auto px-6">
+1419:              <div className="space-y-8 mb-16">
+1420:                <div className="bg-white p-8 rounded-xl border border-stone-200">
+1421:                  <div className="flex gap-4 items-start">
+1423:                    <div>
+1432:                <div className="bg-white p-8 rounded-xl border border-stone-200">
+1433:                  <div className="flex gap-4 items-start">
+1435:                    <div>
+1446:              <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
+1452:                <div className="bg-purple-900/90 backdrop-blur p-8 text-white">
+1453:                  <div className="grid md:grid-cols-2 gap-8">
+1454:                    <div>
+1458:                    <div>
+1470:            <div className="max-w-4xl mx-auto px-6">
+1473:              <div className="bg-gradient-to-br from-purple-50 to-white p-10 rounded-2xl border border-purple-100 mb-12">
+1479:              <div className="bg-white p-10 rounded-2xl border border-stone-200 space-y-6">
+1481:                <div className="flex gap-3 items-start">
+1485:                <div className="flex gap-3 items-start">
+1489:                <div className="flex gap-3 items-start">
+1493:                <div className="flex gap-3 items-start">
+1503:            <div className="max-w-4xl mx-auto px-6">
+1506:              <div className="grid md:grid-cols-3 gap-8 mb-16">
+1507:                <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
+1508:                  <div className="text-4xl font-serif text-purple-600 mb-2">45%</div>
+1512:                <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
+1513:                  <div className="text-4xl font-serif text-purple-600 mb-2">0</div>
+1517:                <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
+1518:                  <div className="text-4xl font-serif text-purple-600 mb-2">100%</div>
+1524:              <div className="max-w-3xl mx-auto">
+1525:                <div className="relative p-12 bg-white rounded-3xl border border-stone-200 shadow-xl overflow-hidden text-center">
+1526:                  <div className="absolute top-0 right-0 p-8 opacity-5 text-purple-600">
+1532:                  <div className="flex items-center justify-center gap-4 relative z-10">
+1533:                    <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold font-sans text-xs">JD</div>
+1534:                    <div className="text-left">
+1546:            <div className="max-w-4xl mx-auto px-6">
+1549:              <div className="grid md:grid-cols-2 gap-12 mb-12">
+1550:                <div className="space-y-6">
+1568:                <div className="space-y-6">
+1587:              <div className="bg-white p-10 rounded-2xl border border-stone-200">
+1611:      <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+1615:          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+1626:          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+1627:            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+1634:                <div key={i}>
+1643:          <div className="w-full max-w-[1200px] px-container">
+1644:            <div className="rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
+1658:            <div className="max-w-4xl mx-auto px-container">
+1671:              <div className="bg-stone-50 p-12 rounded-3xl border border-stone-200">
+1683:            <div className="max-w-4xl mx-auto px-container">
+1686:              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-10 md:mb-12">
+1692:              <div className="space-y-6 md:space-y-8 mb-10 md:mb-12">
+1698:                  <div key={i} className="flex gap-4 items-start">
+1700:                    <div>
+1708:              <div className="bg-amber-50 p-6 rounded-xl border border-amber-200">
+1718:            <div className="max-w-4xl mx-auto px-container">
+1725:              <div className="space-y-6 md:space-y-8">
+1732:                  <div key={i} className="flex gap-6">
+1733:                    <div className="w-10 h-10 md:w-12 md:h-12 bg-emerald-100 rounded-full flex items-center justify-center shrink-0">
+1736:                    <div>
+1748:            <div className="max-w-6xl mx-auto px-container">
+1752:              <div className="mb-20 md:mb-24">
+1753:                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
+1754:                  <div>
+1765:                  <div className="relative">
+1766:                    <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
+1767:                      <div className="text-center p-8">
+1777:              <div className="mb-20 md:mb-24">
+1778:                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
+1779:                  <div className="order-2 lg:order-1">
+1780:                    <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
+1781:                      <div className="text-center p-8">
+1787:                  <div className="order-1 lg:order-2">
+1802:              <div className="mb-0">
+1803:                <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-12 items-center">
+1804:                  <div>
+1815:                  <div className="relative">
+1816:                    <div className="relative overflow-hidden rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] bg-stone-200 aspect-[4/3] flex items-center justify-center">
+1817:                      <div className="text-center p-8">
+1830:            <div className="max-w-4xl mx-auto px-container">
+1833:              <div className="space-y-6 md:space-y-8">
+1839:                  <div key={i} className="border-l-4 border-emerald-500 pl-6">
+1860:      <div className="w-full bg-[#faf9f7] min-h-screen font-sans animate-fadeIn">
+1864:          <div className="max-w-6xl mx-auto px-container h-16 flex items-center justify-between">
+1875:          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-12">
+1887:          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-16">
+1888:            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
+1895:                <div key={i}>
+1904:          <div className="w-full px-container max-w-[1200px]">
+1914:          <div className="max-w-4xl mx-auto px-container">
+1927:              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-stone-100">
+1939:              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+1940:                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+1945:                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+1950:                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+1955:                <div className="bg-white rounded-2xl p-8 border border-stone-100">
+1969:              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+1970:                <div className="text-center p-6">
+1971:                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+1977:                <div className="text-center p-6">
+1978:                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+1984:                <div className="text-center p-6">
+1985:                  <div className="w-16 h-16 bg-orange-50 rounded-full flex items-center justify-center mx-auto mb-4">
+2011:          <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch w-full">
+2012:            <div className="bg-[#f5f4f2] flex items-center justify-center p-10 md:p-16">
+2019:            <div className="bg-[#efeeec] flex items-center justify-center p-10 md:p-16">
+2030:          <div className="max-w-4xl mx-auto px-container">
+2034:              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+2035:                <div>
+2045:                <div className="rounded-2xl overflow-hidden shadow-2xl border border-stone-100 bg-stone-50">
+2061:              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
+2062:                <div className="order-2 md:order-1 flex justify-center">
+2063:                  <div className="relative">
+2071:                <div className="order-1 md:order-2">
+2104:          <div className="max-w-6xl mx-auto px-container">
+2109:              <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12 items-center">
+2115:                  <div key={i} className="flex justify-center">
+2146:          <div className="max-w-4xl mx-auto px-container">
+2150:              <div className="bg-orange-50 rounded-3xl p-10 md:p-16 text-center border border-orange-100">
+2166:    <div className="w-full bg-white min-h-screen font-sans animate-fadeIn">

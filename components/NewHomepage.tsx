@@ -164,7 +164,7 @@ const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void
           >
             <div className="overflow-hidden rounded-2xl shadow-2xl shadow-black/15">
               <img
-                src={hoveredProject.image}
+                src={hoveredProject.id === 3 ? '/images/wording/main-modal.png' : hoveredProject.image}
                 alt={hoveredProject.title}
                 className="w-full h-auto object-cover"
                 style={{ maxHeight: '55vh' }}

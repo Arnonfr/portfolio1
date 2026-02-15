@@ -28,7 +28,7 @@ export const PROJECTS: Project[] = [
         id: 3,
         title: 'Policy Clauses',
         category: 'Enterprise',
-        image: '/images/wc-hero.png',
+        image: '/images/wording/main-modal.png',
         role: 'UX Research & Design',
         company: 'Novidea London',
         year: '2023 — 2024',

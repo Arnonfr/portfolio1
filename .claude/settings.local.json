@@ -31,7 +31,11 @@
       "Bash(fi)",
       "Bash(done)",
       "Bash(gh auth status:*)",
-      "Bash(git config:*)"
+      "Bash(git config:*)",
+      "Bash(security find-generic-password:*)",
+      "WebFetch(domain:urbanito.live)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

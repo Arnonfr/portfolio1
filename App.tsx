@@ -87,7 +87,7 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5'].includes(location.pathname.replace(/\/$/, '')) && (
+      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5', '/side-projects'].includes(location.pathname.replace(/\/$/, '')) && (
         <div
           style={{
             opacity: showNavbar ? 1 : 0,
@@ -146,7 +146,7 @@ function App() {
       </Routes>
 
       {/* Global Footer (only on sub-pages where appropriate) */}
-      {(location.pathname === '/side-projects') && <Footer />}
+      {/* Footer removed — side-projects page has its own bottom CTA */}
     </main>
   );
 }
