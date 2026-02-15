@@ -445,6 +445,83 @@ const ExpertiseSection: React.FC = () => {
 };
 
 // ───────────────────────────────────────────────────────────
+// INSTAGRAM STRIP — Recent posts from @ux_issues
+// ───────────────────────────────────────────────────────────
+const INSTAGRAM_POSTS = [
+  { src: '/images/instagram/post-1.png', alt: 'UX Issues post 1' },
+  { src: '/images/instagram/post-2.png', alt: 'UX Issues post 2' },
+  { src: '/images/instagram/post-3.png', alt: 'UX Issues post 3' },
+  { src: '/images/instagram/post-4.png', alt: 'UX Issues post 4' },
+];
+
+const InstagramSection: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section ref={ref} className="w-full bg-[#f4f3f1] py-24 md:py-32 px-container">
+      <div className="">
+        {/* Header row */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, ease: EASE_POWER }}
+          className="flex items-end justify-between mb-12 md:mb-16"
+        >
+          <div>
+            <ScrambleText
+              text="INSTAGRAM"
+              className="eyebrow block mb-3"
+              delay={0.1}
+            />
+            <p className="text-[#a8a39a] text-[0.9375rem] font-mono">
+              @ux_issues
+            </p>
+          </div>
+          <MagneticButton
+            as="a"
+            href="https://www.instagram.com/ux_issues/"
+            target="_blank"
+            className="btn-secondary border-[#0c0c0a] text-[#0c0c0a] hover:bg-[#0c0c0a] hover:text-[#f4f3f1] text-[0.75rem]"
+            strength={0.15}
+          >
+            FOLLOW
+          </MagneticButton>
+        </motion.div>
+
+        {/* Posts grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {INSTAGRAM_POSTS.map((post, index) => (
+            <motion.a
+              key={index}
+              href="https://www.instagram.com/ux_issues/"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: index * 0.1, ease: EASE_POWER }}
+              className="group relative aspect-square overflow-hidden rounded-xl bg-[#e8e6e1]"
+            >
+              <img
+                src={post.src}
+                alt={post.alt}
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-wider uppercase">
+                  View
+                </span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// ───────────────────────────────────────────────────────────
 // CONTACT — Bold display CTA on dark section
 // ───────────────────────────────────────────────────────────
 const ContactSection: React.FC = () => {
@@ -489,7 +566,7 @@ const ContactSection: React.FC = () => {
             <div className="flex flex-wrap gap-4">
               <MagneticButton
                 as="a"
-                href="mailto:arnon7700@gmail.com"
+                href="mailto:arnono7700@gmail.com"
                 className="btn-primary bg-[#f4f3f1] text-[#0c0c0a] border-[#f4f3f1] hover:bg-[#c9a87e] hover:border-[#c9a87e] hover:text-[#0c0c0a]"
                 strength={0.2}
               >
@@ -504,15 +581,6 @@ const ContactSection: React.FC = () => {
               >
                 WHATSAPP
               </MagneticButton>
-              <MagneticButton
-                as="a"
-                href="https://www.linkedin.com/in/arnon-friedman-00454867/"
-                target="_blank"
-                className="btn-secondary border-[#a8a39a] text-[#a8a39a] hover:bg-[#f4f3f1] hover:text-[#0c0c0a] hover:border-[#f4f3f1]"
-                strength={0.2}
-              >
-                LINKEDIN
-              </MagneticButton>
             </div>
           </div>
 
@@ -521,10 +589,10 @@ const ContactSection: React.FC = () => {
             <div>
               <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">EMAIL</span>
               <a
-                href="mailto:arnon7700@gmail.com"
+                href="mailto:arnono7700@gmail.com"
                 className="text-[#f4f3f1] hover:text-[#c9a87e] transition-colors text-[0.9375rem]"
               >
-                arnon7700@gmail.com
+                arnono7700@gmail.com
               </a>
             </div>
             <div>
@@ -537,20 +605,6 @@ const ContactSection: React.FC = () => {
                 055-6697319
               </a>
             </div>
-            <div>
-              <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">LINKEDIN</span>
-              <a
-                href="https://www.linkedin.com/in/arnon-friedman-00454867/"
-                target="_blank"
-                className="text-[#f4f3f1] hover:text-[#c9a87e] transition-colors text-[0.9375rem]"
-              >
-                Arnon Friedman
-              </a>
-            </div>
-            <div>
-              <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">LOCATION</span>
-              <span className="text-[#f4f3f1] text-[0.9375rem]">Tel Aviv, Israel</span>
-            </div>
           </div>
         </motion.div>
 
@@ -562,7 +616,7 @@ const ContactSection: React.FC = () => {
           className="mt-24 pt-6 border-t border-[#2b2926] flex justify-between items-center"
         >
           <span className="text-[0.75rem] font-mono text-[#a8a39a] tracking-[0.02em]">
-            ARNON FRIEDMAN © 2024
+            ARNON FRIEDMAN © 2025
           </span>
           <span className="text-[0.75rem] font-mono text-[#a8a39a] tracking-[0.02em]">
             BUILT WITH INTENT
@@ -601,7 +655,10 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
       {/* 4. Tools (Digital Stack Pile) */}
       <DigitalStack />
 
-      {/* 5. Rest of content */}
+      {/* 5. Instagram */}
+      <InstagramSection />
+
+      {/* 6. Rest of content */}
       <ExpertiseSection />
       <ContactSection />
     </div>

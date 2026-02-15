@@ -1,5 +1,5 @@
 import React, { useState, useRef, useCallback } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, animate } from 'framer-motion';
 
 interface Tool {
     id: string;
@@ -110,6 +110,7 @@ export const DigitalStack: React.FC = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const [pickedTools, setPickedTools] = useState<Tool[]>([]);
     const [isClawing, setIsClawing] = useState(false);
+    const [isGoingDown, setIsGoingDown] = useState(false);
     const [isGrabbing, setIsGrabbing] = useState(false); // prongs closed around item
     const [pickedTool, setPickedTool] = useState<Tool | null>(null);
     const [mouseYPercent, setMouseYPercent] = useState(0);
@@ -131,7 +132,7 @@ export const DigitalStack: React.FC = () => {
     const activeContainerH = isMobile ? MOBILE_CONTAINER_H : CONTAINER_H;
 
     const handleMouseMove = useCallback((e: React.MouseEvent) => {
-        if (isClawing || !containerRef.current) return;
+        if (isClawing || isGoingDown || !containerRef.current) return;
         const rect = containerRef.current.getBoundingClientRect();
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
@@ -157,48 +158,62 @@ export const DigitalStack: React.FC = () => {
     }, [pickedTools]);
 
     const startClaw = useCallback(() => {
-        if (isClawing) return;
-        setIsClawing(true);
-        setIsGrabbing(false);
-
+        if (isClawing || isGoingDown) return;
+        
         const currentX = smoothClawX.get();
         const currentY = mouseYPercent;
         const result = findClosestTool(currentX, currentY);
 
-        if (!result) {
-            setIsClawing(false);
-            return;
-        }
+        if (!result) return;
+
+        setIsClawing(true);
+        setIsGoingDown(true);
+        setIsGrabbing(false);
 
         const { tool, index } = result;
         const targetPos = PILE_POSITIONS[index];
-        // Stop cable so prong tips align with the icon (hub + prongs = ~70px)
-        const targetCableLength = Math.max(0, ((targetPos.y / 100) * activeContainerH) - 120);
-        setGrabTargetY(targetCableLength);
+        
+        // Phase 0: Move carriage to exact X above tool
+        animate(mouseX, targetPos.x, { duration: 0.3, ease: "easeOut" });
 
-        // Phase 1: Cable extends down (600ms) — prongs stay open
         setTimeout(() => {
-            // Phase 2: Prongs close around the item
-            setIsGrabbing(true);
-            setPickedTool(tool);
+            // Phase 1: Cable extends down
+            const targetCableLength = Math.max(0, ((targetPos.y / 100) * activeContainerH) - 140);
+            setGrabTargetY(targetCableLength);
 
-            // Phase 3: After closing (400ms), retract cable with item
             setTimeout(() => {
-                setPickedTools(prev => [...prev, tool]);
-                setGrabTargetY(0);
+                // Phase 2: Prongs close around the item
+                setIsGrabbing(true);
+                setPickedTool(tool);
 
-                // Phase 4: After retracting (500ms), release
+                // Phase 3: Retract cable with item
                 setTimeout(() => {
-                    setIsClawing(false);
-                    setIsGrabbing(false);
-                    setPickedTool(null);
-                }, 500);
-            }, 400);
-        }, 600);
-    }, [isClawing, smoothClawX, mouseYPercent, findClosestTool, activeContainerH]);
+                    setGrabTargetY(0);
 
-    const idleCableLength = Math.max(20, (mouseYPercent / 100) * activeContainerH * 0.4);
-    const cableLength = isClawing ? grabTargetY : idleCableLength;
+                    // Phase 4: Move to the right (bin area)
+                    setTimeout(() => {
+                        animate(mouseX, 90, { duration: 0.7, ease: [0.33, 1, 0.68, 1] });
+                        
+                        // Phase 5: Drop item
+                        setTimeout(() => {
+                            setPickedTools(prev => [...prev, tool]);
+                            setPickedTool(null);
+                            setIsGrabbing(false);
+                            setIsGoingDown(false);
+                            
+                            // Phase 6: Reset
+                            setTimeout(() => {
+                                setIsClawing(false);
+                            }, 400);
+                        }, 800);
+                    }, 600);
+                }, 400);
+            }, 600);
+        }, 300);
+    }, [isClawing, isGoingDown, smoothClawX, mouseX, mouseYPercent, findClosestTool, activeContainerH]);
+
+    const idleCableLength = Math.max(30, (mouseYPercent / 100) * activeContainerH * 0.35);
+    const cableLength = (isClawing || isGoingDown) ? grabTargetY : idleCableLength;
 
     return (
         <section className="relative w-full bg-[#f4f3f1] py-20 md:py-28 overflow-hidden">
@@ -240,70 +255,100 @@ export const DigitalStack: React.FC = () => {
                                 className="absolute top-8 flex flex-col items-center pointer-events-none"
                                 style={{ left: clawLeftPercent, x: '-50%', zIndex: 200 }}
                             >
-                                {/* Carriage */}
+                                {/* Carriage - Sleeker */}
                                 <div className="relative">
-                                    <div className="w-12 h-6 bg-gradient-to-b from-[#9d988f] via-[#b8b3aa] to-[#8b8680] rounded-b-lg shadow-lg" />
-                                    <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-gradient-to-b from-[#d4cfc7] to-[#bfbab2] rounded-sm" />
-                                    <div className="absolute top-1 left-2 w-1.5 h-1.5 rounded-full bg-[#6b6660] shadow-inner" />
-                                    <div className="absolute top-1 right-2 w-1.5 h-1.5 rounded-full bg-[#6b6660] shadow-inner" />
+                                    <div className="w-10 h-5 bg-gradient-to-b from-[#9d988f] via-[#b8b3aa] to-[#8b8680] rounded-b-lg shadow-lg" />
+                                    <div className="absolute top-1 left-1/2 -translate-x-1/2 w-6 h-2 bg-gradient-to-b from-[#d4cfc7] to-[#bfbab2] rounded-sm" />
                                 </div>
 
                                 {/* Cable */}
                                 <motion.div
                                     animate={{ height: cableLength }}
-                                    transition={{ duration: isClawing ? 0.6 : 0.12, ease: isClawing ? [0.33, 1, 0.68, 1] : 'linear' }}
-                                    className="w-[2px] bg-gradient-to-b from-[#8b8680] to-[#6b6660] origin-top shadow-sm"
+                                    transition={{
+                                        duration: (isClawing || isGoingDown) ? 0.6 : 0.1,
+                                        ease: (isClawing || isGoingDown) ? [0.33, 1, 0.68, 1] : 'linear'
+                                    }}
+                                    className="w-[1.5px] bg-[#4a4540] origin-top shadow-sm flex flex-col items-center"
                                     style={{ minHeight: 24 }}
-                                />
+                                >
+                                    <div className="w-full h-full opacity-20"
+                                         style={{ backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, white 2px, white 4px)' }} />
+                                </motion.div>
 
-                                {/* Claw — 2 prongs */}
+                                {/* Claw */}
                                 <motion.div
-                                    animate={{ rotate: isGrabbing ? [0, 3, -3, 0] : 0 }}
+                                    animate={{
+                                        rotate: isGrabbing ? [0, 1, -1, 0] : 0,
+                                        y: isGrabbing ? -2 : 0
+                                    }}
                                     transition={{ duration: 0.4 }}
                                     className="relative flex flex-col items-center"
                                 >
-                                    {/* Hub */}
-                                    <div className="relative w-7 h-7 rounded-full bg-gradient-to-br from-[#b8b3aa] via-[#9d988f] to-[#8b8680] shadow-lg">
+                                    {/* Hub - Smaller and cleaner */}
+                                    <div className="relative w-7 h-7 rounded-full bg-gradient-to-br from-[#b8b3aa] via-[#9d988f] to-[#8b8680] shadow-md z-30">
                                         <div className="absolute inset-1 rounded-full bg-gradient-to-br from-[#d4cfc7] to-[#bfbab2]" />
-                                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-[#6b6660] shadow-inner" />
                                     </div>
 
-                                    {/* Fingers — spread apart when grabbing to hug icon from sides */}
-                                    <div className="flex gap-0.5 -mt-1 relative">
+                                    {/* Fingers - Leaner and more proportional */}
+                                    <div className="absolute top-4 inset-0 flex justify-center z-10">
+                                        {/* Left Prong */}
                                         <motion.div
                                             animate={{
-                                                rotate: isGrabbing ? 12 : (isClawing ? 35 : 20),
-                                                x: isGrabbing ? -16 : 0,
+                                                rotate: isGrabbing ? 14 : ((isClawing || isGoingDown) ? 45 : 25),
+                                                x: isGrabbing ? -26 : -32,
+                                                y: isGrabbing ? 4 : 0
                                             }}
-                                            transition={{ type: 'spring', stiffness: 250, damping: 12 }}
-                                            className="relative w-[4px] h-12 bg-gradient-to-b from-[#9d988f] to-[#6b6660] rounded-full origin-top shadow-md"
+                                            transition={{ type: 'spring', stiffness: 150, damping: 20 }}
+                                            className="absolute w-[4px] h-20 bg-gradient-to-b from-[#8b8680] via-[#9d988f] to-[#6b6660] rounded-full origin-top shadow-sm"
                                         >
-                                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#8b8680] shadow-sm" />
+                                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-4 bg-[#4a4540] rounded-t-full rounded-b-lg" />
                                         </motion.div>
+                                        
+                                        {/* Right Prong */}
                                         <motion.div
                                             animate={{
-                                                rotate: isGrabbing ? -12 : (isClawing ? -35 : -20),
-                                                x: isGrabbing ? 16 : 0,
+                                                rotate: isGrabbing ? -14 : ((isClawing || isGoingDown) ? -45 : -25),
+                                                x: isGrabbing ? 26 : 32,
+                                                y: isGrabbing ? 4 : 0
                                             }}
-                                            transition={{ type: 'spring', stiffness: 250, damping: 12 }}
-                                            className="relative w-[4px] h-12 bg-gradient-to-b from-[#9d988f] to-[#6b6660] rounded-full origin-top shadow-md"
+                                            transition={{ type: 'spring', stiffness: 150, damping: 20 }}
+                                            className="absolute w-[4px] h-20 bg-gradient-to-b from-[#8b8680] via-[#9d988f] to-[#6b6660] rounded-full origin-top shadow-sm"
                                         >
-                                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-[#8b8680] shadow-sm" />
+                                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-2.5 h-4 bg-[#4a4540] rounded-t-full rounded-b-lg" />
                                         </motion.div>
+
+                                        {/* Center Prong */}
+                                        <motion.div
+                                            animate={{
+                                                scaleY: isGrabbing ? 0.8 : 1.1,
+                                                opacity: isGrabbing ? 0.7 : 0.3,
+                                                y: isGrabbing ? 8 : 0
+                                            }}
+                                            className="absolute w-[3px] h-18 bg-[#5a5550] rounded-full origin-top"
+                                        />
                                     </div>
 
-                                    {/* Gripped item — in front of prongs, they hug from sides */}
+                                    {/* Gripped item - NO SCALE/DISTORTION */}
                                     <AnimatePresence>
                                         {pickedTool && (
                                             <motion.div
-                                                initial={{ opacity: 0, scale: 0.5 }}
-                                                animate={{ opacity: 1, scale: 1 }}
-                                                exit={{ opacity: 0, scale: 0.5 }}
-                                                transition={{ duration: 0.2 }}
-                                                className="absolute bg-white rounded-xl p-2 shadow-xl border border-gray-100 z-10"
-                                                style={{ top: '24px' }}
+                                                initial={{ opacity: 0, y: 10 }}
+                                                animate={{
+                                                    opacity: 1,
+                                                    y: 38,
+                                                    rotate: [0, 1, -1, 0]
+                                                }}
+                                                exit={{ opacity: 0, y: 100 }}
+                                                transition={{
+                                                    duration: 0.3,
+                                                    rotate: { repeat: Infinity, duration: 3, ease: "easeInOut" }
+                                                }}
+                                                className="absolute bg-white rounded-xl p-2.5 shadow-xl border border-gray-100 z-20"
                                             >
-                                                <img src={pickedTool.logo} alt={pickedTool.name} className="w-9 h-9 object-contain" />
+                                                {/* Tool logo - ensuring no shrinking effect */}
+                                                <div className="w-11 h-11 flex items-center justify-center">
+                                                    <img src={pickedTool.logo} alt={pickedTool.name} className="w-full h-full object-contain" />
+                                                </div>
                                             </motion.div>
                                         )}
                                     </AnimatePresence>
@@ -329,16 +374,16 @@ export const DigitalStack: React.FC = () => {
                                         }}
                                         initial={{ opacity: 0, y: 40, rotate: pos.rotation, scale: 0.8 }}
                                         whileInView={{
-                                            opacity: isGrabbed ? 0.2 : 1,
+                                            opacity: isGrabbed ? 0 : 1,
                                             y: 0,
                                             rotate: pos.rotation,
                                             scale: 1
                                         }}
                                         viewport={{ once: true }}
                                         animate={{
-                                            opacity: isGrabbed ? 0.2 : 1,
+                                            opacity: isGrabbed ? 0 : 1,
                                             scale: isGrabbed ? 0.5 : 1,
-                                            filter: isGrabbed ? 'grayscale(100%)' : 'grayscale(0%)',
+                                            pointerEvents: isGrabbed ? 'none' : 'auto'
                                         }}
                                         whileHover={!isGrabbed ? {
                                             scale: 1.15,

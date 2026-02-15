@@ -13,6 +13,7 @@ import { WebTraderCaseStudy } from './components/WebTraderCaseStudy';
 import { ArabicSyntaxCaseStudy } from './components/ArabicSyntaxCaseStudy';
 import { SmartClausesCaseStudy } from './components/SmartClausesCaseStudy';
 import { SideProjectsPage } from './components/SideProjectsPage';
+import { ResumePage } from './components/ResumePage';
 import { HomeAlternative } from './components/HomeAlternative';
 import { NewHomepage } from './components/NewHomepage';
 import { ClassicThemeWrapper } from './components/ClassicThemeWrapper';
@@ -87,7 +88,7 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5', '/side-projects'].includes(location.pathname.replace(/\/$/, '')) && (
+      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5', '/side-projects', '/resume'].includes(location.pathname.replace(/\/$/, '')) && (
         <div
           style={{
             opacity: showNavbar ? 1 : 0,
@@ -140,6 +141,10 @@ function App() {
             onProjectSelect={(p) => navigate(`/work/${p.id}`)}
             onBack={() => navigate('/')}
           />
+        } />
+
+        <Route path="/resume" element={
+          <ResumePage onBack={() => navigate('/')} />
         } />
 
         <Route path="/work/:id" element={<ProjectRouteHandler />} />
