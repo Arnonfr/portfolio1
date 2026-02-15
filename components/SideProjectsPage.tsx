@@ -39,7 +39,7 @@ const VIBE_PROJECTS = [
     title: 'Urbanito',
     category: 'Travel',
     year: '2025',
-    image: '/images/vibe/urbanito.png',
+    image: '/images/Urbanito.png',
     url: 'https://urbanito.live',
     description:
       'An interactive city exploration app that generates walking routes enriched with historical context, cultural notes, and local points of interest. Select a city, set your pace, and get a curated route with stories along the way.',
@@ -51,7 +51,7 @@ const VIBE_PROJECTS = [
     title: 'Woodworking Planner',
     category: 'Tool',
     year: '2025',
-    image: '/images/vibe/woodworking-planner.png',
+    image: '/images/Planer.png',
     url: 'https://woodworking-project-planner-966802127078.us-west1.run.app',
     description:
       'A 3D furniture planning tool with real-time customization. Choose a template, adjust dimensions, and get building instructions and cut diagrams. Built entirely through prompting — from 3D rendering to blueprint generation.',
@@ -63,7 +63,7 @@ const VIBE_PROJECTS = [
     title: 'Cookit',
     category: 'Consumer AI',
     year: '2025',
-    image: '/images/vibe/cookit.png',
+    image: '/images/cookit 41.png',
     url: 'https://cookit-12-ee42eed7.base44.app',
     description:
       'A recipe extraction and management tool. Paste a URL or upload an image and get a clean, structured recipe — ingredients, steps, and tags. Organize your collection, filter by category, and search across everything.',

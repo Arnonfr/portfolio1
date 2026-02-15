@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
 import { CaseStudyFooterTangle } from './CaseStudyFooterTangle';
+import { Header } from './Header';
 
 interface SmartClausesCaseStudyProps {
     onBack: () => void;
@@ -13,15 +13,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
         <div className="bg-white min-h-screen font-sans text-stone-900">
 
             {/* NAVIGATION */}
-            <nav className="fixed top-0 left-0 right-0 p-6 z-50 flex justify-between items-center mix-blend-difference text-white">
-                <button
-                    onClick={onBack}
-                    className="flex items-center gap-2 hover:opacity-70 transition-opacity"
-                >
-                    <ArrowLeft size={24} />
-                    <span className="text-sm font-bold tracking-widest uppercase">Back to Portfolio</span>
-                </button>
-            </nav>
+            <Header isInternal={true} onBack={onBack} />
 
             {/* ── HERO ── */}
             <header className="relative min-h-[90vh] flex items-end justify-start overflow-hidden">

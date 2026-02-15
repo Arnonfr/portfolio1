@@ -140,6 +140,7 @@ const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void
               onClick={() => onProjectClick(project)}
               isInView={isInView}
               onHover={setHoveredProject}
+              hoveredId={hoveredProject?.id ?? null}
             />
           ))}
         </div>
@@ -178,6 +179,83 @@ const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void
 };
 
 // ───────────────────────────────────────────────────────────
+// DISTORTED TITLE — 5 different effects for non-hovered rows
+// ───────────────────────────────────────────────────────────
+
+// Effect 0: Wave — letters undulate vertically like a sine wave
+// Effect 1: Arc — letters rotate along a circular arc path
+// Effect 2: Scatter — letters drift apart with random rotation
+// Effect 3: Squeeze — horizontal compression with vertical stretch
+// Effect 4: Skew — italic-like progressive skew with fade
+
+const DistortedTitle: React.FC<{
+  text: string;
+  effectIndex: number;
+  isDistorted: boolean;
+}> = ({ text, effectIndex, isDistorted }) => {
+  const chars = text.split('');
+  const len = chars.length;
+
+  const getCharStyle = (i: number): React.CSSProperties => {
+    if (!isDistorted) return { display: 'inline-block', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' };
+
+    const norm = len > 1 ? i / (len - 1) : 0; // 0..1
+    const fromCenter = (norm - 0.5) * 2; // -1..1
+
+    switch (effectIndex % 5) {
+      case 0: // Wave
+        return {
+          display: 'inline-block',
+          transform: `translateY(${Math.sin(norm * Math.PI * 2.5) * 12}px)`,
+          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+          opacity: 0.4,
+        };
+      case 1: // Arc
+        return {
+          display: 'inline-block',
+          transform: `translateY(${Math.pow(fromCenter, 2) * -18}px) rotate(${fromCenter * -8}deg)`,
+          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+          opacity: 0.35,
+        };
+      case 2: // Scatter
+        return {
+          display: 'inline-block',
+          transform: `translateY(${(Math.random() - 0.5) * 0.1}px) translateX(${fromCenter * 6}px) rotate(${fromCenter * 5}deg)`,
+          letterSpacing: '0.15em',
+          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+          opacity: 0.3,
+        };
+      case 3: // Squeeze
+        return {
+          display: 'inline-block',
+          transform: `scaleX(0.6) scaleY(1.3) translateY(${fromCenter * 4}px)`,
+          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+          opacity: 0.35,
+        };
+      case 4: // Skew
+        return {
+          display: 'inline-block',
+          transform: `skewX(${-15 + norm * 5}deg) translateX(${fromCenter * 8}px)`,
+          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
+          opacity: 0.3,
+        };
+      default:
+        return { display: 'inline-block', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' };
+    }
+  };
+
+  return (
+    <span className="inline-flex" aria-label={text}>
+      {chars.map((char, i) => (
+        <span key={i} style={getCharStyle(i)}>
+          {char === ' ' ? '\u00A0' : char}
+        </span>
+      ))}
+    </span>
+  );
+};
+
+// ───────────────────────────────────────────────────────────
 // PROJECT ROW — Text row, hover triggers floating image
 // ───────────────────────────────────────────────────────────
 const EASE_SPRING: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
@@ -188,8 +266,10 @@ const ProjectRow: React.FC<{
   onClick: () => void;
   isInView: boolean;
   onHover: (project: Project | null) => void;
-}> = ({ project, index, onClick, isInView, onHover }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  hoveredId: number | null;
+}> = ({ project, index, onClick, isInView, onHover, hoveredId }) => {
+  const isHovered = hoveredId === project.id;
+  const isOtherHovered = hoveredId !== null && hoveredId !== project.id;
 
   return (
     <motion.article
@@ -197,8 +277,8 @@ const ProjectRow: React.FC<{
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay: index * 0.08, ease: EASE_POWER }}
       onClick={onClick}
-      onMouseEnter={() => { setIsHovered(true); onHover(project); }}
-      onMouseLeave={() => { setIsHovered(false); onHover(null); }}
+      onMouseEnter={() => { onHover(project); }}
+      onMouseLeave={() => { onHover(null); }}
       className="group cursor-pointer relative"
     >
       <motion.div
@@ -217,7 +297,7 @@ const ProjectRow: React.FC<{
             {/* Number */}
             <motion.span
               className="font-mono text-[0.8125rem] w-10 flex-shrink-0 text-center"
-              animate={{ color: isHovered ? '#c9a87e' : '#a8a39a' }}
+              animate={{ color: isHovered ? '#0055ff' : '#a8a39a' }} // Blue on hover
               transition={{ duration: 0.3 }}
             >
               0{index + 1}
@@ -226,7 +306,9 @@ const ProjectRow: React.FC<{
             {/* Title + meta stacked */}
             <div className="flex-1 min-w-0">
               <motion.h3
-                className="text-[clamp(1.25rem,3vw,2.25rem)] font-semibold text-[#0c0c0a] tracking-[-0.025em] leading-[1.1]"
+                className="text-[clamp(1.25rem,3vw,2.25rem)] font-semibold tracking-[-0.025em] leading-[1.1]"
+                animate={{ color: isHovered ? '#0055ff' : '#0c0c0a' }} // Title turns Blue
+                transition={{ duration: 0.3 }}
               >
                 {project.title}
               </motion.h3>
@@ -234,7 +316,7 @@ const ProjectRow: React.FC<{
               {/* Meta — visible inline always */}
               <motion.div
                 className="flex gap-3 mt-2 text-[0.8125rem] font-mono text-[#a8a39a]"
-                animate={{ opacity: isHovered ? 1 : 0.7 }}
+                animate={{ opacity: isHovered ? 1 : isOtherHovered ? 0.3 : 0.7 }}
               >
                 <span>{project.company}</span>
                 <span className="hidden md:inline">·</span>
@@ -246,10 +328,10 @@ const ProjectRow: React.FC<{
 
             {/* Arrow */}
             <motion.span
-              className="text-[#a8a39a] ml-2 flex-shrink-0 text-xl"
+              className="ml-2 flex-shrink-0 text-xl"
               animate={{
                 x: isHovered ? 4 : 0,
-                color: isHovered ? '#c9a87e' : '#a8a39a',
+                color: isHovered ? '#ff00aa' : '#a8a39a', // Arrow turns Pink
               }}
               transition={{ duration: 0.3, ease: EASE_SPRING }}
             >
@@ -402,38 +484,38 @@ const ExpertiseSection: React.FC = () => {
               {/* Text on Path Hover Effect - matching Hero style with continuous motion */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
                 <svg viewBox="0 0 400 400" className="w-full h-full scale-150">
-                   <defs>
-                      <path 
-                        id={`path-${index}`} 
-                        d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" 
-                      />
-                   </defs>
-                   <text className="text-[18px] font-bold uppercase tracking-[0.2em]" fill="white">
-                     <textPath href={`#path-${index}`} startOffset="0%">
-                        {item.title} · {item.title} · {item.title} · {item.title} ·
-                        <animate attributeName="startOffset" from="0%" to="100%" dur="10s" repeatCount="indefinite" />
-                     </textPath>
-                   </text>
+                  <defs>
+                    <path
+                      id={`path-${index}`}
+                      d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0"
+                    />
+                  </defs>
+                  <text className="text-[18px] font-bold uppercase tracking-[0.2em]" fill="white">
+                    <textPath href={`#path-${index}`} startOffset="0%">
+                      {item.title} · {item.title} · {item.title} · {item.title} ·
+                      <animate attributeName="startOffset" from="0%" to="100%" dur="10s" repeatCount="indefinite" />
+                    </textPath>
+                  </text>
                 </svg>
               </div>
 
               {/* Card Content */}
               <div className="relative z-10 flex flex-col h-full">
                 <span className="text-[0.625rem] font-mono text-[#a8a39a] mb-6 opacity-50">
-                   0{index + 1}
+                  0{index + 1}
                 </span>
 
                 <h3 className="text-[1.125rem] font-bold text-[#f4f3f1] mb-4 tracking-[-0.02em] group-hover:text-[#0066FF] transition-colors duration-300 uppercase">
-                   {item.title}
+                  {item.title}
                 </h3>
-                
+
                 <p className="text-[0.8125rem] text-[#a8a39a] leading-relaxed group-hover:text-[#f4f3f1] transition-colors duration-300">
                   {item.description}
                 </p>
 
                 {/* Corner detail */}
                 <div className="mt-auto flex justify-end">
-                   <div className="w-6 h-6 border-r border-b border-[#2b2926] group-hover:border-[#0066FF] transition-colors duration-500" />
+                  <div className="w-6 h-6 border-r border-b border-[#2b2926] group-hover:border-[#0066FF] transition-colors duration-500" />
                 </div>
               </div>
             </motion.div>
@@ -448,10 +530,10 @@ const ExpertiseSection: React.FC = () => {
 // INSTAGRAM STRIP — Recent posts from @ux_issues
 // ───────────────────────────────────────────────────────────
 const INSTAGRAM_POSTS = [
-  { src: '/images/instagram/post-1.png', alt: 'UX Issues post 1' },
-  { src: '/images/instagram/post-2.png', alt: 'UX Issues post 2' },
-  { src: '/images/instagram/post-3.png', alt: 'UX Issues post 3' },
-  { src: '/images/instagram/post-4.png', alt: 'UX Issues post 4' },
+  { src: '/images/instagram/post1.jpg', alt: 'UX Issues post 1' },
+  { src: '/images/instagram/post2.jpg', alt: 'UX Issues post 2' },
+  { src: '/images/instagram/post3.jpg', alt: 'UX Issues post 3' },
+  { src: '/images/instagram/post4.jpg', alt: 'UX Issues post 4' },
 ];
 
 const InstagramSection: React.FC = () => {
@@ -596,6 +678,17 @@ const ContactSection: React.FC = () => {
               </a>
             </div>
             <div>
+              <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">LINKEDIN</span>
+              <a
+                href="https://www.linkedin.com/in/arnon-friedman-00454867/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#f4f3f1] hover:text-[#c9a87e] transition-colors text-[0.9375rem]"
+              >
+                Arnon Friedman
+              </a>
+            </div>
+            <div>
               <span className="font-mono text-[0.8125rem] text-[#a8a39a] block mb-1">WHATSAPP</span>
               <a
                 href="https://wa.me/9720556697319"
@@ -646,11 +739,11 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
       {/* 1. Header with letters */}
       <TextOnPathHero />
 
-      {/* 2. About paragraph */}
-      <AboutSection onExploreSideProjects={onExploreSideProjects} />
-
-      {/* 3. Projects */}
+      {/* 2. Projects */}
       <FeaturedWorkSection onProjectClick={onProjectSelect} />
+
+      {/* 3. About paragraph */}
+      <AboutSection onExploreSideProjects={onExploreSideProjects} />
 
       {/* 4. Tools (Digital Stack Pile) */}
       <DigitalStack />

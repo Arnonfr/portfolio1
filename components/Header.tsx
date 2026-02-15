@@ -26,9 +26,9 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
     `}>
       <nav className={`
         max-w-[1440px] mx-auto rounded-2xl h-14 px-8 flex items-center justify-between transition-all duration-700 ease-in-out
-        ${isScrolled
+        ${(isScrolled || isInternal)
           ? 'bg-white/70 backdrop-blur-xl border border-black/5 shadow-[0_8px_30px_rgba(0,0,0,0.04)]'
-          : 'bg-transparent border-transparent shadow-none border-0 outline-none'}
+          : 'bg-transparent border-transparent shadow-none border-0 outline-none pointer-events-none'}
       `}>
 
         {/* Logo Section */}
@@ -40,7 +40,7 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }
           }}
-          className="flex items-center gap-3 cursor-pointer group"
+          className={`flex items-center gap-3 cursor-pointer group pointer-events-auto transition-opacity duration-500 ${(!isScrolled && !isInternal) ? 'opacity-0' : 'opacity-100'}`}
         >
           <span className="font-serif text-[20px] md:text-[22px] font-medium text-black group-hover:opacity-60 transition-opacity">
             {isInternal ? '← Back' : 'Arnon Friedman'}
@@ -53,7 +53,7 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
         </div>
 
         {/* Navigation Section */}
-        <div className="flex items-center gap-6 md:gap-8">
+        <div className={`flex items-center gap-6 md:gap-8 pointer-events-auto transition-opacity duration-500 ${(!isScrolled && !isInternal) ? 'opacity-0' : 'opacity-100'}`}>
           {!isInternal && (
             <Link
               to="/v2"
@@ -66,19 +66,15 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
             <button
               key={item}
               onClick={() => {
-                const targetId = item.toLowerCase();
+                const targetId = item.toLowerCase() === 'work' ? 'work-gallery' : item.toLowerCase();
                 if (isInternal) {
-                  navigate('/');
-                  setTimeout(() => {
-                    const el = document.getElementById(targetId);
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                  }, 300);
+                  navigate('/', { state: { scrollTo: targetId } });
                 } else {
                   const el = document.getElementById(targetId);
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
                 }
               }}
-              className={`text-[12px] font-sans font-medium transition-all duration-500 ${isScrolled ? 'text-black/50 hover:text-black' : 'text-black/40 hover:text-black'}`}
+              className={`text-[12px] font-sans font-medium transition-all duration-500 ${(isScrolled || isInternal) ? 'text-black/50 hover:text-black' : 'text-black/40 hover:text-black'}`}
             >
               {item}
             </button>

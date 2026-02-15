@@ -13,7 +13,7 @@ const CORE_PHRASE = "let's simplify complex things";
 const SEPARATOR = "  ·  ";
 const FULL_UNIT = CORE_PHRASE + SEPARATOR;
 const INFINITE_TEXT = FULL_UNIT.repeat(80);
-const LOOP_FONT_SIZE = 'clamp(64px, 9vw, 92px)'; // Fluid font size
+const LOOP_FONT_SIZE = 120; // SVG units — scales with viewBox
 const FONT_FAMILY = "'Space Grotesk', sans-serif";
 const FONT_WEIGHT = 800; // Bolder font
 
@@ -22,91 +22,96 @@ const FONT_WEIGHT = 800; // Bolder font
 // This gives extra room above the viewport for the off-screen loop.
 // The visible screen maps roughly to x:[0..2400], y:[0..1000]
 // but the path extends up to y:-1000 (off-screen above)
-const VB_CY = 500; // vertical center of visible area
+const VB_CY = 620; // slightly below center to account for wave amplitude above
 
 type PathPoints = Record<string, [number, number]>;
 
-// ── Path 1: wavy left-to-right with loop going off-screen top ──
-//
-// Shape description:
-// 1. Enter from left off-screen, gentle wave up
-// 2. Wave down
-// 3. Rise up and EXIT off-screen above (loop goes up to y:-900)
-// 4. Come back down from off-screen (text now appears upside-down)
-// 5. Wave continues to the right
-// 6. Gentle wave, exit right off-screen
-//
+// ── Path 1: L→R with 2 real loops ──
+// A cubic bezier loop is created when C2 is to the LEFT of the segment start —
+// the path folds back on itself, creating a visible crossing/loop.
 const complexPath1: PathPoints = {
-  m: [-500, VB_CY + 50],
-  c1: [-200, VB_CY + 50],
-  c2: [0, VB_CY - 75],
-  to1: [250, VB_CY - 90],
+  // ── PATH 1: Left-Heavy Loop (Upward) ──
+  // Starts Left, big loop on the left side, then flows straight-ish to right.
 
-  c3: [450, VB_CY - 100],
-  c4: [550, VB_CY + 100],
-  to2: [700, VB_CY + 110],
+  // 1. Enter from left
+  m: [-2200, VB_CY],
+  c1: [-1200, VB_CY],
+  c2: [-600, VB_CY + 200],
+  to1: [-100, VB_CY + 200],
 
-  c5: [850, VB_CY + 120],
-  c6: [900, VB_CY - 150],
-  to3: [950, -100],
+  // 2. The Big Left Loop (Upward)
+  c3: [600, VB_CY + 200],   // Push right
+  c4: [800, VB_CY - 1000],  // Pull WAY up
+  to2: [300, VB_CY - 800],   // Apex top-left
 
-  c7: [1000, -400],
-  c8: [1400, -400],
-  to4: [1450, -100],
+  // 3. Loop Back & Cross
+  c5: [-200, VB_CY - 600],   // Pull back left
+  c6: [200, VB_CY + 800],   // Dive down to cross
+  to3: [1200, VB_CY + 400],   // Land center-ish low
 
-  c9: [1500, VB_CY - 150],
-  c10: [1550, VB_CY + 120],
-  to5: [1700, VB_CY + 100],
+  // 4. Recovery to Center Line
+  c7: [1800, VB_CY + 150],
+  c8: [2200, VB_CY],
+  to4: [2600, VB_CY],
 
-  c11: [1850, VB_CY + 80],
-  c12: [1950, VB_CY - 90],
-  to6: [2100, VB_CY - 75],
+  // 5. Exit Right (Smooth)
+  c9: [3000, VB_CY],
+  c10: [3400, VB_CY],
+  to5: [3800, VB_CY],
 
-  c13: [2250, VB_CY - 60],
-  c14: [2400, VB_CY + 50],
-  to7: [2550, VB_CY + 40],
+  c11: [4200, VB_CY],
+  c12: [4600, VB_CY],
+  to6: [5000, VB_CY],
 
-  c15: [2700, VB_CY + 30],
-  c16: [2800, VB_CY],
-  to8: [2900, VB_CY],
+  c13: [5200, VB_CY],
+  c14: [5300, VB_CY],
+  to7: [5400, VB_CY],
+
+  c15: [5500, VB_CY],
+  c16: [5600, VB_CY],
+  to8: [5700, VB_CY],
 };
 
-// ── Path 2: reverse direction, slightly offset wave ──
-// Enters from right, similar wavy pattern, loop goes off-screen
-// at a different X position, exits left
+// ── PATH 2: Right-Heavy Loop (Downward) ──
+// Symmetrical to Path 1 but on the right side and looping downwards.
 const complexPath2: PathPoints = {
-  m: [2900, VB_CY - 25],
-  c1: [2800, VB_CY - 25],
-  c2: [2700, VB_CY - 25],
-  to1: [2550, VB_CY - 15],
+  // 1. Enter from Right (Flowing Left)
+  m: [5000, VB_CY],
+  c1: [4000, VB_CY],
+  c2: [3400, VB_CY - 200],
+  to1: [2900, VB_CY - 200],
 
-  c3: [2400, VB_CY - 5],
-  c4: [2250, VB_CY + 100],
-  to2: [2100, VB_CY + 110],
+  // 2. The Big Right Loop (Downward)
+  c3: [2200, VB_CY - 200],   // Push left
+  c4: [2000, VB_CY + 1000],  // Pull WAY down
+  to2: [2500, VB_CY + 800],   // Apex bottom-right
 
-  c5: [1950, VB_CY + 120],
-  c6: [1900, VB_CY - 100],
-  to3: [1850, -100],
+  // 3. Loop Back & Cross
+  c5: [3000, VB_CY + 600],   // Pull back right
+  c6: [2600, VB_CY - 800],   // Fly up to cross
+  to3: [1600, VB_CY - 400],   // Land center-ish high
 
-  c7: [1800, -350],
-  c8: [1400, -350],
-  to4: [1350, -100],
+  // 4. Recovery to Center Line
+  c7: [1000, VB_CY - 150],
+  c8: [600, VB_CY],
+  to4: [200, VB_CY],
 
-  c9: [1300, VB_CY - 100],
-  c10: [1250, VB_CY + 100],
-  to5: [1100, VB_CY + 90],
+  // 5. Exit Left (Smooth)
+  c9: [-200, VB_CY],
+  c10: [-600, VB_CY],
+  to5: [-1000, VB_CY],
 
-  c11: [950, VB_CY + 80],
-  c12: [850, VB_CY - 100],
-  to6: [700, VB_CY - 90],
+  c11: [-1400, VB_CY],
+  c12: [-1800, VB_CY],
+  to6: [-2200, VB_CY],
 
-  c13: [550, VB_CY - 80],
-  c14: [350, VB_CY + 75],
-  to7: [150, VB_CY + 50],
+  c13: [-2400, VB_CY],
+  c14: [-2500, VB_CY],
+  to7: [-2600, VB_CY],
 
-  c15: [-50, VB_CY + 25],
-  c16: [-300, VB_CY],
-  to8: [-500, VB_CY],
+  c15: [-2700, VB_CY],
+  c16: [-2800, VB_CY],
+  to8: [-2900, VB_CY],
 };
 
 // ── Straight paths (resolved state) ──
@@ -119,8 +124,8 @@ const makeStraight = (startX: number, endX: number): PathPoints => {
   return pts;
 };
 
-const simplePath1 = makeStraight(-500, 2900);
-const simplePath2 = makeStraight(2900, -500);
+const simplePath1 = makeStraight(-2200, 5700);
+const simplePath2 = makeStraight(5000, -2900);
 
 // ── Utilities ──
 
@@ -181,7 +186,6 @@ const MouseWheelIcon: React.FC = () => (
 );
 
 // ── Component ──
-
 export const TextOnPathHero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const path1Ref = useRef<SVGPathElement>(null);
@@ -192,10 +196,17 @@ export const TextOnPathHero: React.FC = () => {
   const resolvedGroupRef = useRef<SVGGElement>(null);
   const resolvedTextRef = useRef<SVGTextElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
+  const cornerLabelRef = useRef<HTMLDivElement>(null);
+
   const phraseWidthRef = useRef(0);
   const offset1Ref = useRef(0);
   const offset2Ref = useRef(0);
   const rafRef = useRef(0);
+
+  // Refs for individual phrase tspans
+  const tspans1Ref = useRef<(SVGTSpanElement | null)[]>([]);
+  const tspans2Ref = useRef<(SVGTSpanElement | null)[]>([]);
+
   const shouldReduce = useReducedMotion();
 
   const { scrollYProgress } = useScroll({
@@ -203,13 +214,18 @@ export const TextOnPathHero: React.FC = () => {
     offset: ['start start', 'end end'],
   });
 
+  // Number of repetitions - fewer handles but enough to fill screen + flow
+  // 30 repeats * ~1500 width = 45000 total width. Plenty.
+  const REPEAT_COUNT = 40;
+  const loopIndices = Array.from({ length: REPEAT_COUNT }, (_, i) => i);
+
   // Measure one phrase width after fonts load
   useEffect(() => {
     const measure = () => {
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
       const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       text.style.fontFamily = FONT_FAMILY;
-      text.style.fontSize = LOOP_FONT_SIZE;
+      text.style.fontSize = `${LOOP_FONT_SIZE}px`; // Base size calculation
       text.style.fontWeight = String(FONT_WEIGHT);
       text.textContent = FULL_UNIT;
       svg.appendChild(text);
@@ -233,10 +249,9 @@ export const TextOnPathHero: React.FC = () => {
 
     const tick = () => {
       const progress = scrollYProgress.get();
-
       dispatchHeroProgress(progress);
 
-      // Path morph
+      // 1. Path Morphing
       if (path1Ref.current) {
         path1Ref.current.setAttribute('d', generatePathD(complexPath1, simplePath1, progress));
       }
@@ -244,37 +259,35 @@ export const TextOnPathHero: React.FC = () => {
         path2Ref.current.setAttribute('d', generatePathD(complexPath2, simplePath2, progress));
       }
 
-      // Text flow speed
+      // 2. Base Speed Calculation
       const speed = 1.8 * Math.max(0, 1 - progress * 1.5);
 
-      // Path 1
+      // 3. Offset Updates
+      // We move the offsets continuously. 
+      // Note: We don't reset to 0 abruptly because we are scaling individual items, visual jumps might occur if sizing isn't uniform at wrap point.
+      // However, with 40 repeats and huge buffer, straight continuous scroll is fine for a while.
       offset1Ref.current -= speed;
-      if (phraseWidthRef.current > 0 && offset1Ref.current <= -phraseWidthRef.current) {
-        offset1Ref.current = 0;
-      }
-
-      // Path 2 — slightly different speed
       offset2Ref.current -= speed * 0.8;
-      if (phraseWidthRef.current > 0 && offset2Ref.current <= -phraseWidthRef.current) {
-        offset2Ref.current = 0;
+
+      // Wrap-around logic (optional, dependent on visual smoothness)
+      // If we know total strip length, we can modulo.
+      const totalStripW = phraseWidthRef.current * REPEAT_COUNT;
+      if (phraseWidthRef.current > 0) {
+        if (offset1Ref.current < -totalStripW / 2) offset1Ref.current += phraseWidthRef.current;
+        if (offset2Ref.current < -totalStripW / 2) offset2Ref.current += phraseWidthRef.current;
       }
 
-      // ── Transition Logic ──
+      // 4. Transition & Centering Logic
       const transitionStart = 0.7;
       const transitionEnd = 0.95;
       const tProgress = Math.min(1, Math.max(0, (progress - transitionStart) / (transitionEnd - transitionStart)));
 
-      // Target offset to center one unit: 1200 - unitWidth/2
       const targetOffset = 1200 - (phraseWidthRef.current / 2);
-      
-      // We only apply the centering "magnetic" pull at the very end of the transition
       const currentOffset1 = tProgress > 0 ? lerp(offset1Ref.current, targetOffset, tProgress) : offset1Ref.current;
       const currentOffset2 = tProgress > 0 ? lerp(offset2Ref.current, targetOffset, tProgress) : offset2Ref.current;
 
       if (textPath1Ref.current) {
         textPath1Ref.current.setAttribute('startOffset', String(currentOffset1));
-        // Transition blue to black
-        const colorProgress = Math.min(1, Math.max(0, (progress - 0.85) / 0.1));
         const isNearEnd = progress > 0.92;
         textPath1Ref.current.style.fill = isNearEnd ? '#0c0c0a' : '#0055ff';
       }
@@ -283,7 +296,68 @@ export const TextOnPathHero: React.FC = () => {
         textPath2Ref.current.style.opacity = String(0.5 * (1 - tProgress * 1.5));
       }
 
-      // Cross-fade the groups
+      // 5. DYNAMIC FONT SIZING (The "Rollercoaster" size effect)
+      // Effect strength fades out as we scroll down (becomes uniform)
+      // scaleEffect = 1.0 (strong) -> 0.0 (none/uniform)
+      const scaleEffectStrength = Math.max(0, 1 - progress * 2.5);
+
+      if (phraseWidthRef.current > 0 && scaleEffectStrength > 0.01) {
+        // Center of the viewBox X-wise is approx 1200
+        const VIEW_CENTER_X = 1200;
+        const VIEW_WIDTH = 2400; // Roughly the visible area
+
+        // Helper to update tspans
+        const updateTspans = (
+          tspans: (SVGTSpanElement | null)[],
+          baseOffset: number
+        ) => {
+          tspans.forEach((tspan, i) => {
+            if (!tspan) return;
+
+            // Estimated position of this phrase along the path
+            // (Strictly linear estimate, but sufficient for visual wave)
+            const phraseCenterOnPath = baseOffset + (i * phraseWidthRef.current) + (phraseWidthRef.current / 2);
+
+            // Distance from center of "stage"
+            // We normalize this to -1..0..1 range roughly across strict visible area
+            let distNorm = (phraseCenterOnPath - VIEW_CENTER_X) / (VIEW_WIDTH / 1.5);
+
+            // Clamp roughly
+            // We want: Center (0) -> Small, Edges (+/- 1) -> Large
+            // Parabola: y = x^2 (0 at center, 1 at edges)
+            // Or Cosine: cos(0) = 1 (Big center? No we want small center).
+            // Let's use |x| or x^2.
+            // Let's use a nice curve: 1.0 (Base) + Strength * (|distNorm|^1.5)
+
+            const distAbs = Math.abs(distNorm);
+            const sizeMultiplier = 1 + (scaleEffectStrength * 0.85 * Math.pow(distAbs, 1.5));
+
+            // Clamp min/max scaling just in case
+            const finalScale = Math.max(0.6, Math.min(2.5, sizeMultiplier));
+
+            tspan.style.fontSize = `${LOOP_FONT_SIZE * finalScale}px`;
+          });
+        };
+
+        updateTspans(tspans1Ref.current, currentOffset1);
+        updateTspans(tspans2Ref.current, currentOffset2);
+
+      } else {
+        // Reset to uniform if effect is off/done (performance optimization)
+        // Only reset once when reaching threshold to avoid DOM thrashing? 
+        // For smoothness, we continue to run it or just check if we need to reset.
+        // If we passed the threshold recently, forcing 120px is safe.
+        // Let's just set it to base size if progress is high.
+        if (progress > 0.5) {
+          const reset = (tspans: (SVGTSpanElement | null)[]) => {
+            tspans.forEach(t => { if (t && t.style.fontSize !== `${LOOP_FONT_SIZE}px`) t.style.fontSize = `${LOOP_FONT_SIZE}px`; });
+          };
+          reset(tspans1Ref.current);
+          reset(tspans2Ref.current);
+        }
+      }
+
+      // 6. Cross-fade groups
       const flowingOpacity = Math.max(0, 1 - (progress - 0.95) / 0.05);
       const resolvedOpacity = Math.min(1, Math.max(0, (progress - 0.98) / 0.02));
 
@@ -299,6 +373,11 @@ export const TextOnPathHero: React.FC = () => {
       if (resolvedTextRef.current) {
         const ls = lerp(-0.02, 0.13, resolvedProgress);
         resolvedTextRef.current.style.letterSpacing = `${ls}em`;
+      }
+
+      // Corner Label fade (fade out by 20% scroll)
+      if (cornerLabelRef.current) {
+        cornerLabelRef.current.style.opacity = String(Math.max(0, 1 - progress * 5));
       }
 
       // Scroll hint fade
@@ -335,32 +414,55 @@ export const TextOnPathHero: React.FC = () => {
           transition={{ duration: 1.2, delay: 0.2, ease: EASE_POWER }}
           className="w-full h-full relative"
         >
-          {/* SVG takes the full sticky viewport; slice ensures edge-to-edge text */}
+          {/* SVG */}
           <svg
-            viewBox="-200 -600 2800 2200"
-            className="w-full h-full"
+            viewBox="-600 -600 3600 2200"
+            style={{ position: 'absolute', left: '-2%', top: 0, width: '104%', height: '100%' }}
             preserveAspectRatio="xMidYMid slice"
           >
             <defs>
               <path ref={path1Ref} id="heroTextPath1" d={generatePathD(complexPath1, simplePath1, 0)} />
               <path ref={path2Ref} id="heroTextPath2" d={generatePathD(complexPath2, simplePath2, 0)} />
+
+              {/* Mask for Variable Size Effect: White at edges (show large text), Black in middle (hide large text) */}
+              <mask id="sizeMask">
+                <rect x="-2000" y="-1000" width="8000" height="4000" fill="black" />
+                <linearGradient id="edgeGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stopColor="white" stopOpacity="1" />
+                  <stop offset="20%" stopColor="white" stopOpacity="1" />
+                  <stop offset="45%" stopColor="black" stopOpacity="1" />
+                  <stop offset="55%" stopColor="black" stopOpacity="1" />
+                  <stop offset="80%" stopColor="white" stopOpacity="1" />
+                  <stop offset="100%" stopColor="white" stopOpacity="1" />
+                </linearGradient>
+                <rect x="-2000" y="-1000" width="8000" height="4000" fill="url(#edgeGradient)" />
+              </mask>
             </defs>
 
-            {/* Flowing text on both paths */}
+            {/* Flowing text group */}
             <g ref={flowingGroupRef}>
+
               {/* Path 1 — Bright Blue */}
               <text
                 className="select-none pointer-events-none transition-colors duration-500"
                 style={{
-                  fill: '#0055ff', // Bright Blue
+                  fill: '#0055ff',
                   fontFamily: FONT_FAMILY,
-                  fontSize: LOOP_FONT_SIZE,
                   fontWeight: FONT_WEIGHT,
                   letterSpacing: '-0.02em',
                 }}
               >
                 <textPath ref={textPath1Ref} href="#heroTextPath1">
-                  {INFINITE_TEXT}
+                  {loopIndices.map(i => (
+                    <tspan
+                      key={i}
+                      ref={el => { tspans1Ref.current[i] = el }}
+                      // Initial size to avoid FOUC
+                      style={{ fontSize: LOOP_FONT_SIZE }}
+                    >
+                      {FULL_UNIT}
+                    </tspan>
+                  ))}
                 </textPath>
               </text>
 
@@ -368,16 +470,23 @@ export const TextOnPathHero: React.FC = () => {
               <text
                 className="select-none pointer-events-none"
                 style={{
-                  fill: '#ff00aa', // Vibrant Pink
+                  fill: '#ff00aa',
                   fontFamily: FONT_FAMILY,
-                  fontSize: LOOP_FONT_SIZE,
                   fontWeight: FONT_WEIGHT,
                   letterSpacing: '-0.02em',
                   mixBlendMode: 'multiply',
                 }}
               >
                 <textPath ref={textPath2Ref} href="#heroTextPath2">
-                  {INFINITE_TEXT}
+                  {loopIndices.map(i => (
+                    <tspan
+                      key={i}
+                      ref={el => { tspans2Ref.current[i] = el }}
+                      style={{ fontSize: LOOP_FONT_SIZE }}
+                    >
+                      {FULL_UNIT}
+                    </tspan>
+                  ))}
                 </textPath>
               </text>
             </g>
@@ -394,7 +503,7 @@ export const TextOnPathHero: React.FC = () => {
                 style={{
                   fill: '#0c0c0a',
                   fontFamily: FONT_FAMILY,
-                  fontSize: '80px',
+                  fontSize: 100,
                   fontWeight: FONT_WEIGHT,
                   letterSpacing: '-0.02em',
                 }}
@@ -404,29 +513,51 @@ export const TextOnPathHero: React.FC = () => {
             </g>
           </svg>
 
-          {/* ── Scroll hint at bottom of screen ── */}
-          <div
-            ref={scrollHintRef}
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 select-none pointer-events-none"
-          >
-            {/* Half mouse wheel — side view, top half clipped */}
-            <div className="overflow-hidden" style={{ height: 20 }}>
-              <MouseWheelIcon />
-            </div>
+        </motion.div>
+
+        {/* Top Right Corner Label (English, Layout: Name + Vertical 'Portfolio') */}
+        <div
+          ref={cornerLabelRef}
+          className="absolute top-8 right-8 z-50 pointer-events-none text-[#0c0c0a] flex items-start gap-3"
+        >
+          {/* Horizontal Name */}
+          <span className="font-bold text-[0.875rem] uppercase tracking-wider leading-none pt-1">
+            Arnon Friedman
+          </span>
+
+          {/* Vertical Portfolio Label */}
+          <div className="flex flex-col items-center">
+            <span className="h-px w-6 bg-[#0c0c0a] mb-2" /> {/* Decorative line */}
             <span
-              style={{
-                fontFamily: FONT_FAMILY,
-                fontSize: '11px',
-                fontWeight: 700,
-                letterSpacing: '0.25em',
-                color: '#a8a39a',
-                textTransform: 'uppercase',
-              }}
+              className="font-medium text-[0.75rem] uppercase tracking-[0.2em] origin-top-left translate-x-2"
+              style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}
             >
-              scroll to simplify
+              Portfolio
             </span>
           </div>
-        </motion.div>
+        </div>
+
+        {/* Scroll hint */}
+        <div
+          ref={scrollHintRef}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 select-none pointer-events-none z-10"
+        >
+          <div className="overflow-hidden" style={{ height: 20 }}>
+            <MouseWheelIcon />
+          </div>
+          <span
+            style={{
+              fontFamily: FONT_FAMILY,
+              fontSize: '11px',
+              fontWeight: 700,
+              letterSpacing: '0.25em',
+              color: '#a8a39a',
+              textTransform: 'uppercase',
+            }}
+          >
+            scroll to simplify
+          </span>
+        </div>
       </div>
     </section>
   );

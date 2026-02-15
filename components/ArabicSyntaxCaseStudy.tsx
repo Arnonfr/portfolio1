@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CaseStudyFooter } from './CaseStudyFooter';
+import { Header } from './Header';
 
 interface ArabicSyntaxCaseStudyProps {
   onBack: () => void;
@@ -141,19 +142,7 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
     <div className="w-full bg-stone-50 min-h-screen font-sans">
 
       {/* ─── S1: NAV ─── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-container py-4 flex items-center justify-between">
-          <button
-            onClick={onBack}
-            className="text-sm text-stone-500 hover:text-black transition-colors font-medium flex items-center gap-2"
-          >
-            <span className="text-lg">←</span> Back to Portfolio
-          </button>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
-            Case Study
-          </span>
-        </div>
-      </nav>
+      <Header isInternal={true} onBack={onBack} />
 
 
       {/* ═══════════════════════════════════════════════════════════

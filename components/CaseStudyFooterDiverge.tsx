@@ -1,7 +1,8 @@
 
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
-import { ProjectNavigation } from './ProjectNavigation';
+import { useNavigate } from 'react-router-dom';
+import { PROJECTS } from '../data';
 
 interface Props {
     projectId: number;
@@ -67,6 +68,10 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
     category,
 }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const navigate = useNavigate();
+    const currentIndex = PROJECTS.findIndex(p => p.id === projectId);
+    const prevProject = currentIndex > 0 ? PROJECTS[currentIndex - 1] : null;
+    const nextProject = currentIndex < PROJECTS.length - 1 ? PROJECTS[currentIndex + 1] : null;
     const { scrollYProgress } = useScroll({
         target: ref,
         offset: ['start end', 'center center'],
@@ -89,7 +94,8 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
     return (
         <div className="px-6 pb-8 pt-4" ref={ref}>
             {/* Subtle light footer */}
-            <div className="bg-[#f8f7f5] border border-black/5 rounded-[48px] py-28 px-10 text-center text-black relative overflow-hidden">
+            <div className="bg-[#f8f7f5] border border-black/5 rounded-[48px] overflow-hidden text-black">
+            <div className="py-28 px-10 text-center relative overflow-hidden">
 
                 {/* SVG text-on-path — diverging split */}
                 <div className="absolute inset-0 pointer-events-none select-none opacity-[0.03]" aria-hidden>
@@ -161,9 +167,29 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
                 </div>
             </div>
 
-            {/* Project navigation */}
-            <div className="mt-12 max-w-4xl mx-auto px-4">
-                <ProjectNavigation currentProjectId={projectId} variant="light" />
+            {/* Prev / Next navigation — inside the pill */}
+            {(prevProject || nextProject) && (
+                <div className="border-t border-black/5 px-10 py-6 flex items-center justify-between">
+                    {prevProject ? (
+                        <button onClick={() => navigate(`/work/${prevProject.id}`)} className="group flex items-center gap-3 text-left hover:opacity-60 transition-opacity">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-stone-400 group-hover:-translate-x-0.5 transition-transform"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
+                            <div>
+                                <p className="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-0.5">Previous</p>
+                                <p className="font-serif text-sm text-stone-700">{prevProject.title}</p>
+                            </div>
+                        </button>
+                    ) : <div />}
+                    {nextProject ? (
+                        <button onClick={() => navigate(`/work/${nextProject.id}`)} className="group flex items-center gap-3 text-right hover:opacity-60 transition-opacity">
+                            <div>
+                                <p className="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-0.5">Next</p>
+                                <p className="font-serif text-sm text-stone-700">{nextProject.title}</p>
+                            </div>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-stone-400 group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        </button>
+                    ) : <div />}
+                </div>
+            )}
             </div>
         </div>
     );

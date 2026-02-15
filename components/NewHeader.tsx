@@ -86,7 +86,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
 
             {/* Desktop Navigation - Mechanical Style */}
             <div className="hidden md:flex items-center gap-1">
-              {!isInternal && navItems.map((item) => (
+              {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -98,14 +98,12 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               ))}
 
               {/* CTA Button - Sharp, No Radius */}
-              {!isInternal && (
-                <button
-                  onClick={() => scrollToSection('contact')}
-                  className="ml-4 px-5 py-2.5 bg-[#0c0c0a] text-[#f4f3f1] text-[0.6875rem] font-semibold uppercase tracking-[0.1em] hover:bg-[#c9a87e] hover:text-[#0c0c0a] transition-colors"
-                >
-                  LET'S TALK
-                </button>
-              )}
+              <button
+                onClick={() => scrollToSection('contact')}
+                className="ml-4 px-5 py-2.5 bg-[#0c0c0a] text-[#f4f3f1] text-[0.6875rem] font-semibold uppercase tracking-[0.1em] hover:bg-[#c9a87e] hover:text-[#0c0c0a] transition-colors"
+              >
+                LET'S TALK
+              </button>
             </div>
 
             {/* Mobile Menu Button - Sharp Lines */}

@@ -86,7 +86,7 @@ export const HomeAlternative: React.FC = () => {
                             <div className="flex justify-between items-start">
                                 <div>
                                     <h3 className="text-4xl font-serif mb-2 group-hover:italic transition-all">Claim Movements</h3>
-                                    <p className="text-sm font-bold uppercase tracking-widest text-stone-500">Novidea / 2021 — Present</p>
+                                    <p className="text-sm font-bold uppercase tracking-widest text-stone-500">Novidea / 2023</p>
                                 </div>
                                 <span className="text-2xl font-serif">/01</span>
                             </div>

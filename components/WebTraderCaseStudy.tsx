@@ -1,8 +1,8 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft } from 'lucide-react';
 import { CaseStudyFooterDiverge } from './CaseStudyFooterDiverge';
+import { Header } from './Header';
 
 interface WebTraderCaseStudyProps {
     onBack: () => void;
@@ -13,15 +13,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
         <div className="bg-white min-h-screen font-sans text-stone-900">
 
             {/* NAVIGATION */}
-            <nav className="fixed top-0 left-0 right-0 px-container py-6 z-50 flex justify-between items-center mix-blend-difference text-white">
-                <button
-                    onClick={onBack}
-                    className="flex items-center gap-2 hover:opacity-70 transition-opacity"
-                >
-                    <ArrowLeft size={20} />
-                    <span className="text-sm font-bold tracking-widest uppercase">Back to Portfolio</span>
-                </button>
-            </nav>
+            <Header isInternal={true} onBack={onBack} />
 
             {/* ── HERO ── */}
             <header className="relative h-screen flex items-end justify-start bg-[#0a1628] overflow-hidden">

@@ -6,7 +6,7 @@ export const PROJECTS: Project[] = [
         id: 1,
         title: 'Claim Movements',
         category: 'Insurtech',
-        image: '/images/mockups/claim-movements-mockup.png',
+        image: '/images/111.png',
         role: 'Product Designer',
         company: 'Novidea',
         year: '2021 — Present',

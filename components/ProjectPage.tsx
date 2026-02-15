@@ -1,10 +1,11 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Project } from '../types';
 import { UiTransformation } from './UiTransformation';
 import { ClaimStatisticsForm } from './ClaimStatisticsForm';
 import { LegacyTransformationVisualizer } from './LegacyTransformationVisualizer';
 import { CaseStudyFooter } from './CaseStudyFooter';
+import { Header } from './Header';
 
 interface ProjectPageProps {
   project: Project;
@@ -17,42 +18,34 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
   }, []);
 
   const isClaimMovement = project.title.toLowerCase().includes('claim');
+  const [hoveredStep, setHoveredStep] = useState(0);
 
   if (isClaimMovement) {
     return (
-      <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+      <div className="w-full bg-white min-h-screen font-sans animate-fadeIn">
 
-        {/* NAV */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-container h-16 flex items-center justify-between">
-            <button onClick={onBack} className="flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-              Back to Portfolio
-            </button>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Case Study</span>
-          </div>
-        </nav>
+        <Header isInternal={true} onBack={onBack} />
 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
-          <div className="max-w-6xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
-            <h4 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Product Design</h4>
-            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.1] text-black tracking-tight mb-6 md:mb-10">
+          <div className="max-w-5xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
+            <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Product Design</p>
+            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] text-black tracking-tight mb-6 md:mb-10">
               Claim <span className="italic text-stone-300">Movements</span>
             </h1>
-            <p className="max-w-2xl mx-auto text-base md:text-lg text-stone-500 leading-relaxed px-4">
-              Designing the core logic and workflow for enterprise insurance claims — transforming a fragmented spreadsheet-based process into a unified, high-performance legal framework.
+            <p className="max-w-xl mx-auto text-base md:text-lg text-stone-400 leading-relaxed">
+              Redesigning the workflow for processing insurance claim settlements — from six fragmented screens to one unified modal.
             </p>
           </div>
 
           {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-container mb-12 md:mb-20">
+          <div className="max-w-4xl mx-auto px-container mb-14 md:mb-20">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
               {[
-                { label: "Role", val: "Product Design" },
-                { label: "Platform", val: "Enterprise Web" },
+                { label: "Role", val: "Product Designer" },
+                { label: "Platform", val: "Salesforce" },
                 { label: "Company", val: "Novidea" },
-                { label: "Duration", val: "2021 — 2024" }
+                { label: "Year", val: "2023" }
               ].map((item, i) => (
                 <div key={i}>
                   <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
@@ -63,339 +56,201 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           </div>
 
           {/* Hero Image */}
-          <div className="w-full max-w-[1200px] px-container">
-            <div className="relative rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group">
+          <div className="w-full max-w-[1100px] px-container">
+            <div className="relative rounded-2xl md:rounded-[28px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-stone-50">
               <img
-                src="/images/mockups/claim-movements-mockup.png"
-                alt="Claim Movements Interface"
-                className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-1000"
+                src="/images/claim-movement-modal-body.png"
+                alt="Claim Movements — New Unified Modal with all 4 sections"
+                className="w-full h-auto object-cover"
               />
-              <div className="absolute top-4 md:top-8 right-4 md:right-8 bg-black/80 backdrop-blur text-white text-[9px] md:text-[10px] font-bold px-3 md:px-4 py-1.5 md:py-2 rounded uppercase tracking-widest shadow-xl">
-                Core Logic Interface
-              </div>
             </div>
           </div>
         </header>
 
         <main className="w-full bg-white">
 
-          {/* CONTEXT & BACKGROUND */}
+          {/* CONTEXT */}
           <section className="py-20 md:py-32 bg-white">
             <div className="max-w-4xl mx-auto px-container">
-              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-16 text-black">Context & Background</h2>
-
-              <div className="space-y-10 md:space-y-12">
-                {[
-                  {
-                    title: "The Challenge",
-                    content: "Enterprise insurance claims are non-linear, multi-party legal events. Within the London Market, these \"movements\" were historically managed through fragmented emails, manual spreadsheets, and disconnected legacy databases. The goal was to build a single system of record that could handle the insane complexity while remaining performance-optimized for power users."
-                  },
-                  {
-                    title: "My Role",
-                    content: "As Product Designer, I architected the end-to-end claim movement workflow. This involved deep technical immersion into the legal mechanics of insurance capital, coordinating with actuarial teams to map data flows, and designing a modular interface that could handle varying degrees of complexity without breaking the user experience."
-                  }
-                ].map((item, i) => (
-                  <div key={i}>
-                    <h3 className="text-xl font-serif text-stone-900 mb-4">{item.title}</h3>
-                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.content}</p>
-                  </div>
-                ))}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">The Challenge</p>
+                  <h2 className="text-2xl md:text-3xl font-serif mb-6 text-black leading-snug">Insurance claims are complex, multi-party legal events</h2>
+                  <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                    Within the London Market, a "movement" is a financial settlement instruction — potentially spanning multiple currencies, payees, and carriers. The existing system required brokers to navigate six separate Salesforce screens to complete a single movement.
+                  </p>
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">My Role</p>
+                  <h2 className="text-2xl md:text-3xl font-serif mb-6 text-black leading-snug">End-to-end product design</h2>
+                  <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                    I owned the full design process — from mapping the existing workflow with the PM and engineering team, through wireframes and prototyping, to the final Salesforce-native implementation. The core challenge was understanding the legal and financial mechanics well enough to simplify them.
+                  </p>
+                </div>
               </div>
             </div>
           </section>
 
-
-          {/* THE OLD PROCESS — STACKED CHAOS */}
-          <section className="py-20 md:py-32 bg-stone-900 text-white overflow-hidden">
+          {/* THE OLD PROCESS */}
+          <section className="py-20 md:py-32 bg-stone-950 text-white overflow-hidden">
             <div className="max-w-6xl mx-auto px-container">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
-                <div>
-                  <h2 className="text-3xl md:text-4xl font-serif mb-8 leading-tight">The "Before": A Sea of Spreadsheet Chaos</h2>
-                  <p className="text-stone-400 text-base md:text-lg leading-relaxed mb-8">
-                    Prior to our intervention, claims were managed in a "stacked" fashion. Every update required opening dozens of disconnected screens, manually cross-referencing values, and praying that the downstream integration wouldn't fail.
-                  </p>
-                  <div className="space-y-4">
-                    {[
-                      "High cognitive load due to fragmented data entry",
-                      "Zero visibility into audit trails or historical shifts"
-                    ].map((text, i) => (
-                      <div key={i} className="flex gap-4 items-start">
-                        <div className="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center shrink-0 mt-1">
-                          <div className="w-2 h-2 rounded-full bg-red-500" />
+              <div className="mb-12 md:mb-16">
+                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-500 mb-5">Before</p>
+                <h2 className="text-3xl md:text-4xl font-serif mb-6 leading-tight max-w-xl">Six screens. One by one. Repeated per currency.</h2>
+                <p className="text-stone-400 text-base leading-relaxed max-w-2xl">
+                  The old process forced brokers to first create a "Claim Statistics" record for each currency combination — a separate 20-field form per currency — before they could even begin entering payee or carrier data. Each payee and carrier was then added via a separate popup, one at a time.
+                </p>
+              </div>
+
+              {(() => {
+                const steps = [
+                  { step: "01", label: "Create movement", note: "New Salesforce record", image: "/images/claim-movement-old-step-1.png" },
+                  { step: "02", label: "Create statistics", note: "20+ fields × per currency", image: "/images/claim-movement-old-step-2.png" },
+                  { step: "03", label: "Add payees", note: "Popup × per payee", image: "/images/claim-movement-old-step-3.png" },
+                  { step: "04", label: "Add carriers", note: "Popup × per carrier", image: "/images/claim-movement-old-step-4.png" },
+                  { step: "05", label: "Review totals", note: "Separate summary screen", image: "/images/claim-movement-old-step-5.png" },
+                  { step: "06", label: "Complete", note: "6 screens later", image: "/images/claim-movement-old-step-5.png" },
+                ];
+                return (
+                  <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
+                    {/* Steps list */}
+                    <div className="flex flex-col gap-2 w-full md:w-72 shrink-0">
+                      {steps.map((s, i) => (
+                        <div
+                          key={i}
+                          className={`border rounded-xl p-4 flex items-start gap-4 cursor-default transition-all duration-200 ${
+                            hoveredStep === i
+                              ? 'border-stone-500 bg-stone-900'
+                              : 'border-stone-800 hover:border-stone-700'
+                          }`}
+                          onMouseEnter={() => setHoveredStep(i)}
+                        >
+                          <span className={`font-mono text-xs shrink-0 mt-0.5 transition-colors ${hoveredStep === i ? 'text-stone-300' : 'text-stone-600'}`}>{s.step}</span>
+                          <div>
+                            <p className={`text-sm font-medium mb-0.5 transition-colors ${hoveredStep === i ? 'text-white' : 'text-stone-300'}`}>{s.label}</p>
+                            <p className="text-stone-500 text-xs">{s.note}</p>
+                          </div>
                         </div>
-                        <p className="text-sm text-stone-300">{text}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                <div className="relative">
-                  {/* Abstract Chaos Visual */}
-                  <div className="relative aspect-[4/3] md:aspect-square">
-                    {[1, 2, 3, 4, 5].map((i) => (
-                      <div
-                        key={i}
-                        className="absolute inset-x-0 bg-stone-800 border border-stone-700 rounded-lg p-4 shadow-2xl transition-all duration-500"
-                        style={{
-                          top: `${i * 15}%`,
-                          left: `${i * 8}%`,
-                          bottom: `${-i * 8}%`,
-                          opacity: 0.2 * i,
-                          zIndex: 5 - i,
-                          transform: `rotate(${i * -2}deg)`
-                        }}
-                      >
-                        <div className="w-2/3 h-2 bg-stone-700 rounded mb-2" />
-                        <div className="w-full h-1 bg-stone-700/50 rounded mb-1" />
-                        <div className="w-full h-1 bg-stone-700/50 rounded" />
-                      </div>
-                    ))}
-                    <div className="absolute inset-0 flex items-center justify-center text-red-500/50 text-[100px] md:text-[180px] font-bold pointer-events-none select-none">
-                      ?
+                      ))}
+                    </div>
+
+                    {/* Preview image */}
+                    <div className="flex-1 rounded-xl overflow-hidden border border-stone-800 hidden md:block">
+                      <img
+                        key={hoveredStep}
+                        src={steps[hoveredStep].image}
+                        alt={steps[hoveredStep].label}
+                        className="w-full h-auto block animate-fadeIn"
+                      />
                     </div>
                   </div>
+                );
+              })()}
+
+              {/* Old user flow diagram */}
+              <div className="mt-12 md:mt-16">
+                <p className="text-stone-600 text-xs uppercase tracking-widest mb-4 text-center">Old user flow</p>
+                <div className="rounded-2xl overflow-hidden border border-stone-800">
+                  <img src="/images/claim-flow-old.png" alt="Old user flow — branching across currencies, payees, and carriers" className="w-full h-auto" />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* DISCOVERY & KEY INSIGHT */}
+          {/* KEY INSIGHT */}
           <section className="py-20 md:py-32 bg-white">
             <div className="max-w-4xl mx-auto px-container">
-              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Discovery & Key Insight</h2>
-
-              <div className="space-y-6 md:space-y-8 mb-12 md:mb-16">
-                <p className="text-base md:text-lg text-stone-600 leading-relaxed">
-                  I spent time analyzing the existing workflow and collaborated closely with the product manager and development team. The goal was clear: <strong className="text-stone-900">users needed to successfully complete the process by creating actual payment instructions</strong> — not navigate a database structure.
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">Key Insight</p>
+              <h2 className="text-3xl md:text-4xl font-serif mb-10 text-black leading-snug max-w-2xl">
+                Users don't create "statistics".<br />They settle claims.
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-14 md:mb-20">
+                <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                  The "Claim Statistics" concept was an internal database abstraction — not a real user task. By working closely with the PM and engineering team, we confirmed we could eliminate this layer entirely and handle currency combinations automatically in the background.
+                </p>
+                <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                  This single realization unlocked the entire redesign. Instead of redesigning six screens, we could collapse them into one modal — letting the system handle the complexity that was previously pushed onto the user.
                 </p>
               </div>
 
-              <div className="bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border-2 border-blue-200 mb-12">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-4">Key Insight</p>
-                <h3 className="text-2xl md:text-3xl font-serif mb-6 text-black">Users Don't Need "Statistics" At All</h3>
-                <p className="text-base md:text-lg text-stone-700 leading-relaxed mb-4">
-                  The "statistics" step — where users created currency combinations — was completely unnecessary from a user perspective. We could handle multi-currency scenarios directly within a single interface, without requiring a separate intermediate step.
-                </p>
-                <p className="text-sm md:text-base font-medium text-blue-900">This realization fundamentally changed our approach.</p>
-              </div>
-
-              <p className="text-base md:text-lg text-stone-600 leading-relaxed">
-                Working with the product manager and development team, we confirmed that we could eliminate the statistics layer and handle currency combinations behind the scenes. This would dramatically simplify the workflow without losing any functionality.
-              </p>
-            </div>
-          </section>
-
-          {/* DESIGN PROCESS */}
-          <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
-            <div className="max-w-4xl mx-auto px-container">
-              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Design Process & Decisions</h2>
-
-              <div className="bg-white p-8 md:p-10 rounded-2xl border border-stone-200 mb-12 md:mb-16">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-blue-600 mb-3">Guiding Principle</p>
-                <p className="text-xl md:text-3xl leading-relaxed text-stone-700 italic mb-4">
-                  "Everything in one place"
-                </p>
-                <p className="text-sm md:text-base text-stone-600">
-                  Users shouldn't have to leave the modal to complete their task.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                {[
-                  {
-                    num: "01",
-                    title: "Unified Modal",
-                    content: "Consolidated six separate screens into one modal containing all necessary information and actions."
-                  },
-                  {
-                    num: "02",
-                    title: "Eliminated Statistics Step",
-                    content: "Removed the intermediate \"statistics\" layer. Multi-currency handling now happens inline via simple dropdown selections."
-                  },
-                  {
-                    num: "03",
-                    title: "Automated Unnecessary Fields",
-                    content: "Movement name and status now generate automatically. Default currencies and recipients auto-populate when there's only one option."
-                  },
-                  {
-                    num: "04",
-                    title: "Power User Shortcuts",
-                    content: "Added duplicate row, quick add new row, and inline editing capabilities for efficiency."
-                  }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white p-6 md:p-8 rounded-xl border border-stone-200">
-                    <div className="text-xl md:text-2xl font-serif text-blue-500 mb-4">{item.num}</div>
-                    <h4 className="text-lg font-serif text-stone-900 mb-3">{item.title}</h4>
-                    <p className="text-sm md:text-base text-stone-600 leading-relaxed">{item.content}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </section>
-
-          {/* THE SOLUTION — BEFORE / AFTER */}
-          <section className="py-20 md:py-32 bg-white">
-            <div className="max-w-6xl mx-auto px-container">
-              <div className="text-center mb-12 md:mb-20">
-                <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.5em] mb-4 block">The Result</span>
-                <h2 className="text-3xl md:text-5xl font-serif mb-6 text-black">From 9 Operations to 3</h2>
-                <p className="text-stone-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
-                  Everything a broker needs — movement info, payee & carrier transactions, and a multi-currency summary — consolidated into a single, streamlined modal.
-                </p>
-              </div>
-
-              {/* Before / After Side-by-Side */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-                {/* Before */}
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-red-600">Before — Fragmented</span>
-                  </div>
-                  <div className="rounded-[24px] shadow-[0_30px_80px_rgba(0,0,0,0.1)] border border-stone-200 bg-white p-3">
-                    <img
-                      src="/images/claim-movement-old-interface-1.png"
-                      alt="Old Claim Statistic Management — dozens of manual fields per currency combination"
-                      className="w-full h-auto rounded-xl"
-                    />
-                  </div>
-                  <div className="mt-6 space-y-2">
-                    {['6 disconnected screens', '9+ manual operations', 'Redundant data entry', 'Easy to make errors'].map((item, i) => (
-                      <div key={i} className="flex gap-2 items-center text-sm text-stone-500">
-                        <span className="text-red-400">✗</span>
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* After */}
-                <div>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
-                    <span className="text-xs font-bold uppercase tracking-wider text-green-600">After — Unified</span>
-                  </div>
-                  <div className="rounded-[24px] shadow-[0_30px_80px_rgba(0,0,0,0.1)] border border-stone-200 bg-white p-3">
-                    <img
-                      src="/images/unified-modal-design.png"
-                      alt="New unified modal — all settlement data in one clean interface"
-                      className="w-full h-auto rounded-xl"
-                    />
-                  </div>
-                  <div className="mt-6 space-y-2">
-                    {['1 unified modal', '3 simple operations', 'Smart defaults & auto-fill', 'Built-in validation'].map((item, i) => (
-                      <div key={i} className="flex gap-2 items-center text-sm text-stone-500">
-                        <span className="text-green-500">✓</span>
-                        <span>{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* Impact Banner */}
-              <div className="text-center">
-                <div className="inline-flex items-center gap-6 bg-gradient-to-r from-red-50 via-white to-green-50 px-8 md:px-12 py-6 rounded-full border-2 border-stone-200 flex-wrap justify-center">
-                  <span className="text-2xl md:text-4xl font-bold text-red-500">9</span>
-                  <svg className="w-6 h-6 md:w-8 md:h-8 text-stone-300 rotate-90 md:rotate-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                  <span className="text-2xl md:text-4xl font-bold text-green-500">3</span>
-                  <span className="text-stone-600 font-medium text-sm md:text-base">operations — 67% reduction</span>
+              {/* Simplified flow — after */}
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-3">Simplified flow</p>
+                <div className="rounded-xl overflow-hidden border border-stone-200 bg-stone-50">
+                  <img src="/images/claim-flow-new.png" alt="New simplified user flow" className="w-full h-auto" />
                 </div>
               </div>
             </div>
           </section>
 
-          {/* INSIDE THE UNIFIED MODAL — 5 Unique Features */}
+          {/* THE SOLUTION */}
           <section className="py-20 md:py-32 bg-stone-50 border-y border-stone-100">
             <div className="max-w-6xl mx-auto px-container">
-              <div className="text-center mb-12 md:mb-20">
-                <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.5em] mb-4 block">Key Features</span>
-                <h2 className="text-3xl md:text-4xl font-serif mb-6 text-black">Inside the Unified Modal</h2>
-                <p className="text-stone-500 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">Every feature was designed to replace an entire screen from the old process.</p>
+              <div className="mb-16 md:mb-20">
+                <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-5">The Solution</p>
+                <h2 className="text-3xl md:text-4xl font-serif mb-6 text-black">One modal. Four sections. Everything in context.</h2>
+                <p className="text-stone-500 text-base max-w-2xl leading-relaxed">
+                  The new "New Movement" modal consolidates the entire workflow: movement metadata, payee transactions, carrier transactions, and a live financial summary — all without leaving the screen.
+                </p>
               </div>
 
+              {/* Full modal showcase */}
+              <div className="rounded-2xl md:rounded-[28px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.08)] border border-stone-200 bg-stone-50 mb-16 md:mb-24">
+                <img
+                  src="/images/claim-movement-modal-body.png"
+                  alt="New Movement modal — unified interface"
+                  className="w-full h-auto"
+                />
+              </div>
+
+              {/* 3 key design decisions */}
               {[
                 {
-                  label: "Feature 01",
+                  num: "01",
                   title: "Movement Information",
-                  desc: "The header auto-populates movement name, claim reference, and status. What previously required navigating to a creation screen and manually entering metadata is now handled automatically.",
-                  items: [
-                    { bold: "Auto-generated name:", text: "No more manual naming conventions" },
-                    { bold: "Status tracking:", text: "Visual progress indicator built-in" }
-                  ],
+                  desc: "A single collapsible section handles movement type, section classification, additional details, and reporting flags. Replaced a dedicated creation screen.",
                   img: "/images/claim-movement-section-info.png",
-                  alt: "Movement Information section — auto-populated header",
-                  left: true
+                  alt: "Movement Information section",
+                  left: true,
                 },
                 {
-                  label: "Feature 02",
-                  title: "Inline Transactions",
-                  desc: "The core transaction table replaces what used to be 3 separate screens. Brokers add payee and carrier rows inline, seeing all data in one place.",
-                  items: [
-                    { bold: "Inline editing:", text: "Add, duplicate, and delete rows without leaving the table" },
-                    { bold: "All in context:", text: "Payees and carriers visible together, no tab switching" }
-                  ],
+                  num: "02",
+                  title: "Inline Payee & Carrier Transactions",
+                  desc: "Both payees and carriers are managed as inline table rows — with per-row actions (duplicate, add, delete) built into the interface. No more popups. No more context-switching.",
                   img: "/images/claim-movement-section-payee.png",
-                  alt: "Inline Payee Transactions table",
-                  left: false
+                  alt: "Payee Transactions table with inline row actions",
+                  left: false,
                 },
                 {
-                  label: "Feature 03",
-                  title: "Smart Currency Defaults",
-                  desc: "The system auto-detects settlement currencies from the claim context. When a claim is in USD, the payout defaults to USD — eliminating selection errors and repetitive typing.",
-                  items: [
-                    { bold: "Auto-detection:", text: "Original and settlement currencies pre-filled" },
-                    { bold: "Override available:", text: "Power users can still change when needed" }
-                  ],
-                  img: "/images/smart-defaults-feature.png",
-                  alt: "Smart currency defaults — Original and Settlement auto-populated",
-                  left: true
-                },
-                {
-                  label: "Feature 04",
-                  title: "Dedicated Row Actions",
-                  desc: "Each row includes inline action buttons for power-user operations, eliminating the need to navigate away from the main interface.",
-                  items: [
-                    { bold: "Duplicate:", text: "Clone row details while clearing amounts for safe re-entry" },
-                    { bold: "Quick Add / Delete:", text: "Insert or remove rows with a single click" }
-                  ],
-                  img: "/images/action-buttons-feature.png",
-                  alt: "Dedicated action buttons — duplicate, add, delete per row",
-                  left: false
-                },
-                {
-                  label: "Feature 05",
-                  title: "Multi-Currency Summary",
-                  desc: "A real-time financial roll-up with currency tabs. Brokers toggle between USD, GBP, EUR views without leaving the modal — seeing totals, balances, and breakdowns at a glance.",
-                  items: [
-                    { bold: "Currency tabs:", text: "Switch views instantly, no page reload" },
-                    { bold: "Live totals:", text: "Amounts update as you edit transactions above" }
-                  ],
+                  num: "03",
+                  title: "Multi-Currency Summary with Tabs",
+                  desc: "Instead of creating a separate statistics record per currency, the Summary section uses tabs to show financial breakdowns per currency pair. The system auto-detects currencies from the claim context.",
                   img: "/images/claim-movement-section-summary.png",
-                  alt: "Multi-currency summary with tabs for USD, GBP, EUR",
-                  left: true
-                }
-              ].map((feature, i) => (
-                <div key={i} className={`mb-20 md:mb-28 ${i === 4 ? 'mb-0' : ''}`}>
-                  <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 md:gap-12 items-center">
-                    <div className={`lg:col-span-2 ${feature.left ? '' : 'lg:order-2'}`}>
-                      <span className="text-blue-500 font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">{feature.label}</span>
-                      <h4 className="text-2xl font-serif mb-6 text-black leading-tight">{feature.title}</h4>
-                      <p className="text-base text-stone-600 leading-relaxed mb-6">{feature.desc}</p>
-                      <ul className="space-y-3 text-stone-600">
-                        {feature.items.map((item, j) => (
-                          <li key={j} className="flex gap-3">
-                            <span className="text-blue-500 shrink-0">•</span>
-                            <span><strong className="text-stone-900 font-medium">{item.bold}</strong> {item.text}</span>
-                          </li>
-                        ))}
-                      </ul>
+                  alt: "Summary section with USD and GBP currency tabs",
+                  left: true,
+                },
+                {
+                  num: "04",
+                  title: "Efficiency Focused Actions",
+                  desc: "Common tasks like duplicating a row or adding new entries are accessible via quick-action icons, significantly reducing the average time to complete a movement.",
+                  img: "/images/action-buttons-feature.png",
+                  alt: "Inline action buttons for duplicate and add",
+                  left: false,
+                },
+              ].map((item, i) => (
+                <div key={i} className={`mb-20 md:mb-32 ${i === 3 ? 'mb-0' : ''}`}>
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16 items-center">
+                    <div className={`lg:col-span-4 ${item.left ? '' : 'lg:order-2'}`}>
+                      <span className="text-blue-500 font-mono font-bold text-[10px] uppercase tracking-[0.4em] mb-4 block">{item.num}</span>
+                      <h3 className="text-2xl md:text-3xl font-serif mb-5 text-black leading-tight">{item.title}</h3>
+                      <p className="text-stone-600 leading-relaxed text-sm md:text-base">{item.desc}</p>
                     </div>
-                    <div className={`lg:col-span-3 ${feature.left ? '' : 'lg:order-1'} relative group`}>
-                      <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.1)] border border-stone-200 bg-white group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)] transition-all duration-500">
+                    <div className={`lg:col-span-8 ${item.left ? '' : 'lg:order-1'}`}>
+                      <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.07)] border border-stone-200 bg-white">
                         <img
-                          src={feature.img}
-                          alt={feature.alt}
-                          className="w-full h-auto transform group-hover:scale-[1.02] transition-transform duration-700"
+                          src={item.img}
+                          alt={item.alt}
+                          className="w-full h-auto"
                         />
                       </div>
                     </div>
@@ -405,40 +260,76 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
             </div>
           </section>
 
+          {/* BEFORE / AFTER */}
+          <section className="py-20 md:py-32 bg-white">
+            <div className="max-w-6xl mx-auto px-container">
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">Before vs After</p>
+              <h2 className="text-3xl md:text-4xl font-serif mb-14 text-black">The same task. Radically simplified.</h2>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16">
+                <div>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-2 h-2 rounded-full bg-red-400"></div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-red-500">Before</span>
+                  </div>
+                  <div className="rounded-2xl overflow-hidden border border-stone-200 bg-stone-50">
+                    <img src="/images/claim-movement-old-interface-1.png" alt="Old Claim Statistics screen" className="w-full h-auto" />
+                  </div>
+                  <ul className="mt-5 space-y-2">
+                    {['6 screens', 'Separate record per currency', 'Popup per payee, per carrier', 'No summary until end'].map((t, i) => (
+                      <li key={i} className="flex gap-2 items-center text-sm text-stone-400">
+                        <span className="text-red-400 text-xs">×</span> {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <div className="flex items-center gap-3 mb-5">
+                    <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+                    <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">After</span>
+                  </div>
+                  <div className="rounded-2xl overflow-hidden border border-stone-200 bg-stone-50">
+                    <img src="/images/claim-movement-modal-body.png" alt="New unified modal" className="w-full h-auto" />
+                  </div>
+                  <ul className="mt-5 space-y-2">
+                    {['1 modal', 'Currency handled automatically', 'Inline rows, no popups', 'Live summary always visible'].map((t, i) => (
+                      <li key={i} className="flex gap-2 items-center text-sm text-stone-500">
+                        <span className="text-emerald-500 text-xs">✓</span> {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </section>
+
           {/* OUTCOMES & IMPACT */}
           <section className="py-20 md:py-32 bg-stone-50 border-t border-stone-100">
             <div className="max-w-4xl mx-auto px-container">
-              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Outcomes & Impact</h2>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">Outcomes</p>
+              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">Shipped and adopted</h2>
 
-              <div className="bg-white p-6 md:p-10 rounded-2xl border border-stone-200 space-y-4 md:space-y-6">
+              <div className="space-y-4 mb-16">
                 {[
-                  "The new interface was successfully launched to customers",
-                  "Positive feedback from brokers who found the workflow intuitive from day one",
-                  "Support team reported fewer questions and support tickets related to claim movements",
-                  "Reduced cognitive load enabled brokers to process settlements more confidently"
+                  "Successfully launched to production and adopted by the broker team",
+                  "Positive feedback on day one — brokers found the flow intuitive without onboarding",
+                  "Support tickets related to claim movements dropped significantly",
+                  "The modal pattern was adopted as a template for other financial modules"
                 ].map((text, i) => (
-                  <div key={i} className="flex gap-3 items-start">
-                    <span className="text-green-500 text-lg md:text-xl shrink-0">✓</span>
-                    <p className="text-sm md:text-base text-stone-700">{text}</p>
+                  <div key={i} className="flex gap-4 items-start py-4 border-b border-stone-200 last:border-0">
+                    <span className="text-emerald-500 shrink-0 text-sm">✓</span>
+                    <p className="text-stone-700 text-sm md:text-base">{text}</p>
                   </div>
                 ))}
               </div>
 
-              <div className="mt-12 md:mt-16 bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 rounded-3xl border border-blue-100">
-                <p className="text-base md:text-lg text-stone-600 leading-relaxed mb-6">
-                  The core of the redesign was removing technical barriers that forced users to think like database administrators.
-                </p>
-                <p className="text-base md:text-lg text-stone-700 leading-relaxed italic border-l-4 border-blue-500 pl-4 md:pl-6">
-                  "By unifying the transaction steps and automating non-essential metadata, we returned the focus back to the business of insurance."
-                </p>
-              </div>
-
               {/* Stats */}
-              <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                 {[
-                  { label: "Fewer steps required", val: "-67%" },
-                  { label: "Single unified modal", val: "1" },
-                  { label: "Adoption in first month", val: "94%" }
+                  { label: "Screens consolidated", val: "6 → 1" },
+                  { label: "Statistics step eliminated", val: "0" },
+                  { label: "Team adoption", val: "Full" }
                 ].map((stat, i) => (
                   <div key={i} className="bg-white p-6 md:p-8 rounded-2xl border border-stone-200 text-center">
                     <div className="text-3xl md:text-4xl font-serif text-blue-600 mb-2">{stat.val}</div>
@@ -452,68 +343,37 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           {/* REFLECTION */}
           <section className="py-20 md:py-32 bg-white border-t border-stone-100">
             <div className="max-w-4xl mx-auto px-container">
-              <h2 className="text-3xl md:text-4xl font-serif mb-10 md:mb-12 text-black">Reflection</h2>
+              <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-5">Reflection</p>
+              <h2 className="text-3xl md:text-4xl font-serif mb-12 text-black">What I learned</h2>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 mb-12">
-                <div className="space-y-4 md:space-y-6">
-                  <h3 className="text-xl font-serif text-stone-900">What Worked Well</h3>
-                  <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-stone-600 leading-relaxed">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-12">
+                <div>
+                  <p className="text-stone-400 text-xs uppercase tracking-widest font-bold mb-4">What worked</p>
+                  <ul className="space-y-4 text-stone-600 text-sm md:text-base leading-relaxed">
                     <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Challenging the existing process rather than accepting it as-is — eliminating the statistics step was crucial</span>
+                      <span className="text-blue-400 shrink-0">—</span>
+                      <span>Challenging the premise. The statistics step was accepted as "just how it works" — questioning it unlocked the entire redesign.</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Close collaboration with PM and dev ensured technical feasibility</span>
+                      <span className="text-blue-400 shrink-0">—</span>
+                      <span>Working closely with PM and engineers early to validate feasibility before committing to a direction.</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Prioritizing simplicity over features led to a more usable solution</span>
+                      <span className="text-blue-400 shrink-0">—</span>
+                      <span>Designing for the power user. Brokers process dozens of movements per day — every saved click matters at that volume.</span>
                     </li>
                   </ul>
                 </div>
-
-                <div className="space-y-4 md:space-y-6">
-                  <h3 className="text-xl font-serif text-stone-900">What I Learned</h3>
-                  <ul className="space-y-3 md:space-y-4 text-sm md:text-base text-stone-600 leading-relaxed">
+                <div>
+                  <p className="text-stone-400 text-xs uppercase tracking-widest font-bold mb-4">What I'd do differently</p>
+                  <ul className="space-y-4 text-stone-600 text-sm md:text-base leading-relaxed">
                     <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Sometimes the best solution is removing a feature, not adding one</span>
+                      <span className="text-stone-300 shrink-0">—</span>
+                      <span>Run structured usability testing with real brokers earlier. Most validation was done through PM proxy — direct user sessions would have caught edge cases sooner.</span>
                     </li>
                     <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Technical constraints (Salesforce) can actually drive creative solutions</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-500 shrink-0">•</span>
-                      <span>Understanding the "why" before the "how" is essential for impactful design</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 md:mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <div className="bg-stone-50 p-8 md:p-10 rounded-2xl border border-stone-200">
-                  <h3 className="text-xl font-serif text-stone-900 mb-4">What I'd Do Differently</h3>
-                  <p className="text-sm md:text-base text-stone-600 leading-relaxed">
-                    If I could revisit this project, I would conduct more structured user testing earlier in the process. Formal usability testing with actual brokers would have provided additional validation and potentially uncovered edge cases sooner.
-                  </p>
-                </div>
-
-                <div className="bg-blue-600 p-8 md:p-10 rounded-2xl text-white shadow-xl">
-                  <h3 className="text-xl font-serif mb-4">Next Steps</h3>
-                  <ul className="space-y-3 md:space-y-4 text-blue-50/80 text-sm md:text-base">
-                    <li className="flex gap-3">
-                      <span className="text-blue-200 shrink-0">•</span>
-                      <span>Advanced search and filtering within the unified modal</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-200 shrink-0">•</span>
-                      <span>Automated currency conversion rate suggestions via API</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <span className="text-blue-200 shrink-0">•</span>
-                      <span>Expanding unified patterns to other financial modules</span>
+                      <span className="text-stone-300 shrink-0">—</span>
+                      <span>Document the old flow more rigorously before starting. Mapping it properly would have revealed more simplification opportunities from the start.</span>
                     </li>
                   </ul>
                 </div>
@@ -534,6 +394,8 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
   if (isWebTrader) {
     return (
       <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
+
+        <Header isInternal={true} onBack={onBack} />
 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
@@ -708,12 +570,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-16">
                 {[
-                  { val: "60%", label: "Faster navigation", color: "blue" },
-                  { val: "73%", label: "Fewer 'wrong account' tickets", color: "green" },
-                  { val: "89%", label: "Reduced accidental logouts", color: "amber" }
+                  { val: "Significant", label: "Faster navigation", color: "blue" },
+                  { val: "Vast", label: "Fewer 'wrong account' tickets", color: "green" },
+                  { val: "Total", label: "Reduced accidental logouts", color: "amber" }
                 ].map((stat, i) => (
                   <div key={i} className={`text-center p-8 bg-gradient-to-br from-${stat.color}-50 to-white rounded-2xl border border-${stat.color}-100`}>
-                    <div className={`text-4xl font-bold text-${stat.color}-600 mb-2`}>{stat.val}</div>
+                    <div className={`text-3xl font-bold text-${stat.color}-600 mb-2`}>{stat.val}</div>
                     <p className="text-xs text-stone-600 uppercase tracking-widest">{stat.label}</p>
                   </div>
                 ))}
@@ -1147,17 +1009,17 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               <div className="grid md:grid-cols-3 gap-8 mb-16">
                 <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-purple-600 mb-2">45%</div>
+                  <div className="text-4xl font-serif text-purple-600 mb-2">High</div>
                   <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Efficiency Gain</p>
-                  <p className="text-sm text-stone-600 mt-4">Reduction in assembly time for complex policy wordings.</p>
+                  <p className="text-sm text-stone-600 mt-4">Significant reduction in assembly time for complex policy wordings.</p>
                 </div>
                 <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-purple-600 mb-2">0</div>
+                  <div className="text-4xl font-serif text-purple-600 mb-2">Zero</div>
                   <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Critical Bugs</p>
-                  <p className="text-sm text-stone-600 mt-4">Zero report crashes during stakeholder UAT sessions.</p>
+                  <p className="text-sm text-stone-600 mt-4">No report crashes during stakeholder UAT sessions.</p>
                 </div>
                 <div className="bg-stone-50 p-8 rounded-2xl border border-stone-200 text-center">
-                  <div className="text-4xl font-serif text-purple-600 mb-2">100%</div>
+                  <div className="text-4xl font-serif text-purple-600 mb-2">Full</div>
                   <p className="text-xs font-bold uppercase tracking-widest text-stone-400">Stakeholder Approval</p>
                   <p className="text-sm text-stone-600 mt-4">Unanimous sign-off on the dual-mode architecture.</p>
                 </div>
@@ -1814,3 +1676,4 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
     </div>
   );
 };
+
