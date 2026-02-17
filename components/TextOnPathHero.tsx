@@ -132,6 +132,7 @@ export const TextOnPathHero: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [animDone, setAnimDone] = useState(false);
+  const [typedOutput, setTypedOutput] = useState('');
   const animDoneRef = useRef(false);
   const typedTextRef = useRef('');
   const phraseWidthRef = useRef(0);
@@ -185,7 +186,7 @@ export const TextOnPathHero: React.FC = () => {
 
       const textTogether = document.createElementNS('http://www.w3.org/2000/svg', 'text');
       textTogether.style.fontFamily = FONT_FAMILY;
-      textTogether.style.fontSize = `${LOOP_FONT_SIZE * 1.08}px`; // Slightly larger for optical balance
+      textTogether.style.fontSize = `${LOOP_FONT_SIZE * 1.25}px`; // Increase for optical matching when stacked
       textTogether.style.fontWeight = '900';
       textTogether.textContent = ' together.';
       svg.appendChild(textTogether);
@@ -259,13 +260,15 @@ export const TextOnPathHero: React.FC = () => {
   }, [dispatchHeroProgress]);
 
   useEffect(() => {
-    if (!animDone) { typedTextRef.current = ''; return; }
+    if (!animDone) { typedTextRef.current = ''; setTypedOutput(''); return; }
     const word = ' together.';
     let i = 0;
     const interval = setInterval(() => {
       i++;
-      typedTextRef.current = word.slice(0, i);
-      if (togetherSpanRef.current) togetherSpanRef.current.textContent = typedTextRef.current;
+      const current = word.slice(0, i);
+      typedTextRef.current = current;
+      setTypedOutput(current);
+      if (togetherSpanRef.current) togetherSpanRef.current.textContent = current;
       if (i >= word.length) clearInterval(interval);
     }, 55);
     return () => clearInterval(interval);
@@ -306,10 +309,7 @@ export const TextOnPathHero: React.FC = () => {
         if (offset2Ref.current <= -phraseWidthRef.current) offset2Ref.current = 0;
       }
 
-      const totalWidthAtEnd = coreWidthFinalRef.current + togetherWidthRef.current;
-      const finalBlueOffset = isMobile
-        ? (3400 - coreWidthFinalRef.current / 2)
-        : (3400 - totalWidthAtEnd / 2);
+      const finalBlueOffset = 3400 - coreWidthFinalRef.current / 2;
 
       const snapT = easeInOutCubic(Math.max(0, (progress - 0.72) / 0.28));
       const currentOffset1 = snapT > 0 ? lerp(offset1Ref.current, finalBlueOffset, snapT) : offset1Ref.current;
@@ -323,7 +323,7 @@ export const TextOnPathHero: React.FC = () => {
       if (clipRectRef.current && phraseWidthRef.current > 0) {
         const clipT = easeInOutCubic(Math.max(0, (progress - 0.80) / 0.20));
         const fullW = 5000;
-        const targetW = isMobile ? coreWidthFinalRef.current + 20 : totalWidthAtEnd + 60;
+        const targetW = coreWidthFinalRef.current + 40;
         const w = lerp(fullW, targetW, clipT);
         clipRectRef.current.setAttribute('x', String(1200 - w / 2));
         clipRectRef.current.setAttribute('width', String(w));
@@ -343,17 +343,8 @@ export const TextOnPathHero: React.FC = () => {
 
       if (togetherSpanRef.current) {
         togetherSpanRef.current.style.opacity = animDoneRef.current ? '1' : '0';
-        if (!isMobile) {
-          const viewPortWidth = window.innerWidth;
-          // Center shift: together starts after blue text. 
-          // Together's center should be shifted by half of blue text length relative to global center if combined is centered.
-          const offsetX = (coreWidthFinalRef.current / 3600) * viewPortWidth * 0.51;
-          togetherSpanRef.current.style.transform = `translate(calc(-50% + ${offsetX}px), -50%)`;
-          togetherSpanRef.current.style.top = '51dvh';
-        } else {
-          togetherSpanRef.current.style.transform = 'translate(-50%, 0)';
-          togetherSpanRef.current.style.top = '55dvh';
-        }
+        togetherSpanRef.current.style.transform = 'translate(-50%, 0)';
+        togetherSpanRef.current.style.top = isMobile ? '58%' : '56%';
       }
 
       if (scrollHintRef.current) scrollHintRef.current.style.opacity = String(Math.max(0, 1 - progress * 6));
@@ -378,8 +369,26 @@ export const TextOnPathHero: React.FC = () => {
   return (
     <section ref={sectionRef} className="relative w-full h-dvh bg-[#f4f3f1]">
       <h1 className="sr-only">{CORE_PHRASE}</h1>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE_POWER }} className="w-full h-full relative overflow-hidden">
-        <svg viewBox="-600 -400 3600 2000" style={{ position: 'absolute', left: '-2%', top: 0, width: '104%', height: '100%' }} preserveAspectRatio="xMidYMid slice">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, ease: EASE_POWER }}
+        className="w-full h-full relative overflow-hidden"
+      >
+        {/* SVG Layer: Animating state (or Desktop final state) */}
+        <svg
+          viewBox="-600 -400 3600 2000"
+          style={{
+            position: 'absolute',
+            left: '-2%',
+            top: 0,
+            width: '104%',
+            height: '100%',
+            opacity: (isMobile && animDone) ? 0 : 1,
+            transition: 'opacity 0.5s ease',
+          }}
+          preserveAspectRatio="xMidYMid slice"
+        >
           <defs>
             <path ref={path1Ref} id="heroTextPath1" d={generatePathD(complexPath1, simplePath1, 0)} />
             <path ref={path2Ref} id="heroTextPath2" d={generatePathD(complexPath2, simplePath2, 0)} />
@@ -401,23 +410,59 @@ export const TextOnPathHero: React.FC = () => {
           </g>
         </svg>
 
-        <span
-          ref={togetherSpanRef}
-          className="absolute left-1/2 pointer-events-none select-none z-20"
-          style={{
-            opacity: 0,
-            fontFamily: FONT_FAMILY,
-            fontWeight: 900,
-            fontSize: isMobile ? 'clamp(1.5rem, 6vw, 2.5rem)' : 'clamp(2rem, 4.1vw, 5rem)',
-            color: '#ff00aa',
-            letterSpacing: '0.01em',
-            whiteSpace: isMobile ? 'normal' : 'nowrap',
-            textAlign: 'center',
-            maxWidth: isMobile ? '80vw' : 'none',
-            lineHeight: 1.1,
-            transition: 'opacity 0.3s ease',
-          }}
-        />
+        {/* Desktop "together." overlay */}
+        {!isMobile && (
+          <span
+            ref={togetherSpanRef}
+            className="absolute left-1/2 pointer-events-none select-none z-20"
+            style={{
+              opacity: 0,
+              fontFamily: FONT_FAMILY,
+              fontWeight: 900,
+              fontSize: 'clamp(2rem, 4.4vw, 5rem)',
+              color: '#ff00aa',
+              letterSpacing: '0.01em',
+              whiteSpace: 'nowrap',
+              textAlign: 'center',
+              lineHeight: 1.1,
+              transition: 'opacity 0.3s ease',
+            }}
+          />
+        )}
+
+        {/* Mobile Final State Layer (2-3 lines) */}
+        {isMobile && animDone && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center z-30 pointer-events-none select-none"
+          >
+            <h2
+              className="font-light text-[#0055ff] m-0"
+              style={{
+                fontFamily: FONT_FAMILY,
+                fontSize: 'clamp(1.75rem, 8vw, 2.5rem)',
+                letterSpacing: '0.1em',
+                lineHeight: 1.2,
+                textWrap: 'balance' as any,
+              }}
+            >
+              Let's simplify complex things
+            </h2>
+            <div
+              className="font-black text-[#ff00aa]"
+              style={{
+                fontFamily: FONT_FAMILY,
+                fontSize: 'clamp(2.2rem, 10vw, 3.2rem)',
+                letterSpacing: '0.01em',
+                marginTop: '0.4rem',
+                minHeight: '1.2em'
+              }}
+            >
+              {typedOutput}
+            </div>
+          </motion.div>
+        )}
 
         <div ref={cornerLabelRef} className="absolute top-8 right-8 z-50 pointer-events-none text-[#0c0c0a] hidden md:flex items-start gap-3">
           <span className="font-bold text-[0.875rem] uppercase tracking-wider leading-none pt-1">Arnon Friedman</span>
