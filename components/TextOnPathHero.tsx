@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useCallback, useState } from 'react';
-import { motion, useReducedMotion } from 'framer-motion';
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
 // ───────────────────────────────────────────────────────────
 // TEXT ON PATH HERO
 // Auto-plays on first visit: complex paths → single straight line
-// Returning users: start at resolved state immediately
-// Wheel-up at top: reverse back to complex
-// Single text element throughout (clip path narrows at end)
+// Once finished, both Desktop and Mobile switch to a perfectly
+// centered HTML overlay for flawless typography and centering.
 // ───────────────────────────────────────────────────────────
 
 const CORE_PHRASE = "Let's simplify complex things";
@@ -128,7 +127,6 @@ export const TextOnPathHero: React.FC = () => {
   const cornerLabelRef = useRef<HTMLDivElement>(null);
 
   const text1Ref = useRef<SVGTextElement>(null);
-  const togetherSpanRef = useRef<HTMLSpanElement>(null);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [animDone, setAnimDone] = useState(false);
@@ -137,7 +135,6 @@ export const TextOnPathHero: React.FC = () => {
   const typedTextRef = useRef('');
   const phraseWidthRef = useRef(0);
   const coreWidthFinalRef = useRef(0);
-  const togetherWidthRef = useRef(0);
   const offset1Ref = useRef(0);
   const offset2Ref = useRef(0);
   const rafRef = useRef(0);
@@ -184,14 +181,6 @@ export const TextOnPathHero: React.FC = () => {
       svg.appendChild(text2);
       coreWidthFinalRef.current = text2.getComputedTextLength();
 
-      const textTogether = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-      textTogether.style.fontFamily = FONT_FAMILY;
-      textTogether.style.fontSize = `${LOOP_FONT_SIZE * 1.25}px`; // Increase for optical matching when stacked
-      textTogether.style.fontWeight = '900';
-      textTogether.textContent = ' together.';
-      svg.appendChild(textTogether);
-      togetherWidthRef.current = textTogether.getComputedTextLength();
-
       document.body.removeChild(svg);
     };
     document.fonts.ready.then(measure);
@@ -213,7 +202,7 @@ export const TextOnPathHero: React.FC = () => {
           animDoneRef.current = false;
           setAnimDone(false);
           typedTextRef.current = '';
-          if (togetherSpanRef.current) togetherSpanRef.current.textContent = '';
+          setTypedOutput('');
         }
       } else if (e.deltaY > 0 && animProgressRef.current < 1) {
         e.preventDefault();
@@ -240,7 +229,7 @@ export const TextOnPathHero: React.FC = () => {
           animDoneRef.current = false;
           setAnimDone(false);
           typedTextRef.current = '';
-          if (togetherSpanRef.current) togetherSpanRef.current.textContent = '';
+          setTypedOutput('');
         }
       } else if (deltaY > 0 && animProgressRef.current < 1) {
         e.preventDefault();
@@ -260,7 +249,7 @@ export const TextOnPathHero: React.FC = () => {
   }, [dispatchHeroProgress]);
 
   useEffect(() => {
-    if (!animDone) { typedTextRef.current = ''; setTypedOutput(''); return; }
+    if (!animDone) return;
     const word = ' together.';
     let i = 0;
     const interval = setInterval(() => {
@@ -268,7 +257,6 @@ export const TextOnPathHero: React.FC = () => {
       const current = word.slice(0, i);
       typedTextRef.current = current;
       setTypedOutput(current);
-      if (togetherSpanRef.current) togetherSpanRef.current.textContent = current;
       if (i >= word.length) clearInterval(interval);
     }, 55);
     return () => clearInterval(interval);
@@ -341,12 +329,6 @@ export const TextOnPathHero: React.FC = () => {
         }
       }
 
-      if (togetherSpanRef.current) {
-        togetherSpanRef.current.style.opacity = animDoneRef.current ? '1' : '0';
-        togetherSpanRef.current.style.transform = 'translate(-50%, 0)';
-        togetherSpanRef.current.style.top = isMobile ? '58%' : '56%';
-      }
-
       if (scrollHintRef.current) scrollHintRef.current.style.opacity = String(Math.max(0, 1 - progress * 6));
       if (cornerLabelRef.current) cornerLabelRef.current.style.opacity = String(Math.max(0, 1 - progress * 6));
 
@@ -375,17 +357,18 @@ export const TextOnPathHero: React.FC = () => {
         transition={{ duration: 0.8, ease: EASE_POWER }}
         className="w-full h-full relative overflow-hidden"
       >
-        {/* SVG Layer: Animating state (or Desktop final state) */}
+        {/* ANIMATION LAYER: SVG remains active during transition */}
         <svg
           viewBox="-600 -400 3600 2000"
           style={{
             position: 'absolute',
-            left: '-2%',
+            left: '0',
             top: 0,
-            width: '104%',
+            width: '100%',
             height: '100%',
-            opacity: (isMobile && animDone) ? 0 : 1,
-            transition: 'opacity 0.5s ease',
+            opacity: animDone ? 0 : 1, // Global fade out on animDone
+            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+            zIndex: 10
           }}
           preserveAspectRatio="xMidYMid slice"
         >
@@ -410,59 +393,45 @@ export const TextOnPathHero: React.FC = () => {
           </g>
         </svg>
 
-        {/* Desktop "together." overlay */}
-        {!isMobile && (
-          <span
-            ref={togetherSpanRef}
-            className="absolute left-1/2 pointer-events-none select-none z-20"
-            style={{
-              opacity: 0,
-              fontFamily: FONT_FAMILY,
-              fontWeight: 900,
-              fontSize: 'clamp(2rem, 4.4vw, 5rem)',
-              color: '#ff00aa',
-              letterSpacing: '0.01em',
-              whiteSpace: 'nowrap',
-              textAlign: 'center',
-              lineHeight: 1.1,
-              transition: 'opacity 0.3s ease',
-            }}
-          />
-        )}
-
-        {/* Mobile Final State Layer (2-3 lines) */}
-        {isMobile && animDone && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="absolute inset-0 flex flex-col items-center justify-center px-8 text-center z-30 pointer-events-none select-none"
-          >
-            <h2
-              className="font-light text-[#0055ff] m-0"
-              style={{
-                fontFamily: FONT_FAMILY,
-                fontSize: 'clamp(1.75rem, 8vw, 2.5rem)',
-                letterSpacing: '0.1em',
-                lineHeight: 1.2,
-                textWrap: 'balance' as any,
-              }}
+        {/* FINAL STATE LAYER: Perfect HTML Centering */}
+        <AnimatePresence>
+          {animDone && (
+            <motion.div
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none select-none px-6"
             >
-              Let's simplify complex things
-            </h2>
-            <div
-              className="font-black text-[#ff00aa]"
-              style={{
-                fontFamily: FONT_FAMILY,
-                fontSize: 'clamp(2.2rem, 10vw, 3.2rem)',
-                letterSpacing: '0.01em',
-                marginTop: '0.4rem',
-                minHeight: '1.2em'
-              }}
-            >
-              {typedOutput}
-            </div>
-          </motion.div>
-        )}
+              <div
+                className="font-light text-[#0055ff]"
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: isMobile ? 'clamp(1.75rem, 8vw, 2.5rem)' : 'clamp(2rem, 4.2vw, 4.8rem)',
+                  letterSpacing: '0.13em',
+                  lineHeight: 1.1,
+                  fontWeight: 300,
+                  maxWidth: isMobile ? '85vw' : '90vw'
+                }}
+              >
+                Let's simplify complex things
+              </div>
+              <div
+                className="font-black text-[#ff00aa]"
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontSize: isMobile ? 'clamp(2.2rem, 11vw, 3.4rem)' : 'clamp(2.5rem, 4.8vw, 5.5rem)',
+                  letterSpacing: '0.01em',
+                  fontWeight: 900,
+                  marginTop: isMobile ? '0.6rem' : '0.8rem',
+                  minHeight: '1.2em'
+                }}
+              >
+                {typedOutput}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <div ref={cornerLabelRef} className="absolute top-8 right-8 z-50 pointer-events-none text-[#0c0c0a] hidden md:flex items-start gap-3">
           <span className="font-bold text-[0.875rem] uppercase tracking-wider leading-none pt-1">Arnon Friedman</span>
