@@ -6,11 +6,7 @@
     --container-px: clamp(1.5rem, 5vw, 4rem);
 }
 
-/* Base section padding */
-section {
-    padding-left: var(--container-px);
-    padding-right: var(--container-px);
-}
+/* Base section padding — use .px-container class on sections that need it */
 
 /* Utilities */
 .px-container {

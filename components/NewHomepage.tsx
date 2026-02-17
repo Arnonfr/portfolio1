@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { motion, useInView, useScroll, useTransform, useMotionValue, useReducedMotion, AnimatePresence, animate } from 'framer-motion';
 import { Project } from '../types';
 import { PROJECTS } from '../data';
@@ -6,6 +7,7 @@ import { ScrambleText, HoverScramble } from './ScrambleText';
 import { TextOnPathHero } from './TextOnPathHero';
 import { DigitalStack } from './DigitalStack';
 import { DotGridBackground } from './DotGridBackground';
+import FlowingMenu from './FlowingMenu';
 
 // ───────────────────────────────────────────────────────────
 // SHARED ANIMATION CONFIG
@@ -93,263 +95,6 @@ const scrollToSection = (id: string) => {
 // HERO — Text on Path (imported from TextOnPathHero.tsx)
 // ───────────────────────────────────────────────────────────
 
-// ───────────────────────────────────────────────────────────
-// SELECTED WORK — Text list with floating image on hover
-// ───────────────────────────────────────────────────────────
-const FeaturedWorkSection: React.FC<{ onProjectClick: (project: Project) => void }> = ({
-  onProjectClick,
-}) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
-  const [hoveredProject, setHoveredProject] = useState<Project | null>(null);
-  const [mouseY, setMouseY] = useState(0);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMouseY(e.clientY);
-  };
-
-  return (
-    <section
-      id="work"
-      ref={sectionRef}
-      className="w-full bg-[#f4f3f1] pt-8 pb-24 md:pb-32 relative px-container"
-      onMouseMove={handleMouseMove}
-    >
-      <div className="">
-        {/* Section label */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: EASE_POWER }}
-          className="mb-12 md:mb-16"
-        >
-          <ScrambleText
-            text="SELECTED WORK"
-            className="eyebrow block"
-            delay={0.1}
-          />
-        </motion.div>
-
-        {/* Project rows */}
-        <div className="space-y-2">
-          {PROJECTS.map((project, index) => (
-            <ProjectRow
-              key={project.id}
-              project={project}
-              index={index}
-              onClick={() => onProjectClick(project)}
-              isInView={isInView}
-              onHover={setHoveredProject}
-              hoveredId={hoveredProject?.id ?? null}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Floating image — overlays on top of everything, positioned right */}
-      <AnimatePresence>
-        {hoveredProject && (
-          <motion.div
-            key={hoveredProject.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: EASE_POWER }}
-            className="fixed right-8 md:right-12 lg:right-16 pointer-events-none hidden md:block"
-            style={{
-              top: Math.max(80, Math.min(mouseY - 200, window.innerHeight - 480)),
-              zIndex: 50,
-              width: '45vw',
-              maxWidth: '700px',
-            }}
-          >
-            <div className="overflow-hidden rounded-2xl shadow-2xl shadow-black/15">
-              <img
-                src={hoveredProject.id === 3 ? '/images/wording/main-modal.png' : hoveredProject.image}
-                alt={hoveredProject.title}
-                className="w-full h-auto object-cover"
-                style={{ maxHeight: '55vh' }}
-              />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </section >
-  );
-};
-
-// ───────────────────────────────────────────────────────────
-// DISTORTED TITLE — 5 different effects for non-hovered rows
-// ───────────────────────────────────────────────────────────
-
-// Effect 0: Wave — letters undulate vertically like a sine wave
-// Effect 1: Arc — letters rotate along a circular arc path
-// Effect 2: Scatter — letters drift apart with random rotation
-// Effect 3: Squeeze — horizontal compression with vertical stretch
-// Effect 4: Skew — italic-like progressive skew with fade
-
-const DistortedTitle: React.FC<{
-  text: string;
-  effectIndex: number;
-  isDistorted: boolean;
-}> = ({ text, effectIndex, isDistorted }) => {
-  const chars = text.split('');
-  const len = chars.length;
-
-  const getCharStyle = (i: number): React.CSSProperties => {
-    if (!isDistorted) return { display: 'inline-block', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' };
-
-    const norm = len > 1 ? i / (len - 1) : 0; // 0..1
-    const fromCenter = (norm - 0.5) * 2; // -1..1
-
-    switch (effectIndex % 5) {
-      case 0: // Wave
-        return {
-          display: 'inline-block',
-          transform: `translateY(${Math.sin(norm * Math.PI * 2.5) * 12}px)`,
-          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
-          opacity: 0.4,
-        };
-      case 1: // Arc
-        return {
-          display: 'inline-block',
-          transform: `translateY(${Math.pow(fromCenter, 2) * -18}px) rotate(${fromCenter * -8}deg)`,
-          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
-          opacity: 0.35,
-        };
-      case 2: // Scatter
-        return {
-          display: 'inline-block',
-          transform: `translateY(${(Math.random() - 0.5) * 0.1}px) translateX(${fromCenter * 6}px) rotate(${fromCenter * 5}deg)`,
-          letterSpacing: '0.15em',
-          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
-          opacity: 0.3,
-        };
-      case 3: // Squeeze
-        return {
-          display: 'inline-block',
-          transform: `scaleX(0.6) scaleY(1.3) translateY(${fromCenter * 4}px)`,
-          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
-          opacity: 0.35,
-        };
-      case 4: // Skew
-        return {
-          display: 'inline-block',
-          transform: `skewX(${-15 + norm * 5}deg) translateX(${fromCenter * 8}px)`,
-          transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)',
-          opacity: 0.3,
-        };
-      default:
-        return { display: 'inline-block', transition: 'all 0.5s cubic-bezier(0.16,1,0.3,1)' };
-    }
-  };
-
-  return (
-    <span className="inline-flex" aria-label={text}>
-      {chars.map((char, i) => (
-        <span key={i} style={getCharStyle(i)}>
-          {char === ' ' ? '\u00A0' : char}
-        </span>
-      ))}
-    </span>
-  );
-};
-
-// ───────────────────────────────────────────────────────────
-// PROJECT ROW — Text row, hover triggers floating image
-// ───────────────────────────────────────────────────────────
-const EASE_SPRING: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
-
-const ProjectRow: React.FC<{
-  project: Project;
-  index: number;
-  onClick: () => void;
-  isInView: boolean;
-  onHover: (project: Project | null) => void;
-  hoveredId: number | null;
-}> = ({ project, index, onClick, isInView, onHover, hoveredId }) => {
-  const isHovered = hoveredId === project.id;
-  const isOtherHovered = hoveredId !== null && hoveredId !== project.id;
-
-  return (
-    <motion.article
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08, ease: EASE_POWER }}
-      onClick={onClick}
-      onMouseEnter={() => { onHover(project); }}
-      onMouseLeave={() => { onHover(null); }}
-      className="group cursor-pointer relative"
-    >
-      <motion.div
-        animate={{
-          backgroundColor: isHovered ? '#ebe8e4' : 'rgba(0,0,0,0)',
-          borderRadius: isHovered ? 20 : 0,
-        }}
-        transition={{ duration: 0.4, ease: EASE_POWER }}
-        className="overflow-hidden relative"
-      >
-        {/* Main row: text content */}
-        <div className="flex items-center">
-          <motion.div
-            className="py-6 md:py-7 px-4 md:px-6 flex items-center gap-4 min-w-0 w-full"
-          >
-            {/* Number */}
-            <motion.span
-              className="font-mono text-[0.8125rem] w-10 flex-shrink-0 text-center"
-              animate={{ color: isHovered ? '#0055ff' : '#a8a39a' }} // Blue on hover
-              transition={{ duration: 0.3 }}
-            >
-              0{index + 1}
-            </motion.span>
-
-            {/* Title + meta stacked */}
-            <div className="flex-1 min-w-0">
-              <motion.h3
-                className="text-[clamp(1.25rem,3vw,2.25rem)] font-semibold tracking-[-0.025em] leading-[1.1]"
-                animate={{ color: isHovered ? '#0055ff' : '#0c0c0a' }} // Title turns Blue
-                transition={{ duration: 0.3 }}
-              >
-                {project.title}
-              </motion.h3>
-
-              {/* Meta — visible inline always */}
-              <motion.div
-                className="flex gap-3 mt-2 text-[0.8125rem] font-mono text-[#a8a39a]"
-                animate={{ opacity: isHovered ? 1 : isOtherHovered ? 0.3 : 0.7 }}
-              >
-                <span>{project.company}</span>
-                <span className="hidden md:inline">·</span>
-                <span className="hidden md:inline">{project.category}</span>
-                <span>·</span>
-                <span>{project.year}</span>
-              </motion.div>
-            </div>
-
-            {/* Arrow */}
-            <motion.span
-              className="ml-2 flex-shrink-0 text-xl"
-              animate={{
-                x: isHovered ? 4 : 0,
-                color: isHovered ? '#ff00aa' : '#a8a39a', // Arrow turns Pink
-              }}
-              transition={{ duration: 0.3, ease: EASE_SPRING }}
-            >
-              →
-            </motion.span>
-          </motion.div>
-        </div>
-      </motion.div>
-
-      {/* Divider — fades out on hover */}
-      <motion.div
-        className="mx-2 h-px bg-[#d9d6d1]"
-        animate={{ opacity: isHovered ? 0 : 1 }}
-        transition={{ duration: 0.2 }}
-      />
-    </motion.article>
-  );
-};
 
 // ───────────────────────────────────────────────────────────
 // ABOUT — Conversational voice, asymmetric layout
@@ -732,6 +477,21 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
   onProjectSelect,
   onExploreSideProjects,
 }) => {
+  const location = useLocation();
+
+  // Scroll to hash on mount or hash change
+  useEffect(() => {
+    if (location.hash) {
+      const id = location.hash.replace('#', '');
+      const el = document.getElementById(id);
+      if (el) {
+        // Wait slightly for layout if needed, or scroll immediately
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [location.hash]);
   return (
     <div className="w-full">
       <div className="noise-overlay" />
@@ -740,7 +500,28 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
       <TextOnPathHero />
 
       {/* 2. Projects */}
-      <FeaturedWorkSection onProjectClick={onProjectSelect} />
+      <section id="work" className="w-full bg-[#0c0c0a]">
+        <div className="px-container pt-16 pb-6">
+          <span className="eyebrow block text-[#666]">SELECTED WORK</span>
+        </div>
+        <div className="h-[clamp(350px,65dvh,600px)] relative">
+          <FlowingMenu
+            items={PROJECTS.map(p => ({
+              link: `/work/${p.id}`,
+              text: p.title,
+              image: p.image,
+              description: p.description,
+            }))}
+            speed={15}
+            textColor="#f4f3f1"
+            bgColor="#0c0c0a"
+            marqueeBgColor="#f4f3f1"
+            marqueeTextColor="#0c0c0a"
+            borderColor="#333"
+            onItemClick={(link) => onProjectSelect(PROJECTS.find(p => `/work/${p.id}` === link)!)}
+          />
+        </div>
+      </section>
 
       {/* 3. About paragraph */}
       <AboutSection onExploreSideProjects={onExploreSideProjects} />

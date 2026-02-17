@@ -1,0 +1,121 @@
+.menu-wrap {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.menu__item {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border-top: 1px solid;
+}
+
+.menu__item:first-child {
+  border-top: none;
+}
+
+.menu__item-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 44px; /* touch target */
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: 'Instrument Serif', serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(1.3rem, 4.5vw, 3.5rem);
+  letter-spacing: 0;
+}
+
+.menu__item-link:hover {
+  color: inherit;
+}
+
+.menu__item-link:focus:not(:focus-visible) {
+  color: inherit;
+}
+
+.marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  transform: translate3d(0, 101%, 0);
+}
+
+.marquee__inner-wrap {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee__inner {
+  display: flex;
+  align-items: center;
+  position: relative;
+  height: 100%;
+  width: fit-content;
+  will-change: transform;
+}
+
+.marquee__part {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.marquee span {
+  white-space: nowrap;
+  line-height: 1;
+  padding: 0 1vw;
+}
+
+.marquee__title {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1rem, 3vw, 4vh);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.marquee__desc {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 400;
+  font-size: clamp(0.75rem, 1.8vw, 2.5vh);
+  opacity: 0.6;
+  padding-left: 0.5vw;
+}
+
+.marquee__img {
+  width: clamp(100px, 15vw, 200px);
+  height: clamp(3rem, 6vw, 7vh);
+  margin: 1em 2vw;
+  padding: 0.5em 0;
+  border-radius: 50px;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+/* Hide marquee images on small screens to save space */
+@media (max-width: 639px) {
+  .marquee__img {
+    display: none;
+  }
+}

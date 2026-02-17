@@ -1,8 +1,9 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { ZoomableImage } from './ZoomableImage';
 import { CaseStudyFooterDiverge } from './CaseStudyFooterDiverge';
-import { Header } from './Header';
+
 
 interface WebTraderCaseStudyProps {
     onBack: () => void;
@@ -13,7 +14,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
         <div className="bg-white min-h-screen font-sans text-stone-900">
 
             {/* NAVIGATION */}
-            <Header isInternal={true} onBack={onBack} />
+
 
             {/* ── HERO ── */}
             <header className="relative h-screen flex items-end justify-start bg-[#0a1628] overflow-hidden">
@@ -66,6 +67,16 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                 </div>
             </section>
 
+            {/* ── ATMOSPHERIC SCROLL IMAGE ── */}
+            <section className="relative h-[60vh] md:h-[80vh] overflow-hidden bg-stone-100">
+                <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat lg:bg-fixed"
+                    style={{ 
+                        backgroundImage: 'url(/images/wt-signal-detail.png)',
+                    }}
+                />
+            </section>
+
             {/* ══════════════════════════════════════════
                 PART 1 — SIGNALS
             ══════════════════════════════════════════ */}
@@ -89,14 +100,16 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                             </div>
                         </div>
 
-                        <div className="rounded-2xl overflow-hidden bg-stone-50 border border-stone-100">
-                            <img
-                                src="/images/wt-signal-before-after.png"
-                                alt="Source data table vs redesigned signal card"
-                                className="w-full h-auto"
-                            />
-                            <div className="px-6 py-4 border-t border-stone-100">
-                                <p className="text-xs text-stone-400 font-medium">Source data → redesigned signal card</p>
+                        <div className="flex flex-col items-start relative z-10">
+                            <div className="max-w-xl">
+                                <ZoomableImage
+                                    src="/images/wt-signal-before-after.png"
+                                    alt="Source data table vs redesigned signal card"
+                                    className="w-full h-auto"
+                                />
+                            </div>
+                            <div className="mt-4">
+                                <p className="text-xs text-stone-400 font-medium italic">Source data → redesigned signal card</p>
                             </div>
                         </div>
                     </div>
@@ -104,23 +117,25 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             </section>
 
             {/* ── UNDERSTAND YOUR POSITION — sticky hole ── */}
-            <div className="relative md:h-[200vh]">
-                <div className="md:sticky top-0 md:h-[100vh] overflow-hidden bg-[#EEF4FF]">
-                    <img
-                        src="/images/wt-position-explain.png"
-                        alt="Signal detail — Understand your position"
-                        className="w-full h-auto md:h-full object-contain"
-                    />
-
-                    {/* Text panel — overlaid on desktop, stacked on mobile */}
-                    <div className="md:absolute inset-0 flex items-center justify-end md:pointer-events-none px-container py-12 md:py-0">
-                        <div className="w-full max-w-[1400px] mx-auto md:flex justify-end">
-                            <div className="max-w-xs bg-white/90 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-xl md:pointer-events-auto">
-                                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-4 block">Design Decision · 1</span>
-                                <h2 className="text-xl md:text-2xl font-serif mb-4 leading-snug">Understand your position</h2>
-                                <p className="text-stone-600 leading-relaxed text-sm">
-                                    Not the conventional trading chart. We simplified the data linearly — stop loss, entry, and take profit on one axis. Traders see instantly how much is at risk vs. how much can be gained.
-                                </p>
+            <div className="relative md:h-[200vh] z-10">
+                <div className="md:sticky top-0 md:h-[100vh] bg-[#EEF4FF] overflow-visible">
+                    <div className="w-full h-full flex items-center justify-center p-8 md:p-24">
+                        <div className="relative w-full max-w-4xl h-full flex items-center justify-center">
+                            <ZoomableImage
+                                src="/images/wt-position-explain.png"
+                                alt="Signal detail — Understand your position"
+                                className="w-full h-auto max-h-[70vh] object-contain shadow-2xl rounded-xl"
+                            />
+                            
+                            {/* Text panel — moved back to a clear spot since zoom is now an overlay */}
+                            <div className="absolute -bottom-8 right-0 md:-bottom-12 md:right-8 z-20">
+                                <div className="max-w-[280px] bg-white/90 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl border border-white">
+                                    <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-4 block">Design Decision · 1</span>
+                                    <h2 className="text-xl md:text-2xl font-serif mb-4 leading-snug">Understand your position</h2>
+                                    <p className="text-stone-600 leading-relaxed text-sm">
+                                        Not the conventional trading chart. We simplified the data linearly — stop loss, entry, and take profit on one axis. Traders see instantly how much is at risk vs. how much can be gained.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -138,13 +153,6 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                         <p className="text-base md:text-lg text-stone-500 leading-relaxed">
                             We isolated the buy/sell recommendation — a binary decision — and made it visually dominant with colour. Every other data point was ranked by how often traders needed it and placed accordingly.
                         </p>
-                    </div>
-                    <div className="rounded-2xl overflow-hidden border border-stone-100 shadow-lg">
-                        <img
-                            src="/images/wt-signal-detail.png"
-                            alt="Mapping and prioritising signal data"
-                            className="w-full h-auto"
-                        />
                     </div>
                 </div>
             </section>
@@ -270,16 +278,25 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                 PART 2 — WEB TRADER PLATFORM
             ══════════════════════════════════════════ */}
 
-            <section className="py-24 md:py-32 bg-white px-container">
-                <div className="max-w-[1400px] mx-auto">
-                    <div className="max-w-2xl">
+            <section className="py-24 md:py-32 bg-white px-container overflow-visible">
+                <div className="max-w-[1400px] mx-auto flex flex-col items-center text-center">
+                    <div className="max-w-3xl mb-16 md:mb-24">
                         <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-stone-400 mb-4 block">Part 2 · Web Trader Platform</span>
-                        <h2 className="text-[clamp(1.75rem,4vw,2.5rem)] font-serif mb-6 leading-tight">
+                        <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-serif mb-8 leading-tight">
                             Bringing signals inside the terminal
                         </h2>
-                        <p className="text-base md:text-lg text-stone-500 leading-relaxed">
+                        <p className="text-base md:text-xl text-stone-500 leading-relaxed max-w-2xl mx-auto">
                             Once the signal format was solved, the next challenge was embedding it into the trading terminal — so traders could act immediately without switching apps.
                         </p>
+                    </div>
+                    
+                    <div className="w-full relative z-20">
+                        <ZoomableImage
+                            src="/images/wt-full-platform.png"
+                            alt="Full Web Trader platform with integrated signals"
+                            className="w-full h-auto rounded-2xl shadow-2xl border border-stone-100"
+                            zoomLevel={2}
+                        />
                     </div>
                 </div>
             </section>

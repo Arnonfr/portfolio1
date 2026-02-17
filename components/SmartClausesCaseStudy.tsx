@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { CaseStudyFooterTangle } from './CaseStudyFooterTangle';
-import { Header } from './Header';
+
 
 interface SmartClausesCaseStudyProps {
     onBack: () => void;
@@ -13,7 +13,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
         <div className="bg-white min-h-screen font-sans text-stone-900">
 
             {/* NAVIGATION */}
-            <Header isInternal={true} onBack={onBack} />
+
 
             {/* ── HERO ── */}
             <header className="relative min-h-[90vh] flex items-end justify-start overflow-hidden">
@@ -48,9 +48,9 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="relative group">
                         <div className="absolute -inset-4 bg-indigo-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                         <div className="relative bg-white rounded-2xl p-3 border border-stone-200 shadow-2xl overflow-hidden">
-                            <img 
-                                src="/images/wording/main-modal.png" 
-                                alt="Modern Wording Management Interface" 
+                            <img
+                                src="/images/wording/main-modal.png"
+                                alt="Modern Wording Management Interface"
                                 className="w-full h-auto rounded-lg"
                             />
                             {/* Enterprise Badge */}
@@ -132,9 +132,9 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-200">
-                                <img 
-                                    src="/images/wording/coverage-form-selection.png" 
-                                    alt="Coverage Form Selection Logic" 
+                                <img
+                                    src="/images/wording/coverage-form-selection.png"
+                                    alt="Coverage Form Selection Logic"
                                     className="w-full h-auto"
                                 />
                             </div>

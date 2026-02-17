@@ -78,21 +78,7 @@ export const SideProjectsPage: React.FC<SideProjectsPageProps> = ({
 }) => {
   return (
     <div className="w-full bg-white min-h-screen font-sans">
-      {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur border-b border-stone-100">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button
-            onClick={onBack}
-            className="text-sm text-stone-500 hover:text-black transition-colors font-medium flex items-center gap-2"
-          >
-            <ArrowLeft size={18} />
-            <span>Back to Portfolio</span>
-          </button>
-          <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">
-            Side Projects
-          </span>
-        </div>
-      </nav>
+
 
       {/* HERO */}
       <header className="pt-32 md:pt-48 pb-20 md:pb-28 px-6 border-b border-stone-100">

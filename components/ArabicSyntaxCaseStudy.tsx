@@ -2,7 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { CaseStudyFooter } from './CaseStudyFooter';
-import { Header } from './Header';
+
 
 interface ArabicSyntaxCaseStudyProps {
   onBack: () => void;
@@ -142,7 +142,7 @@ export const ArabicSyntaxCaseStudy: React.FC<ArabicSyntaxCaseStudyProps> = ({ on
     <div className="w-full bg-stone-50 min-h-screen font-sans">
 
       {/* ─── S1: NAV ─── */}
-      <Header isInternal={true} onBack={onBack} />
+
 
 
       {/* ═══════════════════════════════════════════════════════════

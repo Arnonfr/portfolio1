@@ -5,7 +5,7 @@ import { UiTransformation } from './UiTransformation';
 import { ClaimStatisticsForm } from './ClaimStatisticsForm';
 import { LegacyTransformationVisualizer } from './LegacyTransformationVisualizer';
 import { CaseStudyFooter } from './CaseStudyFooter';
-import { Header } from './Header';
+
 
 interface ProjectPageProps {
   project: Project;
@@ -24,7 +24,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
     return (
       <div className="w-full bg-white min-h-screen font-sans animate-fadeIn">
 
-        <Header isInternal={true} onBack={onBack} />
+
 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
@@ -118,11 +118,10 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                       {steps.map((s, i) => (
                         <div
                           key={i}
-                          className={`border rounded-xl p-4 flex items-start gap-4 cursor-default transition-all duration-200 ${
-                            hoveredStep === i
+                          className={`border rounded-xl p-4 flex items-start gap-4 cursor-default transition-all duration-200 ${hoveredStep === i
                               ? 'border-stone-500 bg-stone-900'
                               : 'border-stone-800 hover:border-stone-700'
-                          }`}
+                            }`}
                           onMouseEnter={() => setHoveredStep(i)}
                         >
                           <span className={`font-mono text-xs shrink-0 mt-0.5 transition-colors ${hoveredStep === i ? 'text-stone-300' : 'text-stone-600'}`}>{s.step}</span>
@@ -395,7 +394,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
     return (
       <div className="w-full bg-stone-50 min-h-screen font-sans animate-fadeIn">
 
-        <Header isInternal={true} onBack={onBack} />
+
 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
@@ -1362,17 +1361,6 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
   if (isCookit) {
     return (
       <div className="w-full bg-[#faf9f7] min-h-screen font-sans animate-fadeIn">
-
-        {/* NAV */}
-        <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-lg border-b border-stone-100">
-          <div className="max-w-6xl mx-auto px-container h-16 flex items-center justify-between">
-            <button onClick={onBack} className="flex items-center gap-2 text-stone-500 hover:text-stone-900 transition-colors text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 12H5M12 19l-7-7 7-7" /></svg>
-              Back to Portfolio
-            </button>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-stone-400">Side Project</span>
-          </div>
-        </nav>
 
         {/* HERO */}
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">

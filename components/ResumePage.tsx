@@ -12,28 +12,19 @@ export const ResumePage: React.FC<ResumePageProps> = ({ onBack }) => {
 
   return (
     <div className="min-h-screen bg-[#e8e6e1]">
-      {/* Screen-only top bar */}
-      <div className="print:hidden sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-[900px] mx-auto px-6 py-3 flex items-center justify-between">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors"
-          >
-            <ArrowLeft size={16} />
-            Back to Portfolio
-          </button>
-          <button
-            onClick={handlePrint}
-            className="flex items-center gap-2 px-4 py-2 bg-[#0c0c0a] text-white text-sm rounded-lg hover:bg-[#2a2a28] transition-colors"
-          >
-            <Download size={14} />
-            Download PDF
-          </button>
-        </div>
+      {/* Download Button - Visible on screen, hidden in print */}
+      <div className="print:hidden pt-24 pb-4 max-w-[794px] mx-auto px-6 flex justify-end">
+        <button
+          onClick={handlePrint}
+          className="flex items-center gap-2 px-4 py-2 bg-[#0c0c0a] text-white text-sm font-medium rounded-lg hover:bg-[#2a2a28] transition-colors shadow-lg"
+        >
+          <Download size={16} />
+          Download PDF
+        </button>
       </div>
 
       {/* A4 Paper — 794×1123px at 96dpi */}
-      <div className="max-w-[794px] mx-auto my-8 print:my-0 print:max-w-none">
+      <div className="max-w-[794px] mx-auto mb-8 print:my-0 print:max-w-none">
         <div className="bg-white shadow-2xl print:shadow-none" style={{ maxHeight: '1123px', overflow: 'hidden' }}>
           <div className="grid grid-cols-[230px_1fr] print:grid-cols-[210px_1fr] h-[1123px]">
 

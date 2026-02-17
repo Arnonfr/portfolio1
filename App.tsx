@@ -73,7 +73,7 @@ function App() {
   }, []);
 
   // Determine which header to use
-  const useNewDesign = location.pathname === '/' || location.pathname === '/new';
+  const useNewDesign = location.pathname !== '/classic';
   const isHomepage = location.pathname === '/';
   // On homepage, only show navbar after hero is mostly done (progress > 0.85)
   const showNavbar = !isHomepage || heroProgress > 0.85;
@@ -88,27 +88,25 @@ function App() {
       <ScrollToTop />
 
       {/* Header — hidden on homepage during hero, fades in after */}
-      {!['/work/1', '/work/2', '/work/3', '/work/4', '/work/5', '/side-projects', '/resume'].includes(location.pathname.replace(/\/$/, '')) && (
-        <div
-          style={{
-            opacity: showNavbar ? 1 : 0,
-            pointerEvents: showNavbar ? 'auto' : 'none',
-            transition: 'opacity 0.5s ease',
-          }}
-        >
-          {useNewDesign ? (
-            <NewHeader
-              isInternal={isInternal}
-              onBack={() => navigate('/')}
-            />
-          ) : (
-            <Header
-              isInternal={isInternal}
-              onBack={() => navigate('/')}
-            />
-          )}
-        </div>
-      )}
+      <div
+        style={{
+          opacity: showNavbar ? 1 : 0,
+          pointerEvents: showNavbar ? 'auto' : 'none',
+          transition: 'opacity 0.5s ease',
+        }}
+      >
+        {useNewDesign ? (
+          <NewHeader
+            isInternal={isInternal}
+            onBack={() => navigate('/')}
+          />
+        ) : (
+          <Header
+            isInternal={isInternal}
+            onBack={() => navigate('/')}
+          />
+        )}
+      </div>
 
       <Routes>
         {/* New Homepage (Default) */}

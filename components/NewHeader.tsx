@@ -24,11 +24,8 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
 
   const scrollToSection = (id: string) => {
     if (isInternal) {
-      navigate('/');
-      setTimeout(() => {
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-      }, 300);
+      // Navigate to homepage with hash to trigger scrolling there
+      navigate(`/#${id}`);
     } else {
       const el = document.getElementById(id);
       if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -64,23 +61,13 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               }}
               className="flex items-center gap-3 group"
             >
-              {isInternal ? (
-                <>
-                  <span className="text-[0.8125rem] text-[#a8a39a] group-hover:text-[#0c0c0a] transition-colors">
-                    ← BACK
-                  </span>
-                </>
-              ) : (
-                <>
-                  <span className="text-[0.9375rem] font-semibold text-[#0c0c0a] tracking-[-0.02em]">
-                    ARNON FRIEDMAN
-                  </span>
-                  {isScrolled && (
-                    <span className="hidden md:inline-block text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#a8a39a] ml-2">
-                      DESIGN
-                    </span>
-                  )}
-                </>
+              <span className="text-[0.9375rem] font-semibold text-[#0c0c0a] tracking-[-0.02em]">
+                ARNON FRIEDMAN
+              </span>
+              {isScrolled && !isInternal && (
+                <span className="hidden md:inline-block text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#a8a39a] ml-2">
+                  DESIGN
+                </span>
               )}
             </button>
 
