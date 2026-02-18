@@ -71,114 +71,64 @@ function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: n
     `C ${p('c15', 0)},${p('c15', 1)} ${p('c16', 0)},${p('c16', 1)} ${p('to8', 0)},${p('to8', 1)}`;
 }
 
-/**
- * Hyper-Realistic Enamel Pin Component
- * Simulates a physical die-struck pin:
- * 1. Gold Metal Base (Die-struck mold)
- * 2. Recessed Enamel Fill (Pink liquid resin)
- * 3. Raised Gold Lettering
- */
-const EnamelPin: React.FC = () => (
+const KEYWORDS = ['systems', 'data', 'flows', 'products', 'interfaces'];
+
+const EnamelPin: React.FC<{ text: string }> = ({ text }) => (
   <motion.div
-    initial={{ y: 25, opacity: 0, scale: 0.9, rotateX: 30, rotateY: -5 }}
-    animate={{ y: 0, opacity: 1, scale: 1, rotateX: 15, rotateY: 0 }}
-    transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+    initial={{ y: 16, opacity: 0, scale: 0.93 }}
+    animate={{ y: 0, opacity: 1, scale: 1 }}
+    exit={{ y: -12, opacity: 0, scale: 0.93 }}
+    transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
     style={{
-      position: 'relative',
       display: 'inline-flex',
       alignItems: 'center',
       justifyContent: 'center',
-      padding: '12px 48px',
-      borderRadius: '100px',
-      // Multi-stop gradient for anisotropic metal reflection
-      background: 'linear-gradient(165deg, #f0d080 0%, #d4af37 15%, #b8860b 40%, #8a6d3b 55%, #d4af37 85%, #fff9ae 100%)',
-      transformStyle: 'preserve-3d',
+      position: 'relative',
+      padding: '4px',
+      borderRadius: '999px',
+      background: 'linear-gradient(160deg, #f5e6a3 0%, #d4af37 30%, #b8942e 55%, #d4af37 80%, #f5e6a3 100%)',
       boxShadow: `
-        0 1px 1px rgba(255,255,255,0.6), /* Rim top highlight */
-        0 2px 4px rgba(0,0,0,0.5),      /* Hard contact shadow */
-        0 10px 20px rgba(0,0,0,0.15),   /* Mid-range core shadow */
-        0 25px 50px rgba(0,0,0,0.1)     /* Soft penumbra */
+        0 1px 2px rgba(0,0,0,0.2),
+        0 4px 12px rgba(0,0,0,0.12),
+        0 12px 28px rgba(0,0,0,0.08)
       `,
     }}
   >
-    {/* Highlight Bead */}
+    {/* White enamel fill */}
     <div style={{
-      position: 'absolute',
-      inset: '0.5px',
-      borderRadius: '99px',
-      border: '1px solid rgba(255, 255, 255, 0.8)',
-      filter: 'blur(0.3px)',
-      opacity: 0.5,
-      zIndex: 10,
-      pointerEvents: 'none'
-    }} />
-
-    {/* The Enamel Pool */}
-    <div style={{
-      position: 'absolute',
-      inset: '5px',
-      borderRadius: '99px',
-      background: '#ff1493',
-      zIndex: 1,
-      boxShadow: `
-        inset 0 4px 8px rgba(0,0,0,0.4),
-        inset 0 -2px 4px rgba(255,255,255,0.2)
-      `
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: '0.45rem 2rem',
+      borderRadius: '999px',
+      background: 'linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%)',
+      position: 'relative',
+      overflow: 'hidden',
+      boxShadow: 'inset 0 1.5px 4px rgba(0,0,0,0.1), inset 0 -1px 1px rgba(255,255,255,1)',
     }}>
-      {/* Liquid Resin Gloss */}
+      {/* Gloss reflection */}
       <div style={{
         position: 'absolute',
-        inset: 0,
-        background: 'radial-gradient(circle at 25% 20%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 55%)',
-        opacity: 0.8
+        top: '-40%', left: '-5%', width: '110%', height: '100%',
+        background: 'radial-gradient(ellipse at 30% 15%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 60%)',
+        pointerEvents: 'none',
+        zIndex: 2,
+        opacity: 0.6,
       }} />
+
+      <span style={{
+        fontFamily: FONT_FAMILY,
+        fontWeight: 900,
+        color: '#ff00aa',
+        fontSize: 'inherit',
+        textTransform: 'lowercase',
+        letterSpacing: '-0.01em',
+        position: 'relative',
+        zIndex: 3,
+      }}>
+        {text}
+      </span>
     </div>
-
-    {/* Brilliant Gold Text */}
-    <span style={{
-      fontFamily: FONT_FAMILY,
-      fontWeight: 950,
-      fontSize: '0.85em',
-      textTransform: 'lowercase',
-      letterSpacing: '-0.04em',
-      position: 'relative',
-      zIndex: 5,
-      background: 'linear-gradient(to bottom, #fff9ae 0%, #d4af37 35%, #b8860b 80%, #8a6d3b 100%)',
-      WebkitBackgroundClip: 'text',
-      WebkitTextFillColor: 'transparent',
-      filter: 'drop-shadow(0 1px 1.5px rgba(0,0,0,0.4))',
-      transform: 'translateZ(6px)',
-      // Text Highlight Bead
-      textShadow: '0 -0.5px 0.5px rgba(255,255,255,0.4)'
-    }}>
-      system
-    </span>
-
-    {/* Surface Glaze Layer */}
-    <div style={{
-      position: 'absolute',
-      inset: '5px',
-      borderRadius: '99px',
-      zIndex: 15,
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.1) 100%)',
-      mixBlendMode: 'overlay',
-      pointerEvents: 'none'
-    }} />
-
-    {/* Specular Flare */}
-    <div style={{
-      position: 'absolute',
-      top: '12%',
-      left: '18%',
-      width: '35%',
-      height: '25%',
-      background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 75%)',
-      transform: 'rotate(-20deg)',
-      zIndex: 20,
-      opacity: 0.8,
-      filter: 'blur(3px)',
-      pointerEvents: 'none'
-    }} />
   </motion.div>
 );
 
@@ -203,6 +153,7 @@ export const TextOnPathHero: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const [animDone, setAnimDone] = useState(false);
+  const [keywordIndex, setKeywordIndex] = useState(0);
 
   const animDoneRef = useRef(false);
   const phraseWidthRef = useRef(0);
@@ -256,33 +207,54 @@ export const TextOnPathHero: React.FC = () => {
     document.fonts.ready.then(measure);
   }, []);
 
+  // On mobile: skip SVG, show final state after brief delay
   useEffect(() => {
+    if (!isMobile) return;
+    const timer = setTimeout(() => {
+      animProgressRef.current = 1;
+      animDoneRef.current = true;
+      setAnimDone(true);
+      dispatchHeroProgress(1);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [isMobile, dispatchHeroProgress]);
+
+  // Keyword cycling
+  useEffect(() => {
+    if (!animDone) return;
+    const interval = setInterval(() => {
+      setKeywordIndex(prev => (prev + 1) % KEYWORDS.length);
+    }, 2800);
+    return () => clearInterval(interval);
+  }, [animDone]);
+
+  useEffect(() => {
+    if (isMobile) return;
+
     animProgressRef.current = 0;
     isAutoPlayingRef.current = true;
     autoPlayStartRef.current = performance.now();
 
     const handleWheel = (e: WheelEvent) => {
+      if (animDoneRef.current) return;
       if (window.scrollY > 80) return;
-      if (e.deltaY < 0) {
+      if (e.deltaY > 0 && animProgressRef.current < 1) {
         e.preventDefault();
         isAutoPlayingRef.current = false;
-        animProgressRef.current = Math.max(0, animProgressRef.current - (Math.abs(e.deltaY) * 0.0008));
-        if (animDoneRef.current) {
-          animDoneRef.current = false;
-          setAnimDone(false);
-        }
-      } else if (e.deltaY > 0 && animProgressRef.current < 1) {
-        e.preventDefault();
         animProgressRef.current = Math.min(1, animProgressRef.current + (e.deltaY * 0.0008));
+        if (animProgressRef.current >= 1) {
+          animDoneRef.current = true;
+          setAnimDone(true);
+        }
       }
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
     return () => window.removeEventListener('wheel', handleWheel);
-  }, []);
+  }, [isMobile]);
 
   useEffect(() => {
-    if (shouldReduce) {
+    if (shouldReduce || isMobile) {
       animProgressRef.current = 1;
       dispatchHeroProgress(1);
       return;
@@ -347,7 +319,7 @@ export const TextOnPathHero: React.FC = () => {
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE_POWER }} className="w-full h-full relative overflow-hidden">
 
         {/* ANIMATION LAYER: SVG */}
-        {!animDone && <svg
+        {!animDone && !isMobile && <svg
           viewBox="-600 -400 3600 2000"
           style={{
             position: 'absolute',
@@ -392,16 +364,6 @@ export const TextOnPathHero: React.FC = () => {
                 <div style={{ fontWeight: 300, color: '#0055ff', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>
                   Let's simplify complex
                 </div>
-
-                <div style={{
-                  display: 'inline-flex',
-                  minWidth: isMobile ? 'auto' : '360px',
-                  justifyContent: isMobile ? 'center' : 'flex-start',
-                  height: '1.4em',
-                  alignItems: 'center'
-                }}>
-                  <EnamelPin />
-                </div>
               </div>
             </motion.div>
           )}
@@ -416,7 +378,7 @@ export const TextOnPathHero: React.FC = () => {
           </div>
         </div>
 
-        <div ref={scrollHintRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 select-none pointer-events-none z-10">
+        <div ref={scrollHintRef} className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 select-none pointer-events-none z-10">
           <div className="overflow-hidden" style={{ height: 28 }}><MouseWheelIcon /></div>
           <span style={{ fontFamily: FONT_FAMILY, fontSize: '11px', fontWeight: 700, letterSpacing: '0.25em', color: '#a8a39a', textTransform: 'uppercase' }}>scroll to simplify</span>
         </div>
