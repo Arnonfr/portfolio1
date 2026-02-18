@@ -43,7 +43,7 @@ export const LegacyTransformationVisualizer: React.FC = () => {
                         <div className="absolute -top-3 left-4 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider shadow-lg">
                             Legacy Interface
                         </div>
-                        <img
+                        <img  
                             src="/images/legacy-claim-real.png"
                             alt="Legacy Interface"
                             className="w-full h-auto rounded opacity-80"
@@ -129,7 +129,7 @@ export const LegacyTransformationVisualizer: React.FC = () => {
                     For now, illustrating it with the component layout we have 
                     or the user can swap this image.
                 */}
-                            <img
+                            <img  
                                 src="/images/unified-modal-design.png"
                                 alt="Unified Interface"
                                 className="w-full h-auto object-cover"

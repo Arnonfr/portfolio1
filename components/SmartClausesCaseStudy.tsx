@@ -17,7 +17,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
 
             {/* ── HERO ── */}
             <header className="relative min-h-[90vh] flex items-end justify-start overflow-hidden">
-                <img
+                <img  
                     src="/images/wording/main-modal.png"
                     alt="Policy Clauses Management System"
                     className="absolute inset-0 w-full h-full object-cover object-center"
@@ -48,7 +48,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="relative group">
                         <div className="absolute -inset-4 bg-indigo-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                         <div className="relative bg-white rounded-2xl p-3 border border-stone-200 shadow-2xl overflow-hidden">
-                            <img
+                            <img  
                                 src="/images/wording/main-modal.png"
                                 alt="Modern Wording Management Interface"
                                 className="w-full h-auto rounded-lg"
@@ -83,7 +83,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Automated status indicators (Active/Inactive) that respond dynamically to date ranges and versioning, reducing manual compliance checks.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img src="/images/wording/status-logic.png" alt="Status Logic" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img   src="/images/wording/status-logic.png" alt="Status Logic" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
 
@@ -94,7 +94,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Visual alerts for outdated clauses, highlighting items that require broker attention or immediate version updates.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img src="/images/wording/version-indicators.png" alt="Version Indicators" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img   src="/images/wording/version-indicators.png" alt="Version Indicators" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
 
@@ -105,7 +105,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Intuitive pill-based selection indicator that tracks multiple clause selections across different product categories.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img src="/images/wording/selection-pills.png" alt="Selection Pills" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img   src="/images/wording/selection-pills.png" alt="Selection Pills" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
                     </div>
@@ -132,7 +132,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-200">
-                                <img
+                                <img  
                                     src="/images/wording/coverage-form-selection.png"
                                     alt="Coverage Form Selection Logic"
                                     className="w-full h-auto"
@@ -274,7 +274,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 </p>
                             </div>
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img
+                                <img  
                                     src="/images/wc-view-mode-overview.png"
                                     alt="View Mode Screen architecture diagram"
                                     className="w-full h-auto"
@@ -292,7 +292,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 </p>
                             </div>
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                                <img
+                                <img  
                                     src="/images/wc-edit-mode-overview.png"
                                     alt="Edit Mode Screen architecture diagram"
                                     className="w-full h-auto"
@@ -330,7 +330,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </div>
                         <div className="lg:col-span-3">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img
+                                <img  
                                     src="/images/wc-dual-view-table.png"
                                     alt="Dual-view table with Coverage Form and Product grouping"
                                     className="w-full h-auto"
@@ -350,7 +350,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
                         <div className="lg:col-span-3 lg:order-1">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                                <img
+                                <img  
                                     src="/images/wc-manage-clauses-modal.png"
                                     alt="Manage Clauses modal with advanced filtering"
                                     className="w-full h-auto"
@@ -400,7 +400,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </div>
                         <div className="lg:col-span-3">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img
+                                <img  
                                     src="/images/wc-selection-indication.png"
                                     alt="Two-level selection indication with Coverage Form and individual Clause chips"
                                     className="w-full h-auto"
@@ -420,7 +420,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
                         <div className="lg:col-span-3 lg:order-1">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-blue-100">
-                                <img
+                                <img  
                                     src="/images/wc-view-table-card.png"
                                     alt="View table with action buttons and status indicators"
                                     className="w-full h-auto"
@@ -469,7 +469,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                        <img
+                        <img  
                             src="/images/wc-edit-mode-screen.png"
                             alt="Edit Mode — full clause editing interface with filters and search"
                             className="w-full h-auto"

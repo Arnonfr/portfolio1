@@ -72,91 +72,117 @@ function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: n
 }
 
 /**
- * High-fidelity Enamel Pin Component
- * Matches the 'product photography' prompt:
- * Pill shape, 15-deg tilt, thick gold border, convex reflection, realistic shadow.
+ * Hyper-Realistic Enamel Pin Component
+ * Simulates a physical die-struck pin:
+ * 1. Gold Metal Base (Die-struck mold)
+ * 2. Recessed Enamel Fill (Pink liquid resin)
+ * 3. Raised Gold Lettering
  */
 const EnamelPin: React.FC = () => (
   <motion.div
-    initial={{ y: 20, opacity: 0, scale: 0.95, rotateX: 25 }}
-    animate={{ y: 0, opacity: 1, scale: 1, rotateX: 15 }} // 15-degree forward tilt
-    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+    initial={{ y: 25, opacity: 0, scale: 0.9, rotateX: 30, rotateY: -5 }}
+    animate={{ y: 0, opacity: 1, scale: 1, rotateX: 15, rotateY: 0 }}
+    transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
     style={{
+      position: 'relative',
       display: 'inline-flex',
       alignItems: 'center',
-      padding: '0.8rem 2.8rem',
-      background: '#ffffff',
-      borderRadius: '999px',
-      position: 'relative',
-      overflow: 'hidden',
-      border: '5px solid #d4af37', // Thick polished gold metal border
-      transformOrigin: '50% 100%',
+      justifyContent: 'center',
+      padding: '12px 48px',
+      borderRadius: '100px',
+      // Multi-stop gradient for anisotropic metal reflection
+      background: 'linear-gradient(165deg, #f0d080 0%, #d4af37 15%, #b8860b 40%, #8a6d3b 55%, #d4af37 85%, #fff9ae 100%)',
       transformStyle: 'preserve-3d',
-      // Realistic Contact Shadow with Penumbra
       boxShadow: `
-            /* Deep contact shadow (darkest where object touches) */
-            0 1px 2px rgba(0,0,0,0.3),
-            /* Core shadow */
-            0 4px 10px rgba(0,0,0,0.18),
-            /* Soft penumbra */
-            0 18px 35px rgba(0,0,0,0.12),
-            /* Wide atmospheric transition */
-            0 35px 70px rgba(0,0,0,0.06),
-            /* Gold depth inner highlight */
-            inset 0 1px 1px rgba(255,255,255,0.9),
-            inset 0 -1.5px 2px rgba(0,0,0,0.2)
-        `,
+        0 1px 1px rgba(255,255,255,0.6), /* Rim top highlight */
+        0 2px 4px rgba(0,0,0,0.5),      /* Hard contact shadow */
+        0 10px 20px rgba(0,0,0,0.15),   /* Mid-range core shadow */
+        0 25px 50px rgba(0,0,0,0.1)     /* Soft penumbra */
+      `,
     }}
   >
-    {/* Convex Enamel Surface Reflection (Top-Left) */}
+    {/* Highlight Bead */}
     <div style={{
       position: 'absolute',
-      top: '-20%', left: '-10%', width: '130%', height: '130%',
-      background: 'radial-gradient(circle at 20% 20%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 45%)',
-      pointerEvents: 'none',
-      zIndex: 5,
-      opacity: 0.8
+      inset: '0.5px',
+      borderRadius: '99px',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+      filter: 'blur(0.3px)',
+      opacity: 0.5,
+      zIndex: 10,
+      pointerEvents: 'none'
     }} />
 
-    {/* Surface Gloss Layer */}
+    {/* The Enamel Pool */}
     <div style={{
       position: 'absolute',
-      inset: 0,
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 100%)',
-      pointerEvents: 'none',
-      zIndex: 4
-    }} />
+      inset: '5px',
+      borderRadius: '99px',
+      background: '#ff1493',
+      zIndex: 1,
+      boxShadow: `
+        inset 0 4px 8px rgba(0,0,0,0.4),
+        inset 0 -2px 4px rgba(255,255,255,0.2)
+      `
+    }}>
+      {/* Liquid Resin Gloss */}
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        background: 'radial-gradient(circle at 25% 20%, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 55%)',
+        opacity: 0.8
+      }} />
+    </div>
 
+    {/* Brilliant Gold Text */}
     <span style={{
       fontFamily: FONT_FAMILY,
-      fontWeight: 900,
-      color: '#ff00aa', // Hot Pink Magenta
-      fontSize: 'inherit',
+      fontWeight: 950,
+      fontSize: '0.85em',
       textTransform: 'lowercase',
-      letterSpacing: '-0.02em',
+      letterSpacing: '-0.04em',
       position: 'relative',
-      zIndex: 6,
-      // Engraved/Debossed Effect
-      textShadow: `
-            -0.5px -0.5px 0.5px rgba(0,0,0,0.2), 
-            0.5px 0.5px 0.5px rgba(255,255,255,1)
-        `,
-      transform: 'translateZ(2px)' // Pull forward for 3D depth
+      zIndex: 5,
+      background: 'linear-gradient(to bottom, #fff9ae 0%, #d4af37 35%, #b8860b 80%, #8a6d3b 100%)',
+      WebkitBackgroundClip: 'text',
+      WebkitTextFillColor: 'transparent',
+      filter: 'drop-shadow(0 1px 1.5px rgba(0,0,0,0.4))',
+      transform: 'translateZ(6px)',
+      // Text Highlight Bead
+      textShadow: '0 -0.5px 0.5px rgba(255,255,255,0.4)'
     }}>
       system
     </span>
 
-    {/* Inner Tray shadow overlay */}
+    {/* Surface Glaze Layer */}
     <div style={{
       position: 'absolute',
-      inset: 0,
-      borderRadius: '999px',
-      boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.03)',
-      zIndex: 2,
+      inset: '5px',
+      borderRadius: '99px',
+      zIndex: 15,
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 45%, rgba(255,255,255,0) 55%, rgba(255,255,255,0.1) 100%)',
+      mixBlendMode: 'overlay',
+      pointerEvents: 'none'
+    }} />
+
+    {/* Specular Flare */}
+    <div style={{
+      position: 'absolute',
+      top: '12%',
+      left: '18%',
+      width: '35%',
+      height: '25%',
+      background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 75%)',
+      transform: 'rotate(-20deg)',
+      zIndex: 20,
+      opacity: 0.8,
+      filter: 'blur(3px)',
       pointerEvents: 'none'
     }} />
   </motion.div>
 );
+
+
 
 const MouseWheelIcon: React.FC = () => (
   <svg width="28" height="28" viewBox="0 0 28 28" fill="none">

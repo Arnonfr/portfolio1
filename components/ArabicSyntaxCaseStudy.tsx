@@ -81,7 +81,7 @@ const FramedImage: React.FC<{
         } transition-all duration-500 ${!dark ? 'group-hover:shadow-[0_30px_80px_rgba(0,0,0,0.15)]' : ''
         }`}
     >
-      <img
+      <img  
         src={src}
         alt={alt}
         className="w-full h-auto object-cover group-hover:scale-[1.02] transition-transform duration-700"

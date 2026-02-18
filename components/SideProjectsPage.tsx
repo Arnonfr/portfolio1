@@ -126,7 +126,7 @@ export const SideProjectsPage: React.FC<SideProjectsPageProps> = ({
                       className="block overflow-hidden rounded-[24px] border border-stone-200 shadow-[0_30px_80px_rgba(0,0,0,0.08)] group"
                     >
                       <div className={`relative bg-gradient-to-br ${project.gradient}`}>
-                        <img
+                        <img  
                           src={project.image}
                           alt={project.title}
                           className="w-full h-auto object-cover group-hover:scale-[1.03] transition-transform duration-700"

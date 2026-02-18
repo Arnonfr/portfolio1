@@ -180,7 +180,11 @@ function MenuItem({ link, text, image, description, speed, textColor, marqueeBgC
               <div className="marquee__part" key={idx} style={{ color: marqueeTextColor }}>
                 <span className="marquee__title">{text}</span>
                 {description && <span className="marquee__desc">{description}</span>}
-                <div className="marquee__img" style={{ backgroundImage: `url(${image})` }} />
+                <img
+                  src={image}
+                  alt={text}
+                  className="marquee__img"
+                />
               </div>
             ))}
           </div>

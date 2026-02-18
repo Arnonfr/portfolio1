@@ -323,7 +323,7 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
             >
               {/* Main portrait */}
               <div className="aspect-[3/4] relative overflow-hidden bg-[#e8e6e3]">
-                <img 
+                <img   
                   src="/images/portrait.jpg" 
                   alt="Arnon Friedman"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"

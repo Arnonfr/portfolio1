@@ -56,7 +56,7 @@ export const HomeAlternative: React.FC = () => {
                     <div className="group relative">
                         <Link to="/work/2">
                             <div className="aspect-[4/5] bg-stone-200 overflow-hidden mb-8 border-2 border-[#0d0d0b]">
-                                <img
+                                <img  
                                     src="/images/web-trader-hero.png"
                                     className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                                     alt="Web Trader"
@@ -76,7 +76,7 @@ export const HomeAlternative: React.FC = () => {
                     <div className="lg:mt-64 group relative">
                         <Link to="/work/1">
                             <div className="aspect-square bg-stone-200 overflow-hidden mb-8 border-2 border-[#0d0d0b] relative z-10">
-                                <img
+                                <img  
                                     src="/images/claim-movements-hero.png"
                                     className="w-full h-full object-cover grayscale transition-all duration-700 group-hover:grayscale-0 group-hover:scale-105"
                                     alt="Claim Movements"

@@ -347,7 +347,7 @@ export const DigitalStack: React.FC = () => {
                                             >
                                                 {/* Tool logo - ensuring no shrinking effect */}
                                                 <div className="w-11 h-11 flex items-center justify-center">
-                                                    <img src={pickedTool.logo} alt={pickedTool.name} className="w-full h-full object-contain" />
+                                                    <img   src={pickedTool.logo} alt={pickedTool.name} className="w-full h-full object-contain" />
                                                 </div>
                                             </motion.div>
                                         )}
@@ -401,7 +401,7 @@ export const DigitalStack: React.FC = () => {
                                         <div className="relative w-full h-full">
                                             <div className="absolute inset-0 bg-black/5 rounded-xl blur-sm translate-y-1" />
                                             <div className="relative w-full h-full bg-white rounded-xl p-2 shadow-lg border border-gray-100 group-hover:shadow-2xl group-hover:border-gray-200 transition-all duration-200">
-                                                <img
+                                                <img  
                                                     src={tool.logo}
                                                     alt={tool.name}
                                                     className="w-full h-full object-contain pointer-events-none"
@@ -440,7 +440,7 @@ export const DigitalStack: React.FC = () => {
                                             className="relative group"
                                         >
                                             <div className="relative w-14 h-14 bg-white rounded-xl p-2 shadow-lg border border-gray-100">
-                                                <img src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
+                                                <img   src={tool.logo} alt={tool.name} className="w-full h-full object-contain" />
                                             </div>
                                             <p className="text-[9px] text-[#8b8680] text-center mt-1 font-mono font-medium truncate max-w-[56px]">
                                                 {tool.name}

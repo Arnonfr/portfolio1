@@ -116,7 +116,7 @@ export const ImageGenerator: React.FC = () => {
         {/* Display */}
         <div className="w-full aspect-[16/9] bg-stone-100 rounded-[32px] overflow-hidden relative border border-black/5 shadow-inner">
           {generatedImage ? (
-            <img src={generatedImage} alt="Generated Mockup" className="w-full h-full object-cover animate-fade-in" />
+            <img   src={generatedImage} alt="Generated Mockup" className="w-full h-full object-cover animate-fade-in" />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center p-12 text-center opacity-40">
               {isGenerating ? (

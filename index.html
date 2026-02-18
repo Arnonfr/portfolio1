@@ -1,99 +1,122 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Arnon Friedman | Product Designer | UX | AI</title>
-    <meta name="description" content="Arnon Friedman | Product Designer | UX | AI" />
-    <meta property="og:title" content="Arnon Friedman | Product Designer | UX | AI" />
-    <meta property="og:description" content="I love simplifying complex processes. Product Designer with a focus on UX and AI." />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-PB1L0DZ201"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-PB1L0DZ201');
-    </script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"'],
-              serif: ['Instrument Serif', 'serif'],
-              impact: ['Impact', 'Haettenschweiler', '"Arial Narrow Bold"', 'sans-serif'],
-            },
-            colors: {
-              brand: '#111111',
-              bgLight: '#D9D9D9',
-              sfBlue: '#0176d3',
-              sfNavy: '#1e3a8a',
-              complexRed: '#D62B00',
-              complexCream: '#F9E8B3'
-            }
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Arnon Friedman | Product Designer | UX | AI</title>
+  <meta name="description" content="Arnon Friedman | Product Designer | UX | AI" />
+  <meta property="og:title" content="Arnon Friedman | Product Designer | UX | AI" />
+  <meta property="og:description"
+    content="I love simplifying complex processes. Product Designer with a focus on UX and AI." />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <!-- Preload Critical Work Images for Instant Hover Response -->
+  <link rel="preload" as="image" href="/images/111.png">
+  <link rel="preload" as="image" href="/images/mockups/web-trader-mockup.png">
+  <link rel="preload" as="image" href="/images/wording/main-modal.png">
+  <link rel="preload" as="image" href="/images/mockups/cookit-mockup.png">
+  <link rel="preload" as="image" href="/images/mockups/arabic-syntax-mockup.png">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PB1L0DZ201"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-PB1L0DZ201');
+  </script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'Helvetica', 'Arial', 'sans-serif', '"Apple Color Emoji"', '"Segoe UI Emoji"'],
+            serif: ['Instrument Serif', 'serif'],
+            impact: ['Impact', 'Haettenschweiler', '"Arial Narrow Bold"', 'sans-serif'],
+          },
+          colors: {
+            brand: '#111111',
+            bgLight: '#D9D9D9',
+            sfBlue: '#0176d3',
+            sfNavy: '#1e3a8a',
+            complexRed: '#D62B00',
+            complexCream: '#F9E8B3'
           }
         }
       }
-    </script>
-    <style>
-      body {
-        background-color: #f4f3f1;
-        color: #0c0c0a;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
+    }
+  </script>
+  <style>
+    body {
+      background-color: #f4f3f1;
+      color: #0c0c0a;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+    }
+
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Global Canvas Background - Paper Material */
+    .bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background-color: #f4f3f1;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
       }
 
-      .font-display {
-        font-family: 'Space Grotesk', sans-serif;
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
+    }
 
-      /* Global Canvas Background - Paper Material */
-      .bg-canvas {
-        position: fixed;
-        inset: 0;
-        z-index: -1;
-        background-color: #f4f3f1;
-      }
+    .animate-fade {
+      animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
 
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(24px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
+    /* Scrollbar - Sharp, No Radius */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-      .animate-fade {
-        animation: fadeIn 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      }
+    ::-webkit-scrollbar-track {
+      background: #f4f3f1;
+    }
 
-      /* Scrollbar - Sharp, No Radius */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f4f3f1;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #d9d6d1;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #a8a39a;
-      }
+    ::-webkit-scrollbar-thumb {
+      background: #d9d6d1;
+    }
 
-      .preserve-3d { transform-style: preserve-3d; }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #a8a39a;
+    }
 
-      /* Smooth scroll behavior */
-      html {
-        scroll-behavior: smooth;
-      }
-    </style>
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+
+    /* Smooth scroll behavior */
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
   <script type="importmap">
 {
   "imports": {
@@ -104,12 +127,14 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/anti-slop.css">
-<link rel="stylesheet" href="/index.css">
+  <link rel="stylesheet" href="/anti-slop.css">
+  <link rel="stylesheet" href="/index.css">
 </head>
-  <body>
-    <div class="bg-canvas"></div>
-    <div id="root"></div>
+
+<body>
+  <div class="bg-canvas"></div>
+  <div id="root"></div>
   <script type="module" src="/index.tsx"></script>
 </body>
+
 </html>

@@ -18,7 +18,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
             {/* ── HERO ── */}
             <header className="relative h-screen flex items-end justify-start bg-[#0a1628] overflow-hidden">
-                <img
+                <img  
                     src="/images/wt-hero.png"
                     alt="Web Trader"
                     className="absolute inset-0 w-full h-full object-cover object-center"
@@ -164,7 +164,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                         {/* Annotated signal card — LEFT */}
                         <div className="relative rounded-2xl overflow-visible shadow-xl group max-w-md mx-auto lg:mx-0">
-                            <img
+                            <img  
                                 src="/images/wt-signal1-clean.png"
                                 alt="Signal cards"
                                 className="w-full h-auto block rounded-2xl"
@@ -240,7 +240,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                     {/* Full before/after image */}
                     <div className="rounded-3xl overflow-hidden border border-white/10 mb-8">
-                        <img
+                        <img  
                             src="/images/wt-signal-before-after.png"
                             alt="From raw data table to redesigned signal card"
                             className="w-full h-auto"
@@ -250,21 +250,21 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                     {/* 3 mobile mockups below */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img
+                            <img  
                                 src="/images/wt-signals-mobile.png"
                                 alt="Signal list — mobile"
                                 className="max-h-[580px] w-auto object-contain"
                             />
                         </div>
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img
+                            <img  
                                 src="/images/wt-signals-list.png"
                                 alt="Signal cards list"
                                 className="max-h-[580px] w-auto object-contain"
                             />
                         </div>
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img
+                            <img  
                                 src="/images/wt-signal-cards.png"
                                 alt="Signal card components"
                                 className="max-h-[580px] w-auto object-contain"
@@ -314,14 +314,14 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="rounded-2xl overflow-hidden shadow-lg">
-                            <img src="/images/wt-side-menu.png" alt="Redesigned account side menu" className="w-full h-auto" />
+                            <img   src="/images/wt-side-menu.png" alt="Redesigned account side menu" className="w-full h-auto" />
                             <div className="bg-white px-6 py-4 border-t border-stone-100">
                                 <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Mobile</p>
                                 <p className="text-sm font-medium text-stone-700">Restructured account panel — Log Out moved away from thumb zone</p>
                             </div>
                         </div>
                         <div className="rounded-2xl overflow-hidden shadow-lg">
-                            <img src="/images/wt-account-switcher.png" alt="Account switcher — Demo vs Real" className="w-full h-auto" />
+                            <img   src="/images/wt-account-switcher.png" alt="Account switcher — Demo vs Real" className="w-full h-auto" />
                             <div className="bg-white px-6 py-4 border-t border-stone-100">
                                 <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Desktop + Mobile</p>
                                 <p className="text-sm font-medium text-stone-700">Demo / Real account switching — zero ambiguity on active wallet</p>
@@ -342,7 +342,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                         </p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-xl border border-stone-100">
-                        <img src="/images/wt-desktop-nav.png" alt="Desktop platform navigation" className="w-full h-auto" />
+                        <img   src="/images/wt-desktop-nav.png" alt="Desktop platform navigation" className="w-full h-auto" />
                     </div>
                 </div>
             </section>
@@ -356,7 +356,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                         <p className="text-stone-400 text-base md:text-lg leading-relaxed">Across multiple iterations of signal format, layout density, and colour system before landing on the final direction.</p>
                     </div>
                     <div className="rounded-3xl overflow-hidden border border-white/10">
-                        <img src="/images/wt-iterations.png" alt="Design iterations" className="w-full h-auto" />
+                        <img   src="/images/wt-iterations.png" alt="Design iterations" className="w-full h-auto" />
                     </div>
                 </div>
             </section>

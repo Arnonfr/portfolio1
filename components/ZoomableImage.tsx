@@ -53,7 +53,7 @@ export const ZoomableImage: React.FC<ZoomableImageProps> = ({
     if (!enabled) {
         return (
             <div className={`rounded-xl overflow-hidden border border-stone-200 shadow-sm ${containerClassName}`}>
-                <img src={src} alt={alt} className={`w-full h-auto block ${className}`} />
+                <img   src={src} alt={alt} className={`w-full h-auto block ${className}`} />
             </div>
         );
     }
@@ -69,7 +69,7 @@ export const ZoomableImage: React.FC<ZoomableImageProps> = ({
         >
             {/* The base image */}
             <div className="rounded-xl overflow-hidden border border-stone-200 shadow-sm">
-                <img
+                <img  
                     src={src}
                     alt={alt}
                     className={`w-full h-auto block transition-opacity duration-300 ${isHovered ? 'opacity-30' : 'opacity-100'} ${className}`}

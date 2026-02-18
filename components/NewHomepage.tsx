@@ -332,6 +332,8 @@ const InstagramSection: React.FC = () => {
               <img
                 src={post.src}
                 alt={post.alt}
+
+
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               {/* Hover overlay */}
@@ -498,6 +500,13 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
 
       {/* 1. Header with letters */}
       <TextOnPathHero />
+
+      {/* Early Image Pre-caching for Instant Hover/Transition */}
+      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden', opacity: 0, pointerEvents: 'none' }} aria-hidden="true">
+        {PROJECTS.map(p => (
+          <img key={p.id} src={p.image} alt="" />
+        ))}
+      </div>
 
       {/* 2. Projects */}
       <section id="work" className="w-full bg-[#0c0c0a]">

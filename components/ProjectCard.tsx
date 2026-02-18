@@ -17,7 +17,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
       <div className="flex justify-between items-start z-10">
         <div className="flex items-center gap-4">
           <div className="w-11 h-11 bg-white/60 backdrop-blur border border-black/5 rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.02)] flex items-center justify-center p-2">
-            <img 
+            <img   
               src={project.logo || 'https://upload.wikimedia.org/wikipedia/commons/3/33/Figma-logo.svg'} 
               alt="" 
               className="w-full h-full object-contain mix-blend-multiply opacity-80" 
@@ -42,7 +42,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick }) =>
       <div className="flex-1 relative mt-12 flex items-center justify-center">
         <div className="relative w-full h-full flex items-center justify-center">
           <div className="relative w-[95%] h-full rounded-[32px] overflow-hidden shadow-[0_25px_60px_-15px_rgba(0,0,0,0.12)] border border-white/20">
-            <img 
+            <img   
               src={project.image} 
               alt={project.title}
               className="w-full h-full object-cover transition-transform duration-[2s] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-105 grayscale-[0.2] group-hover:grayscale-0"

@@ -47,7 +47,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
         {/* Hero Image Container */}
         <div className="w-full px-6 md:px-12 mb-24">
            <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-100 bg-gray-50 aspect-[16/9]">
-              <img 
+              <img   
                 src={project.image} 
                 alt={project.title} 
                 className="w-full h-full object-cover"
@@ -108,7 +108,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
              <div className="space-y-12 mb-24">
                 {project.images.slice(0, 2).map((img, idx) => (
                    <div key={idx} className="bg-gray-50 p-8 md:p-12 rounded-3xl border border-gray-100">
-                      <img src={img} alt={`Process ${idx}`} className="w-full h-auto rounded-lg shadow-sm" />
+                      <img   src={img} alt={`Process ${idx}`} className="w-full h-auto rounded-lg shadow-sm" />
                    </div>
                 ))}
              </div>
@@ -131,7 +131,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose }) 
              <div className="grid grid-cols-1 gap-12 mb-24">
                 {project.images.slice(2).map((img, idx) => (
                    <div key={idx} className="bg-gray-50 p-4 rounded-2xl border border-gray-100 shadow-md">
-                      <img src={img} alt={`Detail ${idx}`} className="w-full h-auto rounded-lg" />
+                      <img   src={img} alt={`Detail ${idx}`} className="w-full h-auto rounded-lg" />
                    </div>
                 ))}
              </div>
