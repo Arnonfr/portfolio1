@@ -3,7 +3,7 @@ import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
 // ───────────────────────────────────────────────────────────
 // TEXT ON PATH HERO
-// Simplified complex things -> let's simplify complex [Animated Pin]
+// Simplified complex things -> let's simplify complex [Enamel Pin]
 // ───────────────────────────────────────────────────────────
 
 const CORE_PHRASE = "Let's simplify complex";
@@ -16,8 +16,6 @@ const FONT_WEIGHT = 800;
 const VB_CY = 620;
 const AUTOPLAY_DURATION = 3500;
 const EASE_POWER: [number, number, number, number] = [0.16, 1, 0.3, 1];
-
-const KEYWORDS = ['system', 'data', 'flows', 'products', 'interfaces'];
 
 type PathPoints = Record<string, [number, number]>;
 
@@ -49,43 +47,12 @@ const complexPath1: PathPoints = {
   to8: [5700, VB_CY],
 };
 
-const complexPath2: PathPoints = {
-  m: [5000, VB_CY + 30],
-  c1: [4600, VB_CY + 30],
-  c2: [4000, VB_CY],
-  to1: [3500, VB_CY - 50],
-  c3: [3200, VB_CY - 80],
-  c4: [3050, 450],
-  to2: [2918, 435],
-  c5: [2726, 619],
-  c6: [2246, 1036],
-  to3: [1858, 1234],
-  c7: [1373, 1481],
-  c8: [1097, 193],
-  to4: [531, -130],
-  c9: [-35, -453],
-  c10: [-572, 782],
-  to5: [-600, 763],
-  c11: [-750, 740],
-  c12: [-1100, VB_CY],
-  to6: [-1500, VB_CY],
-  c13: [-1800, VB_CY],
-  c14: [-2100, VB_CY],
-  to7: [-2300, VB_CY],
-  c15: [-2500, VB_CY],
-  c16: [-2700, VB_CY],
-  to8: [-2900, VB_CY],
-};
-
 const makeStraight = (startX: number, endX: number): PathPoints => {
   const keys = ['m', 'c1', 'c2', 'to1', 'c3', 'c4', 'to2', 'c5', 'c6', 'to3', 'c7', 'c8', 'to4', 'c9', 'c10', 'to5', 'c11', 'c12', 'to6', 'c13', 'c14', 'to7', 'c15', 'c16', 'to8'];
   const pts: PathPoints = {};
   keys.forEach((k, i) => { pts[k] = [startX + (endX - startX) * (i / (keys.length - 1)), VB_CY]; });
   return pts;
 };
-
-const simplePath1 = makeStraight(-2200, 5700);
-const simplePath2 = makeStraight(5000, -2900);
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -104,53 +71,90 @@ function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: n
     `C ${p('c15', 0)},${p('c15', 1)} ${p('c16', 0)},${p('c16', 1)} ${p('to8', 0)},${p('to8', 1)}`;
 }
 
-const EnamelPin: React.FC<{ text: string }> = ({ text }) => (
+/**
+ * High-fidelity Enamel Pin Component
+ * Matches the 'product photography' prompt:
+ * Pill shape, 15-deg tilt, thick gold border, convex reflection, realistic shadow.
+ */
+const EnamelPin: React.FC = () => (
   <motion.div
-    initial={{ y: 15, opacity: 0, scale: 0.95 }}
-    animate={{ y: 0, opacity: 1, scale: 1 }}
-    exit={{ y: -15, opacity: 0, scale: 0.95 }}
-    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    initial={{ y: 20, opacity: 0, scale: 0.95, rotateX: 25 }}
+    animate={{ y: 0, opacity: 1, scale: 1, rotateX: 15 }} // 15-degree forward tilt
+    transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
     style={{
       display: 'inline-flex',
       alignItems: 'center',
-      padding: '0.4rem 1.8rem',
+      padding: '0.8rem 2.8rem',
       background: '#ffffff',
-      border: '1.2px solid #d4af37', // Refined gold border
-      borderRadius: '100px',
-      boxShadow: `
-            0 8px 24px rgba(0,0,0,0.08), 
-            0 2px 4px rgba(0,0,0,0.04),
-            inset 0 2px 3px rgba(255,255,255,1), 
-            inset 0 -1px 2px rgba(0,0,0,0.05)
-        `,
+      borderRadius: '999px',
       position: 'relative',
       overflow: 'hidden',
-      transformStyle: 'preserve-3d'
+      border: '5px solid #d4af37', // Thick polished gold metal border
+      transformOrigin: '50% 100%',
+      transformStyle: 'preserve-3d',
+      // Realistic Contact Shadow with Penumbra
+      boxShadow: `
+            /* Deep contact shadow (darkest where object touches) */
+            0 1px 2px rgba(0,0,0,0.3),
+            /* Core shadow */
+            0 4px 10px rgba(0,0,0,0.18),
+            /* Soft penumbra */
+            0 18px 35px rgba(0,0,0,0.12),
+            /* Wide atmospheric transition */
+            0 35px 70px rgba(0,0,0,0.06),
+            /* Gold depth inner highlight */
+            inset 0 1px 1px rgba(255,255,255,0.9),
+            inset 0 -1.5px 2px rgba(0,0,0,0.2)
+        `,
     }}
   >
-    {/* Metallic Shine Overlay */}
+    {/* Convex Enamel Surface Reflection (Top-Left) */}
     <div style={{
       position: 'absolute',
-      top: 0, left: 0, right: 0, height: '55%',
-      background: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 60%)',
+      top: '-20%', left: '-10%', width: '130%', height: '130%',
+      background: 'radial-gradient(circle at 20% 20%, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 45%)',
       pointerEvents: 'none',
-      zIndex: 2
+      zIndex: 5,
+      opacity: 0.8
+    }} />
+
+    {/* Surface Gloss Layer */}
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 100%)',
+      pointerEvents: 'none',
+      zIndex: 4
     }} />
 
     <span style={{
       fontFamily: FONT_FAMILY,
       fontWeight: 900,
-      color: '#ff00aa',
+      color: '#ff00aa', // Hot Pink Magenta
       fontSize: 'inherit',
       textTransform: 'lowercase',
       letterSpacing: '-0.02em',
       position: 'relative',
-      zIndex: 1,
-      // Subtle text shadow for 'pressed' enamel look
-      textShadow: '0 0.5px 0.5px rgba(0,0,0,0.05)'
+      zIndex: 6,
+      // Engraved/Debossed Effect
+      textShadow: `
+            -0.5px -0.5px 0.5px rgba(0,0,0,0.2), 
+            0.5px 0.5px 0.5px rgba(255,255,255,1)
+        `,
+      transform: 'translateZ(2px)' // Pull forward for 3D depth
     }}>
-      {text}
+      system
     </span>
+
+    {/* Inner Tray shadow overlay */}
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      borderRadius: '999px',
+      boxShadow: 'inset 0 2px 10px rgba(0,0,0,0.03)',
+      zIndex: 2,
+      pointerEvents: 'none'
+    }} />
   </motion.div>
 );
 
@@ -166,16 +170,13 @@ const MouseWheelIcon: React.FC = () => (
 export const TextOnPathHero: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const path1Ref = useRef<SVGPathElement>(null);
-  const path2Ref = useRef<SVGPathElement>(null);
   const textPath1Ref = useRef<SVGTextPathElement>(null);
-  const flowingGroupRef = useRef<SVGGElement>(null);
   const clipRectRef = useRef<SVGRectElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
   const cornerLabelRef = useRef<HTMLDivElement>(null);
 
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const [animDone, setAnimDone] = useState(false);
-  const [keywordIndex, setKeywordIndex] = useState(0);
 
   const animDoneRef = useRef(false);
   const phraseWidthRef = useRef(0);
@@ -192,7 +193,9 @@ export const TextOnPathHero: React.FC = () => {
   const shouldReduce = useReducedMotion();
 
   const dispatchHeroProgress = useCallback((progress: number) => {
-    window.dispatchEvent(new CustomEvent('hero-scroll-progress', { detail: { progress } }));
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('hero-scroll-progress', { detail: { progress } }));
+    }
   }, []);
 
   useEffect(() => {
@@ -252,15 +255,6 @@ export const TextOnPathHero: React.FC = () => {
     return () => window.removeEventListener('wheel', handleWheel);
   }, []);
 
-  // Keyword cycling logic
-  useEffect(() => {
-    if (!animDone) return;
-    const interval = setInterval(() => {
-      setKeywordIndex(prev => (prev + 1) % KEYWORDS.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, [animDone]);
-
   useEffect(() => {
     if (shouldReduce) {
       animProgressRef.current = 1;
@@ -285,7 +279,7 @@ export const TextOnPathHero: React.FC = () => {
       const progress = animProgressRef.current;
       dispatchHeroProgress(progress);
 
-      if (path1Ref.current) path1Ref.current.setAttribute('d', generatePathD(complexPath1, simplePath1, progress));
+      if (path1Ref.current) path1Ref.current.setAttribute('d', generatePathD(complexPath1, makeStraight(-2200, 5700), progress));
 
       const speed = 1.8 * Math.max(0, 1 - progress * 1.6);
       offset1Ref.current -= speed;
@@ -302,7 +296,7 @@ export const TextOnPathHero: React.FC = () => {
       if (clipRectRef.current && phraseWidthRef.current > 0) {
         const clipT = easeInOutCubic(Math.max(0, (progress - 0.80) / 0.20));
         const fullW = 5000;
-        const targetW = coreWidthFinalRef.current + 100; // Extra room for snap effect
+        const targetW = coreWidthFinalRef.current + 100;
         const w = lerp(fullW, targetW, clipT);
         clipRectRef.current.setAttribute('x', String(1200 - w / 2));
         clipRectRef.current.setAttribute('width', String(w));
@@ -322,12 +316,12 @@ export const TextOnPathHero: React.FC = () => {
   }, [shouldReduce, dispatchHeroProgress]);
 
   return (
-    <section ref={sectionRef} className="relative w-full h-dvh bg-[#f4f3f1]">
+    <section ref={sectionRef} className="relative w-full h-dvh bg-[#ffffff]">
       <h1 className="sr-only">{CORE_PHRASE}</h1>
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE_POWER }} className="w-full h-full relative overflow-hidden">
 
         {/* ANIMATION LAYER: SVG */}
-        <svg
+        {!animDone && <svg
           viewBox="-600 -400 3600 2000"
           style={{
             position: 'absolute',
@@ -339,7 +333,7 @@ export const TextOnPathHero: React.FC = () => {
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
-            <path ref={path1Ref} id="heroTextPath1" d={generatePathD(complexPath1, simplePath1, 0)} />
+            <path ref={path1Ref} id="heroTextPath1" d={generatePathD(complexPath1, makeStraight(-2200, 5700), 0)} />
             <clipPath id="heroTextClip"><rect ref={clipRectRef} x="-600" y="-600" width="3600" height="2200" /></clipPath>
           </defs>
           <g clipPath="url(#heroTextClip)">
@@ -350,7 +344,7 @@ export const TextOnPathHero: React.FC = () => {
               </textPath>
             </text>
           </g>
-        </svg>
+        </svg>}
 
         {/* FINAL STATE LAYER: HTML WITH ENAMEL PIN */}
         <AnimatePresence>
@@ -361,11 +355,12 @@ export const TextOnPathHero: React.FC = () => {
               className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none select-none px-6"
             >
               <div
-                className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-4 md:translate-x-[40px]" // Offset to center the whole unit
+                className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-4"
                 style={{
                   fontFamily: FONT_FAMILY,
                   fontSize: isMobile ? 'clamp(1.75rem, 8vw, 2.8rem)' : 'clamp(2.5rem, 4.4vw, 5.2rem)',
-                  width: '100%'
+                  width: '100%',
+                  perspective: '1500px'
                 }}
               >
                 <div style={{ fontWeight: 300, color: '#0055ff', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>
@@ -374,14 +369,12 @@ export const TextOnPathHero: React.FC = () => {
 
                 <div style={{
                   display: 'inline-flex',
-                  minWidth: isMobile ? 'auto' : '420px',
+                  minWidth: isMobile ? 'auto' : '360px',
                   justifyContent: isMobile ? 'center' : 'flex-start',
-                  height: '1.4em', // Fix height to prevent jumping
+                  height: '1.4em',
                   alignItems: 'center'
                 }}>
-                  <AnimatePresence mode="wait">
-                    <EnamelPin key={KEYWORDS[keywordIndex]} text={KEYWORDS[keywordIndex]} />
-                  </AnimatePresence>
+                  <EnamelPin />
                 </div>
               </div>
             </motion.div>
