@@ -3,12 +3,10 @@ import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
 
 // ───────────────────────────────────────────────────────────
 // TEXT ON PATH HERO
-// Auto-plays on first visit: complex paths → single straight line
-// Once finished, both Desktop and Mobile switch to a perfectly
-// centered HTML overlay for flawless typography and centering.
+// Simplified complex things -> let's simplify complex [Animated Pin]
 // ───────────────────────────────────────────────────────────
 
-const CORE_PHRASE = "Let's simplify complex things";
+const CORE_PHRASE = "Let's simplify complex";
 const SEPARATOR = "  ·  ";
 const FULL_UNIT = CORE_PHRASE + SEPARATOR;
 const REPEAT_COUNT = 40;
@@ -16,8 +14,10 @@ const LOOP_FONT_SIZE = 150;
 const FONT_FAMILY = "'Space Grotesk', sans-serif";
 const FONT_WEIGHT = 800;
 const VB_CY = 620;
-const AUTOPLAY_DURATION = 3500; // ms — pace of simplification
+const AUTOPLAY_DURATION = 3500;
 const EASE_POWER: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
+const KEYWORDS = ['system', 'data', 'flows', 'products', 'interfaces'];
 
 type PathPoints = Record<string, [number, number]>;
 
@@ -88,9 +88,7 @@ const simplePath1 = makeStraight(-2200, 5700);
 const simplePath2 = makeStraight(5000, -2900);
 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-
-const easeInOutCubic = (t: number) =>
-  t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
 function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: number): string {
   const t = easeInOutCubic(Math.min(rawProgress / 0.85, 1));
@@ -106,6 +104,56 @@ function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: n
     `C ${p('c15', 0)},${p('c15', 1)} ${p('c16', 0)},${p('c16', 1)} ${p('to8', 0)},${p('to8', 1)}`;
 }
 
+const EnamelPin: React.FC<{ text: string }> = ({ text }) => (
+  <motion.div
+    initial={{ y: 15, opacity: 0, scale: 0.95 }}
+    animate={{ y: 0, opacity: 1, scale: 1 }}
+    exit={{ y: -15, opacity: 0, scale: 0.95 }}
+    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+    style={{
+      display: 'inline-flex',
+      alignItems: 'center',
+      padding: '0.4rem 1.8rem',
+      background: '#ffffff',
+      border: '1.2px solid #d4af37', // Refined gold border
+      borderRadius: '100px',
+      boxShadow: `
+            0 8px 24px rgba(0,0,0,0.08), 
+            0 2px 4px rgba(0,0,0,0.04),
+            inset 0 2px 3px rgba(255,255,255,1), 
+            inset 0 -1px 2px rgba(0,0,0,0.05)
+        `,
+      position: 'relative',
+      overflow: 'hidden',
+      transformStyle: 'preserve-3d'
+    }}
+  >
+    {/* Metallic Shine Overlay */}
+    <div style={{
+      position: 'absolute',
+      top: 0, left: 0, right: 0, height: '55%',
+      background: 'linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 60%)',
+      pointerEvents: 'none',
+      zIndex: 2
+    }} />
+
+    <span style={{
+      fontFamily: FONT_FAMILY,
+      fontWeight: 900,
+      color: '#ff00aa',
+      fontSize: 'inherit',
+      textTransform: 'lowercase',
+      letterSpacing: '-0.02em',
+      position: 'relative',
+      zIndex: 1,
+      // Subtle text shadow for 'pressed' enamel look
+      textShadow: '0 0.5px 0.5px rgba(0,0,0,0.05)'
+    }}>
+      {text}
+    </span>
+  </motion.div>
+);
+
 const MouseWheelIcon: React.FC = () => (
   <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
     <path d="M 4 28 L 4 12 C 4 5.4 8.4 1 14 1 C 19.6 1 24 5.4 24 12 L 24 28"
@@ -120,34 +168,27 @@ export const TextOnPathHero: React.FC = () => {
   const path1Ref = useRef<SVGPathElement>(null);
   const path2Ref = useRef<SVGPathElement>(null);
   const textPath1Ref = useRef<SVGTextPathElement>(null);
-  const textPath2Ref = useRef<SVGTextPathElement>(null);
   const flowingGroupRef = useRef<SVGGElement>(null);
   const clipRectRef = useRef<SVGRectElement>(null);
   const scrollHintRef = useRef<HTMLDivElement>(null);
   const cornerLabelRef = useRef<HTMLDivElement>(null);
 
-  const text1Ref = useRef<SVGTextElement>(null);
-
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [animDone, setAnimDone] = useState(false);
-  const [typedOutput, setTypedOutput] = useState('');
+  const [keywordIndex, setKeywordIndex] = useState(0);
+
   const animDoneRef = useRef(false);
-  const typedTextRef = useRef('');
   const phraseWidthRef = useRef(0);
   const coreWidthFinalRef = useRef(0);
   const offset1Ref = useRef(0);
-  const offset2Ref = useRef(0);
   const rafRef = useRef(0);
 
-  // Animation progress: 0 = complex, 1 = simple straight line
   const animProgressRef = useRef(0);
   const isAutoPlayingRef = useRef(false);
   const autoPlayStartRef = useRef(performance.now());
 
   const tspans1Ref = useRef<(SVGTSpanElement | null)[]>([]);
-  const tspans2Ref = useRef<(SVGTSpanElement | null)[]>([]);
   const loopIndices = Array.from({ length: REPEAT_COUNT }, (_, i) => i);
-
   const shouldReduce = useReducedMotion();
 
   const dispatchHeroProgress = useCallback((progress: number) => {
@@ -196,69 +237,27 @@ export const TextOnPathHero: React.FC = () => {
       if (e.deltaY < 0) {
         e.preventDefault();
         isAutoPlayingRef.current = false;
-        const delta = Math.abs(e.deltaY) * 0.0008;
-        animProgressRef.current = Math.max(0, animProgressRef.current - delta);
+        animProgressRef.current = Math.max(0, animProgressRef.current - (Math.abs(e.deltaY) * 0.0008));
         if (animDoneRef.current) {
           animDoneRef.current = false;
           setAnimDone(false);
-          typedTextRef.current = '';
-          setTypedOutput('');
         }
       } else if (e.deltaY > 0 && animProgressRef.current < 1) {
         e.preventDefault();
-        const delta = e.deltaY * 0.0008;
-        animProgressRef.current = Math.min(1, animProgressRef.current + delta);
-      }
-    };
-
-    const handleTouchStart = (e: TouchEvent) => {
-      if (window.scrollY > 80) return;
-      (window as any)._touchStartY = e.touches[0].clientY;
-    };
-    const handleTouchMove = (e: TouchEvent) => {
-      if (window.scrollY > 80) return;
-      const deltaY = ((window as any)._touchStartY || 0) - e.touches[0].clientY;
-      (window as any)._touchStartY = e.touches[0].clientY;
-
-      if (deltaY < 0) {
-        if (animProgressRef.current > 0) e.preventDefault();
-        isAutoPlayingRef.current = false;
-        const delta = Math.abs(deltaY) * 0.003;
-        animProgressRef.current = Math.max(0, animProgressRef.current - delta);
-        if (animDoneRef.current) {
-          animDoneRef.current = false;
-          setAnimDone(false);
-          typedTextRef.current = '';
-          setTypedOutput('');
-        }
-      } else if (deltaY > 0 && animProgressRef.current < 1) {
-        e.preventDefault();
-        const delta = deltaY * 0.003;
-        animProgressRef.current = Math.min(1, animProgressRef.current + delta);
+        animProgressRef.current = Math.min(1, animProgressRef.current + (e.deltaY * 0.0008));
       }
     };
 
     window.addEventListener('wheel', handleWheel, { passive: false });
-    window.addEventListener('touchstart', handleTouchStart, { passive: true });
-    window.addEventListener('touchmove', handleTouchMove, { passive: false });
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-    };
-  }, [dispatchHeroProgress]);
+    return () => window.removeEventListener('wheel', handleWheel);
+  }, []);
 
+  // Keyword cycling logic
   useEffect(() => {
     if (!animDone) return;
-    const word = ' together.';
-    let i = 0;
     const interval = setInterval(() => {
-      i++;
-      const current = word.slice(0, i);
-      typedTextRef.current = current;
-      setTypedOutput(current);
-      if (i >= word.length) clearInterval(interval);
-    }, 55);
+      setKeywordIndex(prev => (prev + 1) % KEYWORDS.length);
+    }, 2800);
     return () => clearInterval(interval);
   }, [animDone]);
 
@@ -287,31 +286,23 @@ export const TextOnPathHero: React.FC = () => {
       dispatchHeroProgress(progress);
 
       if (path1Ref.current) path1Ref.current.setAttribute('d', generatePathD(complexPath1, simplePath1, progress));
-      if (path2Ref.current) path2Ref.current.setAttribute('d', generatePathD(complexPath2, simplePath2, progress));
 
       const speed = 1.8 * Math.max(0, 1 - progress * 1.6);
       offset1Ref.current -= speed;
-      offset2Ref.current -= speed * 0.8;
       if (phraseWidthRef.current > 0) {
         if (offset1Ref.current <= -phraseWidthRef.current) offset1Ref.current = 0;
-        if (offset2Ref.current <= -phraseWidthRef.current) offset2Ref.current = 0;
       }
 
       const finalBlueOffset = 3400 - coreWidthFinalRef.current / 2;
-
       const snapT = easeInOutCubic(Math.max(0, (progress - 0.72) / 0.28));
       const currentOffset1 = snapT > 0 ? lerp(offset1Ref.current, finalBlueOffset, snapT) : offset1Ref.current;
 
       if (textPath1Ref.current) textPath1Ref.current.setAttribute('startOffset', String(currentOffset1));
-      if (textPath2Ref.current) {
-        textPath2Ref.current.setAttribute('startOffset', String(offset2Ref.current));
-        textPath2Ref.current.style.opacity = String(Math.max(0, 1 - progress * 2.2));
-      }
 
       if (clipRectRef.current && phraseWidthRef.current > 0) {
         const clipT = easeInOutCubic(Math.max(0, (progress - 0.80) / 0.20));
         const fullW = 5000;
-        const targetW = coreWidthFinalRef.current + 40;
+        const targetW = coreWidthFinalRef.current + 100; // Extra room for snap effect
         const w = lerp(fullW, targetW, clipT);
         clipRectRef.current.setAttribute('x', String(1200 - w / 2));
         clipRectRef.current.setAttribute('width', String(w));
@@ -319,15 +310,6 @@ export const TextOnPathHero: React.FC = () => {
 
       const repetitionsOpacity = progress > 0.8 ? Math.max(0, 1 - (progress - 0.8) / 0.12) : 1;
       tspans1Ref.current.forEach((tspan, i) => { if (tspan) tspan.style.opacity = i === 0 ? '1' : String(repetitionsOpacity); });
-      tspans2Ref.current.forEach((tspan, i) => { if (tspan) tspan.style.opacity = i === 0 ? '1' : String(repetitionsOpacity); });
-
-      if (text1Ref.current) {
-        const fontT = easeInOutCubic(Math.max(0, (progress - 0.82) / 0.18));
-        if (fontT > 0) {
-          text1Ref.current.style.fontWeight = String(Math.round(lerp(800, 300, fontT)));
-          text1Ref.current.style.letterSpacing = `${lerp(-0.02, 0.13, fontT).toFixed(3)}em`;
-        }
-      }
 
       if (scrollHintRef.current) scrollHintRef.current.style.opacity = String(Math.max(0, 1 - progress * 6));
       if (cornerLabelRef.current) cornerLabelRef.current.style.opacity = String(Math.max(0, 1 - progress * 6));
@@ -337,102 +319,76 @@ export const TextOnPathHero: React.FC = () => {
 
     rafRef.current = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafRef.current);
-  }, [shouldReduce, dispatchHeroProgress, isMobile]);
-
-  if (shouldReduce) {
-    return (
-      <section className="relative w-full h-screen bg-[#f4f3f1] flex items-center justify-center">
-        <h1 className="sr-only">{CORE_PHRASE}</h1>
-        <p className="text-[clamp(1.5rem,4vw,3.5rem)] font-bold text-[#0055ff] text-center px-6">{CORE_PHRASE}</p>
-      </section>
-    );
-  }
+  }, [shouldReduce, dispatchHeroProgress]);
 
   return (
     <section ref={sectionRef} className="relative w-full h-dvh bg-[#f4f3f1]">
       <h1 className="sr-only">{CORE_PHRASE}</h1>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, ease: EASE_POWER }}
-        className="w-full h-full relative overflow-hidden"
-      >
-        {/* ANIMATION LAYER: SVG remains active during transition */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE_POWER }} className="w-full h-full relative overflow-hidden">
+
+        {/* ANIMATION LAYER: SVG */}
         <svg
           viewBox="-600 -400 3600 2000"
           style={{
             position: 'absolute',
-            left: '0',
-            top: 0,
-            width: '100%',
-            height: '100%',
-            opacity: animDone ? 0 : 1, // Global fade out on animDone
-            transition: 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+            left: '0', top: 0, width: '100%', height: '100%',
+            opacity: animDone ? 0 : 1,
+            transition: 'opacity 0.6s ease',
             zIndex: 10
           }}
           preserveAspectRatio="xMidYMid slice"
         >
           <defs>
             <path ref={path1Ref} id="heroTextPath1" d={generatePathD(complexPath1, simplePath1, 0)} />
-            <path ref={path2Ref} id="heroTextPath2" d={generatePathD(complexPath2, simplePath2, 0)} />
             <clipPath id="heroTextClip"><rect ref={clipRectRef} x="-600" y="-600" width="3600" height="2200" /></clipPath>
           </defs>
-          <g ref={flowingGroupRef} clipPath="url(#heroTextClip)">
-            <text ref={text1Ref} className="select-none pointer-events-none" style={{ fill: '#0055ff', fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em' }}>
+          <g clipPath="url(#heroTextClip)">
+            <text className="select-none pointer-events-none" style={{ fill: '#0055ff', fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em' }}>
               <textPath ref={textPath1Ref} href="#heroTextPath1">
                 <tspan ref={el => { tspans1Ref.current[0] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{CORE_PHRASE}</tspan>
                 {loopIndices.slice(1).map(i => <tspan key={i} ref={el => { tspans1Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{SEPARATOR + CORE_PHRASE}</tspan>)}
               </textPath>
             </text>
-            <text className="select-none pointer-events-none" style={{ fill: '#ff00aa', fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em', mixBlendMode: 'multiply' }}>
-              <textPath ref={textPath2Ref} href="#heroTextPath2">
-                <tspan ref={el => { tspans2Ref.current[0] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{CORE_PHRASE}</tspan>
-                {loopIndices.slice(1).map(i => <tspan key={i} ref={el => { tspans2Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{SEPARATOR + CORE_PHRASE}</tspan>)}
-              </textPath>
-            </text>
           </g>
         </svg>
 
-        {/* FINAL STATE LAYER: Perfect HTML Centering */}
+        {/* FINAL STATE LAYER: HTML WITH ENAMEL PIN */}
         <AnimatePresence>
           {animDone && (
             <motion.div
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
               className="absolute inset-0 flex flex-col items-center justify-center text-center z-20 pointer-events-none select-none px-6"
             >
               <div
-                className="font-light text-[#0055ff]"
+                className="flex flex-col md:flex-row items-center justify-center gap-x-6 gap-y-4 md:translate-x-[40px]" // Offset to center the whole unit
                 style={{
                   fontFamily: FONT_FAMILY,
-                  fontSize: isMobile ? 'clamp(1.75rem, 8vw, 2.5rem)' : 'clamp(2rem, 4.2vw, 4.8rem)',
-                  letterSpacing: '0.13em',
-                  lineHeight: 1.1,
-                  fontWeight: 300,
-                  maxWidth: isMobile ? '85vw' : '90vw'
+                  fontSize: isMobile ? 'clamp(1.75rem, 8vw, 2.8rem)' : 'clamp(2.5rem, 4.4vw, 5.2rem)',
+                  width: '100%'
                 }}
               >
-                Let's simplify complex things
-              </div>
-              <div
-                className="font-black text-[#ff00aa]"
-                style={{
-                  fontFamily: FONT_FAMILY,
-                  fontSize: isMobile ? 'clamp(2.2rem, 11vw, 3.4rem)' : 'clamp(2.5rem, 4.8vw, 5.5rem)',
-                  letterSpacing: '0.01em',
-                  fontWeight: 900,
-                  marginTop: isMobile ? '0.6rem' : '0.8rem',
-                  minHeight: '1.2em'
-                }}
-              >
-                {typedOutput}
+                <div style={{ fontWeight: 300, color: '#0055ff', letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>
+                  Let's simplify complex
+                </div>
+
+                <div style={{
+                  display: 'inline-flex',
+                  minWidth: isMobile ? 'auto' : '420px',
+                  justifyContent: isMobile ? 'center' : 'flex-start',
+                  height: '1.4em', // Fix height to prevent jumping
+                  alignItems: 'center'
+                }}>
+                  <AnimatePresence mode="wait">
+                    <EnamelPin key={KEYWORDS[keywordIndex]} text={KEYWORDS[keywordIndex]} />
+                  </AnimatePresence>
+                </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
 
+        {/* Labels and Hints */}
         <div ref={cornerLabelRef} className="absolute top-8 right-8 z-50 pointer-events-none text-[#0c0c0a] hidden md:flex items-start gap-3">
           <span className="font-bold text-[0.875rem] uppercase tracking-wider leading-none pt-1">Arnon Friedman</span>
           <div className="flex flex-col items-center">
