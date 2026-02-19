@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useLayoutEffect, useCallback, useState } from 'react';
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion';
+import Grainient from './Grainient';
 
 // ───────────────────────────────────────────────────────────
 // TEXT ON PATH HERO
@@ -14,7 +15,7 @@ const LOOP_FONT_SIZE = 150;
 const FONT_FAMILY = "'Space Grotesk', sans-serif";
 const FONT_WEIGHT = 800;
 const VB_CY = 620;
-const AUTOPLAY_DURATION = 5600;
+const AUTOPLAY_DURATION = 4435;
 const EASE_POWER: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type PathPoints = Record<string, [number, number]>;
@@ -470,6 +471,33 @@ export const TextOnPathHero: React.FC = () => {
       className={`relative w-full bg-white overflow-hidden ${isMobile ? 'h-[68dvh] min-h-[380px] max-h-[560px]' : 'h-dvh'}`}
     >
       <h1 className="sr-only">{CORE_PHRASE}</h1>
+
+      <div className="absolute inset-0 z-0 pointer-events-none" style={{ opacity: isMobile ? 0.34 : 0.56 }}>
+        <Grainient
+          color1="#ffc08a"
+          color2="#ffffff"
+          color3="#7fb2ff"
+          timeSpeed={0.18}
+          colorBalance={-0.05}
+          warpStrength={1.25}
+          warpFrequency={4.5}
+          warpSpeed={1.6}
+          warpAmplitude={48}
+          blendAngle={12}
+          blendSoftness={0.08}
+          rotationAmount={380}
+          noiseScale={2}
+          grainAmount={0.12}
+          grainScale={1.8}
+          grainAnimated={true}
+          contrast={1.2}
+          gamma={1}
+          saturation={1.03}
+          centerX={-0.05}
+          centerY={0.02}
+          zoom={1.04}
+        />
+      </div>
 
       <motion.div
         style={{
