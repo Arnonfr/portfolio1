@@ -170,6 +170,24 @@ export const TextOnPathHero: React.FC = () => {
     }
   }, [animDone, dispatchHeroProgress]);
 
+  // ─── FINAL STATE ALIGNMENT ─────────────────────────────────────
+  useLayoutEffect(() => {
+    if (animDone && htmlTextRef.current && path1Ref.current) {
+      const svgRect = path1Ref.current.getBoundingClientRect();
+      const containerRect = sectionRef.current?.getBoundingClientRect() || { left: 0, top: 0 };
+
+      // Set explicit position and size to match SVG text exactly
+      htmlTextRef.current.style.top = `${svgRect.top - containerRect.top}px`;
+      htmlTextRef.current.style.left = `${svgRect.left - containerRect.left}px`;
+      htmlTextRef.current.style.width = `${svgRect.width}px`;
+
+      // Match font size from SVG rendering
+      // The SVG path logic uses a relative system, so we match the computed height
+      const fontSize = svgRect.height * 0.9; // Slight adjustment factor
+      htmlTextRef.current.style.fontSize = `${fontSize}px`;
+    }
+  }, [animDone]);
+
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
     const handleMouseMove = (e: MouseEvent) => {
@@ -384,7 +402,16 @@ export const TextOnPathHero: React.FC = () => {
               </text>
 
               {/* Path 1 — Blue Primary (was Black) */}
-              <text className="select-none pointer-events-none" style={{ fill: '#0055ff', fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em' }}>
+              <text
+                ref={path1Ref}
+                className="select-none pointer-events-none"
+                style={{
+                  fill: '#0055ff',
+                  fontFamily: FONT_FAMILY,
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
+                }}
+              >
                 <textPath ref={textPath1Ref} href="#heroTextPath1">
                   <tspan ref={el => { tspans1Ref.current[0] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{CORE_PHRASE}</tspan>
                   <tspan style={{ fontSize: LOOP_FONT_SIZE, fill: '#ff00aa' }}>.</tspan>
@@ -545,7 +572,6 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
   return (
     <motion.span
       ref={elementRef}
-      className="text-4xl md:text-7xl lg:text-8xl"
       style={{
         display: 'inline-block',
         color: color,
