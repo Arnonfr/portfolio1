@@ -34,7 +34,7 @@ function FlowingMenu({
 }: FlowingMenuProps) {
   return (
     <div className="menu-wrap" style={{ backgroundColor: bgColor }}>
-      <nav className="menu">
+      <nav className="menu opacity-30 hover:opacity-100 transition-opacity duration-300">
         {items.map((item, idx) => (
           <MenuItem
             key={idx}

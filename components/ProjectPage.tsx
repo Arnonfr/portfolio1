@@ -12,6 +12,8 @@ interface ProjectPageProps {
   onBack: () => void;
 }
 
+import { ProjectHeader } from './ProjectHeader';
+
 export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -24,49 +26,20 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
     return (
       <div className="w-full bg-white min-h-screen font-sans animate-fadeIn">
 
-
-
         {/* HERO */}
-        <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden">
-          <div className="max-w-5xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
-            <p className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-6 md:mb-8">Novidea — Product Design</p>
-            <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] text-black tracking-tight mb-6 md:mb-10">
-              Claim <span className="italic text-stone-300">Movements</span>
-            </h1>
-            <p className="max-w-xl mx-auto text-base md:text-lg text-stone-400 leading-relaxed">
-              Redesigning the workflow for processing insurance claim settlements — from six fragmented screens to one unified modal.
-            </p>
-          </div>
-
-          {/* Project Meta */}
-          <div className="max-w-4xl mx-auto px-container mb-14 md:mb-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
-              {[
-                { label: "Role", val: "Product Designer" },
-                { label: "Platform", val: "Salesforce" },
-                { label: "Company", val: "Novidea" },
-                { label: "Year", val: "2023" }
-              ].map((item, i) => (
-                <div key={i}>
-                  <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
-                  <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Hero Image */}
-          <div className="w-full max-w-[1100px] px-container">
-            <div className="relative rounded-2xl md:rounded-[28px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-stone-50">
-              <img
-                src="/images/claim-movement-modal-body.png"
-                alt="Claim Movements — New Unified Modal with all 4 sections"
-                fetchPriority="high"
-                className="w-full h-auto object-cover"
-              />
-            </div>
-          </div>
-        </header>
+        <ProjectHeader
+          title="Claim"
+          subtitle="Movements"
+          description="Redesigning the workflow for processing insurance claim settlements — from six fragmented screens to one unified modal."
+          role="Product Designer"
+          platform="Salesforce"
+          company="Novidea"
+          year="2023"
+          imageSrc="/images/claim-movement-modal-body.png"
+          imageAlt="Claim Movements — New Unified Modal with all 4 sections"
+          topLabel="Novidea — Product Design"
+          topLabelColorClass="text-blue-600"
+        />
 
         <main className="w-full bg-white">
 
@@ -136,7 +109,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
                     {/* Preview image */}
                     <div className="flex-1 rounded-xl overflow-hidden border border-stone-800 hidden md:block">
-                      <img  
+                      <img
                         key={hoveredStep}
                         src={steps[hoveredStep].image}
                         alt={steps[hoveredStep].label}
@@ -151,7 +124,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
               <div className="mt-12 md:mt-16">
                 <p className="text-stone-600 text-xs uppercase tracking-widest mb-4 text-center">Old user flow</p>
                 <div className="rounded-2xl overflow-hidden border border-stone-800">
-                  <img   src="/images/claim-flow-old.png" alt="Old user flow — branching across currencies, payees, and carriers" className="w-full h-auto" />
+                  <img src="/images/claim-flow-old.png" alt="Old user flow — branching across currencies, payees, and carriers" className="w-full h-auto" />
                 </div>
               </div>
             </div>
@@ -177,7 +150,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
               <div>
                 <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-3">Simplified flow</p>
                 <div className="rounded-xl overflow-hidden border border-stone-200 bg-stone-50">
-                  <img   src="/images/claim-flow-new.png" alt="New simplified user flow" className="w-full h-auto" />
+                  <img src="/images/claim-flow-new.png" alt="New simplified user flow" className="w-full h-auto" />
                 </div>
               </div>
             </div>
@@ -196,7 +169,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               {/* Full modal showcase */}
               <div className="rounded-2xl md:rounded-[28px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.08)] border border-stone-200 bg-stone-50 mb-16 md:mb-24">
-                <img  
+                <img
                   src="/images/claim-movement-modal-body.png"
                   alt="New Movement modal — unified interface"
                   className="w-full h-auto"
@@ -247,7 +220,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                     </div>
                     <div className={`lg:col-span-8 ${item.left ? '' : 'lg:order-1'}`}>
                       <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.07)] border border-stone-200 bg-white">
-                        <img  
+                        <img
                           src={item.img}
                           alt={item.alt}
                           className="w-full h-auto"
@@ -273,7 +246,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                     <span className="text-xs font-bold uppercase tracking-wider text-red-500">Before</span>
                   </div>
                   <div className="rounded-2xl overflow-hidden border border-stone-200 bg-stone-50">
-                    <img   src="/images/claim-movement-old-interface-1.png" alt="Old Claim Statistics screen" className="w-full h-auto" />
+                    <img src="/images/claim-movement-old-interface-1.png" alt="Old Claim Statistics screen" className="w-full h-auto" />
                   </div>
                   <ul className="mt-5 space-y-2">
                     {['6 screens', 'Separate record per currency', 'Popup per payee, per carrier', 'No summary until end'].map((t, i) => (
@@ -290,7 +263,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                     <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">After</span>
                   </div>
                   <div className="rounded-2xl overflow-hidden border border-stone-200 bg-stone-50">
-                    <img   src="/images/claim-movement-modal-body.png" alt="New unified modal" className="w-full h-auto" />
+                    <img src="/images/claim-movement-modal-body.png" alt="New unified modal" className="w-full h-auto" />
                   </div>
                   <ul className="mt-5 space-y-2">
                     {['1 modal', 'Currency handled automatically', 'Inline rows, no popups', 'Live summary always visible'].map((t, i) => (
@@ -431,7 +404,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           <div className="w-full max-w-[1200px] px-6">
             <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.12)] border border-stone-200 bg-white">
               <img
-                src="/images/mockups/web-trader-mockup.png"
+                src="/images/mockups/web-trader-mockup.webp"
                 alt="Web Trader Platform — premium architectural mockup"
                 fetchPriority="high"
                 className="w-full h-auto"
@@ -552,7 +525,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                       ))}
                     </div>
                     <div className="relative aspect-video rounded-2xl overflow-hidden border border-stone-100 shadow-xl group">
-                      <img  
+                      <img
                         src={solution.img}
                         alt={solution.title}
                         className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
@@ -862,7 +835,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
                 {/* Image */}
                 <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
-                  <img  
+                  <img
                     src="/images/clauses-edit-mode.png"
                     alt="View Mode vs Edit Mode"
                     className="w-full h-auto object-cover"
@@ -950,7 +923,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               {/* Image */}
               <div className="rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
-                <img  
+                <img
                   src="/images/version-management-iteration.png"
                   alt="Version Management Iteration"
                   className="w-full h-auto object-cover"
@@ -1149,7 +1122,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           <div className="w-full max-w-[1200px] px-container">
             <div className="rounded-xl md:rounded-[24px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-white">
               <img
-                src="/images/mockups/arabic-syntax-mockup.png"
+                src="/images/mockups/arabic-syntax-mockup.webp"
                 alt="Arabic Syntax Lab — premium educational software mockup"
                 fetchPriority="high"
                 className="w-full h-auto"
@@ -1422,7 +1395,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                 and starting to cook is unnecessarily wide.
               </p>
               <div className="relative rounded-2xl overflow-hidden shadow-xl border border-stone-100">
-                <img  
+                <img
                   src="/images/cooka/user-journey-flow.png"
                   alt="User journey flow analysis"
                   className="w-full h-auto"
@@ -1507,14 +1480,14 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
         <section className="w-full border-b border-stone-200">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-0 items-stretch w-full">
             <div className="bg-[#f5f4f2] flex items-center justify-center p-10 md:p-16">
-              <img  
+              <img
                 src="/images/cooka/customization-interaction.gif"
                 alt="Dietary preferences selection"
                 className="w-full h-auto max-w-[500px]"
               />
             </div>
             <div className="bg-[#efeeec] flex items-center justify-center p-10 md:p-16">
-              <img  
+              <img
                 src="/images/cooka/customization-animation.gif"
                 alt="Ingredient preference slider"
                 className="w-full h-auto max-w-[500px]"
@@ -1558,7 +1531,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-12 items-center">
                 <div className="order-2 md:order-1 flex justify-center">
                   <div className="relative">
-                    <img  
+                    <img
                       src="/images/cooka/feed-phone-mockup.png"
                       alt="Hands-free cooking mode interface"
                       className="w-full max-w-[240px] md:max-w-[280px] h-auto rounded-[32px] shadow-2xl border border-stone-100"
@@ -1590,7 +1563,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
         {/* STYLE GUIDE — FULL WIDTH */}
         <section className="w-full pb-10">
-          <img  
+          <img
             src="/images/cooka/style-guide.jpg"
             alt="Design system — typography and colors"
             className="w-full h-auto"
@@ -1610,7 +1583,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   { src: "/images/cooka/feed-phone-mockup.png", alt: "Hands-free mode screen" }
                 ].map((item, i) => (
                   <div key={i} className="flex justify-center">
-                    <img  
+                    <img
                       src={item.src}
                       alt={item.alt}
                       className="w-full max-w-[240px] md:max-w-[260px] h-auto rounded-[32px] shadow-[0_30px_60px_rgba(0,0,0,0.12)] mx-auto border border-stone-100"
@@ -1632,7 +1605,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
         {/* MOCKUPS — FULL WIDTH */}
         <section className="w-full pb-16">
-          <img  
+          <img
             src="/images/cooka/full-mockups-showcase.jpg"
             alt="Complete app screens overview"
             className="w-full h-auto"

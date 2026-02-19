@@ -104,8 +104,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
-    <section id="about" ref={ref} className="w-full bg-[#f4f3f1] py-24 md:py-32 relative overflow-hidden px-container">
-      <DotGridBackground />
+    <section id="about" ref={ref} className="w-full bg-white py-24 md:py-32 relative overflow-hidden px-container">
       <div className="relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           {/* Label — narrow left column */}
@@ -396,7 +395,7 @@ const ContactSection: React.FC = () => {
               <MagneticButton
                 as="a"
                 href="mailto:arnono7700@gmail.com"
-                className="btn-primary bg-[#f4f3f1] text-[#0c0c0a] border-[#f4f3f1] hover:bg-[#c9a87e] hover:border-[#c9a87e] hover:text-[#0c0c0a]"
+                className="h-12 px-8 flex items-center justify-center bg-[#f4f3f1] text-[#0c0c0a] text-[11px] font-bold uppercase tracking-widest hover:bg-[#c9a87e] transition-colors"
                 strength={0.2}
               >
                 SEND EMAIL
@@ -405,10 +404,19 @@ const ContactSection: React.FC = () => {
                 as="a"
                 href="https://wa.me/9720556697319"
                 target="_blank"
-                className="btn-secondary border-[#a8a39a] text-[#a8a39a] hover:bg-[#25D366] hover:text-[#fff] hover:border-[#25D366]"
+                className="h-12 px-8 flex items-center justify-center border border-[#2b2926] text-[#a8a39a] text-[11px] font-bold uppercase tracking-widest hover:bg-[#25D366] hover:text-white hover:border-[#25D366] transition-all"
                 strength={0.2}
               >
                 WHATSAPP
+              </MagneticButton>
+              <MagneticButton
+                as="a"
+                href="https://www.linkedin.com/in/arnon-friedman-00454867/"
+                target="_blank"
+                className="h-12 px-8 flex items-center justify-center border border-[#2b2926] text-[#a8a39a] text-[11px] font-bold uppercase tracking-widest hover:bg-[#0077B5] hover:text-white hover:border-[#0077B5] transition-all"
+                strength={0.2}
+              >
+                LINKEDIN
               </MagneticButton>
             </div>
           </div>
@@ -467,6 +475,8 @@ const ContactSection: React.FC = () => {
   );
 };
 
+const CARD_FONT = "'Space Grotesk', sans-serif";
+
 // ───────────────────────────────────────────────────────────
 // MAIN COMPONENT
 // ───────────────────────────────────────────────────────────
@@ -480,6 +490,7 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
   onExploreSideProjects,
 }) => {
   const location = useLocation();
+  const [showMoreWork, setShowMoreWork] = useState(false);
 
   // Scroll to hash on mount or hash change
   useEffect(() => {
@@ -513,9 +524,11 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
         <div className="px-container pt-16 pb-6">
           <span className="eyebrow block text-[#666]">SELECTED WORK</span>
         </div>
-        <div className="h-[clamp(350px,65dvh,600px)] relative">
+
+        {/* First 3 projects */}
+        <div className="h-[clamp(385px,71.5dvh,660px)] relative">
           <FlowingMenu
-            items={PROJECTS.map(p => ({
+            items={PROJECTS.slice(0, 3).map(p => ({
               link: `/work/${p.id}`,
               text: p.title,
               image: p.image,
@@ -530,6 +543,39 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
             onItemClick={(link) => onProjectSelect(PROJECTS.find(p => `/work/${p.id}` === link)!)}
           />
         </div>
+
+        {/* Remaining projects — revealed on demand */}
+        {showMoreWork && (
+          <div className="h-[clamp(257px,47.7dvh,440px)] relative">
+            <FlowingMenu
+              items={PROJECTS.slice(3).map(p => ({
+                link: `/work/${p.id}`,
+                text: p.title,
+                image: p.image,
+                description: p.description,
+              }))}
+              speed={15}
+              textColor="#f4f3f1"
+              bgColor="#0c0c0a"
+              marqueeBgColor="#f4f3f1"
+              marqueeTextColor="#0c0c0a"
+              borderColor="#333"
+              onItemClick={(link) => onProjectSelect(PROJECTS.find(p => `/work/${p.id}` === link)!)}
+            />
+          </div>
+        )}
+
+        {/* Show more / collapse */}
+        {!showMoreWork && (
+          <button
+            onClick={() => setShowMoreWork(true)}
+            className="w-full flex items-center justify-center gap-3 py-5 border-t border-[#222] text-[#555] hover:text-[#f4f3f1] transition-colors duration-300"
+            style={{ fontFamily: CARD_FONT, fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.22em', textTransform: 'uppercase', background: 'none', cursor: 'pointer' }}
+          >
+            <span>Show more projects</span>
+            <span style={{ fontSize: '0.9rem' }}>↓</span>
+          </button>
+        )}
       </section>
 
       {/* 3. About paragraph */}

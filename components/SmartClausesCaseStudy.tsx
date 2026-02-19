@@ -8,6 +8,8 @@ interface SmartClausesCaseStudyProps {
     onBack: () => void;
 }
 
+import { ProjectHeader } from './ProjectHeader';
+
 export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ onBack }) => {
     return (
         <div className="bg-white min-h-screen font-sans text-stone-900">
@@ -16,52 +18,19 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
 
 
             {/* ── HERO ── */}
-            <header className="relative min-h-[90vh] flex items-end justify-start overflow-hidden">
-                <img  
-                    src="/images/wording/main-modal.png"
-                    alt="Policy Clauses Management System"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#1a1a2e] via-[#1a1a2e]/30 to-transparent" />
-                <div className="relative z-10 max-w-[1400px] w-full mx-auto px-10 pb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, ease: "easeOut" }}
-                    >
-                        <p className="text-[11px] font-bold tracking-[0.4em] uppercase text-blue-300 mb-5">
-                            Novidea London &middot; Redesign
-                        </p>
-                        <h1 className="text-5xl md:text-7xl font-serif text-white leading-[1.05] mb-6">
-                            Policy Clauses
-                        </h1>
-                        <p className="text-lg text-stone-300 max-w-xl leading-relaxed">
-                            Optimizing policy document workflows effectively &mdash; redesigning the wording and clauses management system for London Market insurance brokers.
-                        </p>
-                    </motion.div>
-                </div>
-            </header>
-
-            {/* Edit Mode vs View Mode Visual */}
-            <section className="py-28 bg-white">
-                <div className="max-w-[1400px] mx-auto px-10">
-                    <div className="relative group">
-                        <div className="absolute -inset-4 bg-indigo-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-                        <div className="relative bg-white rounded-2xl p-3 border border-stone-200 shadow-2xl overflow-hidden">
-                            <img  
-                                src="/images/wording/main-modal.png"
-                                alt="Modern Wording Management Interface"
-                                className="w-full h-auto rounded-lg"
-                            />
-                            {/* Enterprise Badge */}
-                            <div className="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 shadow-lg flex items-center gap-2">
-                                <div className="w-2 h-2 rounded-full bg-green-500" />
-                                <span className="text-[10px] font-bold uppercase tracking-wider text-stone-600">Enterprise Ready</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <ProjectHeader
+                title="Policy"
+                subtitle="Clauses"
+                description="Optimizing policy document workflows effectively — redesigning the wording and clauses management system for London Market insurance brokers."
+                role="UX Research & Design"
+                platform="Enterprise Web"
+                company="Novidea London"
+                year="2023 — 2024"
+                imageSrc="/images/wording/main-modal.png"
+                imageAlt="Policy Clauses Management System"
+                topLabel="Novidea London · Redesign"
+                topLabelColorClass="text-blue-600"
+            />
 
             {/* ══════════════════════════════════════════
                 NEW FEATURES & REFINEMENTS
@@ -83,7 +52,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Automated status indicators (Active/Inactive) that respond dynamically to date ranges and versioning, reducing manual compliance checks.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img   src="/images/wording/status-logic.png" alt="Status Logic" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/wording/status-logic.png" alt="Status Logic" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
 
@@ -94,7 +63,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Visual alerts for outdated clauses, highlighting items that require broker attention or immediate version updates.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img   src="/images/wording/version-indicators.png" alt="Version Indicators" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/wording/version-indicators.png" alt="Version Indicators" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
 
@@ -105,7 +74,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 Intuitive pill-based selection indicator that tracks multiple clause selections across different product categories.
                             </p>
                             <div className="mt-auto rounded-xl overflow-hidden border border-stone-100 shadow-sm">
-                                <img   src="/images/wording/selection-pills.png" alt="Selection Pills" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
+                                <img src="/images/wording/selection-pills.png" alt="Selection Pills" className="w-full h-auto group-hover:scale-105 transition-transform duration-500" />
                             </div>
                         </div>
                     </div>
@@ -132,7 +101,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         <div className="relative group">
                             <div className="absolute -inset-4 bg-blue-500/10 blur-2xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-200">
-                                <img  
+                                <img
                                     src="/images/wording/coverage-form-selection.png"
                                     alt="Coverage Form Selection Logic"
                                     className="w-full h-auto"
@@ -274,7 +243,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 </p>
                             </div>
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img  
+                                <img
                                     src="/images/wc-view-mode-overview.png"
                                     alt="View Mode Screen architecture diagram"
                                     className="w-full h-auto"
@@ -292,7 +261,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                                 </p>
                             </div>
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                                <img  
+                                <img
                                     src="/images/wc-edit-mode-overview.png"
                                     alt="Edit Mode Screen architecture diagram"
                                     className="w-full h-auto"
@@ -330,7 +299,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </div>
                         <div className="lg:col-span-3">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img  
+                                <img
                                     src="/images/wc-dual-view-table.png"
                                     alt="Dual-view table with Coverage Form and Product grouping"
                                     className="w-full h-auto"
@@ -350,7 +319,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
                         <div className="lg:col-span-3 lg:order-1">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                                <img  
+                                <img
                                     src="/images/wc-manage-clauses-modal.png"
                                     alt="Manage Clauses modal with advanced filtering"
                                     className="w-full h-auto"
@@ -400,7 +369,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </div>
                         <div className="lg:col-span-3">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-indigo-100">
-                                <img  
+                                <img
                                     src="/images/wc-selection-indication.png"
                                     alt="Two-level selection indication with Coverage Form and individual Clause chips"
                                     className="w-full h-auto"
@@ -420,7 +389,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                     <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 items-center">
                         <div className="lg:col-span-3 lg:order-1">
                             <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(79,70,229,0.08)] border border-blue-100">
-                                <img  
+                                <img
                                     src="/images/wc-view-table-card.png"
                                     alt="View table with action buttons and status indicators"
                                     className="w-full h-auto"
@@ -469,7 +438,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                         </p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(124,58,237,0.08)] border border-violet-100">
-                        <img  
+                        <img
                             src="/images/wc-edit-mode-screen.png"
                             alt="Edit Mode — full clause editing interface with filters and search"
                             className="w-full h-auto"

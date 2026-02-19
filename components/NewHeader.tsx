@@ -66,7 +66,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               </span>
               {isScrolled && !isInternal && (
                 <span className="hidden md:inline-block text-[0.6875rem] font-semibold uppercase tracking-[0.12em] text-[#a8a39a] ml-2">
-                  DESIGN
+                  PRODUCT DESIGNER
                 </span>
               )}
             </button>

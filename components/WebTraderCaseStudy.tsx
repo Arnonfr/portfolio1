@@ -9,6 +9,8 @@ interface WebTraderCaseStudyProps {
     onBack: () => void;
 }
 
+import { ProjectHeader } from './ProjectHeader';
+
 export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }) => {
     return (
         <div className="bg-white min-h-screen font-sans text-stone-900">
@@ -17,62 +19,26 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
 
             {/* ── HERO ── */}
-            <header className="relative h-screen flex items-end justify-start bg-[#0a1628] overflow-hidden">
-                <img  
-                    src="/images/wt-hero.png"
-                    alt="Web Trader"
-                    className="absolute inset-0 w-full h-full object-cover object-center"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-[#0a1628]/40 to-transparent" />
-                <div className="relative z-10 max-w-[1400px] w-full mx-auto px-container pb-16 md:pb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 24 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.9, ease: "easeOut" }}
-                    >
-                        <p className="text-[10px] md:text-[11px] font-bold tracking-[0.4em] uppercase text-blue-400 mb-4 md:mb-5">
-                            AvaTrade · 2023
-                        </p>
-                        <h1 className="text-[clamp(2.5rem,10vw,4.5rem)] font-serif text-white leading-[1.05] mb-6">
-                            Web Trader
-                        </h1>
-                        <p className="text-base md:text-lg text-stone-300 max-w-xl leading-relaxed">
-                            Redesigning a retail trading terminal — turning raw signal data into readable investment proposals, then unifying them with execution and account management.
-                        </p>
-                    </motion.div>
-                </div>
-            </header>
-
-            {/* ── METADATA ── */}
-            <section className="border-b border-stone-100 px-container">
-                <div className="max-w-[1400px] mx-auto py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
-                    <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Role</p>
-                        <p className="text-sm md:text-base font-semibold">Product Designer</p>
-                        <p className="text-stone-500 text-[12px] md:text-sm mt-1">AvaTrade</p>
-                    </div>
-                    <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Scope</p>
-                        <p className="text-sm md:text-base font-semibold">UX + UI</p>
-                        <p className="text-stone-500 text-[12px] md:text-sm mt-1">Mobile + Desktop</p>
-                    </div>
-                    <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Year</p>
-                        <p className="text-sm md:text-base font-semibold">2023</p>
-                    </div>
-                    <div>
-                        <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 md:mb-3">Domain</p>
-                        <p className="text-sm md:text-base font-semibold">Fintech · Trading</p>
-                    </div>
-                </div>
-            </section>
+            <ProjectHeader
+                title="Web"
+                subtitle="Trader"
+                description="Redesigning a retail trading terminal — turning raw signal data into readable investment proposals, then unifying them with execution and account management."
+                role="Product Designer"
+                platform="Web & Mobile"
+                company="AvaTrade"
+                year="2018 — 2021"
+                imageSrc="/images/mockups/web-trader-mockup.webp"
+                imageAlt="Web Trader Platform — premium architectural mockup"
+                topLabel="AvaTrade Case Study"
+                topLabelColorClass="text-blue-600"
+            />
 
             {/* ── ATMOSPHERIC SCROLL IMAGE ── */}
             <section className="relative h-[60vh] md:h-[80vh] overflow-hidden bg-stone-100">
-                <div 
+                <div
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat lg:bg-fixed"
-                    style={{ 
-                        backgroundImage: 'url(/images/wt-signal-detail.png)',
+                    style={{
+                        backgroundImage: 'url(/images/wt-signal-detail.webp)',
                     }}
                 />
             </section>
@@ -126,7 +92,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                                 alt="Signal detail — Understand your position"
                                 className="w-full h-auto max-h-[70vh] object-contain shadow-2xl rounded-xl"
                             />
-                            
+
                             {/* Text panel — moved back to a clear spot since zoom is now an overlay */}
                             <div className="absolute -bottom-8 right-0 md:-bottom-12 md:right-8 z-20">
                                 <div className="max-w-[280px] bg-white/90 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-2xl border border-white">
@@ -164,7 +130,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                         {/* Annotated signal card — LEFT */}
                         <div className="relative rounded-2xl overflow-visible shadow-xl group max-w-md mx-auto lg:mx-0">
-                            <img  
+                            <img
                                 src="/images/wt-signal1-clean.png"
                                 alt="Signal cards"
                                 className="w-full h-auto block rounded-2xl"
@@ -240,7 +206,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                     {/* Full before/after image */}
                     <div className="rounded-3xl overflow-hidden border border-white/10 mb-8">
-                        <img  
+                        <img
                             src="/images/wt-signal-before-after.png"
                             alt="From raw data table to redesigned signal card"
                             className="w-full h-auto"
@@ -250,21 +216,21 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                     {/* 3 mobile mockups below */}
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img  
+                            <img
                                 src="/images/wt-signals-mobile.png"
                                 alt="Signal list — mobile"
                                 className="max-h-[580px] w-auto object-contain"
                             />
                         </div>
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img  
+                            <img
                                 src="/images/wt-signals-list.png"
                                 alt="Signal cards list"
                                 className="max-h-[580px] w-auto object-contain"
                             />
                         </div>
                         <div className="rounded-3xl overflow-hidden border border-white/10 flex items-center justify-center bg-[#0f1e35] p-4">
-                            <img  
+                            <img
                                 src="/images/wt-signal-cards.png"
                                 alt="Signal card components"
                                 className="max-h-[580px] w-auto object-contain"
@@ -289,7 +255,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                             Once the signal format was solved, the next challenge was embedding it into the trading terminal — so traders could act immediately without switching apps.
                         </p>
                     </div>
-                    
+
                     <div className="w-full relative z-20">
                         <ZoomableImage
                             src="/images/wt-full-platform.png"
@@ -314,14 +280,14 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <div className="rounded-2xl overflow-hidden shadow-lg">
-                            <img   src="/images/wt-side-menu.png" alt="Redesigned account side menu" className="w-full h-auto" />
+                            <img src="/images/wt-side-menu.png" alt="Redesigned account side menu" className="w-full h-auto" />
                             <div className="bg-white px-6 py-4 border-t border-stone-100">
                                 <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Mobile</p>
                                 <p className="text-sm font-medium text-stone-700">Restructured account panel — Log Out moved away from thumb zone</p>
                             </div>
                         </div>
                         <div className="rounded-2xl overflow-hidden shadow-lg">
-                            <img   src="/images/wt-account-switcher.png" alt="Account switcher — Demo vs Real" className="w-full h-auto" />
+                            <img src="/images/wt-account-switcher.png" alt="Account switcher — Demo vs Real" className="w-full h-auto" />
                             <div className="bg-white px-6 py-4 border-t border-stone-100">
                                 <p className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-1">Desktop + Mobile</p>
                                 <p className="text-sm font-medium text-stone-700">Demo / Real account switching — zero ambiguity on active wallet</p>
@@ -342,7 +308,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                         </p>
                     </div>
                     <div className="rounded-2xl overflow-hidden shadow-xl border border-stone-100">
-                        <img   src="/images/wt-desktop-nav.png" alt="Desktop platform navigation" className="w-full h-auto" />
+                        <img src="/images/wt-desktop-nav.png" alt="Desktop platform navigation" className="w-full h-auto" />
                     </div>
                 </div>
             </section>
@@ -356,7 +322,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                         <p className="text-stone-400 text-base md:text-lg leading-relaxed">Across multiple iterations of signal format, layout density, and colour system before landing on the final direction.</p>
                     </div>
                     <div className="rounded-3xl overflow-hidden border border-white/10">
-                        <img   src="/images/wt-iterations.png" alt="Design iterations" className="w-full h-auto" />
+                        <img src="/images/wt-iterations.png" alt="Design iterations" className="w-full h-auto" />
                     </div>
                 </div>
             </section>
