@@ -14,7 +14,7 @@ const LOOP_FONT_SIZE = 150;
 const FONT_FAMILY = "'Space Grotesk', sans-serif";
 const FONT_WEIGHT = 800;
 const VB_CY = 620;
-const AUTOPLAY_DURATION = 4000;
+const AUTOPLAY_DURATION = 5600;
 const EASE_POWER: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 type PathPoints = Record<string, [number, number]>;
@@ -87,16 +87,23 @@ const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 
 // Gentler quintic easing for the path morph specifically
 const easeInOutQuint = (t: number) => t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
 
-// Hover color palette: blue → pink → purple based on cursor X
-const HOVER_BLUE: [number, number, number] = [0, 85, 255];
-const HOVER_PINK: [number, number, number] = [255, 0, 170];
-const HOVER_PURPLE: [number, number, number] = [119, 0, 255];
-const lerpColor = (a: [number, number, number], b: [number, number, number], t: number): string =>
-  `rgb(${Math.round(a[0] + (b[0] - a[0]) * t)},${Math.round(a[1] + (b[1] - a[1]) * t)},${Math.round(a[2] + (b[2] - a[2]) * t)})`;
+// Start immediately, then spend more time in the simplification middle phase
+const mapMorphTiming = (t: number) => {
+  const clamped = Math.max(0, Math.min(1, t));
+  if (clamped <= 0.18) {
+    return clamped * 1.5;
+  }
+  if (clamped <= 0.82) {
+    const mid = (clamped - 0.18) / 0.64;
+    return 0.27 + easeInOutCubic(mid) * 0.58;
+  }
+  return 0.85 + (clamped - 0.82) * (0.15 / 0.18);
+};
 
 function generatePathD(complexP: PathPoints, simpleP: PathPoints, rawProgress: number): string {
-  // Path doesn't fully straighten until 95% progress, using gentler quintic easing
-  const t = easeInOutQuint(Math.min(rawProgress / 0.95, 1));
+  // Path doesn't fully straighten until 95% progress.
+  // Timing map starts immediately and slows through the middle.
+  const t = mapMorphTiming(Math.min(rawProgress / 0.95, 1));
   const p = (key: string, idx: number) => lerp(complexP[key][idx], simpleP[key][idx], t);
   return `M ${p('m', 0)},${p('m', 1)} ` +
     `C ${p('c1', 0)},${p('c1', 1)} ${p('c2', 0)},${p('c2', 1)} ${p('to1', 0)},${p('to1', 1)} ` +
@@ -126,9 +133,13 @@ export const TextOnPathHero: React.FC = () => {
   const clipRectRef = useRef<SVGRectElement>(null);
   const scrollHintRef = useRef<HTMLButtonElement>(null);
   const cornerLabelRef = useRef<HTMLDivElement>(null);
+  const subtitleWrapRef = useRef<HTMLDivElement>(null);
+  const finalTitleRef = useRef<HTMLDivElement>(null);
 
   const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < 768 : false);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0, r: 0 });
+  const [finalInteractiveReady, setFinalInteractiveReady] = useState(false);
+  const [titleHoverActive, setTitleHoverActive] = useState(false);
 
   // Initialize from window state to skip animation on navigation
   const [animDone, setAnimDone] = useState(() => {
@@ -137,8 +148,6 @@ export const TextOnPathHero: React.FC = () => {
     }
     return false;
   });
-
-  const [keywordIndex, setKeywordIndex] = useState(0);
 
   const animDoneRef = useRef(animDone);
   const phraseWidthRef = useRef(0);
@@ -153,7 +162,6 @@ export const TextOnPathHero: React.FC = () => {
 
   const tspans1Ref = useRef<(SVGTSpanElement | null)[]>([]);
   const tspans2Ref = useRef<(SVGTSpanElement | null)[]>([]);
-  const htmlTextRef = useRef<HTMLDivElement>(null);
   const loopIndices = Array.from({ length: REPEAT_COUNT }, (_, i) => i);
   const shouldReduce = useReducedMotion();
 
@@ -163,6 +171,37 @@ export const TextOnPathHero: React.FC = () => {
     }
   }, []);
 
+  const applyFinalVisualState = useCallback(() => {
+    if (isMobile) return;
+
+    if (path1Ref.current) {
+      path1Ref.current.setAttribute('d', generatePathD(complexPath1, makeStraight(-2200, 5700), 1));
+    }
+    if (path2Ref.current) {
+      path2Ref.current.setAttribute('d', generatePathD(complexPath2, makeStraight(-2200, 5700), 1));
+    }
+
+    const finalBlueOffset = 3600 - coreWidthFinalRef.current / 2;
+    if (textPath1Ref.current) textPath1Ref.current.setAttribute('startOffset', String(finalBlueOffset));
+    if (textPath2Ref.current) textPath2Ref.current.setAttribute('startOffset', String(finalBlueOffset));
+
+    if (clipRectRef.current) {
+      const targetW = coreWidthFinalRef.current + 500;
+      clipRectRef.current.setAttribute('x', String(1400 - targetW / 2));
+      clipRectRef.current.setAttribute('width', String(targetW));
+    }
+
+    tspans1Ref.current.forEach((tspan, i) => {
+      if (tspan) tspan.style.opacity = i === 0 ? '1' : '0';
+    });
+    tspans2Ref.current.forEach((tspan) => {
+      if (tspan) tspan.style.opacity = '0';
+    });
+
+    if (scrollHintRef.current) scrollHintRef.current.style.opacity = '0';
+    if (cornerLabelRef.current) cornerLabelRef.current.style.opacity = '0';
+  }, [isMobile]);
+
   useEffect(() => {
     // If we start with animation done, dispatch immediate progress 1
     if (animDone) {
@@ -170,23 +209,20 @@ export const TextOnPathHero: React.FC = () => {
     }
   }, [animDone, dispatchHeroProgress]);
 
-  // ─── FINAL STATE ALIGNMENT ─────────────────────────────────────
-  useLayoutEffect(() => {
-    if (animDone && htmlTextRef.current && path1Ref.current) {
-      const svgRect = path1Ref.current.getBoundingClientRect();
-      const containerRect = sectionRef.current?.getBoundingClientRect() || { left: 0, top: 0 };
+  useEffect(() => {
+    if (!animDone) return;
+    applyFinalVisualState();
+  }, [animDone, applyFinalVisualState]);
 
-      // Set explicit position and size to match SVG text exactly
-      htmlTextRef.current.style.top = `${svgRect.top - containerRect.top}px`;
-      htmlTextRef.current.style.left = `${svgRect.left - containerRect.left}px`;
-      htmlTextRef.current.style.width = `${svgRect.width}px`;
-
-      // Match font size from SVG rendering
-      // The SVG path logic uses a relative system, so we match the computed height
-      const fontSize = svgRect.height * 0.9; // Slight adjustment factor
-      htmlTextRef.current.style.fontSize = `${fontSize}px`;
+  useEffect(() => {
+    if (!animDone) {
+      setFinalInteractiveReady(false);
+      setTitleHoverActive(false);
+      return;
     }
-  }, [animDone]);
+    const t = window.setTimeout(() => setFinalInteractiveReady(true), isMobile ? 0 : 380);
+    return () => window.clearTimeout(t);
+  }, [animDone, isMobile]);
 
   useEffect(() => {
     const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -228,20 +264,23 @@ export const TextOnPathHero: React.FC = () => {
 
       document.body.removeChild(svg);
     };
-    document.fonts.ready.then(measure);
-  }, []);
+    document.fonts.ready.then(() => {
+      measure();
+      if (animDoneRef.current) applyFinalVisualState();
+    });
+  }, [applyFinalVisualState]);
 
   // On mobile: skip SVG, show final state after brief delay
   useEffect(() => {
     if (!isMobile) return;
-    const timer = setTimeout(() => {
+    const frame = window.requestAnimationFrame(() => {
       animProgressRef.current = 1;
       animDoneRef.current = true;
       setAnimDone(true);
       if (typeof window !== 'undefined') window.hasPlayedHeroAnimation = true;
       dispatchHeroProgress(1);
-    }, 600);
-    return () => clearTimeout(timer);
+    });
+    return () => window.cancelAnimationFrame(frame);
   }, [isMobile, dispatchHeroProgress]);
 
   useEffect(() => {
@@ -260,7 +299,7 @@ export const TextOnPathHero: React.FC = () => {
       if (e.deltaY > 0 && animProgressRef.current < 1) {
         e.preventDefault();
         isAutoPlayingRef.current = false;
-        animProgressRef.current = Math.min(1, animProgressRef.current + (e.deltaY * 0.0008));
+        animProgressRef.current = Math.min(1, animProgressRef.current + (e.deltaY * 0.0006));
         if (animProgressRef.current >= 1) {
           animDoneRef.current = true;
           setAnimDone(true);
@@ -286,7 +325,7 @@ export const TextOnPathHero: React.FC = () => {
       if (isAutoPlayingRef.current) {
         const elapsed = performance.now() - autoPlayStartRef.current;
         const rawT = Math.min(1, elapsed / AUTOPLAY_DURATION);
-        animProgressRef.current = easeInOutCubic(rawT);
+        animProgressRef.current = rawT;
         if (rawT >= 1) {
           isAutoPlayingRef.current = false;
           if (!animDoneRef.current) {
@@ -305,11 +344,11 @@ export const TextOnPathHero: React.FC = () => {
 
       const speed = 1.8 * Math.max(0, 1 - progress * 1.6);
       offset1Ref.current -= speed;
-      offset2Ref.current -= speed * 0.85;
+      offset2Ref.current += speed * 1.15;
 
       if (phraseWidthRef.current > 0) {
         if (offset1Ref.current <= -phraseWidthRef.current) offset1Ref.current = 0;
-        if (offset2Ref.current <= -phraseWidthRef.current) offset2Ref.current = 0;
+        if (offset2Ref.current >= phraseWidthRef.current) offset2Ref.current = 0;
       }
 
       const finalBlueOffset = 3600 - coreWidthFinalRef.current / 2;
@@ -347,21 +386,89 @@ export const TextOnPathHero: React.FC = () => {
   }, [shouldReduce, dispatchHeroProgress, animDone]);
 
   useLayoutEffect(() => {
-    if (!animDone || !sectionRef.current || !htmlTextRef.current) return;
+    const subtitleEl = subtitleWrapRef.current;
+    const titleEl = finalTitleRef.current;
     const section = sectionRef.current;
+    if (!subtitleEl && !titleEl) return;
+
+    if (subtitleEl) {
+      subtitleEl.style.position = '';
+      subtitleEl.style.left = '';
+      subtitleEl.style.top = '';
+      subtitleEl.style.transform = '';
+    }
+    if (titleEl) {
+      titleEl.style.position = '';
+      titleEl.style.left = '';
+      titleEl.style.top = '';
+      titleEl.style.fontSize = '';
+      titleEl.style.transform = '';
+      titleEl.style.transformOrigin = '';
+      titleEl.style.width = '';
+    }
+
+    if (!animDone || isMobile || !section) {
+      return;
+    }
+
+    const sectionRect = section.getBoundingClientRect();
+    const tspanRect = tspans1Ref.current[0]?.getBoundingClientRect();
     const vw = section.clientWidth;
     const vh = section.clientHeight;
     const scale = Math.max(vw / 3600, vh / 1800);
-    const offsetY = (vh - 1800 * scale) / 2;
-    const baselineY = (VB_CY + 200) * scale + offsetY;
-    const fontSize = 150 * scale;
-    htmlTextRef.current.style.top = `${baselineY}px`;
-    htmlTextRef.current.style.fontSize = `${fontSize}px`;
-  }, [animDone]);
+    const finalFontSize = LOOP_FONT_SIZE * scale;
+
+    const canUseTspanRect = !!(
+      tspanRect &&
+      tspanRect.width > 1 &&
+      tspanRect.height > 1 &&
+      tspanRect.height < finalFontSize * 1.8 &&
+      tspanRect.width < sectionRect.width * 0.95
+    );
+
+    if (canUseTspanRect && tspanRect) {
+      if (titleEl) {
+        titleEl.style.position = 'absolute';
+        titleEl.style.left = `${tspanRect.left - sectionRect.left}px`;
+        titleEl.style.top = `${tspanRect.top - sectionRect.top + (tspanRect.height - finalFontSize) / 2}px`;
+        titleEl.style.fontSize = `${finalFontSize}px`;
+        titleEl.style.transform = 'none';
+        titleEl.style.transformOrigin = 'top left';
+        titleEl.style.width = 'max-content';
+      }
+      if (subtitleEl) {
+        const gap = Math.max(22, Math.min(44, tspanRect.height * 0.24));
+        subtitleEl.style.position = 'absolute';
+        subtitleEl.style.left = `${tspanRect.left - sectionRect.left + tspanRect.width / 2}px`;
+        subtitleEl.style.top = `${tspanRect.bottom - sectionRect.top + gap}px`;
+        subtitleEl.style.transform = 'translateX(-50%)';
+      }
+      return;
+    }
+
+    if (titleEl) {
+      titleEl.style.position = 'absolute';
+      titleEl.style.left = '50%';
+      titleEl.style.top = `${(VB_CY + 20) * scale}px`;
+      titleEl.style.fontSize = `${finalFontSize}px`;
+      titleEl.style.transform = 'translateX(-50%)';
+      titleEl.style.transformOrigin = 'center top';
+      titleEl.style.width = 'max-content';
+    }
+    if (subtitleEl) {
+      subtitleEl.style.position = 'absolute';
+      subtitleEl.style.left = '50%';
+      subtitleEl.style.top = `${(VB_CY + 20) * scale + LOOP_FONT_SIZE * scale + 34 * scale}px`;
+      subtitleEl.style.transform = 'translateX(-50%)';
+    }
+  }, [animDone, isMobile, titleHoverActive]);
 
 
   return (
-    <section ref={sectionRef} className="relative w-full h-dvh bg-white overflow-hidden">
+    <section
+      ref={sectionRef}
+      className={`relative w-full bg-white overflow-hidden ${isMobile ? 'h-[68dvh] min-h-[380px] max-h-[560px]' : 'h-dvh'}`}
+    >
       <h1 className="sr-only">{CORE_PHRASE}</h1>
 
       <motion.div
@@ -381,8 +488,7 @@ export const TextOnPathHero: React.FC = () => {
               left: '0', top: 0, width: '100%', height: '100%',
               zIndex: 10,
               pointerEvents: 'none',
-              opacity: animDone ? 0 : 1,
-              transition: 'opacity 0.4s ease 0.1s',
+              opacity: 1,
             }}
             preserveAspectRatio="xMidYMid slice"
           >
@@ -393,30 +499,31 @@ export const TextOnPathHero: React.FC = () => {
             </defs>
             <g clipPath="url(#heroTextClip)">
               {/* Path 2 — Pink Accent (was Beige) */}
-              <text className="select-none pointer-events-none" style={{ fill: '#ff00aa', opacity: 0.8, fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em' }}>
+              <text className="select-none pointer-events-none" style={{ fill: '#D62B00', opacity: animDone && !isMobile ? 0 : 0.72, mixBlendMode: 'multiply', transition: 'opacity 0.14s ease', fontFamily: FONT_FAMILY, fontWeight: FONT_WEIGHT, letterSpacing: '-0.02em' }}>
                 <textPath ref={textPath2Ref} href="#heroTextPath2">
                   {loopIndices.map(i => (
-                    <tspan key={i} ref={el => { tspans2Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{i === 0 ? CORE_PHRASE : SEPARATOR + CORE_PHRASE}</tspan>
+                    <tspan key={i} ref={el => { tspans2Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{(i === 0 ? "" : SEPARATOR) + CORE_PHRASE + "."}</tspan>
                   ))}
                 </textPath>
               </text>
 
               {/* Path 1 — Blue Primary (was Black) */}
               <text
-                ref={path1Ref}
                 className="select-none pointer-events-none"
                 style={{
                   fill: '#0055ff',
                   fontFamily: FONT_FAMILY,
                   fontWeight: FONT_WEIGHT,
                   letterSpacing: '-0.02em',
+                  opacity: animDone && !isMobile && titleHoverActive ? 0 : 1,
+                  transition: 'opacity 0.14s ease',
                 }}
               >
                 <textPath ref={textPath1Ref} href="#heroTextPath1">
                   <tspan ref={el => { tspans1Ref.current[0] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{CORE_PHRASE}</tspan>
                   <tspan style={{ fontSize: LOOP_FONT_SIZE, fill: '#ff00aa' }}>.</tspan>
                   {loopIndices.slice(1).map(i => (
-                    <tspan key={i} ref={el => { tspans1Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{SEPARATOR + CORE_PHRASE}</tspan>
+                    <tspan key={i} ref={el => { tspans1Ref.current[i] = el; }} style={{ fontSize: LOOP_FONT_SIZE }}>{SEPARATOR + CORE_PHRASE + "."}</tspan>
                   ))}
                 </textPath>
               </text>
@@ -429,49 +536,63 @@ export const TextOnPathHero: React.FC = () => {
         {animDone && (
           <motion.div
             key="final-text"
-            initial={{ opacity: 0 }}
+            initial={isMobile ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="absolute inset-0 z-20 pointer-events-none select-none"
+            transition={isMobile ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }}
+            className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none select-none px-4"
           >
-            {/* 
-                PIXEL PERFECT OVERLAY:
-                This container will be sized/positioned by the useLayoutEffect below
-            */}
-            <div
-              ref={htmlTextRef}
-              className="flex flex-wrap justify-center md:flex-nowrap"
-              style={{
-                position: 'absolute',
-                // top/left/width/fontSize are set via useLayoutEffect for perfect sync
-                fontFamily: FONT_FAMILY,
-                fontWeight: FONT_WEIGHT,
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-                color: '#0055ff',
-                display: 'flex',
-                alignItems: 'baseline',
-                pointerEvents: 'auto',
-                columnGap: '0.25em'
-              }}
-            >
-              {["Let's", "simplify", "complex", "things."].map((word, wordIndex) => (
-                <span key={wordIndex} className="inline-block whitespace-nowrap">
-                  {Array.from(word).map((char, charIndex) => (
-                    <BubbleCharacter key={`${wordIndex}-${charIndex}`} char={char} isPink={char === '.'} />
-                  ))}
-                </span>
-              ))}
-            </div>
+            {!isMobile && (
+              <div
+                ref={finalTitleRef}
+                onMouseEnter={() => setTitleHoverActive(true)}
+                onMouseLeave={() => setTitleHoverActive(false)}
+                className="pointer-events-auto whitespace-nowrap"
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1,
+                  opacity: titleHoverActive ? 1 : 0,
+                  transition: 'opacity 0.14s ease',
+                }}
+              >
+                {Array.from(`${CORE_PHRASE}.`).map((char, index) => (
+                  <BubbleCharacter key={`final-char-${index}`} char={char} isPink={char === '.'} />
+                ))}
+              </div>
+            )}
 
-            {/* Subtitle - Center aligned below the main text area */}
-            <div className="absolute left-1/2 -translate-x-1/2 bottom-[15%] md:bottom-[20%] w-full max-w-4xl px-6">
+            {isMobile && (
+              <div
+                className="flex flex-col justify-center items-center text-center"
+                style={{
+                  fontFamily: FONT_FAMILY,
+                  fontWeight: FONT_WEIGHT,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1,
+                  color: '#0055ff',
+                  display: 'flex',
+                  pointerEvents: 'auto'
+                }}
+              >
+                <span className="text-[#0055ff] text-[clamp(2.2rem,12vw,3.8rem)] leading-[0.95]">
+                  <span className="block">{"Let's simplify"}</span>
+                  <span className="block">
+                    {'complex things'}
+                    <span className="text-[#ff00aa]">.</span>
+                  </span>
+                </span>
+              </div>
+            )}
+
+            {/* Subtitle - Centered below */}
+            <div ref={subtitleWrapRef} className="mt-8 md:mt-12 flex flex-col items-center w-full max-w-4xl">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 1.0, ease: "easeOut" }}
-                className="text-[#000088] text-xl md:text-3xl leading-relaxed italic font-serif text-center"
+                animate={{ opacity: finalInteractiveReady ? 1 : 0, y: finalInteractiveReady ? 0 : 20 }}
+                transition={isMobile ? { duration: 0 } : { duration: 0.6, ease: "easeOut" }}
+                className="text-[#000088] text-base md:text-3xl lg:text-4xl leading-relaxed italic font-serif text-center"
               >
                 I love understanding people, designing products, data, and simplifying complex systems.
               </motion.p>
@@ -510,7 +631,7 @@ export const TextOnPathHero: React.FC = () => {
 // ─── BUBBLE CHARACTER COMPONENT ──────────────────────────────────
 const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, isPink }) => {
   const elementRef = useRef<HTMLSpanElement>(null);
-  const [hoverState, setHoverState] = useState({ dist: 1 });
+  const [hoverState, setHoverState] = useState({ dist: 1, dxNorm: 0 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -526,8 +647,9 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
       // Interaction radius: 200px (tighter for individual letters)
       const maxDist = 200;
       const normalized = Math.min(distance / maxDist, 1);
+      const dxNorm = Math.max(-1, Math.min(1, dx / maxDist));
 
-      setHoverState({ dist: normalized });
+      setHoverState({ dist: normalized, dxNorm });
     };
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -536,35 +658,34 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
 
   // dist: 0 (close) -> 1 (far)
 
-  // Weight: 300 (close) -> 800 (far)
-  const weight = 300 + (hoverState.dist * 500);
+  // Weight: lighter near cursor
+  const weight = 290 + (hoverState.dist * 520);
 
-  // Lift: -30px (close) -> 0 (far)
-  const lift = (1 - hoverState.dist) * -30;
+  // Lift: per-letter hop
+  const lift = (1 - hoverState.dist) * -28;
 
-  // Usage:
-  // If isPink is true, target logic basically stays pink but maybe varies brightness?
-  // Actually request was "The dot needs to be pink". 
-  // Let's make the dot ALWAYS pink, maybe slightly reactive?
-  // Or if it's "interactive", it should still wave.
+  // Non-hovered letters lean toward cursor side (left/right)
+  const tilt = hoverState.dxNorm * (0.4 + hoverState.dist * 0.6) * 9;
+  const driftX = hoverState.dxNorm * hoverState.dist * 6;
 
-  // Standard Color Interpolation (Blue -> Pink)
-  // Far (1.0) = Blue [0, 85, 255]
-  // Near (0.0) = Pink [255, 0, 170]
+  // Blue base -> accent (pink/purple) near cursor
   let r, g, b;
+  const proximity = 1 - hoverState.dist;
+  const sideMix = (hoverState.dxNorm + 1) / 2; // left->right
+
+  const accentR = 255 + (119 - 255) * sideMix;
+  const accentG = 0;
+  const accentB = 170 + (255 - 170) * sideMix;
 
   if (isPink) {
-    // If specifically the dot, start Pink and stay Pink (maybe animate slightly to Purple?)
-    // Far = Pink [255, 0, 170]
-    // Near = Purple [119, 0, 255]
-    r = 255 + (119 - 255) * (1 - hoverState.dist);
+    // Dot stays pink by default and drifts slightly purple by side + proximity
+    r = 255 + (119 - 255) * (sideMix * (0.25 + proximity * 0.75));
     g = 0;
-    b = 170 + (255 - 170) * (1 - hoverState.dist);
+    b = 170 + (255 - 170) * (sideMix * (0.25 + proximity * 0.75));
   } else {
-    // Standard Blue -> Pink interaction
-    r = 0 + (255 - 0) * (1 - hoverState.dist);
-    g = 85 + (0 - 85) * (1 - hoverState.dist);
-    b = 255 + (170 - 255) * (1 - hoverState.dist);
+    r = 0 + (accentR - 0) * proximity;
+    g = 85 + (accentG - 85) * proximity;
+    b = 255 + (accentB - 255) * proximity;
   }
 
   const color = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
@@ -572,11 +693,14 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
   return (
     <motion.span
       ref={elementRef}
+      className="text-[1em] select-none"
       style={{
         display: 'inline-block',
         color: color,
         fontWeight: weight,
         y: lift,
+        x: driftX,
+        rotateZ: tilt,
         transition: 'color 0.1s, font-weight 0.1s, transform 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
         cursor: 'default',
         willChange: 'transform, font-weight, color',

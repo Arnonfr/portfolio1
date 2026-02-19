@@ -521,12 +521,12 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
 
       {/* 2. Projects */}
       <section id="work" className="w-full bg-[#0c0c0a]">
-        <div className="px-container pt-16 pb-6">
+        <div className="px-container pt-8 md:pt-16 pb-4 md:pb-6">
           <span className="eyebrow block text-[#666]">SELECTED WORK</span>
         </div>
 
         {/* First 3 projects */}
-        <div className="h-[clamp(385px,71.5dvh,660px)] relative">
+        <div className="h-[clamp(320px,58dvh,500px)] md:h-[clamp(385px,71.5dvh,660px)] relative">
           <FlowingMenu
             items={PROJECTS.slice(0, 3).map(p => ({
               link: `/work/${p.id}`,
@@ -546,7 +546,7 @@ export const NewHomepage: React.FC<NewHomepageProps> = ({
 
         {/* Remaining projects — revealed on demand */}
         {showMoreWork && (
-          <div className="h-[clamp(257px,47.7dvh,440px)] relative">
+          <div className="h-[clamp(220px,40dvh,360px)] md:h-[clamp(257px,47.7dvh,440px)] relative">
             <FlowingMenu
               items={PROJECTS.slice(3).map(p => ({
                 link: `/work/${p.id}`,
