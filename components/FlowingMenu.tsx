@@ -172,6 +172,12 @@ function MenuItem({ link, text, image, description, speed, textColor, marqueeBgC
         style={{ color: textColor }}
       >
         {text}
+        {/* Mobile-only preview image (ellipse) */}
+        <img
+          src={image}
+          alt={text}
+          className="menu__item-mobile-img"
+        />
       </a>
       <div className="marquee" ref={marqueeRef} style={{ backgroundColor: marqueeBgColor }}>
         <div className="marquee__inner-wrap">

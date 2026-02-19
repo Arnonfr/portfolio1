@@ -113,8 +113,28 @@
   border-radius: 50px;
 }
 
+.menu__item-mobile-img {
+  display: none;
+  width: 60px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-left: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 /* Hide marquee images on small screens to save space */
 @media (max-width: 639px) {
+  .menu__item-link {
+    justify-content: space-between;
+    padding: 0 6vw;
+    font-size: 1.8rem;
+  }
+
+  .menu__item-mobile-img {
+    display: block;
+  }
+
   .marquee__img {
     display: none;
   }

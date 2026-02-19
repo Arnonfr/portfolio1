@@ -199,7 +199,7 @@ const ExpertiseSection: React.FC = () => {
   ];
 
   return (
-    <section ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container overflow-hidden">
+    <section ref={ref} className="w-full bg-[#0c0c0a] py-16 md:py-32 relative px-container overflow-hidden">
       <div className="">
         {/* Section label */}
         <motion.div
@@ -223,7 +223,7 @@ const ExpertiseSection: React.FC = () => {
               initial={{ opacity: 0, y: 25 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1, ease: EASE_POWER }}
-              className="relative group bg-[#0c0c0a] aspect-square flex flex-col p-8 md:p-10 overflow-hidden"
+              className="relative group bg-[#0c0c0a] md:aspect-square flex flex-col p-8 md:p-10 overflow-hidden"
             >
               {/* Text on Path Hover Effect - matching Hero style with continuous motion */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">

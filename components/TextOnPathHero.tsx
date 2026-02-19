@@ -406,26 +406,27 @@ export const TextOnPathHero: React.FC = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="absolute inset-0 flex flex-col items-center pointer-events-none select-none px-4"
+            className="absolute inset-0 z-20 pointer-events-none select-none"
           >
             {/* 
-                MATCHING SVG TOP POSITION:
-                The SVG text paths start around y=50-80. 
-                We place this container at the same top offset.
+                PIXEL PERFECT OVERLAY:
+                This container will be sized/positioned by the useLayoutEffect below
             */}
             <div
               ref={htmlTextRef}
-              className="relative w-full flex flex-wrap justify-center items-start pt-[10vh] md:pt-[15vh]"
+              className="flex flex-wrap justify-center md:flex-nowrap"
               style={{
+                position: 'absolute',
+                // top/left/width/fontSize are set via useLayoutEffect for perfect sync
                 fontFamily: FONT_FAMILY,
                 fontWeight: FONT_WEIGHT,
                 letterSpacing: '-0.02em',
-                lineHeight: 1.1,
+                lineHeight: 1,
                 color: '#0055ff',
                 display: 'flex',
-                columnGap: '0.4em',
-                rowGap: '0.1em',
-                pointerEvents: 'auto'
+                alignItems: 'baseline',
+                pointerEvents: 'auto',
+                columnGap: '0.25em'
               }}
             >
               {["Let's", "simplify", "complex", "things."].map((word, wordIndex) => (
@@ -437,13 +438,13 @@ export const TextOnPathHero: React.FC = () => {
               ))}
             </div>
 
-            {/* Subtitle - Positioned relative to the text above */}
-            <div className="mt-12 md:mt-20 flex flex-col items-center w-full max-w-4xl">
+            {/* Subtitle - Center aligned below the main text area */}
+            <div className="absolute left-1/2 -translate-x-1/2 bottom-[15%] md:bottom-[20%] w-full max-w-4xl px-6">
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 1.0, ease: "easeOut" }}
-                className="text-[#000088] text-xl md:text-3xl leading-relaxed italic font-serif text-center px-4"
+                transition={{ delay: 0.4, duration: 1.0, ease: "easeOut" }}
+                className="text-[#000088] text-xl md:text-3xl leading-relaxed italic font-serif text-center"
               >
                 I love understanding people, designing products, data, and simplifying complex systems.
               </motion.p>
@@ -544,6 +545,7 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
   return (
     <motion.span
       ref={elementRef}
+      className="text-4xl md:text-7xl lg:text-8xl"
       style={{
         display: 'inline-block',
         color: color,
@@ -552,7 +554,6 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
         transition: 'color 0.1s, font-weight 0.1s, transform 0.15s cubic-bezier(0.17, 0.67, 0.83, 0.67)',
         cursor: 'default',
         willChange: 'transform, font-weight, color',
-        marginRight: '0'
       }}
     >
       {char === ' ' ? '\u00A0' : char}

@@ -30,8 +30,10 @@
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
-
-    gtag('config', 'G-PB1L0DZ201');
+    // Only track if not on localhost AND not manually opted out via localStorage
+    if (window.location.hostname !== 'localhost' && !localStorage.getItem('skipGA')) {
+      gtag('config', 'G-PB1L0DZ201');
+    }
   </script>
   <script>
     tailwind.config = {
