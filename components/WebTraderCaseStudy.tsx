@@ -22,11 +22,11 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
             <ProjectHeader
                 title="Web"
                 subtitle="Trader"
-                description="Redesigning a retail trading terminal — turning raw signal data into readable investment proposals, then unifying them with execution and account management."
+                description="A case study covering two key areas of AvaTrade's trading platform I worked on in 2022 — redesigning the trading signals experience and unifying account management across web and mobile."
                 role="Product Designer"
                 platform="Web & Mobile"
                 company="AvaTrade"
-                year="2018 — 2021"
+                year="2022"
                 imageSrc="/images/mockups/web-trader-mockup.webp"
                 imageAlt="Web Trader Platform — premium architectural mockup"
                 topLabel="AvaTrade Case Study"

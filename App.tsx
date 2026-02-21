@@ -38,20 +38,25 @@ const ProjectRouteHandler = () => {
   }
 
   // Dedicated case study components
+  const goHome = () => {
+    if (typeof window !== 'undefined') window.hasPlayedHeroAnimation = false;
+    navigate('/');
+  };
+
   if (project.id === 2) {
-    return <WebTraderCaseStudy onBack={() => navigate('/')} />;
+    return <WebTraderCaseStudy onBack={goHome} />;
   }
   if (project.id === 3) {
-    return <SmartClausesCaseStudy onBack={() => navigate('/')} />;
+    return <SmartClausesCaseStudy onBack={goHome} />;
   }
   if (project.id === 5) {
-    return <ArabicSyntaxCaseStudy onBack={() => navigate('/')} />;
+    return <ArabicSyntaxCaseStudy onBack={goHome} />;
   }
 
   return (
     <ProjectPage
       project={project}
-      onBack={() => navigate('/')}
+      onBack={goHome}
     />
   );
 };
@@ -98,7 +103,7 @@ function App() {
         {useNewDesign ? (
           <NewHeader
             isInternal={isInternal}
-            onBack={() => navigate('/')}
+            onBack={() => { if (typeof window !== 'undefined') window.hasPlayedHeroAnimation = false; navigate('/'); }}
           />
         ) : (
           <Header

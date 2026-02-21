@@ -78,12 +78,12 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
 
               {(() => {
                 const steps = [
-                  { step: "01", label: "Create movement", note: "New Salesforce record", image: "/images/claim-movement-old-step-1.png" },
-                  { step: "02", label: "Create statistics", note: "20+ fields × per currency", image: "/images/claim-movement-old-step-2.png" },
-                  { step: "03", label: "Add payees", note: "Popup × per payee", image: "/images/claim-movement-old-step-3.png" },
-                  { step: "04", label: "Add carriers", note: "Popup × per carrier", image: "/images/claim-movement-old-step-4.png" },
-                  { step: "05", label: "Review totals", note: "Separate summary screen", image: "/images/claim-movement-old-step-5.png" },
-                  { step: "06", label: "Complete", note: "6 screens later", image: "/images/claim-movement-old-step-5.png" },
+                  { step: "01", label: "Create movement", note: "New Salesforce record", image: "/images/claim-movement-old-step-A.png" },
+                  { step: "02", label: "Open statistics", note: "Repeated per currency combination", image: "/images/claim-movement-old-step-B.png" },
+                  { step: "03", label: "Select currencies", note: "One set per combination", image: "/images/claim-movement-old-step-C.png" },
+                  { step: "04", label: "Create carrier transaction", note: "Separate entry per carrier", image: "/images/claim-movement-old-step-D.png" },
+                  { step: "05", label: "Create payee transaction", note: "Separate entry per payee", image: "/images/claim-movement-old-step-E.png" },
+                  { step: "06", label: "Enter claim data", note: "Final data entry screen", image: "/images/claim-movement-old-stepF.png" },
                 ];
                 return (
                   <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start">
@@ -219,7 +219,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                       <p className="text-stone-600 leading-relaxed text-sm md:text-base">{item.desc}</p>
                     </div>
                     <div className={`lg:col-span-8 ${item.left ? '' : 'lg:order-1'}`}>
-                      <div className="rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.07)] border border-stone-200 bg-white">
+                      <div className={`rounded-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.07)] border border-stone-200 bg-white ${i < 3 ? 'p-5' : ''}`}>
                         <img
                           src={item.img}
                           alt={item.alt}

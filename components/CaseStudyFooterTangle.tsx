@@ -176,14 +176,14 @@ export const CaseStudyFooterTangle: React.FC<Props> = ({
                             {category}
                         </p>
                     )}
-                    <p className="font-serif text-4xl md:text-5xl text-black/85 mb-14 leading-tight">
+                    <p className="font-serif text-4xl md:text-5xl text-black/85 mb-10 leading-tight">
                         Thanks for reading.
                     </p>
                     <button
                         onClick={onBack}
-                        className="inline-flex items-center gap-3 px-10 py-4 bg-[#0066FF] text-white rounded-full font-bold text-sm tracking-wide hover:bg-[#0052cc] active:scale-95 transition-all shadow-lg shadow-blue-500/20"
+                        className="inline-flex items-center gap-2 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-stone-400 hover:text-stone-700 transition-colors"
                     >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                             <path d="M19 12H5M12 19l-7-7 7-7" />
                         </svg>
                         Back to Portfolio
@@ -191,7 +191,7 @@ export const CaseStudyFooterTangle: React.FC<Props> = ({
                 </div>
             </div>
 
-            {/* Prev / Next navigation — inside the pill */}
+            {/* Prev / Next navigation */}
             {(prevProject || nextProject) && (
                 <div className="border-t border-black/5 px-10 py-6 flex items-center justify-between">
                     {prevProject ? (
@@ -204,12 +204,14 @@ export const CaseStudyFooterTangle: React.FC<Props> = ({
                         </button>
                     ) : <div />}
                     {nextProject ? (
-                        <button onClick={() => navigate(`/work/${nextProject.id}`)} className="group flex items-center gap-3 text-right hover:opacity-60 transition-opacity">
-                            <div>
-                                <p className="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-0.5">Next</p>
-                                <p className="font-serif text-sm text-stone-700">{nextProject.title}</p>
-                            </div>
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-stone-400 group-hover:translate-x-0.5 transition-transform"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                        <button
+                            onClick={() => navigate(`/work/${nextProject.id}`)}
+                            className="inline-flex items-center gap-3 px-6 py-3 bg-[#0c0c0a] text-[#f4f3f1] text-[0.6875rem] font-semibold uppercase tracking-[0.1em] hover:bg-[#c9a87e] hover:text-[#0c0c0a] transition-colors"
+                        >
+                            {nextProject.title}
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                                <path d="M5 12h14M12 5l7 7-7 7" />
+                            </svg>
                         </button>
                     ) : <div />}
                 </div>
