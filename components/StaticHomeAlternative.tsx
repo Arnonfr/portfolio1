@@ -142,7 +142,7 @@ const HeroSection: React.FC = () => {
       {/* Text content */}
       <motion.div
         style={{ y: yText, opacity: scrollOpacity }}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center"
+        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center -mt-8 md:-mt-12"
       >
         <p
           className="text-xs md:text-sm tracking-[0.2em] uppercase mb-6 font-sans animate-fade"
