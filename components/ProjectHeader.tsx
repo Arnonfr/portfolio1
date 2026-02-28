@@ -12,7 +12,7 @@ interface ProjectHeaderProps {
     imageAlt: string;
     topLabel?: string;
     topLabelColorClass?: string;
-    isImageContained?: boolean; // new prop to control fit mode if needed, defaulting to cover
+    isImageContained?: boolean;
 }
 
 export const ProjectHeader: React.FC<ProjectHeaderProps> = ({
@@ -26,26 +26,40 @@ export const ProjectHeader: React.FC<ProjectHeaderProps> = ({
     imageSrc,
     imageAlt,
     topLabel = 'Product Design',
-    topLabelColorClass = 'text-blue-600',
+    topLabelColorClass = 'text-[#8a6a5a]',
     isImageContained = false,
 }) => {
     return (
         <header className="relative w-full pt-32 md:pt-48 pb-20 md:pb-32 flex flex-col items-center bg-white border-b border-stone-100 overflow-hidden animate-fadeIn">
+            {/* Sky background — visible at top, fades from middle down to white */}
+            <div className="absolute inset-0 pointer-events-none">
+                <img
+                    src="/images/alt-sky-bg.png"
+                    alt=""
+                    className="w-full h-[70%] object-cover object-bottom"
+                />
+                {/* Gradient: transparent at top → starts fading at 40% → fully white at 70% */}
+                <div
+                    className="absolute inset-0"
+                    style={{ background: 'linear-gradient(to bottom, transparent 0%, transparent 35%, rgba(255,255,255,0.6) 50%, white 68%)' }}
+                />
+            </div>
+
             {/* Title & Description */}
             <div className="max-w-5xl mx-auto px-container z-10 text-center mb-10 md:mb-16">
                 <p className={`text-[10px] font-bold uppercase tracking-[0.5em] ${topLabelColorClass} mb-6 md:mb-8`}>
                     {topLabel}
                 </p>
-                <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] text-black tracking-tight mb-6 md:mb-10">
-                    {title} <span className="italic text-stone-300">{subtitle}</span>
+                <h1 className="font-serif text-[clamp(2.5rem,8vw,5rem)] leading-[1.05] tracking-tight mb-6 md:mb-10" style={{ color: '#2d2424' }}>
+                    {title} <span className="italic" style={{ color: '#b8a09a' }}>{subtitle}</span>
                 </h1>
-                <p className="max-w-xl mx-auto text-base md:text-lg text-stone-400 leading-relaxed">
+                <p className="max-w-xl mx-auto text-base md:text-lg leading-relaxed" style={{ color: '#7a6b6b' }}>
                     {description}
                 </p>
             </div>
 
             {/* Project Meta */}
-            <div className="max-w-4xl mx-auto px-container mb-14 md:mb-20">
+            <div className="max-w-4xl mx-auto px-container mb-14 md:mb-20 z-10">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
                     {[
                         { label: "Role", val: role },
@@ -54,15 +68,15 @@ export const ProjectHeader: React.FC<ProjectHeaderProps> = ({
                         { label: "Year", val: year }
                     ].map((item, i) => (
                         <div key={i}>
-                            <p className="text-[10px] uppercase tracking-widest text-stone-400 mb-1 md:mb-2">{item.label}</p>
-                            <p className="text-sm md:text-base font-medium text-stone-700">{item.val}</p>
+                            <p className="text-[10px] uppercase tracking-widest mb-1 md:mb-2" style={{ color: '#a89a8a' }}>{item.label}</p>
+                            <p className="text-sm md:text-base font-medium" style={{ color: '#4a3f3f' }}>{item.val}</p>
                         </div>
                     ))}
                 </div>
             </div>
 
             {/* Hero Image */}
-            <div className="w-full max-w-[1100px] px-container">
+            <div className="w-full max-w-[1100px] px-container z-10">
                 <div className="relative rounded-2xl md:rounded-[28px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-stone-200 bg-stone-50">
                     <img
                         src={imageSrc}

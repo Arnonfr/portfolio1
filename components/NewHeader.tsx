@@ -12,6 +12,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const isAltTheme = location.pathname === '/v3';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,10 +46,10 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? 'bg-[#f4f3f1]/95 backdrop-blur-sm' : 'bg-transparent'
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? (isAltTheme ? 'bg-[#f9f5f0]/95 backdrop-blur-sm' : 'bg-[#f4f3f1]/95 backdrop-blur-sm') : 'bg-transparent'
           }`}
       >
-        <div className="px-container">
+        <div className="w-full px-4 md:px-8">
           <nav className="flex items-center justify-between py-4 md:py-5 border-b border-[#d9d6d1]">
             {/* Logo - Sharp, Technical */}
             <button
@@ -61,7 +62,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               }}
               className="flex items-center gap-3 group"
             >
-              <span className="text-[0.9375rem] font-semibold text-[#0c0c0a] tracking-[-0.02em]">
+              <span className={`text-[0.9375rem] font-semibold tracking-[-0.02em] transition-colors ${isAltTheme ? 'text-[#5a4040]' : 'text-[#0c0c0a]'}`}>
                 ARNON FRIEDMAN
               </span>
               {isScrolled && !isInternal && (
@@ -132,8 +133,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
             {/* Close button area at top */}
             <div className="h-20" />
 
-            {/* Menu Items */}
-            <div className="flex flex-col px-container pt-8 flex-1">
+            <div className="flex flex-col px-4 md:px-8 pt-8 flex-1">
               {navItems.map((item, index) => (
                 <motion.button
                   key={item.id}
@@ -167,7 +167,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.4 }}
-              className="px-container pb-8"
+              className="px-4 md:px-8 pb-8"
             >
               <div className="flex justify-between text-[0.6875rem] text-[#a8a39a]">
                 <span>TEL AVIV, IL</span>

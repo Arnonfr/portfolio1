@@ -29,7 +29,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
                 imageSrc="/images/wording/main-modal.png"
                 imageAlt="Policy Clauses Management System"
                 topLabel="Novidea London · Redesign"
-                topLabelColorClass="text-blue-600"
+                topLabelColorClass="text-[#8a6a5a]"
             />
 
             {/* ══════════════════════════════════════════

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../data';
+import { CaseStudyContact } from './CaseStudyContact';
 
 interface CaseStudyFooterProps {
     projectId: number;
@@ -19,6 +20,8 @@ export const CaseStudyFooter: React.FC<CaseStudyFooterProps> = ({
     const nextProject = currentIndex < PROJECTS.length - 1 ? PROJECTS[currentIndex + 1] : null;
 
     return (
+        <>
+        <CaseStudyContact />
         <div className="px-6 pb-8 pt-4">
             <div className="bg-[#f8f7f5] border border-black/5 rounded-[48px] overflow-hidden">
 
@@ -84,5 +87,6 @@ export const CaseStudyFooter: React.FC<CaseStudyFooterProps> = ({
                 )}
             </div>
         </div>
+        </>
     );
 };

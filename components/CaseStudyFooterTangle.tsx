@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../data';
+import { CaseStudyContact } from './CaseStudyContact';
 
 interface Props {
     projectId: number;
@@ -109,6 +110,8 @@ export const CaseStudyFooterTangle: React.FC<Props> = ({
     const text2 = ('thanks for reading' + SEPARATOR).repeat(20);
 
     return (
+        <>
+        <CaseStudyContact />
         <div className="px-6 pb-8 pt-4" ref={ref}>
             {/* Subtle light footer */}
             <div
@@ -218,5 +221,6 @@ export const CaseStudyFooterTangle: React.FC<Props> = ({
             )}
             </div>
         </div>
+        </>
     );
 };

@@ -10,6 +10,7 @@ Dev: `npm run dev` → http://localhost:4000
 ## Current State
 
 ### ✅ Done
+- **Floral Homepage** — The `/` route now serves `StaticHomeAlternative` (the floral version) permanently instead of A/B testing.
 - **TextOnPathHero** — animated SVG text-on-path hero. Two wavy text tracks that resolve into a centered phrase on scroll. Subtle wave amplitude (~±100px). Red secondary track with multiply blend.
 - **WebTraderCaseStudy** (`components/WebTraderCaseStudy.tsx`) — full two-part case study:
   - Part 1: Signals (problem → understand your position → mapping data → scan variables → mobile result)

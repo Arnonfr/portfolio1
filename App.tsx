@@ -15,6 +15,7 @@ import { SmartClausesCaseStudy } from './components/SmartClausesCaseStudy';
 import { SideProjectsPage } from './components/SideProjectsPage';
 import { ResumePage } from './components/ResumePage';
 import { HomeAlternative } from './components/HomeAlternative';
+import { StaticHomeAlternative } from './components/StaticHomeAlternative';
 import { NewHomepage } from './components/NewHomepage';
 import { ClassicThemeWrapper } from './components/ClassicThemeWrapper';
 import { PROJECTS, SIDE_PROJECTS } from './data';
@@ -114,9 +115,9 @@ function App() {
       </div>
 
       <Routes>
-        {/* New Homepage (Default) */}
+        {/* New Homepage (Floral Version) */}
         <Route path="/" element={
-          <NewHomepage
+          <StaticHomeAlternative
             onProjectSelect={handleProjectSelect}
             onExploreSideProjects={() => navigate('/side-projects')}
           />
@@ -137,6 +138,12 @@ function App() {
         } />
 
         <Route path="/v2" element={<HomeAlternative />} />
+        <Route path="/v3" element={
+          <StaticHomeAlternative
+            onProjectSelect={handleProjectSelect}
+            onExploreSideProjects={() => navigate('/side-projects')}
+          />
+        } />
 
         <Route path="/side-projects" element={
           <SideProjectsPage

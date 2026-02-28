@@ -3,6 +3,7 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../data';
+import { CaseStudyContact } from './CaseStudyContact';
 
 interface Props {
     projectId: number;
@@ -92,6 +93,8 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
     const repeatedText = (projectTitle + SEPARATOR).repeat(30);
 
     return (
+        <>
+        <CaseStudyContact />
         <div className="px-6 pb-8 pt-4" ref={ref}>
             {/* Subtle light footer */}
             <div className="bg-[#f8f7f5] border border-black/5 rounded-[48px] overflow-hidden text-black">
@@ -194,5 +197,6 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
             )}
             </div>
         </div>
+        </>
     );
 };

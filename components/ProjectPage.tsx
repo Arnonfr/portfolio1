@@ -38,7 +38,7 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
           imageSrc="/images/claim-movement-modal-body.png"
           imageAlt="Claim Movements — New Unified Modal with all 4 sections"
           topLabel="Novidea — Product Design"
-          topLabelColorClass="text-blue-600"
+          topLabelColorClass="text-[#8a6a5a]"
         />
 
         <main className="w-full bg-white">
@@ -196,10 +196,10 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                 },
                 {
                   num: "03",
-                  title: "Multi-Currency Summary with Tabs",
-                  desc: "Instead of creating a separate statistics record per currency, the Summary section uses tabs to show financial breakdowns per currency pair. The system auto-detects currencies from the claim context.",
-                  img: "/images/claim-movement-section-summary.png",
-                  alt: "Summary section with USD and GBP currency tabs",
+                  title: "Intelligent Multi-Currency Management",
+                  desc: "A cornerstone of the redesign, this feature handles the complex multi-currency nature of global insurance claims. By replacing a 20-field form per currency with automated, context-aware tabs, we eliminated the need for manual record creation and provided a unified financial snapshot. This allows brokers to handle global settlements with total accuracy in a single, streamlined view.",
+                  img: "/images/ccy-tabs.png",
+                  alt: "Summary section showcasing multi-currency tabs and financial breakdown",
                   left: true,
                 },
                 {
@@ -230,6 +230,29 @@ export const ProjectPage: React.FC<ProjectPageProps> = ({ project, onBack }) => 
                   </div>
                 </div>
               ))}
+            </div>
+          </section>
+
+          {/* MULTI-CURRENCY DEEP DIVE */}
+          <section className="py-20 md:py-32 bg-blue-50/30 border-y border-blue-100/50">
+            <div className="max-w-6xl mx-auto px-container">
+              <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
+                <div className="lg:w-1/2">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.4em] text-blue-600 mb-5">Financial Intelligence</p>
+                  <h2 className="text-3xl md:text-4xl font-serif mb-6 text-black leading-tight">Simplified Multi-Currency Workflows</h2>
+                  <p className="text-stone-600 leading-relaxed text-sm md:text-base mb-6">
+                    In global insurance, a single claim movement often involves multiple currencies. The legacy system treated each currency as a separate entity, forcing brokers to repeat the same 6-screen workflow for every currency pair.
+                  </p>
+                  <p className="text-stone-600 leading-relaxed text-sm md:text-base">
+                    We solved this by introducing automated currency detection. The system now scans the claim context, identifies all active currency pairs, and organizes them into an intuitive tabbed interface. This not only reduces data entry by up to 80% but also provides a unified view of the entire financial settlement at a glance.
+                  </p>
+                </div>
+                <div className="lg:w-1/2">
+                  <div className="rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.1)] border border-white bg-white">
+                    <img src="/images/ccy-tabs.png" alt="Multi-currency tabs interface" className="w-full h-auto" />
+                  </div>
+                </div>
+              </div>
             </div>
           </section>
 

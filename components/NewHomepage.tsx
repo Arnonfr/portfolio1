@@ -357,8 +357,17 @@ const ContactSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: '-80px' });
 
   return (
-    <section id="contact" ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container">
-      <div className="">
+    <section id="contact" ref={ref} className="w-full bg-[#0c0c0a] py-24 md:py-32 relative px-container overflow-hidden">
+      {/* Blended ambient video */}
+      <video
+        autoPlay loop muted playsInline
+        poster="/images/alt-hero.png"
+        className="absolute inset-0 w-full h-full object-cover opacity-[0.08]"
+        style={{ mixBlendMode: 'screen' }}
+      >
+        <source src="/images/alt-footer.mp4" type="video/mp4" />
+      </video>
+      <div className="relative z-10">
         {/* Large CTA heading */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}

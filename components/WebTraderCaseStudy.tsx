@@ -30,7 +30,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                 imageSrc="/images/mockups/web-trader-mockup.webp"
                 imageAlt="Web Trader Platform — premium architectural mockup"
                 topLabel="AvaTrade Case Study"
-                topLabelColorClass="text-blue-600"
+                topLabelColorClass="text-[#8a6a5a]"
             />
 
             {/* ── ATMOSPHERIC SCROLL IMAGE ── */}
