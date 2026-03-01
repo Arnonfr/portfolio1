@@ -6,6 +6,8 @@ import { Project } from '../types';
 import { ScrambleText, HoverScramble } from './ScrambleText';
 import { DigitalStack } from './DigitalStack';
 import FlowingMenu from './FlowingMenu';
+import { GeminiFlower } from './GeminiFlower';
+import { TOP_FLOWERS } from './TopDownFlowers';
 
 // ───────────────────────────────────────────────────────────
 // PALETTE — derived from the floral hero image
@@ -72,6 +74,54 @@ const TextReveal: React.FC<{ children: React.ReactNode; className?: string; dela
         {children}
       </motion.div>
     </div>
+  );
+};
+
+// ─── BUBBLE CHARACTER COMPONENT ──────────────────────────────────
+const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, isPink }) => {
+  const elementRef = useRef<HTMLSpanElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!elementRef.current) return;
+      const rect = elementRef.current.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const dx = e.clientX - centerX;
+      const dy = e.clientY - centerY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      // Interaction radius for bolding
+      setIsHovered(distance < 35);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  // Use the font's native bold weight (700) on hover
+  const weight = isHovered ? 700 : 400;
+
+  // Color logic: darker brown on hover, base color otherwise
+  const baseColor = isPink ? '#c9899a' : '#4a3333';
+  const hoverColor = '#231818'; // Darker color
+  const color = isHovered ? hoverColor : baseColor;
+
+  return (
+    <motion.span
+      ref={elementRef}
+      className="text-[1em] select-none inline-block origin-bottom transition-all duration-300"
+      style={{
+        color: color,
+        fontWeight: weight,
+        rotateZ: 6, // Reduced base tilt
+        cursor: 'default',
+        willChange: 'font-weight, color'
+      }}
+    >
+      {char === ' ' ? '\u00A0' : char}
+    </motion.span>
   );
 };
 
@@ -163,7 +213,7 @@ const HeroSection: React.FC = () => {
       {/* Scroll-driven wrapper (parallax + fade) */}
       <motion.div
         style={{ y: yText, opacity: scrollOpacity }}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center pt-16 md:pt-20"
+        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center pt-8 md:pt-12"
       >
         {/* Staggered entrance children */}
         <motion.p
@@ -176,15 +226,14 @@ const HeroSection: React.FC = () => {
           Product Designer
         </motion.p>
 
-        <motion.h1
-          initial={{ y: 60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          className="font-serif italic text-[clamp(2rem,5vw,4.5rem)] leading-[1] tracking-tight whitespace-nowrap py-4"
+        <div
+          className="font-serif italic text-[clamp(2rem,5vw,4.5rem)] leading-[1] tracking-tight whitespace-nowrap flex flex-row justify-center py-4"
           style={{ color: '#4a3333' }}
         >
-          Let's simplify complex things.
-        </motion.h1>
+          {Array.from("Let's simplify complex things.").map((char, i) => (
+            <BubbleCharacter key={i} char={char} isPink={char === '.'} />
+          ))}
+        </div>
 
         <motion.div
           initial={{ y: 40, opacity: 0 }}
@@ -211,6 +260,8 @@ const HeroSection: React.FC = () => {
   );
 };
 
+
+
 // ───────────────────────────────────────────────────────────
 // ABOUT — Same structure, floral palette
 // ───────────────────────────────────────────────────────────
@@ -226,10 +277,11 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: EASE }}
-            className="lg:col-span-3"
+            className="lg:col-span-3 relative"
           >
             <ScrambleText text="ABOUT" className="eyebrow block mb-4" delay={0.2} />
             <div className="w-12 h-px mb-16" style={{ background: P.border }} />
+            <GeminiFlower className="absolute -left-[50px] md:-left-[80px] bottom-0 md:block hidden opacity-100 w-[240px] h-[480px] pointer-events-auto" />
           </motion.div>
 
           <motion.div
@@ -328,51 +380,46 @@ const ExpertiseSection: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px" style={{ background: P.darkBorder, border: `1px solid ${P.darkBorder}` }}>
-          {capabilities.map((item, index) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 25 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
-              className="relative group md:aspect-square flex flex-col p-8 md:p-10 overflow-hidden"
-              style={{ background: P.dark }}
-            >
-              {/* Circular text hover effect */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 pointer-events-none">
-                <svg viewBox="0 0 400 400" className="w-full h-full scale-150">
-                  <defs>
-                    <path id={`alt-path-${index}`} d="M 200,200 m -150,0 a 150,150 0 1,1 300,0 a 150,150 0 1,1 -300,0" />
-                  </defs>
-                  <text className="text-[18px] font-bold uppercase tracking-[0.2em]" fill={item.accent}>
-                    <textPath href={`#alt-path-${index}`} startOffset="0%">
-                      {item.title} · {item.title} · {item.title} · {item.title} ·
-                      <animate attributeName="startOffset" from="0%" to="100%" dur="10s" repeatCount="indefinite" />
-                    </textPath>
-                  </text>
-                </svg>
-              </div>
-
-              <div className="relative z-10 flex flex-col h-full">
-                <span className="text-[0.625rem] font-mono mb-6 opacity-50" style={{ color: P.darkMuted }}>
-                  0{index + 1}
-                </span>
-                <h3
-                  className="text-[1.125rem] font-bold mb-4 tracking-[-0.02em] uppercase transition-colors duration-300"
-                  style={{ color: '#f0ebe4' }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = item.accent)}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = '#f0ebe4')}
-                >
-                  {item.title}
-                </h3>
-                <p className="text-[0.8125rem] leading-relaxed group-hover:text-[#f0ebe4] transition-colors duration-300" style={{ color: P.darkMuted }}>
-                  {item.description}
-                </p>
-                <div className="mt-auto flex justify-end">
-                  <div className="w-6 h-6 border-r border-b transition-colors duration-500" style={{ borderColor: P.darkBorder }} />
+          {capabilities.map((item, index) => {
+            const TopFlower = TOP_FLOWERS[index % TOP_FLOWERS.length];
+            return (
+              <motion.div
+                key={item.title}
+                initial={{ opacity: 0, y: 25 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
+                className="relative group md:aspect-square flex flex-col p-8 md:p-10 overflow-hidden"
+                style={{ background: P.dark }}
+              >
+                {/* Spinning top-down flower hover effect - top right corner */}
+                <div className="absolute top-6 right-6 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none mix-blend-screen">
+                  <div className="w-16 h-16 group-hover:animate-[spin_20s_linear_infinite]">
+                    <TopFlower className="w-full h-full" />
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className="relative z-10 flex flex-col h-full">
+                  <span className="text-[0.625rem] font-mono mb-6 opacity-50" style={{ color: P.darkMuted }}>
+                    0{index + 1}
+                  </span>
+                  <h3
+                    className="text-[1.125rem] font-bold mb-4 tracking-[-0.02em] uppercase transition-colors duration-300"
+                    style={{ color: '#f0ebe4' }}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = item.accent)}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = '#f0ebe4')}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="text-[0.8125rem] leading-relaxed group-hover:text-[#f0ebe4] transition-colors duration-300" style={{ color: P.darkMuted }}>
+                    {item.description}
+                  </p>
+                  <div className="mt-auto flex justify-end">
+                    <div className="w-6 h-6 border-r border-b transition-colors duration-500" style={{ borderColor: P.darkBorder }} />
+                  </div>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </section>

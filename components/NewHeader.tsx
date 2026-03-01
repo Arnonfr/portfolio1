@@ -49,7 +49,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
         className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${isScrolled ? (isAltTheme ? 'bg-[#f9f5f0]/80 backdrop-blur-md' : 'bg-[#f4f3f1]/80 backdrop-blur-md') : 'bg-transparent'
           }`}
       >
-        <div className="w-full px-4 md:px-8">
+        <div className="w-full px-container">
           <nav className="flex items-center justify-between py-4 md:py-5 border-b border-[#d9d6d1]">
             {/* Logo - Sharp, Technical */}
             <button
