@@ -19,7 +19,7 @@ const ArtisticHero: React.FC = () => {
   return (
     <section className="relative min-h-screen w-full bg-[#f5f3ef] overflow-hidden">
       {/* Paper texture overlay */}
-      <div 
+      <div
         className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
@@ -29,7 +29,7 @@ const ArtisticHero: React.FC = () => {
       {/* Main content - Editorial layout */}
       <div className="relative z-10 min-h-screen flex flex-col">
         {/* Top masthead */}
-        <motion.header 
+        <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
@@ -37,9 +37,6 @@ const ArtisticHero: React.FC = () => {
         >
           <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[#0c0c0a]">
             Portfolio 2024
-          </span>
-          <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.2em] text-[#0c0c0a]/50">
-            Tel Aviv
           </span>
         </motion.header>
 
@@ -56,9 +53,9 @@ const ArtisticHero: React.FC = () => {
               <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.3em] text-[#0c0c0a]/50 block mb-6">
                 Product Designer & Art Director
               </span>
-              
+
               <h1 className="text-[clamp(4rem,20vw,16rem)] font-bold text-[#0c0c0a] leading-[0.8] tracking-[-0.04em] uppercase">
-                <motion.span 
+                <motion.span
                   initial={{ y: 100, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
@@ -66,7 +63,7 @@ const ArtisticHero: React.FC = () => {
                 >
                   Arnon
                 </motion.span>
-                <motion.span 
+                <motion.span
                   initial={{ y: 100, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -85,17 +82,17 @@ const ArtisticHero: React.FC = () => {
               className="max-w-xl"
             >
               <p className="text-[1.125rem] text-[#2b2926] leading-relaxed mb-8">
-                Crafting digital experiences for fintech, insurtech, and enterprise. 
+                Crafting digital experiences for fintech, insurtech, and enterprise.
                 Nine years of transforming complex systems into human-centered design.
               </p>
-              
+
               {/* Hand-drawn style button */}
-              <button 
+              <button
                 onClick={() => scrollToSection('work')}
                 className="group relative px-8 py-4 border-2 border-[#0c0c0a] text-[0.8125rem] font-semibold uppercase tracking-[0.15em] hover:bg-[#0c0c0a] hover:text-[#f5f3ef] transition-all duration-300"
               >
                 <span className="relative z-10">View Selected Work</span>
-                <motion.span 
+                <motion.span
                   className="absolute bottom-1 left-4 right-4 h-px bg-[#0c0c0a]/20"
                   initial={{ scaleX: 1 }}
                   whileHover={{ scaleX: 0 }}
@@ -121,7 +118,7 @@ const ArtisticHero: React.FC = () => {
       </div>
 
       {/* Decorative elements */}
-      <motion.div 
+      <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 0.6, delay: 1.2, ease: [0.34, 1.56, 0.64, 1] }}
@@ -135,8 +132,8 @@ const ArtisticHero: React.FC = () => {
 // GALLERY WALL - Work presented like an exhibition
 // NOT a grid - masonry with varied sizes
 // ───────────────────────────────────────────────────────────
-const GalleryWall: React.FC<{ onProjectClick: (project: Project) => void }> = ({ 
-  onProjectClick 
+const GalleryWall: React.FC<{ onProjectClick: (project: Project) => void }> = ({
+  onProjectClick
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: '-100px' });
@@ -173,9 +170,9 @@ const GalleryWall: React.FC<{ onProjectClick: (project: Project) => void }> = ({
       <div className="px-6 md:px-12">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {PROJECTS.slice(0, 6).map((project, index) => (
-            <GalleryPiece 
-              key={project.id} 
-              project={project} 
+            <GalleryPiece
+              key={project.id}
+              project={project}
               index={index}
               sizeClass={sizeClasses[index % sizeClasses.length]}
               onClick={() => onProjectClick(project)}
@@ -220,7 +217,7 @@ const GalleryPiece: React.FC<{
         />
 
         {/* Hover overlay - editorial style */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 bg-[#0c0c0a]/80 flex flex-col justify-end p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
@@ -235,12 +232,12 @@ const GalleryPiece: React.FC<{
         </motion.div>
 
         {/* Hand-drawn border effect on hover */}
-        <motion.div 
+        <motion.div
           className="absolute inset-0 border-2 border-[#0c0c0a] pointer-events-none"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0 }}
           transition={{ duration: 0.2 }}
-          style={{ 
+          style={{
             transform: isHovered ? 'rotate(-1deg)' : 'rotate(0deg)',
           }}
         />
@@ -268,7 +265,7 @@ const ManifestoSection: React.FC = () => {
           {/* Large pull quote style */}
           <blockquote className="text-[clamp(2rem,6vw,5rem)] font-bold text-[#f5f3ef] leading-[1.1] tracking-[-0.02em] mb-12">
             <span className="text-[#ccff00]">"</span>
-            Great design is invisible. 
+            Great design is invisible.
             <br />
             <span className="text-[#f5f3ef]/40">It just works.</span>
             <span className="text-[#ccff00]">"</span>
@@ -281,19 +278,19 @@ const ManifestoSection: React.FC = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-[#f5f3ef]/70 text-lg leading-relaxed"
             >
-              For nine years, I've led design teams in fintech and insurtech, 
-              transforming complex enterprise systems into experiences that feel 
+              For nine years, I've led design teams in fintech and insurtech,
+              transforming complex enterprise systems into experiences that feel
               effortless.
             </motion.p>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-[#f5f3ef]/70 text-lg leading-relaxed"
             >
-              My approach combines strategic thinking with hands-on craft. 
-              Whether it's a trading terminal or an AI-powered product, 
+              My approach combines strategic thinking with hands-on craft.
+              Whether it's a trading terminal or an AI-powered product,
               I focus on solving real problems for real people.
             </motion.p>
           </div>
@@ -323,19 +320,19 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
             >
               {/* Main portrait */}
               <div className="aspect-[3/4] relative overflow-hidden bg-[#e8e6e3]">
-                <img   
-                  src="/images/portrait.jpg" 
+                <img
+                  src="/images/portrait.jpg"
                   alt="Arnon Friedman"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                 />
                 {/* Tape effect */}
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-8 bg-[#f5f3ef]/80 rotate-1" />
               </div>
-              
+
               {/* Caption */}
               <div className="mt-4 flex justify-between items-start">
                 <span className="text-[0.625rem] uppercase tracking-[0.15em] text-[#0c0c0a]/50">
-                  Photo: Tel Aviv, 2024
+                  Photo: 2024
                 </span>
                 <span className="text-[0.625rem] uppercase tracking-[0.15em] text-[#0c0c0a]/50">
                   Product Designer
@@ -355,7 +352,7 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
               <span className="text-[0.6875rem] font-semibold uppercase tracking-[0.3em] text-[#0c0c0a]/50 block mb-6">
                 About
               </span>
-              
+
               <h2 className="text-[clamp(2.5rem,6vw,4rem)] font-bold text-[#0c0c0a] leading-[0.95] tracking-[-0.02em] uppercase mb-8">
                 Design<br />
                 <span className="text-[#0c0c0a]/30">Leadership</span>
@@ -371,15 +368,15 @@ const AboutSpread: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplor
             >
               <p className="text-[1.0625rem] text-[#2b2926] leading-[1.7]">
                 I'm a Product Designer with over 9 years of experience crafting digital
-                products for fintech, insurtech, and enterprise companies. Currently 
-                leading design at Novidea, transforming how insurance professionals 
+                products for fintech, insurtech, and enterprise companies. Currently
+                leading design at Novidea, transforming how insurance professionals
                 manage complex claims.
               </p>
-              
+
               <p className="text-[1.0625rem] text-[#2b2926] leading-[1.7]">
-                My work combines strategic thinking with hands-on execution. I believe 
-                the best design is invisible—it just works. Whether architecting a 
-                trading terminal or an AI-powered kitchen companion, I focus on solving 
+                My work combines strategic thinking with hands-on execution. I believe
+                the best design is invisible—it just works. Whether architecting a
+                trading terminal or an AI-powered kitchen companion, I focus on solving
                 real problems for real people.
               </p>
             </motion.div>
@@ -464,7 +461,7 @@ const ContactPage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-[#f5f3ef]/60 text-lg max-w-md mx-auto mb-12"
         >
-          Open to new opportunities, collaborations, and interesting conversations 
+          Open to new opportunities, collaborations, and interesting conversations
           about design and technology.
         </motion.p>
 
@@ -475,13 +472,13 @@ const ContactPage: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.3 }}
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
-          <a 
+          <a
             href="mailto:arnon@example.com"
             className="inline-flex items-center justify-center px-8 py-4 bg-[#f5f3ef] text-[#0c0c0a] text-[0.8125rem] font-semibold uppercase tracking-[0.15em] hover:bg-[#ccff00] transition-colors"
           >
             Send Email
           </a>
-          <a 
+          <a
             href="https://linkedin.com"
             target="_blank"
             rel="noopener noreferrer"
@@ -491,16 +488,14 @@ const ContactPage: React.FC = () => {
           </a>
         </motion.div>
 
-        {/* Footer info */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-24 pt-8 border-t border-[#f5f3ef]/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-[0.6875rem] uppercase tracking-[0.15em] text-[#f5f3ef]/40"
+          className="mt-24 pt-8 border-t border-[#f5f3ef]/10 flex flex-col justify-center items-center gap-4 text-[0.6875rem] uppercase tracking-[0.15em] text-[#f5f3ef]/40"
         >
           <span>© 2024 Arnon Friedman</span>
-          <span>Tel Aviv, Israel</span>
         </motion.div>
       </div>
     </section>
@@ -515,20 +510,20 @@ interface ArtisticHomepageProps {
   onExploreSideProjects: () => void;
 }
 
-export const ArtisticHomepage: React.FC<ArtisticHomepageProps> = ({ 
-  onProjectSelect, 
-  onExploreSideProjects 
+export const ArtisticHomepage: React.FC<ArtisticHomepageProps> = ({
+  onProjectSelect,
+  onExploreSideProjects
 }) => {
   return (
     <div className="w-full bg-[#f5f3ef]">
       {/* Paper texture overlay - global */}
-      <div 
+      <div
         className="fixed inset-0 opacity-[0.02] pointer-events-none z-50"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
         }}
       />
-      
+
       <ArtisticHero />
       <GalleryWall onProjectClick={onProjectSelect} />
       <ManifestoSection />

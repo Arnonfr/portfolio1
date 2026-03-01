@@ -1,0 +1,4 @@
+interface:
+  display_name: "Image to SVG"
+  short_description: "Convert bitmap images into SVG vectors"
+  default_prompt: "Use $image-to-svg to convert this PNG/JPG file into a clean SVG."

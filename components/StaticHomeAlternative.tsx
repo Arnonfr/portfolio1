@@ -76,13 +76,25 @@ const TextReveal: React.FC<{ children: React.ReactNode; className?: string; dela
 };
 
 // ───────────────────────────────────────────────────────────
-// HERO — Video/Image background with serif text overlay
+// HERO — Video background with italic serif text + scroll effects
 // ───────────────────────────────────────────────────────────
 const HeroSection: React.FC = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
-  const yText = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const scrollOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
+  // Text parallax & fade
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const scrollOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  // Scroll-driven video zoom & blur
+  const videoScale = useTransform(scrollYProgress, [0, 0.6], [1.05, 1.25]);
+  const videoBlur = useTransform(scrollYProgress, [0, 0.5], [0, 8]);
+
+  // Scroll-driven overlay darkening
+  const overlayOpacity = useTransform(scrollYProgress, [0, 0.5], [0.05, 0.4]);
+
+  // Scroll indicator fade out quickly
+  const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.08], [1, 0]);
 
   // Mouse-driven parallax + spotlight
   const mouseX = useMotionValue(0);
@@ -96,9 +108,8 @@ const HeroSection: React.FC = () => {
     const rect = sectionRef.current.getBoundingClientRect();
     const cx = (e.clientX - rect.left) / rect.width - 0.5;
     const cy = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(-cx * 80);
-    mouseY.set(-cy * 50);
-    // Spotlight follows cursor (percentage position)
+    mouseX.set(-cx * 40);
+    mouseY.set(-cy * 25);
     setSpotlightPos({
       x: ((e.clientX - rect.left) / rect.width) * 100,
       y: ((e.clientY - rect.top) / rect.height) * 100,
@@ -114,60 +125,77 @@ const HeroSection: React.FC = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[100dvh] overflow-hidden cursor-default"
+      className="relative w-full h-[75dvh] md:h-[100dvh] overflow-hidden cursor-default"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Video background — shifts with mouse */}
-      <motion.video
-        autoPlay
-        loop
-        muted
-        playsInline
-        poster="/images/alt-hero.webp"
-        className="absolute inset-[-50px] w-[calc(100%+100px)] h-[calc(100%+100px)] object-cover"
-        style={{ x: bgX, y: bgY }}
+      {/* Video background with scroll-driven zoom + blur */}
+      <motion.div
+        className="absolute inset-[-30px] w-[calc(100%+60px)] h-[calc(100%+60px)]"
+        style={{ x: bgX, y: bgY, scale: videoScale, filter: useTransform(videoBlur, (v) => `blur(${v}px)`) }}
       >
-        <source src="/images/alt-hero.mp4" type="video/mp4" />
-      </motion.video>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/images/alt-hero.png"
+          className="w-full h-full object-cover"
+        >
+          <source src="/images/hero-video.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
 
-      {/* Mouse spotlight — brighter where cursor is */}
+      {/* Scroll-driven darkening overlay */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: '#000', opacity: overlayOpacity }}
+      />
+
+      {/* Mouse spotlight */}
       <div
         className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
         style={{
-          background: `radial-gradient(circle 400px at ${spotlightPos.x}% ${spotlightPos.y}%, transparent 0%, rgba(0,0,0,0.12) 100%)`,
+          background: `radial-gradient(circle 500px at ${spotlightPos.x}% ${spotlightPos.y}%, transparent 0%, rgba(0,0,0,0.15) 100%)`,
         }}
       />
 
-      {/* Text content */}
+      {/* Scroll-driven wrapper (parallax + fade) */}
       <motion.div
         style={{ y: yText, opacity: scrollOpacity }}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center -mt-8 md:-mt-12"
+        className="relative z-10 flex flex-col items-center justify-center h-full px-6 text-center pt-16 md:pt-20"
       >
-        <p
-          className="text-xs md:text-sm tracking-[0.2em] uppercase mb-6 font-sans animate-fade"
-          style={{ color: 'rgba(90, 64, 64, 0.6)', animationDelay: '0.3s', animationFillMode: 'both' }}
+        {/* Staggered entrance children */}
+        <motion.p
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="text-xs md:text-sm tracking-[0.2em] uppercase mb-6 font-sans"
+          style={{ color: 'rgba(90, 64, 64, 0.65)' }}
         >
           Product Designer
-        </p>
+        </motion.p>
 
-        <div
-          className="font-serif text-[clamp(2rem,5vw,4.5rem)] leading-[1] tracking-tight whitespace-nowrap animate-fade flex flex-row justify-center py-4"
-          style={{ color: '#4a3333', animationDelay: '0.1s', animationFillMode: 'both' }}
+        <motion.h1
+          initial={{ y: 60, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="font-serif italic text-[clamp(2rem,5vw,4.5rem)] leading-[1] tracking-tight whitespace-nowrap py-4"
+          style={{ color: '#4a3333' }}
         >
-          {Array.from("Let's simplify complex things.").map((char, i) => (
-            <BubbleCharacter key={i} char={char} />
-          ))}
-        </div>
+          Let's simplify complex things.
+        </motion.h1>
 
-        <div
-          className="mt-16 md:mt-20 animate-fade"
-          style={{ animationDelay: '1.2s', animationFillMode: 'both' }}
+        <motion.div
+          initial={{ y: 40, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-16 md:mt-20"
         >
-          <button
+          <motion.button
             onClick={() => document.getElementById('work')?.scrollIntoView({ behavior: 'smooth' })}
             className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity"
-            style={{ color: 'rgba(90, 64, 64, 0.4)' }}
+            style={{ color: 'rgba(90, 64, 64, 0.4)', opacity: scrollIndicatorOpacity } as any}
           >
             <span className="text-[0.65rem] tracking-[0.2em] uppercase font-sans">Scroll</span>
             <motion.div
@@ -176,8 +204,8 @@ const HeroSection: React.FC = () => {
               className="w-px h-8"
               style={{ background: 'rgba(90, 64, 64, 0.3)' }}
             />
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </motion.div>
     </section>
   );
@@ -201,7 +229,7 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
             className="lg:col-span-3"
           >
             <ScrambleText text="ABOUT" className="eyebrow block mb-4" delay={0.2} />
-            <div className="w-12 h-px" style={{ background: P.border }} />
+            <div className="w-12 h-px mb-16" style={{ background: P.border }} />
           </motion.div>
 
           <motion.div
@@ -575,105 +603,3 @@ export const StaticHomeAlternative: React.FC<StaticHomeProps> = ({
 };
 
 export default StaticHomeAlternative;
-
-// ─── BUBBLE CHARACTER COMPONENT ──────────────────────────────────
-const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, isPink }) => {
-  const elementRef = useRef<HTMLSpanElement>(null);
-  const [hoverState, setHoverState] = useState({ dist: 1, dxNorm: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!elementRef.current) return;
-      const rect = elementRef.current.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-
-      const dx = e.clientX - centerX;
-      const dy = e.clientY - centerY;
-      const distance = Math.sqrt(dx * dx + dy * dy);
-
-      // Interaction radius: narrower so it targets fewer letters directly
-      const maxDist = 120;
-      const normalized = Math.min(distance / maxDist, 1);
-      const dxNorm = Math.max(-1, Math.min(1, dx / maxDist));
-
-      setHoverState({ dist: normalized, dxNorm });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // dist represents proximity (0 is exact cursor match, 1 is far away)
-
-  // Categorize the state for clearer logic
-  // "Direct Hover": within an extremely close radius (e.g., dist < 0.25)
-  // "Adjacent": within the max radius but not direct (0.25 <= dist < 1.0)
-  // "Default": Far away (dist === 1)
-
-  const isDirectlyHovered = hoverState.dist < 0.25;
-  const isAdjacent = hoverState.dist >= 0.25 && hoverState.dist < 1.0;
-
-  // Weight: Bold (800) only when directly hovered. Otherwise light (400)
-  const weight = isDirectlyHovered ? 800 : 400;
-
-  // Lift: slightly hop up when directly hovered
-  let lift = 0;
-  if (isDirectlyHovered) {
-    lift = -8;
-  } else if (isAdjacent) {
-    // A subtle curve up towards the directly hovered element
-    lift = -8 * (1 - hoverState.dist);
-  }
-
-  // Tilt logic:
-  // Default: tilted right (arbitrarily 12deg right)
-  // Direct Hover: straight up (0 deg)
-  // Adjacent: Lean towards the cursor. 
-  //   - hoverState.dxNorm > 0 => cursor is to the RIGHT, so this letter leans RIGHT (positive tilt)
-  //   - hoverState.dxNorm < 0 => cursor is to the LEFT, so this letter leans LEFT (negative tilt)
-  let tilt = 12; // Default right tilt
-
-  if (isDirectlyHovered) {
-    tilt = 0; // straight
-  } else if (isAdjacent) {
-    // Lean towards mouse up to 18 deg
-    tilt = hoverState.dxNorm * 18;
-  }
-
-  // Color logic:
-  // Base color: #4a3333 (rgb: 74, 51, 51)
-  // Hover color: vibrant rose (#c9899a / rgb: 201, 137, 154) or custom
-  let r = 74; let g = 51; let b = 51;
-  let shadow = 'none';
-
-  if (isDirectlyHovered) {
-    // Colorful and glowing
-    r = 201; g = 137; b = 154;
-    shadow = `0px 4px 12px rgba(${r},${g},${b}, 0.4)`;
-  } else if (isPink) {
-    // Period defaults to pink
-    r = 201; g = 137; b = 154;
-  }
-
-  const color = `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`;
-  const isItalic = !isDirectlyHovered; // Always italic unless directly hovered
-
-  return (
-    <motion.span
-      ref={elementRef}
-      className={`text-[1em] select-none inline-block origin-bottom transition-all duration-300 ${isItalic ? 'italic' : ''}`}
-      style={{
-        color: color,
-        fontWeight: weight,
-        y: lift,
-        rotateZ: tilt,
-        cursor: 'default',
-        willChange: 'transform, font-weight, color',
-        textShadow: shadow
-      }}
-    >
-      {char === ' ' ? '\u00A0' : char}
-    </motion.span>
-  );
-};

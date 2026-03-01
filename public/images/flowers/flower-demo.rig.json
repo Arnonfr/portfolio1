@@ -1,0 +1,10 @@
+{
+  "mode": "quick",
+  "rootSelector": "svg",
+  "stemSelector": "#not-found-stem",
+  "bloomSelector": "#not-found-bloom",
+  "pivot": {
+    "x": 0.5,
+    "y": 0.98
+  }
+}

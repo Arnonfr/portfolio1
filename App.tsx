@@ -93,18 +93,11 @@ function App() {
       {/* <CustomCursor /> */}
       <ScrollToTop />
 
-      {/* Header — hidden on homepage during hero, fades in after */}
-      <div
-        style={{
-          opacity: showNavbar ? 1 : 0,
-          pointerEvents: showNavbar ? 'auto' : 'none',
-          transition: 'opacity 0.5s ease',
-        }}
-      >
+      <div className="relative z-[100]">
         {useNewDesign ? (
           <NewHeader
             isInternal={isInternal}
-            onBack={() => { if (typeof window !== 'undefined') window.hasPlayedHeroAnimation = false; navigate('/'); }}
+            onBack={() => { navigate('/'); }}
           />
         ) : (
           <Header

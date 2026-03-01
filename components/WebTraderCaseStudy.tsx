@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ZoomableImage } from './ZoomableImage';
-import { CaseStudyFooterDiverge } from './CaseStudyFooterDiverge';
+import { CaseStudyFooter } from './CaseStudyFooter';
 
 
 interface WebTraderCaseStudyProps {
@@ -349,7 +349,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                 </div>
             </section>
 
-            <CaseStudyFooterDiverge projectId={2} projectTitle="Web Trader" onBack={onBack} category="Fintech · Trading" />
+            <CaseStudyFooter projectId={2} onBack={onBack} category="Fintech" />
         </div>
     );
 };

@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CaseStudyFooterTangle } from './CaseStudyFooterTangle';
+import { CaseStudyFooter } from './CaseStudyFooter';
 
 
 interface SmartClausesCaseStudyProps {
@@ -495,7 +495,7 @@ export const SmartClausesCaseStudy: React.FC<SmartClausesCaseStudyProps> = ({ on
             </section>
 
             {/* FOOTER */}
-            <CaseStudyFooterTangle projectId={3} projectTitle="Policy Clauses" onBack={onBack} category="Enterprise" />
+            <CaseStudyFooter projectId={3} onBack={onBack} category="Enterprise" />
         </div>
     );
 };

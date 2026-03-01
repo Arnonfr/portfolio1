@@ -12,7 +12,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
   const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const isAltTheme = location.pathname === '/v3';
+  const isAltTheme = location.pathname === '/v3' || location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +46,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${isScrolled ? (isAltTheme ? 'bg-[#f9f5f0]/95 backdrop-blur-sm' : 'bg-[#f4f3f1]/95 backdrop-blur-sm') : 'bg-transparent'
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${isScrolled ? (isAltTheme ? 'bg-[#f9f5f0]/80 backdrop-blur-md' : 'bg-[#f4f3f1]/80 backdrop-blur-md') : 'bg-transparent'
           }`}
       >
         <div className="w-full px-4 md:px-8">
@@ -169,8 +169,7 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
               transition={{ delay: 0.4 }}
               className="px-4 md:px-8 pb-8"
             >
-              <div className="flex justify-between text-[0.6875rem] text-[#a8a39a]">
-                <span>TEL AVIV, IL</span>
+              <div className="flex justify-start text-[0.6875rem] text-[#a8a39a]">
                 <span>GMT+2</span>
               </div>
             </motion.div>

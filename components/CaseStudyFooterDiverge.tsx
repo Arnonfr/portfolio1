@@ -3,7 +3,6 @@ import React, { useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { PROJECTS } from '../data';
-import { CaseStudyContact } from './CaseStudyContact';
 
 interface Props {
     projectId: number;
@@ -93,11 +92,16 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
     const repeatedText = (projectTitle + SEPARATOR).repeat(30);
 
     return (
-        <>
-        <CaseStudyContact />
-        <div className="px-6 pb-8 pt-4" ref={ref}>
-            {/* Subtle light footer */}
-            <div className="bg-[#f8f7f5] border border-black/5 rounded-[48px] overflow-hidden text-black">
+        <div ref={ref} className="bg-[#f8f7f5] border-t border-black/5 overflow-hidden text-black relative">
+
+            {/* Video background */}
+            <video
+                autoPlay loop muted playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
+            >
+                <source src="/images/hero-video.mp4" type="video/mp4" />
+            </video>
+
             <div className="py-28 px-10 text-center relative overflow-hidden">
 
                 {/* SVG text-on-path — diverging split */}
@@ -185,18 +189,19 @@ export const CaseStudyFooterDiverge: React.FC<Props> = ({
                     {nextProject ? (
                         <button
                             onClick={() => navigate(`/work/${nextProject.id}`)}
-                            className="inline-flex items-center gap-3 px-6 py-3 bg-[#0c0c0a] text-[#f4f3f1] text-[0.6875rem] font-semibold uppercase tracking-[0.1em] hover:bg-[#c9a87e] hover:text-[#0c0c0a] transition-colors"
+                            className="group flex items-center gap-3 text-right hover:opacity-60 transition-opacity"
                         >
-                            {nextProject.title}
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <div className="text-right">
+                                <p className="text-[9px] uppercase tracking-[0.3em] text-stone-400 mb-0.5">Next</p>
+                                <p className="font-serif text-sm text-stone-700">{nextProject.title}</p>
+                            </div>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-stone-400 group-hover:translate-x-0.5 transition-transform">
                                 <path d="M5 12h14M12 5l7 7-7 7" />
                             </svg>
                         </button>
                     ) : <div />}
                 </div>
             )}
-            </div>
         </div>
-        </>
     );
 };

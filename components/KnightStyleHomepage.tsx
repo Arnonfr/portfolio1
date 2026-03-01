@@ -34,7 +34,6 @@ const Hero: React.FC = () => {
         <div className="text-[0.8125rem] text-[#1a1a1a]/60 leading-relaxed">
           <span className="block font-medium text-[#1a1a1a]">Arnon Friedman</span>
           <span className="block">Product Designer</span>
-          <span className="block">Tel Aviv</span>
         </div>
 
         <div className="flex gap-8 text-[0.8125rem] text-[#1a1a1a]/60">
@@ -51,8 +50,8 @@ const Hero: React.FC = () => {
 // SELECTED WORK - Clean list like Knight's essays/projects
 // No thumbnails, just text
 // ───────────────────────────────────────────────────────────
-const SelectedWork: React.FC<{ onProjectClick: (project: Project) => void }> = ({ 
-  onProjectClick 
+const SelectedWork: React.FC<{ onProjectClick: (project: Project) => void }> = ({
+  onProjectClick
 }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
@@ -73,9 +72,9 @@ const SelectedWork: React.FC<{ onProjectClick: (project: Project) => void }> = (
         {/* Work list - text only, like Knight's essays */}
         <div className="space-y-0">
           {PROJECTS.slice(0, 6).map((project, index) => (
-            <WorkItem 
-              key={project.id} 
-              project={project} 
+            <WorkItem
+              key={project.id}
+              project={project}
               index={index}
               onClick={() => onProjectClick(project)}
             />
@@ -108,7 +107,7 @@ const WorkItem: React.FC<{
       className="group border-t border-[#1a1a1a]/10 py-6 md:py-8 cursor-pointer flex flex-col md:flex-row md:items-baseline md:justify-between gap-2 md:gap-8"
     >
       <div className="flex-1">
-        <h3 
+        <h3
           className="text-[1.5rem] md:text-[2rem] font-semibold text-[#1a1a1a] tracking-[-0.02em] transition-all duration-300"
           style={{
             transform: isHovered ? 'translateX(12px)' : 'translateX(0)',
@@ -117,7 +116,7 @@ const WorkItem: React.FC<{
           {project.title}
         </h3>
       </div>
-      
+
       <div className="flex items-center gap-6 md:gap-12 text-[0.8125rem] text-[#1a1a1a]/40">
         <span className="hidden md:block">{project.category}</span>
         <span>{project.company}</span>
@@ -156,15 +155,15 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
             I'm a Product Designer with over 9 years of experience building digital products
             for fintech, insurtech, and enterprise companies.
           </p>
-          
+
           <p>
-            Currently leading design at Novidea, where I'm transforming how insurance 
-            professionals manage complex claims. Previously at Ava Trade, designing 
+            Currently leading design at Novidea, where I'm transforming how insurance
+            professionals manage complex claims. Previously at Ava Trade, designing
             trading platforms used by millions.
           </p>
 
           <p>
-            My approach combines strategic thinking with hands-on craft. I believe 
+            My approach combines strategic thinking with hands-on craft. I believe
             the best design is invisible—it just works.
           </p>
         </motion.div>
@@ -195,7 +194,7 @@ const SpeakingSection: React.FC = () => {
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   const talks = [
-    { title: "Design Systems at Scale", location: "Tel Aviv UX Meetup", year: "2024" },
+    { title: "Design Systems at Scale", location: "UX Meetup", year: "2024" },
     { title: "Fintech UX Patterns", location: "Design Matters", year: "2023" },
     { title: "Leading Design Teams", location: "UX Salon", year: "2023" },
   ];
@@ -245,7 +244,7 @@ const Footer: React.FC = () => {
           <h2 className="text-[2rem] md:text-[3rem] font-bold text-[#1a1a1a] tracking-[-0.02em] mb-4">
             Let's work together.
           </h2>
-          <a 
+          <a
             href="mailto:arnon@example.com"
             className="text-[0.8125rem] text-[#1a1a1a]/60 hover:text-[#1a1a1a] transition-colors"
           >
@@ -271,9 +270,9 @@ interface KnightStyleHomepageProps {
   onExploreSideProjects: () => void;
 }
 
-export const KnightStyleHomepage: React.FC<KnightStyleHomepageProps> = ({ 
-  onProjectSelect, 
-  onExploreSideProjects 
+export const KnightStyleHomepage: React.FC<KnightStyleHomepageProps> = ({
+  onProjectSelect,
+  onExploreSideProjects
 }) => {
   return (
     <div className="w-full bg-[#fafafa]">

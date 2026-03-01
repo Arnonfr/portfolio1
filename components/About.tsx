@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Typewriter } from './Typewriter';
 import { DotGridBackground } from './DotGridBackground';
+import { InteractiveFlower } from './InteractiveFlower';
 
 interface AboutProps {
   onExploreSideProjects: () => void;
@@ -50,9 +50,20 @@ export const About: React.FC<AboutProps> = ({ onExploreSideProjects }) => {
           </div>
         </div>
 
-        {/* Right Side: The Typewriter Artisan Component */}
+        {/* Right Side: Interactive Flower */}
         <div className="order-1 lg:order-2 flex justify-center lg:justify-end animate-fade overflow-visible" style={{ animationDelay: '300ms' }}>
-           <Typewriter />
+          <div className="flex flex-col items-center gap-5">
+            <InteractiveFlower
+              name="flower-demo"
+              size={360}
+              amplitudeDeg={7}
+              durationMs={900}
+              enableParallaxBloom
+            />
+            <p className="text-[10px] font-bold uppercase tracking-[0.38em] text-black/30 text-center">
+              Hover The Flower
+            </p>
+          </div>
         </div>
         
       </div>
