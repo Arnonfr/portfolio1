@@ -162,13 +162,18 @@ function MenuItem({ link, text, image, description, speed, textColor, marqueeBgC
   };
 
   return (
-    <div className="menu__item" ref={itemRef} style={{ borderColor }}>
+    <div 
+      className="menu__item" 
+      ref={itemRef} 
+      style={{ borderColor, cursor: 'pointer' }}
+      onClick={handleClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <a
         className="menu__item-link"
         href={link}
-        onClick={handleClick}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleClick(e); }}
         style={{ color: textColor }}
       >
         {text}

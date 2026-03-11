@@ -163,16 +163,16 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
       const dy = e.clientY - centerY;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      // Interaction radius for bolding
-      setIsHovered(distance < 35);
+      // Interaction radius for hover effect
+      setIsHovered(distance < 45);
     };
 
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // Use the font's native bold weight (700) on hover
-  const weight = isHovered ? 700 : 400;
+  // Use a slight upward shift on hover
+  const yOffset = isHovered ? -8 : 0;
 
   // Color logic: darker brown on hover, base color otherwise
   const baseColor = isPink ? '#c9899a' : '#4a3333';
@@ -182,13 +182,12 @@ const BubbleCharacter: React.FC<{ char: string; isPink?: boolean }> = ({ char, i
   return (
     <motion.span
       ref={elementRef}
-      className="text-[1em] select-none inline-block origin-bottom transition-all duration-300"
+      className="text-[1em] select-none inline-block transition-all duration-300"
       style={{
         color: color,
-        fontWeight: weight,
-        rotateZ: 6, // Reduced base tilt
+        transform: `translateY(${yOffset}px)`,
         cursor: 'default',
-        willChange: 'font-weight, color'
+        willChange: 'transform, color'
       }}
     >
       {char === ' ' ? '\u00A0' : char}

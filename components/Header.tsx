@@ -62,11 +62,11 @@ export const Header: React.FC<{ isInternal?: boolean; onBack?: () => void }> = (
               V2 Mode
             </Link>
           )}
-          {['Work', 'About', 'Contact'].map((item) => (
+          {['Work', 'About'].map((item) => (
             <button
               key={item}
               onClick={() => {
-                const targetId = item.toLowerCase() === 'work' ? 'work-gallery' : item.toLowerCase();
+                const targetId = item.toLowerCase();
                 if (isInternal) {
                   navigate('/', { state: { scrollTo: targetId } });
                 } else {

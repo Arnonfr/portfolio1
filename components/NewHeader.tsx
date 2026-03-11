@@ -39,7 +39,6 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
   const navItems = [
     { label: 'WORK', id: 'work' },
     { label: 'ABOUT', id: 'about' },
-    { label: 'CONTACT', id: 'contact' },
   ];
 
   return (
