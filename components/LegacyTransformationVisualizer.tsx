@@ -11,7 +11,7 @@ export const LegacyTransformationVisualizer: React.FC = () => {
         visible: (i: number) => ({
             pathLength: 1,
             opacity: 0.6,
-            transition: { duration: 1.5, delay: i * 0.5, ease: "easeInOut" },
+            transition: { duration: 1.5, delay: i * 0.5, ease: 'easeInOut' as const },
         }),
     };
 

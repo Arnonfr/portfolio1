@@ -161,9 +161,9 @@ export const InteractiveFlower: React.FC<InteractiveFlowerProps> = ({
       return;
     }
 
-    (rootSvg as HTMLElement).style.width = '100%';
-    (rootSvg as HTMLElement).style.height = 'auto';
-    (rootSvg as HTMLElement).style.display = 'block';
+    (rootSvg as unknown as HTMLElement).style.width = '100%';
+    (rootSvg as unknown as HTMLElement).style.height = 'auto';
+    (rootSvg as unknown as HTMLElement).style.display = 'block';
 
     const rootEl = rootSvg.matches(rig.rootSelector)
       ? rootSvg

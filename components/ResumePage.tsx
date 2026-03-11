@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft, Mail, Phone, Globe, Linkedin, Download } from 'lucide-react';
+import { ArrowLeft, Mail, Phone, Globe, Linkedin, Download, MapPin, User, Calendar } from 'lucide-react';
 
 interface ResumePageProps {
   onBack: () => void;
@@ -11,245 +11,279 @@ export const ResumePage: React.FC<ResumePageProps> = ({ onBack }) => {
   };
 
   return (
-    <div className="min-h-screen bg-[#e8e6e1]">
-      {/* Download Button - Visible on screen, hidden in print */}
-      <div className="print:hidden pt-24 pb-4 max-w-[794px] mx-auto px-6 flex justify-end">
-        <button
-          onClick={handlePrint}
-          className="flex items-center gap-2 px-4 py-2 bg-[#0c0c0a] text-white text-sm font-medium rounded-lg hover:bg-[#2a2a28] transition-colors shadow-lg"
-        >
-          <Download size={16} />
-          Download PDF
-        </button>
-      </div>
+    <div className="min-h-screen bg-[#f4f3f1] font-sans text-black selection:bg-black selection:text-white">
+      {/* Navigation & Actions — hidden on print */}
+      <nav className="fixed top-0 left-0 right-0 h-20 bg-white/20 backdrop-blur-xl z-50 px-6 print:hidden">
+        <div className="max-w-[794px] mx-auto h-full flex items-center justify-between">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition-colors"
+          >
+            <ArrowLeft size={14} />
+            Back to Portfolio
+          </button>
+          
+          <button
+            onClick={handlePrint}
+            className="flex items-center gap-3 px-6 py-2.5 bg-black text-white text-[11px] font-bold uppercase tracking-[0.2em] rounded-full hover:scale-105 active:scale-95 transition-all shadow-lg"
+          >
+            <Download size={14} />
+            Download PDF
+          </button>
+        </div>
+      </nav>
 
-      {/* A4 Paper — 794×1123px at 96dpi */}
-      <div className="max-w-[794px] mx-auto mb-8 print:my-0 print:max-w-none">
-        <div className="bg-white shadow-2xl print:shadow-none" style={{ maxHeight: '1123px', overflow: 'hidden' }}>
-          <div className="grid grid-cols-[230px_1fr] print:grid-cols-[210px_1fr] h-[1123px]">
-
-            {/* ===== LEFT COLUMN — Dark sidebar ===== */}
-            <div className="bg-[#1a1a1a] text-white px-5 py-6 print:px-4 print:py-5 flex flex-col overflow-hidden">
-
-              {/* Photo placeholder */}
-              <div className="w-20 h-20 rounded-full bg-[#2a2a2a] border-2 border-[#3a3a3a] mx-auto mb-4 flex items-center justify-center overflow-hidden shrink-0">
-                <span className="text-2xl font-bold text-[#555] select-none">AF</span>
-              </div>
-
-              {/* Name */}
-              <h1 className="text-lg font-bold tracking-tight text-center mb-0.5">Arnon Friedman</h1>
-              <p className="text-[10px] text-gray-400 text-center uppercase tracking-[0.2em] mb-5">Product Designer</p>
-
-              {/* Contact */}
-              <div className="mb-5">
-                <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500 mb-2">Contact</h3>
-                <div className="space-y-1.5 text-[10px]">
-                  <a href="mailto:arnono7700@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                    <Mail size={10} className="text-gray-500 shrink-0" />
-                    arnono7700@gmail.com
-                  </a>
-                  <a href="tel:+972556697319" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                    <Phone size={10} className="text-gray-500 shrink-0" />
-                    055-669-7319
-                  </a>
-                  <a href="https://arnonfriedman.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                    <Globe size={10} className="text-gray-500 shrink-0" />
-                    arnonfriedman.com
-                  </a>
-                  <a href="https://www.linkedin.com/in/arnon-friedman-00454867/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-gray-300 hover:text-white transition-colors">
-                    <Linkedin size={10} className="text-gray-500 shrink-0" />
-                    LinkedIn
-                  </a>
+      <div className="pt-32 pb-20 px-6 print:pt-0 print:pb-0 print:px-0">
+        {/* Main Resume Container — Designed for A4 (794px width) */}
+        <div className="max-w-[794px] mx-auto bg-white shadow-[0_40px_100px_rgba(0,0,0,0.08)] print:shadow-none min-h-[1123px] flex flex-col">
+          
+          {/* Main Layout Grid */}
+          <div className="flex-1 grid grid-cols-[280px_1fr] print:grid-cols-[260px_1fr]">
+            
+            {/* Left Sidebar */}
+            <aside className="bg-[#1a1a1a] text-white p-10 print:p-8 flex flex-col gap-10">
+              
+              {/* Profile Image Area */}
+              <div className="relative">
+                <div className="w-full aspect-square rounded-full bg-[#2a2a2a] overflow-hidden border border-white/10">
+                   {/* Placeholder for Arnon's Profile Image */}
+                   <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#222] to-[#111]">
+                      <span className="text-4xl font-serif italic text-white/10 uppercase tracking-widest">AF</span>
+                   </div>
                 </div>
               </div>
 
-              {/* Skills */}
-              <div className="mb-5">
-                <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500 mb-2">Skills</h3>
-                <div className="space-y-1">
-                  {[
-                    'User Research & Usability Testing',
-                    'Wireframing & Prototyping',
-                    'Interaction Design',
-                    'Information Architecture',
-                    'Design Systems',
-                    'User Flows & Journey Mapping',
-                    'Responsive & Mobile Design',
-                    'Accessibility (WCAG)',
-                    'A/B Testing & Data-Driven Design',
-                    'Cross-Functional Collaboration',
-                    'Stakeholder Management',
-                  ].map((skill) => (
-                    <div key={skill} className="text-[10px] text-gray-300 flex items-start gap-1.5 leading-tight">
-                      <span className="w-1 h-1 rounded-full bg-gray-500 mt-[4px] shrink-0" />
-                      {skill}
+              {/* Contact Information */}
+              <div className="flex flex-col gap-6">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/30">Contact</h3>
+                <ul className="flex flex-col gap-4 text-[12px] font-light text-white/60">
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <Phone size={10} className="text-white/40" />
                     </div>
-                  ))}
+                    <span>055-669-7319</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <Mail size={10} className="text-white/40" />
+                    </div>
+                    <span className="break-all text-[11px]">arnono7700@gmail.com</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <Globe size={10} className="text-white/40" />
+                    </div>
+                    <span>arnonfriedman.com</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <Linkedin size={10} className="text-white/40" />
+                    </div>
+                    <span>arnon-friedman</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <MapPin size={10} className="text-white/40" />
+                    </div>
+                    <span>Givat Shmuel, Israel</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Personal Info */}
+              <div className="flex flex-col gap-6">
+                <h3 className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/30">Personal info</h3>
+                <ul className="flex flex-col gap-4 text-[12px] font-light text-white/60">
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <User size={10} className="text-white/40" />
+                    </div>
+                    <span>ID: 204362143</span>
+                  </li>
+                  <li className="flex items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center border border-white/5">
+                      <Calendar size={10} className="text-white/40" />
+                    </div>
+                    <span>17.03.1994</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="mt-auto pt-10 border-t border-white/5">
+                 <p className="text-[10px] text-white/20 leading-relaxed font-light">
+                   Designed & documented with technical precision.
+                 </p>
+              </div>
+
+            </aside>
+
+            {/* Right Main Content */}
+            <main className="p-14 print:p-10 flex flex-col gap-12 bg-white">
+              
+              {/* Header: Name & Role */}
+              <header className="flex flex-col gap-2">
+                <h1 className="font-serif text-6xl print:text-5xl leading-none text-[#111] tracking-tight">
+                  Arnon Friedman
+                </h1>
+                <div className="flex items-center gap-4">
+                  <div className="h-px w-8 bg-black/10"></div>
+                  <h2 className="text-[11px] font-bold uppercase tracking-[0.5em] text-black/30">
+                    Product Designer
+                  </h2>
                 </div>
-              </div>
+              </header>
 
-              {/* Tools */}
-              <div className="mb-5">
-                <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500 mb-2">Tools</h3>
-                <div className="flex flex-wrap gap-1">
-                  {[
-                    'Figma', 'Webflow',
-                    'Adobe CC', 'Miro', 'Jira',
-                    'VS Code',
-                  ].map((tool) => (
-                    <span
-                      key={tool}
-                      className="px-1.5 py-0.5 bg-[#2a2a2a] text-[9px] text-gray-400 rounded"
-                    >
-                      {tool}
-                    </span>
-                  ))}
+              {/* Experience Section */}
+              <section className="flex flex-col gap-8">
+                <div className="flex items-center gap-6">
+                   <h3 className="text-[12px] font-black uppercase tracking-[0.3em] text-[#1a1a1a]">Work Experience</h3>
+                   <div className="flex-1 h-px bg-black/5"></div>
                 </div>
-              </div>
 
-              {/* Languages */}
-              <div>
-                <h3 className="text-[9px] font-bold uppercase tracking-[0.25em] text-gray-500 mb-2">Languages</h3>
-                <div className="space-y-1 text-[10px] text-gray-300">
-                  <div className="flex justify-between">
-                    <span>Hebrew</span>
-                    <span className="text-gray-500">Native</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>English</span>
-                    <span className="text-gray-500">Fluent</span>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-
-            {/* ===== RIGHT COLUMN — Main content ===== */}
-            <div className="px-7 py-6 print:px-6 print:py-5 flex flex-col relative overflow-hidden">
-
-              {/* Portfolio link — top right corner */}
-              <a
-                href="https://arnonfriedman.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="absolute top-5 right-5 print:top-4 print:right-4 px-3 py-1 bg-[#0c0c0a] text-white text-[10px] font-semibold uppercase tracking-[0.15em] rounded-md hover:bg-[#2a2a28] transition-colors"
-              >
-                View Portfolio
-              </a>
-
-              {/* Summary */}
-              <div className="mb-5">
-                <h2 className="text-[15px] font-bold text-[#0c0c0a] uppercase tracking-wide mb-2">Profile</h2>
-                <div className="w-8 h-[2px] bg-[#0c0c0a] mb-3" />
-                <p className="text-[11px] text-gray-600 leading-[1.6]">
-                  Product Designer with 4+ years of experience creating user-centered digital products across fintech, insurtech, and SaaS industries.
-                  Skilled in translating complex business requirements into intuitive interfaces through research-driven design.
-                  Strong collaborator who bridges design, product, and engineering to ship solutions that measurably improve user satisfaction and business outcomes.
-                </p>
-              </div>
-
-              {/* Experience */}
-              <div className="flex-1">
-                <h2 className="text-[15px] font-bold text-[#0c0c0a] uppercase tracking-wide mb-2">Experience</h2>
-                <div className="w-8 h-[2px] bg-[#0c0c0a] mb-4" />
-
-                <div className="space-y-4">
+                <div className="flex flex-col gap-10">
                   {/* Novidea */}
-                  <div className="relative pl-4 border-l-2 border-gray-200">
-                    <div className="absolute -left-[5px] top-0.5 w-2 h-2 rounded-full bg-[#0c0c0a]" />
-                    <div className="flex items-baseline justify-between mb-0.5">
-                      <h3 className="text-[12px] font-bold text-[#0c0c0a]">Product Designer</h3>
-                      <span className="text-[9px] text-gray-400 shrink-0 ml-3">2024 – Present</span>
+                  <div className="grid grid-cols-[100px_1fr] gap-8">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[13px] font-bold text-[#111]">Current</span>
+                      <span className="text-[10px] uppercase tracking-wider text-black/30 font-bold">2024</span>
                     </div>
-                    <p className="text-[10px] font-medium text-gray-500 mb-1">Novidea &middot; Insurtech Platform</p>
-                    <ul className="space-y-0.5 text-[10.5px] text-gray-600 leading-[1.5]">
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Led end-to-end UX design for complex B2B workflows, from discovery to delivery</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Conducted user research and usability testing to validate design decisions</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Planned and maintained a design system to ensure consistency across the platform</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Collaborated cross-functionally with PMs, engineers, and stakeholders</li>
-                    </ul>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-0.5">
+                        <h4 className="text-[15px] font-bold text-[#111]">Product Designer</h4>
+                        <span className="text-[12px] text-black/40 italic">Novidea, Insurtech Platform</span>
+                      </div>
+                      <ul className="flex flex-col gap-2 text-[12px] text-black/60 leading-relaxed font-light list-disc pl-4 marker:text-black/10">
+                        <li>Directed UX strategies for complex B2B insurance brokerage workflows</li>
+                        <li>Transformed multi-layered business logic into intuitive operational dashboards</li>
+                        <li>Facilitated cross-functional collaboration between engineering and key stakeholders</li>
+                      </ul>
+                    </div>
                   </div>
 
                   {/* AvaTrade */}
-                  <div className="relative pl-4 border-l-2 border-gray-200">
-                    <div className="absolute -left-[5px] top-0.5 w-2 h-2 rounded-full bg-[#0c0c0a]" />
-                    <div className="flex items-baseline justify-between mb-0.5">
-                      <h3 className="text-[12px] font-bold text-[#0c0c0a]">UX Designer</h3>
-                      <span className="text-[9px] text-gray-400 shrink-0 ml-3">2022 – 2024</span>
+                  <div className="grid grid-cols-[100px_1fr] gap-8">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[13px] font-bold text-[#111]">2 Years</span>
+                      <span className="text-[10px] uppercase tracking-wider text-black/30 font-bold">2022</span>
                     </div>
-                    <p className="text-[10px] font-medium text-gray-500 mb-1">AvaTrade &middot; Fintech / Trading Platform</p>
-                    <ul className="space-y-0.5 text-[10.5px] text-gray-600 leading-[1.5]">
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Redesigned core platform experiences, improving usability and engagement</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Designed data visualizations and responsive layouts for complex information</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Created user flows, wireframes, and high-fidelity prototypes for mobile and desktop</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Translated analytics and user feedback into actionable UX improvements</li>
-                    </ul>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-0.5">
+                        <h4 className="text-[15px] font-bold text-[#111]">UX Designer</h4>
+                        <span className="text-[12px] text-black/40 italic">AvaTrade, Fintech Trading Platform</span>
+                      </div>
+                      <ul className="flex flex-col gap-2 text-[12px] text-black/60 leading-relaxed font-light list-disc pl-4 marker:text-black/10">
+                        <li>Conceptualized and shipped end-to-end trading features with a focus on data clarity</li>
+                        <li>Designed complex informational systems and real-time visualization tools</li>
+                        <li>Created high-fidelity interactive prototypes for rigorous user testing & validation</li>
+                      </ul>
+                    </div>
                   </div>
 
                   {/* Brish Galey */}
-                  <div className="relative pl-4 border-l-2 border-gray-200">
-                    <div className="absolute -left-[5px] top-0.5 w-2 h-2 rounded-full bg-[#0c0c0a]" />
-                    <div className="flex items-baseline justify-between mb-0.5">
-                      <h3 className="text-[12px] font-bold text-[#0c0c0a]">Art Director</h3>
-                      <span className="text-[9px] text-gray-400 shrink-0 ml-3">2020 – 2022</span>
+                  <div className="grid grid-cols-[100px_1fr] gap-8">
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[13px] font-bold text-[#111]">2 Years</span>
+                      <span className="text-[10px] uppercase tracking-wider text-black/30 font-bold">2020</span>
                     </div>
-                    <p className="text-[10px] font-medium text-gray-500 mb-1">Brish Galey &middot; Advertising Agency</p>
-                    <ul className="space-y-0.5 text-[10.5px] text-gray-600 leading-[1.5]">
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Directed visual design across branding, print, and digital campaigns</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Managed design projects end-to-end, from concept to production delivery</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Mentored junior designers and established design standards</li>
-                    </ul>
-                  </div>
-
-                  {/* Leomek Hatodaa */}
-                  <div className="relative pl-4 border-l-2 border-gray-200">
-                    <div className="absolute -left-[5px] top-0.5 w-2 h-2 rounded-full bg-[#0c0c0a]" />
-                    <div className="flex items-baseline justify-between mb-0.5">
-                      <h3 className="text-[12px] font-bold text-[#0c0c0a]">Designer</h3>
-                      <span className="text-[9px] text-gray-400 shrink-0 ml-3">2018 – 2020</span>
+                    <div className="flex flex-col gap-3">
+                      <div className="flex flex-col gap-0.5">
+                        <h4 className="text-[15px] font-bold text-[#111]">Art Director</h4>
+                        <span className="text-[12px] text-black/40 italic">Brish Galey, Advertising Agency</span>
+                      </div>
+                      <ul className="flex flex-col gap-2 text-[12px] text-black/60 leading-relaxed font-light list-disc pl-4 marker:text-black/10">
+                        <li>Architected visual identities and branding strategies for leading market players</li>
+                        <li>Symphonized design teams to deliver high-impact digital and analog campaigns</li>
+                      </ul>
                     </div>
-                    <p className="text-[10px] font-medium text-gray-500 mb-1">Leomek Hatodaa &middot; Design Agency</p>
-                    <ul className="space-y-0.5 text-[10.5px] text-gray-600 leading-[1.5]">
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Designed print and digital materials including brochures, websites, and social campaigns</li>
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Collaborated with clients to define visual identity and brand guidelines</li>
-                    </ul>
-                  </div>
-
-                  {/* Pardes Chaya */}
-                  <div className="relative pl-4 border-l-2 border-gray-200">
-                    <div className="absolute -left-[5px] top-0.5 w-2 h-2 rounded-full bg-gray-300" />
-                    <div className="flex items-baseline justify-between mb-0.5">
-                      <h3 className="text-[12px] font-bold text-[#0c0c0a]">Partner Manager</h3>
-                      <span className="text-[9px] text-gray-400 shrink-0 ml-3">2015 – Present</span>
-                    </div>
-                    <p className="text-[10px] font-medium text-gray-500 mb-1">Pardes Chaya &middot; Non-Profit (Volunteer)</p>
-                    <ul className="space-y-0.5 text-[10.5px] text-gray-600 leading-[1.5]">
-                      <li className="flex gap-1.5"><span className="text-gray-400 shrink-0">--</span>Managing partnerships and operational workflows for a community organization</li>
-                    </ul>
                   </div>
                 </div>
+              </section>
+
+              {/* Grid for Bottom sections */}
+              <div className="grid grid-cols-2 gap-12">
+                 {/* Education */}
+                 <section className="flex flex-col gap-6">
+                    <h3 className="text-[12px] font-black uppercase tracking-[0.3em] text-[#1a1a1a]">Education</h3>
+                    <div className="flex flex-col gap-4">
+                       <div className="flex flex-col gap-1">
+                          <h4 className="text-[13px] font-bold text-[#111]">B.Des Visual Communication</h4>
+                          <span className="text-[11px] text-black/40 italic">HIT, Holon Institute of Technology</span>
+                          <span className="text-[10px] font-bold text-black/20 uppercase tracking-widest mt-1">2016 – 2020</span>
+                       </div>
+                    </div>
+                 </section>
+
+                 {/* Skills & Tools */}
+                 <section className="flex flex-col gap-6">
+                    <h3 className="text-[12px] font-black uppercase tracking-[0.3em] text-[#1a1a1a]">Expertise</h3>
+                    <div className="flex flex-wrap gap-2">
+                       {['Figma', 'UX Strategy', 'Product Design', 'B2B', 'Fintech', 'Design Systems', 'Prototyping'].map(skill => (
+                         <span key={skill} className="px-3 py-1 bg-[#f8f8f8] border border-black/5 text-[10px] font-bold text-black/40 tracking-wider uppercase rounded-md">
+                            {skill}
+                         </span>
+                       ))}
+                    </div>
+                 </section>
               </div>
 
-            </div>
+              {/* Languages */}
+              <section className="mt-auto pt-10 border-t border-black/5">
+                <div className="flex items-center gap-10">
+                   <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">Hebrew</span>
+                      <div className="flex gap-1">
+                         {[1,2,3,4,5].map(i => <div key={i} className="w-1 h-1 rounded-full bg-black/60"></div>)}
+                      </div>
+                   </div>
+                   <div className="flex items-center gap-3">
+                      <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-black/30">English</span>
+                      <div className="flex gap-1">
+                         {[1,2,3,4].map(i => <div key={i} className={`w-1 h-1 rounded-full ${i <= 4 ? 'bg-black/60' : 'bg-black/10'}`}></div>)}
+                      </div>
+                   </div>
+                </div>
+              </section>
+
+            </main>
           </div>
         </div>
       </div>
 
-      {/* Print styles */}
       <style>{`
+        @font-face {
+          font-family: 'Instrument Serif';
+          src: url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+        }
+
         @media print {
-          body { margin: 0; padding: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-          .print\\:hidden { display: none !important; }
-          .print\\:shadow-none { box-shadow: none !important; }
-          .print\\:my-0 { margin-top: 0 !important; margin-bottom: 0 !important; }
-          .print\\:max-w-none { max-width: none !important; }
-          .print\\:px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
-          .print\\:py-5 { padding-top: 1.25rem !important; padding-bottom: 1.25rem !important; }
-          .print\\:px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
-          .print\\:top-4 { top: 1rem !important; }
-          .print\\:right-4 { right: 1rem !important; }
-          .print\\:grid-cols-\\[210px_1fr\\] { grid-template-columns: 210px 1fr !important; }
-          @page { size: A4; margin: 0; }
+          body { 
+            margin: 0; 
+            padding: 0; 
+            background: white;
+            -webkit-print-color-adjust: exact; 
+            print-color-adjust: exact; 
+          }
+          nav { display: none !important; }
+          .pt-32 { padding-top: 0 !important; }
+          .pb-20 { padding-bottom: 0 !important; }
+          .px-6 { padding-left: 0 !important; padding-right: 0 !important; }
+          .max-w-[794px] { 
+            max-width: none !important; 
+            width: 100% !important; 
+            margin: 0 !important;
+            box-shadow: none !important;
+          }
+          aside { width: 260px !important; }
+          @page {
+            size: A4;
+            margin: 0;
+          }
+           /* Force background colors in PDF output */
+          aside { background-color: #1a1a1a !important; color: white !important; }
+          .bg-[#1a1a1a] { background-color: #1a1a1a !important; }
+          .text-white { color: white !important; }
+          .text-white\\/60 { color: rgba(255,255,255,0.6) !important; }
+          .text-white\\/30 { color: rgba(255,255,255,0.3) !important; }
         }
       `}</style>
     </div>

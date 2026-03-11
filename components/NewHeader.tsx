@@ -34,6 +34,8 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
     setIsMobileMenuOpen(false);
   };
 
+  const PDF_URL = '/CV Arnon Friedman..pdf';
+
   const navItems = [
     { label: 'WORK', id: 'work' },
     { label: 'ABOUT', id: 'about' },
@@ -84,6 +86,17 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
                   <span className="absolute bottom-1 left-4 right-4 h-px bg-[#0c0c0a] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
                 </button>
               ))}
+
+              {/* Resume link — opens PDF in new tab */}
+              <a
+                href={PDF_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 text-[0.6875rem] font-semibold uppercase tracking-[0.1em] text-[#a8a39a] hover:text-[#0c0c0a] transition-colors relative group"
+              >
+                RESUME
+                <span className="absolute bottom-1 left-4 right-4 h-px bg-[#0c0c0a] scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+              </a>
 
               {/* CTA Button - Sharp, No Radius */}
               <button
@@ -150,11 +163,27 @@ export const NewHeader: React.FC<NewHeaderProps> = ({ isInternal, onBack }) => {
                 </motion.button>
               ))}
 
+              <motion.a
+                  href={PDF_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, x: -40 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -40 }}
+                  transition={{ delay: navItems.length * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="block text-left py-6 border-b border-[#d9d6d1] group"
+                >
+                  <span className="text-[clamp(1.5rem,8vw,2.5rem)] font-semibold text-[#0c0c0a] tracking-[-0.03em] group-hover:text-[#a8a39a] transition-colors">
+                    RESUME
+                  </span>
+                </motion.a>
+
               <motion.button
                 initial={{ opacity: 0, x: -40 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -40 }}
-                transition={{ delay: 0.24, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ delay: 0.32, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 onClick={() => scrollToSection('contact')}
                 className="mt-8 px-6 py-4 bg-[#0c0c0a] text-[#f4f3f1] text-[0.8125rem] font-semibold uppercase tracking-[0.1em] w-full"
               >

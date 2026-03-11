@@ -10,6 +10,77 @@ import { GeminiFlower } from './GeminiFlower';
 import { TOP_FLOWERS } from './TopDownFlowers';
 
 // ───────────────────────────────────────────────────────────
+// FLOWER SCROLL SEQUENCE — 240 frames from /flower1/
+// ───────────────────────────────────────────────────────────
+const TOTAL_FRAMES = 240;
+
+const FlowerScrollSequence: React.FC<{ className?: string }> = ({ className = '' }) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const imagesRef = useRef<HTMLImageElement[]>([]);
+  const [currentFrame, setCurrentFrame] = useState(0);
+  const [loaded, setLoaded] = useState(false);
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ['start 0.9', 'end 0.1'],
+  });
+
+  // Preload all frames
+  useEffect(() => {
+    let loaded = 0;
+    const images: HTMLImageElement[] = [];
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      const n = String(i).padStart(3, '0');
+      img.src = `/flower1/ezgif-frame-${n}.jpg`;
+      img.onload = () => {
+        loaded++;
+        if (loaded === TOTAL_FRAMES) setLoaded(true);
+      };
+      images.push(img);
+    }
+    imagesRef.current = images;
+  }, []);
+
+  // Update frame on scroll
+  useEffect(() => {
+    return scrollYProgress.on('change', (v) => {
+      const frame = Math.min(TOTAL_FRAMES - 1, Math.max(0, Math.round(v * (TOTAL_FRAMES - 1))));
+      setCurrentFrame(frame);
+    });
+  }, [scrollYProgress]);
+
+  // Draw frame on canvas
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const img = imagesRef.current[currentFrame];
+    if (!canvas || !img || !img.complete) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0);
+  }, [currentFrame, loaded]);
+
+  return (
+    <div ref={containerRef} className={`relative ${className}`}>
+      <canvas
+        ref={canvasRef}
+        className="w-full h-full object-contain"
+        style={{ opacity: loaded ? 1 : 0, transition: 'opacity 0.4s ease' }}
+      />
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-current border-t-transparent animate-spin opacity-20" />
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ───────────────────────────────────────────────────────────
 // PALETTE — derived from the floral hero image
 // ───────────────────────────────────────────────────────────
 const P = {
@@ -269,65 +340,75 @@ const AboutSection: React.FC<{ onExploreSideProjects: () => void }> = ({ onExplo
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
+  // Exact bg color sampled from flower jpg corner: rgb(243,242,237)
+  const FLOWER_BG = '#F3F2ED';
+
   return (
-    <section id="about" ref={ref} className="w-full py-24 md:py-32 relative overflow-hidden px-container" style={{ background: P.bg }}>
-      <div className="relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, ease: EASE }}
-            className="lg:col-span-3 relative"
-          >
-            <ScrambleText text="ABOUT" className="eyebrow block mb-4" delay={0.2} />
-            <div className="w-12 h-px mb-16" style={{ background: P.border }} />
-            <GeminiFlower className="absolute -left-[50px] md:-left-[80px] bottom-0 md:block hidden opacity-100 w-[240px] h-[480px] pointer-events-auto" />
-          </motion.div>
+    <section id="about" ref={ref} className="w-full relative overflow-hidden" style={{ background: FLOWER_BG }}>
+      <div className="grid grid-cols-1 lg:grid-cols-2" style={{ minHeight: 680 }}>
 
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
-            className="lg:col-span-7 lg:col-start-5"
-          >
-            <p className="text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.55] mb-8" style={{ color: P.text }}>
-              I love simplifying complex processes.
-              With <strong className="font-semibold" style={{ color: P.dark }}>4 years in product design</strong> + past experience in advertising,
-              I've spent my time trying to understand how people think — through
-              research, interviews, tools, and a lot of curiosity.
-            </p>
-            <p className="text-[clamp(1.125rem,2vw,1.5rem)] leading-[1.55] mb-8" style={{ color: P.text }}>
-              I'm a lecturer at{' '}
-              <strong className="font-semibold" style={{ color: P.dark }}>Triolla College</strong>,
-              I love to bake, and I have a broad understanding of{' '}
-              <strong className="font-semibold" style={{ color: P.dark }}>AI tools for designers</strong>{' '}
-              and beyond. I've also built several{' '}
-              <button
-                onClick={onExploreSideProjects}
-                className="underline underline-offset-4 hover:opacity-70 transition-opacity font-semibold"
-                style={{ textDecorationColor: P.rose, color: P.dark }}
-              >
-                side projects
-              </button>{' '}
-              exploring these tools.
-            </p>
+        {/* LEFT — flower shifted left, bleeds to edge */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.97 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="relative flex items-center overflow-hidden"
+          style={{ background: FLOWER_BG }}
+        >
+          {/* Flower pushed ~8% to the left so it partially bleeds */}
+          <div style={{ width: '100%', transform: 'translateX(-8%)' }}>
+            <FlowerScrollSequence className="w-full" />
+          </div>
+        </motion.div>
 
-            <div className="flex flex-wrap gap-x-10 gap-y-4 pt-8 border-t" style={{ borderColor: P.border }}>
-              <div>
-                <span className="font-mono text-[0.8125rem] block mb-1" style={{ color: P.textMuted }}>EXPERIENCE</span>
-                <span className="text-[0.9375rem] font-medium" style={{ color: P.dark }}>4 years</span>
-              </div>
-              <div>
-                <span className="font-mono text-[0.8125rem] block mb-1" style={{ color: P.textMuted }}>DOMAINS</span>
-                <span className="text-[0.9375rem] font-medium" style={{ color: P.dark }}>Insurtech, Fintech, AI, EdTech</span>
-              </div>
-              <div>
-                <span className="font-mono text-[0.8125rem] block mb-1" style={{ color: P.textMuted }}>TEACHING</span>
-                <span className="text-[0.9375rem] font-medium" style={{ color: P.dark }}>Triolla College</span>
-              </div>
+        {/* RIGHT — text starts flush at the divider */}
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={isInView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
+          className="flex flex-col justify-center py-20 pr-8 md:pr-16 lg:pr-20"
+          style={{ paddingLeft: 40, background: FLOWER_BG }}
+        >
+          <ScrambleText text="ABOUT" className="eyebrow block mb-4" delay={0.2} />
+          <div className="w-12 h-px mb-10" style={{ background: '#a89888' }} />
+
+          <p className="text-[clamp(1rem,1.7vw,1.3rem)] leading-[1.65] mb-7" style={{ color: '#2d2424' }}>
+            I love simplifying complex processes.
+            With <strong className="font-semibold">4 years in product design</strong> + past experience in advertising,
+            I've spent my time trying to understand how people think — through
+            research, interviews, tools, and a lot of curiosity.
+          </p>
+          <p className="text-[clamp(1rem,1.7vw,1.3rem)] leading-[1.65] mb-10" style={{ color: '#2d2424' }}>
+            I'm a lecturer at{' '}
+            <strong className="font-semibold">Triolla College</strong>,
+            I love to bake, and I have a broad understanding of{' '}
+            <strong className="font-semibold">AI tools for designers</strong>{' '}
+            and beyond. I've also built several{' '}
+            <button
+              onClick={onExploreSideProjects}
+              className="underline underline-offset-4 hover:opacity-70 transition-opacity font-semibold"
+              style={{ textDecorationColor: '#c9566a' }}
+            >
+              side projects
+            </button>{' '}
+            exploring these tools.
+          </p>
+
+          <div className="flex flex-wrap gap-x-10 gap-y-4 pt-8 border-t" style={{ borderColor: '#a89888' }}>
+            <div>
+              <span className="font-mono text-[0.8rem] block mb-1" style={{ color: '#7a6b6b' }}>EXPERIENCE</span>
+              <span className="text-[0.9375rem] font-medium" style={{ color: '#2d2424' }}>4 years</span>
             </div>
-          </motion.div>
-        </div>
+            <div>
+              <span className="font-mono text-[0.8rem] block mb-1" style={{ color: '#7a6b6b' }}>DOMAINS</span>
+              <span className="text-[0.9375rem] font-medium" style={{ color: '#2d2424' }}>Insurtech, Fintech, AI, EdTech</span>
+            </div>
+            <div>
+              <span className="font-mono text-[0.8rem] block mb-1" style={{ color: '#7a6b6b' }}>TEACHING</span>
+              <span className="text-[0.9375rem] font-medium" style={{ color: '#2d2424' }}>Triolla College</span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

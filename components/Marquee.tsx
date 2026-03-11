@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useVelocity } from 'framer-motion';
 
 interface MarqueeProps {
   text: string;
@@ -59,7 +59,8 @@ export const VelocityMarquee: React.FC<{
   className?: string;
 }> = ({ text, className = '' }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const { scrollYVelocity } = useScroll();
+  const { scrollY } = useScroll();
+  const scrollYVelocity = useVelocity(scrollY);
   
   const x = useTransform(scrollYVelocity, [-1000, 1000], [200, -200]);
 
