@@ -282,10 +282,10 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                             </p>
                         </div>
 
-                        {/* Images on right */}
-                        <div className="flex flex-col gap-8">
+                        {/* Images on right - side by side */}
+                        <div className="grid grid-cols-2 gap-6">
                             <div className="flex flex-col items-center">
-                                <p className="mb-4 text-sm font-light tracking-wide text-[#f8e6c8]/50">Attempt 1: Familiar structure</p>
+                                <p className="mb-3 text-xs font-light tracking-wide text-[#f8e6c8]/50 text-center">Attempt 1</p>
                                 <div className="overflow-hidden rounded-lg border border-white/10 w-full">
                                     <img
                                         src="/images/wt-iterations-sketch1.png"
@@ -295,7 +295,7 @@ export const WebTraderCaseStudy: React.FC<WebTraderCaseStudyProps> = ({ onBack }
                                 </div>
                             </div>
                             <div className="flex flex-col items-center">
-                                <p className="mb-4 text-sm font-light tracking-wide text-[#f8e6c8]/50">Attempt 2: Conventional graph</p>
+                                <p className="mb-3 text-xs font-light tracking-wide text-[#f8e6c8]/50 text-center">Attempt 2</p>
                                 <div className="overflow-hidden rounded-lg border border-white/10 w-full">
                                     <img
                                         src="/images/wt-iterations-sketch2.png"
