@@ -15,14 +15,14 @@ export const PROJECTS: Project[] = [
     },
     {
         id: 2,
-        title: 'Web Trader',
+        title: 'Investment Signals',
         category: 'Fintech',
         image: '/images/mockups/web-trader-mockup.webp',
         role: 'Product Designer',
         company: 'Ava Trade',
         year: '2018 — 2021',
         logo: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/TradingView_Logo.svg',
-        description: 'Architecting a high-performance trading terminal for the next generation of retail investors.'
+        description: 'Redesigning trading signals to help retail investors make clearer investment decisions at a glance.'
     },
     {
         id: 3,
