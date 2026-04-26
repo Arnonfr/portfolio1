@@ -625,6 +625,150 @@ const ContactSection: React.FC = () => {
 };
 
 // ───────────────────────────────────────────────────────────
+// ───────────────────────────────────────────────────────────
+// INSTAGRAM — Post grid strip
+// ───────────────────────────────────────────────────────────
+const INSTAGRAM_POSTS = [
+  { src: '/images/instagram/post1.jpg', alt: 'UX Issues post 1' },
+  { src: '/images/instagram/post2.jpg', alt: 'UX Issues post 2' },
+  { src: '/images/instagram/post3.jpg', alt: 'UX Issues post 3' },
+  { src: '/images/instagram/post4.jpg', alt: 'UX Issues post 4' },
+];
+
+const InstagramSection: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section ref={ref} className="w-full py-24 md:py-32 px-container" style={{ background: P.bg }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.6, ease: EASE }}
+        className="flex items-end justify-between mb-12 md:mb-16"
+      >
+        <div>
+          <ScrambleText text="INSTAGRAM" className="eyebrow block mb-3" delay={0.1} />
+          <p className="text-[0.9375rem] font-mono" style={{ color: P.muted }}>@ux_issues</p>
+        </div>
+        <MagneticButton
+          as="a"
+          href="https://www.instagram.com/ux_issues/"
+          target="_blank"
+          className="btn-secondary border-[#0c0c0a] text-[#0c0c0a] hover:bg-[#0c0c0a] hover:text-[#f4f3f1] text-[0.75rem]"
+          strength={0.15}
+        >
+          FOLLOW
+        </MagneticButton>
+      </motion.div>
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+        {INSTAGRAM_POSTS.map((post, index) => (
+          <motion.a
+            key={index}
+            href="https://www.instagram.com/ux_issues/"
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: index * 0.1, ease: EASE }}
+            className="group relative aspect-square overflow-hidden rounded-xl"
+            style={{ background: P.border }}
+          >
+            <img
+              src={post.src}
+              alt={post.alt}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+              <span className="text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 tracking-wider uppercase">
+                View
+              </span>
+            </div>
+          </motion.a>
+        ))}
+      </div>
+    </section>
+  );
+};
+
+// NEWSLETTER — Bio + email signup
+// ───────────────────────────────────────────────────────────
+const NewsletterSection: React.FC = () => {
+  const ref = useRef<HTMLElement>(null);
+  const isInView = useInView(ref, { once: true, margin: '-60px' });
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email.trim()) return;
+    try {
+      // Formspree endpoint — create a free form at formspree.io and replace the ID below
+      const res = await fetch('https://formspree.io/f/xvgzqkev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        // Fallback to mailto if Formspree fails
+        window.location.href = `mailto:arnono7700@gmail.com?subject=Newsletter&body=${encodeURIComponent(email)}`;
+      }
+    } catch {
+      window.location.href = `mailto:arnono7700@gmail.com?subject=Newsletter&body=${encodeURIComponent(email)}`;
+    }
+  };
+
+  return (
+    <section ref={ref} className="w-full py-14 md:py-20 px-container" style={{ background: P.bgDeep }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, ease: EASE }}
+        className="max-w-xl"
+      >
+        <p className="text-[clamp(0.95rem,1.5vw,1.15rem)] leading-[1.65] mb-6" style={{ color: P.text }}>
+          היי, אני ארנון ואני עושה כל מיני דברים חביבים —
+          אתם מוזמנים להישאר מעודכנים.
+        </p>
+
+        {submitted ? (
+          <p className="text-[0.875rem] font-medium" style={{ color: P.sage }}>
+            תודה! נשמח לעדכן אותך. 🌱
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2 w-full max-w-xs">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="כתובת מייל"
+              required
+              dir="rtl"
+              className="w-full h-11 px-4 text-[0.875rem] border outline-none focus:border-current transition-colors bg-transparent"
+              style={{
+                borderColor: P.border,
+                color: P.text,
+                fontFamily: "'Space Grotesk', sans-serif",
+              }}
+            />
+            <button
+              type="submit"
+              className="w-full h-11 px-6 text-[0.75rem] font-bold uppercase tracking-widest transition-opacity hover:opacity-70"
+              style={{ background: P.text, color: P.bg }}
+            >
+              שמרו אותי
+            </button>
+          </form>
+        )}
+      </motion.div>
+    </section>
+  );
+};
+
+// ───────────────────────────────────────────────────────────
 // MAIN EXPORT
 // ───────────────────────────────────────────────────────────
 interface StaticHomeProps {
@@ -723,7 +867,10 @@ export const StaticHomeAlternative: React.FC<StaticHomeProps> = ({
       {/* 5. Expertise */}
       <ExpertiseSection />
 
-      {/* 6. Contact (with blended video bg) */}
+      {/* 6. Instagram */}
+      <InstagramSection />
+
+      {/* 7. Contact (with blended video bg) */}
       <ContactSection />
     </div>
   );
